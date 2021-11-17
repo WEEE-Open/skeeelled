@@ -10,8 +10,6 @@ import {
 	Form,
 } from 'react-bootstrap'
 import styles from './answers.module.scss'
-import { BsFillHandThumbsUpFill } from 'react-icons/bs'
-import { BsFillHandThumbsDownFill } from 'react-icons/bs'
 
 const Answers = () => {
 	return (
