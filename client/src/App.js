@@ -5,6 +5,11 @@ import { useState, useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import LoginForm from './pages/LoginForm.js'
 import NavigationBar from './base/navigationBar/NavigationBar.js'
+import Questions from './pages/questoins/questions'
+import Answers from './pages/answers/answers'
+import Profile from './pages/profile/profile'
+import MyQuestions from './pages/myQuestions/myQuestions'
+
 // import SGList from './components/SGList.js'
 // import SGView from './components/SGView.js'
 // import AdminSGList from './components/AdminSGList.js'
@@ -78,6 +83,10 @@ function App() {
 			<Row className='my-4'>
 				<Col xs={10} md={8} className='mx-auto'>
 					<LoginForm />
+					{/* <Questions /> */}
+					{/* <Answers /> */}
+					{/* <Profile /> */}
+					{/* <MyQuestions /> */}
 					{/* <Switch>
 						<Route
 							exact
