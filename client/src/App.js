@@ -4,43 +4,35 @@ import { Container, Row, Col, Alert } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import LoginForm from './pages/LoginForm.js'
+import CoursesList from './pages/CoursesList.js'
 import NavigationBar from './base/navigationBar/NavigationBar.js'
 import Questions from './pages/questoins/questions'
 import Answers from './pages/answers/answers'
 import Profile from './pages/profile/profile'
 import MyQuestions from './pages/myQuestions/myQuestions'
-
-// import SGList from './components/SGList.js'
-// import SGView from './components/SGView.js'
-// import AdminSGList from './components/AdminSGList.js'
-// import AdminSGView from './components/AdminSGView.js'
-// import GroupSGView from './components/GroupSGView.js'
-// import MeetingsList from './components/MeetingsList.js'
-// import NewSG from './components/NewSG.js'
-// import NewMeeting from './components/NewMeeting.js'
 // import API from './API'
 
 function App() {
 	const [loggedIn, setLoggedIn] = useState(false)
-	const [admin, setAdmin] = useState(false)
+	// const [admin, setAdmin] = useState(false)
 	const [message, setMessage] = useState('')
 
 	useEffect(() => {
 		if (!loggedIn) setMessage('')
 	}, [loggedIn])
 
-	useEffect(() => {
-		// const checkAuth = async () => {
-		// 	try {
-		// 		const user = await API.getUserInfo()
-		// 		setLoggedIn(true)
-		// 		user.admin ? setAdmin(true) : setAdmin(false)
-		// 	} catch (err) {
-		// 		console.error(err.error)
-		// 	}
-		// }
-		// checkAuth()
-	}, [])
+	// useEffect(() => {
+	// 	const checkAuth = async () => {
+	// 		try {
+	// 			const user = await API.getUserInfo()
+	// 			setLoggedIn(true)
+	// 			user.admin ? setAdmin(true) : setAdmin(false)
+	// 		} catch (err) {
+	// 			console.error(err.error)
+	// 		}
+	// 	}
+	// 	checkAuth()
+	// }, [])
 
 	// const doLogin = async credentials => {
 	// 	try {
@@ -57,14 +49,14 @@ function App() {
 	const doLogout = async () => {
 		// await API.logout()
 		setLoggedIn(false)
-		setAdmin(false)
+		// setAdmin(false)
 	}
 
 	return (
 		<Container fluid>
 			<Row>
 				<Col className='px-0'>
-					<NavigationBar logged={loggedIn} logout={doLogout} admin={admin} />
+					<NavigationBar logged={loggedIn} logout={doLogout} /* admin={admin} */ />
 				</Col>
 			</Row>
 			<Row className='my-4'>
@@ -82,7 +74,7 @@ function App() {
 			</Row>
 			<Row className='my-4'>
 				<Col xs={10} md={8} className='mx-auto'>
-					<LoginForm />
+					{loggedIn ? <CoursesList/> : <LoginForm login={() => setLoggedIn(true)}/>}
 					{/* <Questions /> */}
 					{/* <Answers /> */}
 					{/* <Profile /> */}
