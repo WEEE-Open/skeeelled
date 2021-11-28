@@ -11,7 +11,7 @@ function NavigationBar(props) {
 				</Link>
 			) : null}
 			<Link to={'/'} className='mx-auto'>
-				<Navbar.Brand>{iconLogo} Studygroup Manager</Navbar.Brand>
+				<Navbar.Brand>{iconLogo} Skeeelled</Navbar.Brand>
 			</Link>
 			{props.logged ? (
 				<Link to={'/'} onClick={props.logout}>

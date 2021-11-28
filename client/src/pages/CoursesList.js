@@ -19,21 +19,21 @@ function PaginationRow() {
     return(
         <Pagination>
             <Pagination.First/>
-            {items}
+                {items}
             <Pagination.Last/>
         </Pagination>
     );
 }
 
-function CoursesListRow(props) {
+function CoursesListRow({course}) {
     return(
         <tr>
-            <td style={{backgroundColor:props.course.color}}></td>
+            <td style={{backgroundColor:course.color}}></td>
             <td>
-                <Link to={"/course/"+props.course.code}>{props.course.name}</Link>
+                <Link to={"/course/"+course.code}>{course.name}</Link>
             </td>
-            <td>{props.course.cfu}</td>
-            <td>{props.course.code}</td>
+            <td>{course.cfu}</td>
+            <td>{course.code}</td>
         </tr>
     );
 }

@@ -2,11 +2,11 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Row, Col, Alert } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Routes as Switch, Route, Navigate as Redirect } from 'react-router-dom'
 import LoginForm from './pages/LoginForm.js'
 import CoursesList from './pages/CoursesList.js'
 import NavigationBar from './base/navigationBar/NavigationBar.js'
-import Questions from './pages/questoins/questions'
+import Questions from './pages/questions/questions'
 import Answers from './pages/answers/answers'
 import Profile from './pages/profile/profile'
 import MyQuestions from './pages/myQuestions/myQuestions'
@@ -74,11 +74,31 @@ function App() {
 			</Row>
 			<Row className='my-4'>
 				<Col xs={10} md={8} className='mx-auto'>
-					{loggedIn ? <CoursesList/> : <LoginForm login={() => setLoggedIn(true)}/>}
+					<Switch>
+					{/* {loggedIn ? <CoursesList/> : <LoginForm login={() => setLoggedIn(true)}/>} */}
 					{/* <Questions /> */}
 					{/* <Answers /> */}
 					{/* <Profile /> */}
 					{/* <MyQuestions /> */}
+
+					
+					<Route exact path="/" element={<>
+						{!loggedIn ? <Redirect to="/login"/> : <Redirect to="courses"/* "/profile" *//>}
+					</>}/>
+					<Route path="/login" element={<>
+						{!loggedIn ? <LoginForm login={() => setLoggedIn(true)}/> : <Redirect to="/"/>}
+					</>}/>
+					<Route path="/profile" element={<>
+						{!loggedIn ? <Redirect to="/"/> : null /* <ProfilePage/> */}
+					</>}/>
+					<Route path="/courses" element={<>
+						{!loggedIn ? <Redirect to="/"/> : <CoursesList/>}
+					</>}/>
+					<Route path="/course/:code" element={<>
+						{!loggedIn ? <Redirect to="/"/> : <Questions/>}
+					</>}/>
+					
+
 					{/* <Switch>
 						<Route
 							exact
@@ -126,6 +146,7 @@ function App() {
               {!loggedIn ? <Redirect to="/"/> : <NewMeeting code={match.params.code} setmsg={setMessage}/>}
             </>}/> */}
 					{/* </Switch> */}
+					</Switch>
 				</Col>
 			</Row>
 		</Container>
