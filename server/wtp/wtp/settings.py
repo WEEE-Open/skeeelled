@@ -78,6 +78,7 @@ DATABASES = {
     }
 }
 """
+
 """CONNECTION TO MONGODB DATABASE"""
 DATABASES = {
     'default': {

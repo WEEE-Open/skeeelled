@@ -2,7 +2,7 @@
 version: '3.1'
 
 services:
-
+  #mongodb installation. It mounts the data subdir to save all database data
   mongo:
     image: mongo
     restart: on-failure
@@ -14,6 +14,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
 
+  #developement only dashboard for easy checking on db changes
   mongo-express:
     image: mongo-express
     restart: always
@@ -26,6 +27,7 @@ services:
     depends_on:
       - mongo
 
+  #web server
   nginx:
     build: ./server/docker/nginx
     volumes:
@@ -36,14 +38,15 @@ services:
       - web
     restart: on-failure
 
+  #python image that executes django and gunicorn
   web:
     build: ./server/docker/django
     volumes:
      - ./server/wtp:/code
      - ./server/static:/static
-  #  env_file:
+  #  env_file: some env variables should be added for settings.py variables
   #   - .env
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
     depends_on:
       - mongo
