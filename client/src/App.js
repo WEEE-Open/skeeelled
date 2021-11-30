@@ -9,7 +9,8 @@ import Questions from './pages/questoins/questions'
 import Answers from './pages/answers/answers'
 import Profile from './pages/profile/profile'
 import MyQuestions from './pages/myQuestions/myQuestions'
-
+import Exam from './pages/exam/exam'
+import parsedQuestions from './constants/parsed'
 // import SGList from './components/SGList.js'
 // import SGView from './components/SGView.js'
 // import AdminSGList from './components/AdminSGList.js'
@@ -82,9 +83,10 @@ function App() {
 			</Row>
 			<Row className='my-4'>
 				<Col xs={10} md={8} className='mx-auto'>
-					<LoginForm />
+					{/* <LoginForm /> */}
 					{/* <Questions /> */}
-					{/* <Answers /> */}
+					<Answers />
+					{/* <Exam question={parsedQuestions.quiz.question} /> */}
 					{/* <Profile /> */}
 					{/* <MyQuestions /> */}
 					{/* <Switch>

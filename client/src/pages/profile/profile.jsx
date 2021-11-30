@@ -23,7 +23,19 @@ const Profile = () => {
 				</Row>
 				<Row>
 					<Col lg='12'>
-						<Button>New questions in courses I'm enrolled in</Button>
+						<div className={styles.innerHeader}>
+							<h6>New questions in courses I'm enrolled in</h6>
+							<Button id='button-addon2'>View All</Button>
+						</div>
+					</Col>
+					<Col lg='12'>
+						<ListGroup>
+							<ListGroup.Item>Cras justo odio</ListGroup.Item>
+							<ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+							<ListGroup.Item>Morbi leo risus</ListGroup.Item>
+							<ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
+							<ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+						</ListGroup>
 					</Col>
 				</Row>
 				<Row>
@@ -57,6 +69,38 @@ const Profile = () => {
 							<ListGroup.Item>Morbi leo risus</ListGroup.Item>
 							<ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
 							<ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+						</ListGroup>
+					</Col>
+				</Row>
+				<Row>
+					<Col lg='12'>
+						<div className={styles.innerHeader}>
+							<h6>My Courses</h6>
+							<Button id='button-addon2'>View All</Button>
+						</div>
+					</Col>
+					<Col lg='12'>
+						<ListGroup>
+							<ListGroup.Item>Data Management</ListGroup.Item>
+							<ListGroup.Item>Data Science Lab</ListGroup.Item>
+							<ListGroup.Item>Statistical Methods</ListGroup.Item>
+							<ListGroup.Item>Decision Making</ListGroup.Item>
+						</ListGroup>
+					</Col>
+				</Row>
+				<Row>
+					<Col lg='12'>
+						<div className={styles.innerHeader}>
+							<h6>My Results</h6>
+							<Button id='button-addon2'>View All</Button>
+						</div>
+					</Col>
+					<Col lg='12'>
+						<ListGroup>
+							<ListGroup.Item>Data Management</ListGroup.Item>
+							<ListGroup.Item>Data Science Lab</ListGroup.Item>
+							<ListGroup.Item>Statistical Methods</ListGroup.Item>
+							<ListGroup.Item>Decision Making</ListGroup.Item>
 						</ListGroup>
 					</Col>
 				</Row>
