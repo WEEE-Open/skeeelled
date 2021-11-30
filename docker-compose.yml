@@ -5,9 +5,11 @@ services:
 
   mongo:
     image: mongo
-    restart: always
+    restart: on-failure
     volumes:
      - ./data/db:/data/db
+    ports:
+      - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
@@ -21,12 +23,26 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    depends_on:
+      - mongo
+
+  nginx:
+    build: ./server/docker/nginx
+    volumes:
+      - ./server/static:/static
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    restart: on-failure
 
   web:
-    build: ./server
-    command: python3 /code/manage.py runserver 0.0.0.0:8000
+    build: ./server/docker/django
     volumes:
      - ./server/wtp:/code
+     - ./server/static:/static
+  #  env_file:
+  #   - .env
     ports:
       - "8000:8000"
     depends_on:
