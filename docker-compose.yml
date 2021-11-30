@@ -2,7 +2,7 @@
 version: '3.1'
 
 services:
-  #mongodb installation. It mounts the data subdir to save all database data
+  #mongodb installation. It generates the "data" subdir in the project
   mongo:
     image: mongo
     restart: on-failure
