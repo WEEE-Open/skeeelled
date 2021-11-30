@@ -1,0 +1,52 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+  #mongodb installation. It generates the "data" subdir in the project
+  mongo:
+    image: mongo
+    restart: on-failure
+    volumes:
+     - ./data/db:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  #developement only dashboard for easy checking on db changes
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    depends_on:
+      - mongo
+
+  #web server
+  nginx:
+    build: ./server/docker/nginx
+    volumes:
+      - ./server/static:/static
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    restart: on-failure
+
+  #python image that executes django and gunicorn
+  web:
+    build: ./server/docker/django
+    volumes:
+     - ./server/wtp:/code
+     - ./server/static:/static
+  #  env_file: some env variables should be added for settings.py variables
+  #   - .env
+    expose:
+      - 8000
+    depends_on:
+      - mongo
