@@ -77,8 +77,8 @@ function App() {
 				<Col xs={10} md={8} className='mx-auto'>
 					{/* {loggedIn ? <CoursesList/> : <LoginForm login={() => setLoggedIn(true)}/>} */}
 					{loggedIn ? <>
-					{/* <CoursesList/> */}
-					<Questions/>
+					<CoursesList/>
+					{/* <Questions/> */}
 					{/* <Answers/> */}
 					{/* <Profile/> */}
 					{/* <MyQuestions /> */}
