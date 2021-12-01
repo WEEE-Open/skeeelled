@@ -1,13 +1,13 @@
-import Table from 'react-bootstrap/Table'
+import Table from 'react-bootstrap'
 
 const ElementRow = ({ rows }) => {
 	return (<>
-		{rows.map(row => {
+		{rows.map(row => (<>
 			<hr/>
-			{row.map(data => (
-				<b>{data}</b>
-			))}
-		})}
+			<b>{row.name}</b>
+			{row.code}
+		</>))}
+		<hr/>
 	</>)
 }
 

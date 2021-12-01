@@ -5,15 +5,16 @@ import { useState, useEffect } from 'react'
 import { Routes as Switch, Route, Navigate as Redirect } from 'react-router-dom'
 import LoginForm from './pages/LoginForm.js'
 import CoursesList from './pages/CoursesList.js'
-import NavigationBar from './base/navigationBar/NavigationBar.js'
+import NavigationBar from './base/navigationBar/NavigationBar.jsx'
 import Questions from './pages/questions/questions'
 import Answers from './pages/answers/answers'
 import Profile from './pages/profile/profile'
 import MyQuestions from './pages/myQuestions/myQuestions'
+// import NavigationBar from './base/index.jsx'
 // import API from './API'
 
 function App() {
-	const [loggedIn, setLoggedIn] = useState(false)
+	const [loggedIn, setLoggedIn] = useState(true)
 	// const [admin, setAdmin] = useState(false)
 	const [message, setMessage] = useState('')
 
@@ -56,7 +57,7 @@ function App() {
 		<Container fluid>
 			<Row>
 				<Col className='px-0'>
-					<NavigationBar logged={loggedIn} logout={doLogout} /* admin={admin} */ />
+					<NavigationBar logged={loggedIn} logout={doLogout} setlogged={setLoggedIn}/>
 				</Col>
 			</Row>
 			<Row className='my-4'>
@@ -74,79 +75,15 @@ function App() {
 			</Row>
 			<Row className='my-4'>
 				<Col xs={10} md={8} className='mx-auto'>
-					<Switch>
 					{/* {loggedIn ? <CoursesList/> : <LoginForm login={() => setLoggedIn(true)}/>} */}
-					{/* <Questions /> */}
-					{/* <Answers /> */}
-					{/* <Profile /> */}
+					{loggedIn ? <>
+					{/* <CoursesList/> */}
+					<Questions/>
+					{/* <Answers/> */}
+					{/* <Profile/> */}
 					{/* <MyQuestions /> */}
-
-					
-					<Route exact path="/" element={<>
-						{!loggedIn ? <Redirect to="/login"/> : <Redirect to="courses"/* "/profile" *//>}
-					</>}/>
-					<Route path="/login" element={<>
-						{!loggedIn ? <LoginForm login={() => setLoggedIn(true)}/> : <Redirect to="/"/>}
-					</>}/>
-					<Route path="/profile" element={<>
-						{!loggedIn ? <Redirect to="/"/> : null /* <ProfilePage/> */}
-					</>}/>
-					<Route path="/courses" element={<>
-						{!loggedIn ? <Redirect to="/"/> : <CoursesList/>}
-					</>}/>
-					<Route path="/course/:code" element={<>
-						{!loggedIn ? <Redirect to="/"/> : <Questions/>}
-					</>}/>
-					
-
-					{/* <Switch>
-						<Route
-							exact
-							path='/'
-							render={() => (
-								<>
-									{loggedIn ? <Redirect to='list' /> : <Redirect to='/login' />}
-								</>
-							)}
-						/>
-						<Route
-							path='/login'
-							render={() => (
-								<>
-									{loggedIn ? (
-										<Redirect to='/' />
-									) : (
-										<LoginForm login={() => {}} />
-									)}
-								</>
-							)}
-						/> */}
-					{/* <Route path="/list" render={() => <>
-              {!loggedIn ? <Redirect to="/"/> : <SGList/>}
-            </>}/>
-            <Route path="/studygroup/:code" render={({match}) => <>
-              {!loggedIn ? <Redirect to="/"/> : <SGView code={match.params.code}/>}
-            </>}/>
-            <Route path="/meetings" render={() => <>
-              {!loggedIn ? <Redirect to="/"/> : <MeetingsList/>}
-            </>}/>
-            <Route path="/admin/list" render={() => <>
-              {!loggedIn ? <Redirect to="/"/> : <AdminSGList/>}
-            </>}/>
-            <Route path="/admin/studygroup/:code" render={({match}) => <>
-              {!loggedIn ? <Redirect to="/"/> : <AdminSGView code={match.params.code}/>}
-            </>}/>
-            <Route path="/admin/new" render={() => <>
-              {!loggedIn ? <Redirect to="/"/> : <NewSG setmsg={setMessage}/>}
-            </>}/>
-            <Route path="/groupadmin/studygroup/:code" render={({match}) => <>
-              {!loggedIn ? <Redirect to="/"/> : <GroupSGView code={match.params.code}/>}
-            </>}/>
-            <Route path="/groupadmin/new/:code" render={({match}) => <>
-              {!loggedIn ? <Redirect to="/"/> : <NewMeeting code={match.params.code} setmsg={setMessage}/>}
-            </>}/> */}
-					{/* </Switch> */}
-					</Switch>
+					</> : <LoginForm login={() => setLoggedIn(true)}/>}
+					{/* <span onClick={() => setLoggedIn(true)}>CLICK TO LOGIN</span> */}
 				</Col>
 			</Row>
 		</Container>
