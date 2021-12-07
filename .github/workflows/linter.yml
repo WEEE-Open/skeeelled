@@ -78,6 +78,9 @@ jobs:
           git config --global user.email "weee-open-bot@users.noreply.github.com"
           git config --global user.name "weee-open-bot"
 
+      - name: Pull changes made by other CI jobs
+        run: git pull
+
       - name: Push changes
         run: git push
 
@@ -101,6 +104,9 @@ jobs:
         run: |
           git config --global user.email "weee-open-bot@users.noreply.github.com"
           git config --global user.name "weee-open-bot"
+
+      - name: Pull changes made by other CI jobs
+        run: git pull
 
       - name: Push changes
         run: git push
