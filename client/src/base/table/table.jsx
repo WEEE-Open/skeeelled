@@ -1,4 +1,4 @@
-import Table from 'react-bootstrap/Table'
+import Table from "react-bootstrap/Table";
 
 const TableComponent = ({ rows, columns, stiped }) => {
 	return (
@@ -20,7 +20,7 @@ const TableComponent = ({ rows, columns, stiped }) => {
 				))}
 			</tbody>
 		</Table>
-	)
-}
+	);
+};
 
-export default TableComponent
+export default TableComponent;

@@ -1,6 +1,6 @@
-import { Navbar } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { iconLogout, iconAdmin, iconLogo } from '../../icons.js'
+import { Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { iconLogout, iconAdmin, iconLogo } from "../../icons.js";
 
 function NavigationBar(props) {
 	return (
@@ -10,16 +10,16 @@ function NavigationBar(props) {
 					<Navbar.Brand>{iconAdmin} Admin panel</Navbar.Brand>
 				</Link>
 			) : null}
-			<Link to={'/'} className='mx-auto'>
+			<Link to={"/"} className='mx-auto'>
 				<Navbar.Brand>{iconLogo} Studygroup Manager</Navbar.Brand>
 			</Link>
 			{props.logged ? (
-				<Link to={'/'} onClick={props.logout}>
+				<Link to={"/"} onClick={props.logout}>
 					<Navbar.Brand>Logout {iconLogout}</Navbar.Brand>
 				</Link>
 			) : null}
 		</Navbar>
-	)
+	);
 }
 
-export default NavigationBar
+export default NavigationBar;

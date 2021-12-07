@@ -1,4 +1,4 @@
-import { Table } from '../../base'
+import { Table } from "../../base";
 import {
 	Button,
 	Container,
@@ -8,8 +8,8 @@ import {
 	Pagination,
 	FloatingLabel,
 	Form,
-} from 'react-bootstrap'
-import styles from './answers.module.scss'
+} from "react-bootstrap";
+import styles from "./answers.module.scss";
 
 const Answers = () => {
 	return (
@@ -40,53 +40,53 @@ const Answers = () => {
 				<Row>
 					<Col lg='12'>
 						<Table
-							columns={['#', 'Answer', 'Likes', 'Dislikes', 'Actions']}
+							columns={["#", "Answer", "Likes", "Dislikes", "Actions"]}
 							rows={[
 								[
 									1,
-									'Dolor sit amet consectetur adipiscing elit pellentesque habitant. Nunc mattis enim ut tellus elementum sagittis vitae et leo. Facilisis sed odio morbi quis commodo odio aenean sed. Risus nullam eget felis eget nunc lobortis. Iaculis eu non diam phasellus. Vitae nunc sed velit dignissim sodales. Amet consectetur adipiscing elit pellentesque. Scelerisque in dictum non consectetur a erat nam. Diam ut venenatis tellus in metus vulputate.',
+									"Dolor sit amet consectetur adipiscing elit pellentesque habitant. Nunc mattis enim ut tellus elementum sagittis vitae et leo. Facilisis sed odio morbi quis commodo odio aenean sed. Risus nullam eget felis eget nunc lobortis. Iaculis eu non diam phasellus. Vitae nunc sed velit dignissim sodales. Amet consectetur adipiscing elit pellentesque. Scelerisque in dictum non consectetur a erat nam. Diam ut venenatis tellus in metus vulputate.",
 									20,
-									'12/02/2021',
+									"12/02/2021",
 									<Button className='btn-sm bg-success'>Like</Button>,
 									<Button className='btn-sm bg-danger'>Dislike</Button>,
 								],
 								[
 									2,
-									'Condimentum mattis pellentesque id nibh tortor id aliquet. Est velit egestas dui id ornare',
+									"Condimentum mattis pellentesque id nibh tortor id aliquet. Est velit egestas dui id ornare",
 									5,
-									'05/04/2021',
+									"05/04/2021",
 									<Button className='btn-sm bg-success'>Like</Button>,
 									<Button className='btn-sm bg-danger'>Dislike</Button>,
 								],
 								[
 									3,
-									'Ultrices sagittis orci a scelerisque purus semper. Egestas maecenas pharetra convallis posuere morbi leo. Feugiat in ante metus dictum at tempor commodo ullamcorper',
+									"Ultrices sagittis orci a scelerisque purus semper. Egestas maecenas pharetra convallis posuere morbi leo. Feugiat in ante metus dictum at tempor commodo ullamcorper",
 									20,
-									'12/02/2021',
+									"12/02/2021",
 									<Button className='btn-sm bg-success'>Like</Button>,
 									<Button className='btn-sm bg-danger'>Dislike</Button>,
 								],
 								[
 									4,
-									' Nisi lacus sed viverra tellus in hac habitasse. Congue quisque egestas diam in arcu cursus euismod quis viverra. Eleifend quam adipiscing vitae proin sagittis nisl. Non odio euismod lacinia at quis risus. Ipsum consequat nisl vel pretium lectus. Non pulvinar neque laoreet suspendisse interdum consectetur libero. Nunc sed augue lacus viverra vitae congue eu consequat ac. Nascetur ridiculus mus mauris vitae ultricies.',
+									" Nisi lacus sed viverra tellus in hac habitasse. Congue quisque egestas diam in arcu cursus euismod quis viverra. Eleifend quam adipiscing vitae proin sagittis nisl. Non odio euismod lacinia at quis risus. Ipsum consequat nisl vel pretium lectus. Non pulvinar neque laoreet suspendisse interdum consectetur libero. Nunc sed augue lacus viverra vitae congue eu consequat ac. Nascetur ridiculus mus mauris vitae ultricies.",
 									5,
-									'05/04/2021',
+									"05/04/2021",
 									<Button className='btn-sm bg-success'>Like</Button>,
 									<Button className='btn-sm bg-danger'>Dislike</Button>,
 								],
 								[
 									5,
-									'Iaculis eu non diam phasellus Vitae nunc sed velit dignissim sodales',
+									"Iaculis eu non diam phasellus Vitae nunc sed velit dignissim sodales",
 									20,
-									'12/02/2021',
+									"12/02/2021",
 									<Button className='btn-sm bg-success'>Like</Button>,
 									<Button className='btn-sm bg-danger'>Dislike</Button>,
 								],
 								[
 									6,
-									'Blandit cursus risus at ultrices mi tempus',
+									"Blandit cursus risus at ultrices mi tempus",
 									5,
-									'05/04/2021',
+									"05/04/2021",
 									<Button className='btn-sm bg-success'>Like</Button>,
 									<Button className='btn-sm bg-danger'>Dislike</Button>,
 								],
@@ -120,7 +120,7 @@ const Answers = () => {
 				</Row>
 			</Card>
 		</Container>
-	)
-}
+	);
+};
 
-export default Answers
+export default Answers;

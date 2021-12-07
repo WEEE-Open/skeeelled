@@ -1,14 +1,14 @@
-import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { Container, Row, Col, Alert } from 'react-bootstrap'
-import { useState, useEffect } from 'react'
-import { Switch, Route } from 'react-router-dom'
-import LoginForm from './pages/LoginForm.js'
-import NavigationBar from './base/navigationBar/NavigationBar.js'
-import Questions from './pages/questoins/questions'
-import Answers from './pages/answers/answers'
-import Profile from './pages/profile/profile'
-import MyQuestions from './pages/myQuestions/myQuestions'
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container, Row, Col, Alert } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Switch, Route } from "react-router-dom";
+import LoginForm from "./pages/LoginForm.js";
+import NavigationBar from "./base/navigationBar/NavigationBar.js";
+import Questions from "./pages/questoins/questions";
+import Answers from "./pages/answers/answers";
+import Profile from "./pages/profile/profile";
+import MyQuestions from "./pages/myQuestions/myQuestions";
 
 // import SGList from './components/SGList.js'
 // import SGView from './components/SGView.js'
@@ -21,13 +21,13 @@ import MyQuestions from './pages/myQuestions/myQuestions'
 // import API from './API'
 
 function App() {
-	const [loggedIn, setLoggedIn] = useState(false)
-	const [admin, setAdmin] = useState(false)
-	const [message, setMessage] = useState('')
+	const [loggedIn, setLoggedIn] = useState(false);
+	const [admin, setAdmin] = useState(false);
+	const [message, setMessage] = useState("");
 
 	useEffect(() => {
-		if (!loggedIn) setMessage('')
-	}, [loggedIn])
+		if (!loggedIn) setMessage("");
+	}, [loggedIn]);
 
 	useEffect(() => {
 		// const checkAuth = async () => {
@@ -40,7 +40,7 @@ function App() {
 		// 	}
 		// }
 		// checkAuth()
-	}, [])
+	}, []);
 
 	// const doLogin = async credentials => {
 	// 	try {
@@ -56,9 +56,9 @@ function App() {
 
 	const doLogout = async () => {
 		// await API.logout()
-		setLoggedIn(false)
-		setAdmin(false)
-	}
+		setLoggedIn(false);
+		setAdmin(false);
+	};
 
 	return (
 		<Container fluid>
@@ -72,7 +72,7 @@ function App() {
 					{message ? (
 						<Alert
 							variant={message.type}
-							onClose={() => setMessage('')}
+							onClose={() => setMessage("")}
 							dismissible={!message.noclose}
 						>
 							{message.msg}
@@ -137,7 +137,7 @@ function App() {
 				</Col>
 			</Row>
 		</Container>
-	)
+	);
 }
 
-export default App
+export default App;
