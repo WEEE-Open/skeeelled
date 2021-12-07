@@ -13,10 +13,13 @@ on:
       - main
 
 jobs:
-  run-linters:
-    name: Run Linters
+  run-client-linters:
+    name: Run Client Linters
     runs-on: ubuntu-latest
     if: ${{ github.event.pusher.name != 'weee-open-bot' }}
+    defaults:
+      run:
+        working-directory: client
 
     steps:
       - name: Check out Git repository
@@ -28,9 +31,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 17
-
-      - name: Move to client directory
-        run: cd client
 
       - name: Install Node.js dependencies
         run: yarn install
