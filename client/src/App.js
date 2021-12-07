@@ -1,16 +1,16 @@
-import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { Container, Row, Col, Alert } from 'react-bootstrap'
-import { useState, useEffect } from 'react'
-import { Switch, Route } from 'react-router-dom'
-import LoginForm from './pages/LoginForm.js'
-import NavigationBar from './base/navigationBar/NavigationBar.js'
-import Questions from './pages/questoins/questions'
-import Answers from './pages/answers/answers'
-import Profile from './pages/profile/profile'
-import MyQuestions from './pages/myQuestions/myQuestions'
-import Exam from './pages/exam/exam'
-import parsedQuestions from './constants/parsed'
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container, Row, Col, Alert } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Switch, Route } from "react-router-dom";
+import LoginForm from "./pages/LoginForm.js";
+import NavigationBar from "./base/navigationBar/NavigationBar.js";
+import Questions from "./pages/questoins/questions";
+import Answers from "./pages/answers/answers";
+import Profile from "./pages/profile/profile";
+import MyQuestions from "./pages/myQuestions/myQuestions";
+import Exam from "./pages/exam/exam";
+import parsedQuestions from "./constants/parsed";
 
 // import SGList from './components/SGList.js'
 // import SGView from './components/SGView.js'
