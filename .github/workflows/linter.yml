@@ -56,3 +56,51 @@ jobs:
 
       - name: Push changes
         run: git push
+
+  run-server-linters:
+    name: Run Server Linters
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pusher.name != 'weee-open-bot' }}
+    needs:
+      - run-client-linters
+    defaults:
+      run:
+        working-directory: server
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_ACTIONS_BOT_PAT }}
+
+      - name: Set up git credentials
+        run: |
+          git config --global user.email "weee-open-bot@users.noreply.github.com"
+          git config --global user.name "weee-open-bot"
+
+      - name: Push changes
+        run: git push
+
+  run-ml-linters:
+    name: Run ML Linters
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pusher.name != 'weee-open-bot' }}
+    needs:
+      - run-server-linters
+    defaults:
+      run:
+        working-directory: ml
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_ACTIONS_BOT_PAT }}
+
+      - name: Set up git credentials
+        run: |
+          git config --global user.email "weee-open-bot@users.noreply.github.com"
+          git config --global user.name "weee-open-bot"
+
+      - name: Push changes
+        run: git push
