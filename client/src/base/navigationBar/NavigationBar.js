@@ -1,6 +1,8 @@
-import { Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { iconLogout, iconAdmin, iconLogo } from "../../icons.js";
+import { Navbar } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { iconLogout, iconAdmin, iconLogo } from '../../icons.js'
+import styles from './navigationBar.module.scss'
+
 
 function NavigationBar(props) {
 	return (
@@ -10,8 +12,8 @@ function NavigationBar(props) {
 					<Navbar.Brand>{iconAdmin} Admin panel</Navbar.Brand>
 				</Link>
 			) : null}
-			<Link to={"/"} className='mx-auto'>
-				<Navbar.Brand>{iconLogo} Studygroup Manager</Navbar.Brand>
+			<Link to={'/'}>
+				<Navbar.Brand>{iconLogo}</Navbar.Brand>
 			</Link>
 			{props.logged ? (
 				<Link to={"/"} onClick={props.logout}>
