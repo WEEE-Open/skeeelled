@@ -48,7 +48,7 @@ jobs:
           git commit -am "Fix code style issues with ESLint" || echo "No changes to commit"
 
       - name: Run Stylelint
-        run: npx stylelint --ignore-pattern "**/*.min.css" --fix "**/*.css" || true
+        run: npx stylelint --ignore-pattern "**/*.min.css" --fix "**/*.{css,scss}" || true
 
       - name: Commit Stylelint changes
         run: |
