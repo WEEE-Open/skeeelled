@@ -29,8 +29,11 @@ jobs:
         with:
           node-version: 17
 
+      - name: Move to client directory
+        run: cd client
+
       - name: Install Node.js dependencies
-        run: npm ci
+        run: yarn install
 
       - name: Set up git credentials
         run: |
