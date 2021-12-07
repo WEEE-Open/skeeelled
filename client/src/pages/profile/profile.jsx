@@ -1,4 +1,4 @@
-import { Table } from '../../base'
+import { Table } from "../../base";
 import {
 	Button,
 	Container,
@@ -8,9 +8,9 @@ import {
 	ListGroup,
 	InputGroup,
 	FormControl,
-} from 'react-bootstrap'
+} from "react-bootstrap";
 // styles
-import styles from './profile.module.scss'
+import styles from "./profile.module.scss";
 
 const Profile = () => {
 	return (
@@ -106,7 +106,7 @@ const Profile = () => {
 				</Row>
 			</Card>
 		</Container>
-	)
-}
+	);
+};
 
-export default Profile
+export default Profile;

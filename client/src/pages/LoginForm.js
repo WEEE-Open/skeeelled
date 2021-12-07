@@ -1,28 +1,28 @@
-import { Modal, Form, Button, Alert } from 'react-bootstrap'
-import { useState } from 'react'
+import { Modal, Form, Button, Alert } from "react-bootstrap";
+import { useState } from "react";
 
 function LoginForm(props) {
-	const [username, setUsername] = useState('')
-	const [password, setPassword] = useState('')
-	const [errorMessage, setErrorMessage] = useState('')
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const [errorMessage, setErrorMessage] = useState("");
 
 	function checkPassword(password) {
-		if (password.length >= 6) return true
-		return false
+		if (password.length >= 6) return true;
+		return false;
 	}
 
 	const handleSubmit = event => {
-		event.preventDefault()
-		setErrorMessage('')
-		const credentials = { username, password }
-		let valid = true
-		if (username === '' || !checkPassword(password)) valid = false
+		event.preventDefault();
+		setErrorMessage("");
+		const credentials = { username, password };
+		let valid = true;
+		if (username === "" || !checkPassword(password)) valid = false;
 		if (valid) {
-			props.login(credentials)
+			props.login(credentials);
 		} else {
-			setErrorMessage('Errors in the form')
+			setErrorMessage("Errors in the form");
 		}
-	}
+	};
 
 	return (
 		<Modal.Dialog>
@@ -52,7 +52,7 @@ function LoginForm(props) {
 				<Button onClick={handleSubmit}>Login</Button>
 			</Modal.Footer>
 		</Modal.Dialog>
-	)
+	);
 }
 
-export default LoginForm
+export default LoginForm;

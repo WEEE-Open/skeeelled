@@ -1,5 +1,5 @@
 {
-	"name": "tutoring-web-platform",
+	"name": "skeeelled",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
@@ -9,6 +9,7 @@
 		"@testing-library/user-event": "^12.1.10",
 		"bootstrap": "4.6.0",
 		"html-react-parser": "^1.4.1",
+		"eslint-plugin-only-warn": "^1.0.3",
 		"react": "^17.0.2",
 		"react-bootstrap": "^2.0.2",
 		"react-dom": "^17.0.2",
@@ -40,5 +41,11 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"devDependencies": {
+		"postcss": "8",
+		"stylelint": "^14.1.0",
+		"stylelint-config-standard": "^24.0.0",
+		"stylelint-config-standard-scss": "^3.0.0"
 	}
 }

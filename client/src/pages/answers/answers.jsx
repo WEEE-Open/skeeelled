@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Table } from '../../base'
+
 import {
 	Button,
 	Container,
@@ -10,8 +11,8 @@ import {
 	FloatingLabel,
 	Collapse,
 	Form,
-} from 'react-bootstrap'
-import styles from './answers.module.scss'
+} from "react-bootstrap";
+import styles from "./answers.module.scss";
 
 const Answers = () => {
 	const [adviceIsHidden, setAdviceIsHidden] = useState(true)
@@ -149,7 +150,7 @@ const Answers = () => {
 				</Collapse>
 			</Card>
 		</Container>
-	)
-}
+	);
+};
 
-export default Answers
+export default Answers;
