@@ -9,7 +9,10 @@ const Questions = () => {
 			<Card body>
 				<Row lg={12} className={styles.header}>
 					<Col>
-						<h3>Data Management</h3>
+						<h3>
+							Data Management
+							<Button variant="secondary" className="mx-4">{"<- Back"}</Button>
+						</h3>
 					</Col>
 				</Row>
 				<Row className='mt-10'>
