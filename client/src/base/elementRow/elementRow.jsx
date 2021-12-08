@@ -1,4 +1,4 @@
-import Table from 'react-bootstrap'
+import Table from "react-bootstrap";
 
 const ElementRow = ({ rows }) => {
 	return (<>
@@ -8,7 +8,7 @@ const ElementRow = ({ rows }) => {
 			{row.code}
 		</>))}
 		<hr/>
-	</>)
-}
+	</>);
+};
 
-export default ElementRow
+export default ElementRow;

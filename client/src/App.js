@@ -4,7 +4,7 @@ import { Container, Row, Col, Alert } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Routes as Switch, Route, Navigate as Redirect } from "react-router-dom";
 import LoginForm from "./pages/LoginForm.js";
-import CoursesList from './pages/CoursesList.js'
+import CoursesList from "./pages/CoursesList.js";
 import NavigationBar from "./base/navigationBar/NavigationBar.jsx";
 import Questions from "./pages/questoins/questions";
 import Answers from "./pages/answers/answers";
@@ -88,11 +88,11 @@ function App() {
 					{/* <Exam question={parsedQuestions.quiz.question} /> */}
 					{/* {loggedIn ? <CoursesList/> : <LoginForm login={() => setLoggedIn(true)}/>} */}
 					{loggedIn ? <>
-					<CoursesList/>
-					{/* <Questions/> */}
-					{/* <Answers/> */}
-					{/* <Profile/> */}
-					{/* <MyQuestions /> */}
+						<CoursesList/>
+						{/* <Questions/> */}
+						{/* <Answers/> */}
+						{/* <Profile/> */}
+						{/* <MyQuestions /> */}
 					</> : <LoginForm login={() => setLoggedIn(true)}/>}
 					{/* <span onClick={() => setLoggedIn(true)}>CLICK TO LOGIN</span> */}
 				</Col>
