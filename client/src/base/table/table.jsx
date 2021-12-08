@@ -1,6 +1,6 @@
 import Table from "react-bootstrap/Table";
 
-const TableComponent = ({ rows, columns, stiped }) => {
+const TableComponent = ({ rows, columns, striped }) => {
 	return (
 		<Table striped>
 			<thead>
