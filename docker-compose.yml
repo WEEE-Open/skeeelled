@@ -40,13 +40,10 @@ services:
 
   #python image that executes django and gunicorn
   web:
-    build: ./server/docker/django
+    build: server/docker/fastAPI
     volumes:
-     - ./server/wtp:/code
-     - ./server/static:/static
-  #  env_file: some env variables should be added for settings.py variables
-  #   - .env
-    expose:
-      - 8000
+      - ./server/static:/static
+    ports:
+      - "8000:8000"
     depends_on:
       - mongo

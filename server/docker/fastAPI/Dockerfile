@@ -4,5 +4,6 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /code
 COPY ./requirements.txt ./
 RUN pip install -r requirements.txt
+COPY main.py /code
 COPY ./entrypoint.sh /
 ENTRYPOINT ["sh", "/entrypoint.sh"]
