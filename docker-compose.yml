@@ -47,3 +47,8 @@ services:
       - "8000:8000"
     depends_on:
       - mongo
+  node:
+    build:
+      context: ./client
+    ports:
+      - "3000:3000"
