@@ -1,4 +1,4 @@
-import { Table } from "../../base";
+import { Table } from "../base";
 import {
 	Button,
 	Container,
@@ -10,7 +10,6 @@ import {
 	FormControl,
 } from "react-bootstrap";
 // styles
-import styles from "./profile.module.scss";
 
 const Profile = () => {
 	return (

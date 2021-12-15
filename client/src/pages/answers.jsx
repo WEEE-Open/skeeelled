@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Table } from "../../base";
+import { Table } from "../base";
+const styles = {container:""/*{header:"padding-bottom:40px;",pagination:"justify-content:center;",collapse:"margin-top:10px;"}*/}; //toDel
 
 import {
 	Button,
@@ -12,7 +13,6 @@ import {
 	Collapse,
 	Form,
 } from "react-bootstrap";
-import styles from "./answers.module.scss";
 
 const Answers = () => {
 	const [adviceIsHidden, setAdviceIsHidden] = useState(true);

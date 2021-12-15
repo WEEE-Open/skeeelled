@@ -6,21 +6,12 @@ import { Routes as Switch, Route, Navigate as Redirect } from "react-router-dom"
 import LoginForm from "./pages/LoginForm.js";
 import CoursesList from "./pages/CoursesList.js";
 import NavigationBar from "./base/navigationBar/NavigationBar.jsx";
-import Questions from "./pages/questions/questions";
-import Answers from "./pages/answers/answers";
-import Profile from "./pages/profile/profile";
-import MyQuestions from "./pages/myQuestions/myQuestions";
-import Exam from "./pages/exam/exam";
+import Questions from "./pages/questions";
+import Answers from "./pages/answers";
+import Profile from "./pages/profile";
+import MyQuestions from "./pages/myQuestions";
+import Exam from "./pages/exam";
 import parsedQuestions from "./constants/parsed";
-
-// import SGList from './components/SGList.js'
-// import SGView from './components/SGView.js'
-// import AdminSGList from './components/AdminSGList.js'
-// import AdminSGView from './components/AdminSGView.js'
-// import GroupSGView from './components/GroupSGView.js'
-// import MeetingsList from './components/MeetingsList.js'
-// import NewSG from './components/NewSG.js'
-// import NewMeeting from './components/NewMeeting.js'
 // import API from './API'
 
 function App() {
@@ -88,9 +79,9 @@ function App() {
 					{/* <Exam question={parsedQuestions.quiz.question} /> */}
 					{/* {loggedIn ? <CoursesList/> : <LoginForm login={() => setLoggedIn(true)}/>} */}
 					{loggedIn ? <>
-						<CoursesList/>
+						{/* <CoursesList/> */}
 						{/* <Questions/> */}
-						{/* <Answers/> */}
+						<Answers/>
 						{/* <Profile/> */}
 						{/* <MyQuestions /> */}
 					</> : <LoginForm login={() => setLoggedIn(true)}/>}
