@@ -6,7 +6,7 @@ import { Routes as Switch, Route, Navigate as Redirect } from "react-router-dom"
 import LoginForm from "./pages/LoginForm.js";
 import CoursesList from "./pages/CoursesList.js";
 import NavigationBar from "./base/navigationBar/NavigationBar.jsx";
-import Questions from "./pages/questoins/questions";
+import Questions from "./pages/questions/questions";
 import Answers from "./pages/answers/answers";
 import Profile from "./pages/profile/profile";
 import MyQuestions from "./pages/myQuestions/myQuestions";
