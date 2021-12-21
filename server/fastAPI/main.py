@@ -2,6 +2,7 @@ from fastapi import FastAPI
 import motor.motor_asyncio
 from typing import Optional
 from pydantic import BaseModel
+import xmltodict
 
 app = FastAPI()
 
@@ -12,10 +13,11 @@ db = client.test_db
 class OwnerInfo(BaseModel):
 	id: str
 
+
 class Quiz(BaseModel):
 	owner: OwnerInfo
 	is_simulation: Optional[bool] = False
-	file = dict #TODO: check pydantic docs for a proper initialization
+	file: {"coded": str, "contents": str} #TODO: check pydantic docs for a proper initialization
 
 
 
@@ -30,4 +32,6 @@ def read_item(item_id: int, q: Optional[str] = None):
 
 @app.post("/v1/uploadQuestionsFile")
 def create_quiz(q: Quiz):
-	return q
+	# read and upload to mongodb the quiz
+	q.file.contents
+	return q.is_simulation
