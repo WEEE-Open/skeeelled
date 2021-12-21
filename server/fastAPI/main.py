@@ -9,22 +9,25 @@ client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongo:27
 db = client.test_db
 
 
-class Example(BaseModel):
-	name: str
-	price: float
-	is_offer: Optional[bool] = None
+class OwnerInfo(BaseModel):
+	id: str
+
+class Quiz(BaseModel):
+	owner: OwnerInfo
+	is_simulation: Optional[bool] = False
+	file = dict #TODO: check pydantic docs for a proper initialization
 
 
-@app.get("/")
+
+@app.get("/v1")
 def index():
-	return {"test": "asd"}
+	return {"msg": "You successfully reached API v1"}
 
 
-@app.get("/items/{item_id}")
+@app.get("/v1/items/{item_id}")
 def read_item(item_id: int, q: Optional[str] = None):
 	return {"item_id": item_id, "q": q}
 
-
-@app.put("/items/{item_id}")
-def update_item(item_id: int, item: Example):
-	return {"item_name": item.name, "item_id": item_id}
+@app.post("/v1/uploadQuestionsFile")
+def create_quiz(q: Quiz):
+	return q
