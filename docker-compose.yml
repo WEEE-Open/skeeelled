@@ -40,15 +40,21 @@ services:
 
   #python image that executes django and gunicorn
   web:
-    build: server/docker/fastAPI
+    build:
+      context: server
+      dockerfile: ./docker/fastAPI/Dockerfile
     volumes:
-      - ./server/static:/static
+      - ./server/fastAPI:/code
     ports:
       - "8000:8000"
     depends_on:
       - mongo
   node:
     build:
-      context: ./client
+      context: ./
+      dockerfile: ./server/docker/node/Dockerfile
+    volumes:
+      - ./client:/app/
+    command: ["npm", "start"]
     ports:
       - "3000:3000"
