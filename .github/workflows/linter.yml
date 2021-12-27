@@ -1,0 +1,108 @@
+name: Lint
+
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branches
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  run-client-linters:
+    name: Run Client Linters
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pusher.name != 'weee-open-bot' }}
+    defaults:
+      run:
+        working-directory: client
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_ACTIONS_BOT_PAT }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 17
+
+      - name: Install Node.js dependencies
+        run: yarn install
+
+      - name: Set up git credentials
+        run: |
+          git config --global user.email "weee-open-bot@users.noreply.github.com"
+          git config --global user.name "weee-open-bot"
+
+      - name: Run ESLint
+        run: npx --no-install eslint --ext .js --ext .jsx --fix --no-color --format json  "." || true
+
+      - name: Commit ESLint changes
+        run: |
+          git commit -am "Fix code style issues with ESLint" || echo "No changes to commit"
+
+      - name: Run Stylelint
+        run: npx stylelint --ignore-pattern "**/*.min.css" --fix "**/*.{css,scss}" || true
+
+      - name: Commit Stylelint changes
+        run: |
+          git commit -am "Fix code style issues with Stylelint" || echo "No changes to commit"
+
+      - name: Push changes
+        run: git push
+
+  run-server-linters:
+    name: Run Server Linters
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pusher.name != 'weee-open-bot' }}
+    needs:
+      - run-client-linters
+    defaults:
+      run:
+        working-directory: server
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_ACTIONS_BOT_PAT }}
+
+      - name: Set up git credentials
+        run: |
+          git config --global user.email "weee-open-bot@users.noreply.github.com"
+          git config --global user.name "weee-open-bot"
+
+      - name: Pull changes made by other CI jobs
+        run: git pull
+
+      - name: Push changes
+        run: git push
+
+  run-ml-linters:
+    name: Run ML Linters
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pusher.name != 'weee-open-bot' }}
+    needs:
+      - run-server-linters
+    defaults:
+      run:
+        working-directory: ml
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_ACTIONS_BOT_PAT }}
+
+      - name: Set up git credentials
+        run: |
+          git config --global user.email "weee-open-bot@users.noreply.github.com"
+          git config --global user.name "weee-open-bot"
+
+      - name: Pull changes made by other CI jobs
+        run: git pull
+
+      - name: Push changes
+        run: git push
