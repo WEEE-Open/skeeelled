@@ -16,10 +16,10 @@ function NavigationBar(props) {
 				<Navbar.Brand><img src={logo}/></Navbar.Brand>
 			</Link>
 			{props.logged ? (<>
-				<Form className="mx-auto w-25">
+				{/* <Form className="mx-auto w-25">
 					<Form.Control type="text" placeholder="Search" onChange={() => {}}/>
-				</Form>
-				<Link to={"/"} onClick={props.logout}>
+				</Form> */}
+				<Link to={"/"} onClick={props.logout} className="ml-auto">
 					<Navbar.Brand>Logout {iconLogout}</Navbar.Brand>
 				</Link>
 			</>) : null}

@@ -1,17 +1,18 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col, Alert } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import { Routes as Switch, Route, Navigate as Redirect } from "react-router-dom";
+import {Container, Row, Col, Alert, Button} from "react-bootstrap";
+import {useState, useEffect} from "react";
+import {Routes, Route, Navigate as Redirect, Link} from "react-router-dom";
+
+import {NavigationBar} from "./base/";
 import LoginForm from "./pages/LoginForm.js";
-import CoursesList from "./pages/CoursesList.js";
-import NavigationBar from "./base/navigationBar/NavigationBar.jsx";
-import Questions from "./pages/questions";
-import Answers from "./pages/answers";
-import Profile from "./pages/profile";
-import MyQuestions from "./pages/myQuestions";
-import Exam from "./pages/exam";
-import parsedQuestions from "./constants/parsed";
+import Profile from "./pages/Profile";
+import CoursesList from "./pages/CoursesList";
+import Questions from "./pages/Questions";
+import Answers from "./pages/Answers";
+// import MyQuestions from "./pages/myQuestions";
+// import Exam from "./pages/exam";
+// import parsedQuestions from "./constants/parsed";
 // import API from './API'
 
 function App() {
@@ -64,11 +65,7 @@ function App() {
 			<Row className='my-4'>
 				<Col xs={6} className='mx-auto'>
 					{message ? (
-						<Alert
-							variant={message.type}
-							onClose={() => setMessage("")}
-							dismissible={!message.noclose}
-						>
+						<Alert variant={message.type} onClose={() => setMessage("")} dismissible={!message.noclose}>
 							{message.msg}
 						</Alert>
 					) : null}
@@ -77,15 +74,26 @@ function App() {
 			<Row className='my-4'>
 				<Col xs={10} md={8} className='mx-auto'>
 					{/* <Exam question={parsedQuestions.quiz.question} /> */}
-					{/* {loggedIn ? <CoursesList/> : <LoginForm login={() => setLoggedIn(true)}/>} */}
-					{loggedIn ? <>
-						{/* <CoursesList/> */}
-						{/* <Questions/> */}
-						<Answers/>
-						{/* <Profile/> */}
+					<Alert>
+						{"Test buttons: "}
+						<Link to="/login"><Button>login</Button></Link>
+						{/* <Link to="/courses"><Button>courses</Button></Link> */}
+						{/* <Link to="/myquestions"><Button>myquest</Button></Link> */}
+						<Link to="/simulation"><Button>simulation</Button></Link>
+					</Alert>
+					{loggedIn ? <Routes>
+						<Route path="/*" element={<Redirect to="/profile"/>}/>
+						<Route path="/profile" element={<Profile/>}/>
+						<Route path="/courses" element={<CoursesList/>}/>
+						<Route path="/course/:coursecode" element={<Questions/>}/>
+						<Route path="/question/:questionid" element={<Answers/>}/>
+						<Route path="/discussion/:questionid" element={<p>Work in progress</p>}/>
+						<Route path="/simulation" element={<p>Work in progress</p>}/>
 						{/* <MyQuestions /> */}
-					</> : <LoginForm login={() => setLoggedIn(true)}/>}
-					{/* <span onClick={() => setLoggedIn(true)}>CLICK TO LOGIN</span> */}
+					</Routes> : <Routes>
+						<Route path="/*" element={<Redirect to="/login"/>}/>
+						<Route path="/login" element={<LoginForm login={() => setLoggedIn(true)}/>}/>
+					</Routes>}
 				</Col>
 			</Row>
 		</Container>
