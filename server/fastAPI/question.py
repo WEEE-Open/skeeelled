@@ -2,8 +2,11 @@ from pydantic import BaseModel, ValidationError, validator
 from typing import List
 import motor.motor_asyncio
 
+class OwnerInfo(BaseModel):
+    id: str
 
 class Question(BaseModel): #TODO: does not work, useless. Understand why I can't create Question() object
+    owner: OwnerInfo
     quiz_ref: dict
     content: dict
 
