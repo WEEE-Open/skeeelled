@@ -7,7 +7,7 @@ class OwnerInfo(BaseModel):
     id: str
 
 
-class Question(BaseModel): #TODO: does not work, useless. Understand why I can't create Question() object
+class Question(BaseModel):
     owner: OwnerInfo
     quiz_ref: dict
     content: dict
@@ -30,7 +30,7 @@ class Question(BaseModel): #TODO: does not work, useless. Understand why I can't
         required_keys = ["$ref", "$id"]
         set_keys = v.keys()
         if not all(k in set_keys for k in required_keys):
-            raise ValueError(f"Quiz dbref error: missing {k} key")
+            raise ValueError(f"Quiz dbref error: missing key: please, check the docs")
         return v
 
     async def get_question(self, dbcoll):

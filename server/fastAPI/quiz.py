@@ -20,7 +20,7 @@ class Quiz(BaseModel):
             raise ValueError('No data inserted')
         if 'type' not in v.keys() or 'contents' not in v.keys():
             raise ValueError('Bad format: missing keys')
-        if not isinstance(v["type"], str) or not isinstance(type(v["contents"]), str):
+        if not isinstance(v["type"], str) or not isinstance(v["contents"], str):
             raise ValueError('Bad values: only type string is acceptable')
         return v
 
@@ -29,11 +29,18 @@ class Quiz(BaseModel):
         return await dbcoll.find_one(self.dict(), {"_id": 0})
 
     def convert_to_json(self):
-        quiz_content = base64.b64decode(self.file["contents"])
         # parsing xml
-        json_xml = xmltodict.parse(quiz_content)
-        self.file["contents"] = json_xml
-        return jsonable_encoder(json_xml)
+        try:
+            quiz_content = base64.b64decode(self.file["contents"])
+            json_xml = xmltodict.parse(quiz_content)
+            self.file["contents"] = json_xml
+            if isinstance(json_xml, dict):
+                return jsonable_encoder(json_xml)
+            else:
+                return None
+        except:
+            return None
+
 
     async def insert_quiz(self, dbcoll):
         # inserting a quiz if no duplicated quiz is found
