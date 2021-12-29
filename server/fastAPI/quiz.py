@@ -10,7 +10,7 @@ from question import OwnerInfo
 # model definition
 class Quiz(BaseModel):
     owner: OwnerInfo
-    is_simulation: Optional[bool] = False
+    is_simulation: bool = False
     file: dict = {}
 
     # constraint check
