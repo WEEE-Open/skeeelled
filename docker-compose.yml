@@ -51,10 +51,10 @@ services:
       - mongo
   node:
     build:
-      context: ./
-      dockerfile: ./server/docker/node/Dockerfile
+      context: ./client
+      dockerfile: docker/node/Dockerfile
     volumes:
-      - ./client:/app/
+      - ./client:/app
     command: ["npm", "start"]
     ports:
       - "3000:3000"
