@@ -1,9 +1,7 @@
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel, validator
-from typing import Optional
 import base64
 import xmltodict
-
 from question import OwnerInfo
 
 
@@ -26,7 +24,8 @@ class Quiz(BaseModel):
 
     # retrieving a single quiz
     async def get_quiz(self, dbcoll):
-        return await dbcoll.find_one(self.dict(), {"_id": 0})
+        res = await dbcoll.find_one(self.dict())
+        return res
 
     def convert_to_json(self):
         # parsing xml
@@ -46,5 +45,6 @@ class Quiz(BaseModel):
         # inserting a quiz if no duplicated quiz is found
         if not await self.get_quiz(dbcoll):
             await dbcoll.insert_one(self.dict())
-            return await self.get_quiz(dbcoll)
+            uploaded = await self.get_quiz(dbcoll)
+            return uploaded.pop("_id")
         return None

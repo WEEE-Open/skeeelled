@@ -1,8 +1,7 @@
-from pydantic import BaseModel, ValidationError, validator
-from typing import List
-import motor.motor_asyncio
+from pydantic import BaseModel, validator
 
 
+# models definitions
 class OwnerInfo(BaseModel):
     id: str
 
@@ -12,15 +11,15 @@ class Question(BaseModel):
     quiz_ref: dict
     content: dict
 
+    # constraint check on question values
     @validator('content')
     def question_constraints(cls, v):
         if not isinstance(v, dict):
             raise ValueError("Question content must be a dict/json")
         required_keys = ["@type"]
         set_keys = v.keys()
-        for k in required_keys:
-            if k not in set_keys:
-                raise ValueError(f"Question content error: missing {k} key")
+        if not all(k in set_keys for k in required_keys):
+            raise ValueError(f"Question content error: missing mandatory keys. Please check the body of your request")
         return v
 
     @validator('quiz_ref')
@@ -34,7 +33,7 @@ class Question(BaseModel):
         return v
 
     async def get_question(self, dbcoll):
-        return await dbcoll.find_one({"content": self.content}, {"_id": 0, "quizref": 0})
+        return await dbcoll.find_one({"content": self.content})
 
 
 async def multiple_insertion(collection, questions):

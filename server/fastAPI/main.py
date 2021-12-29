@@ -1,7 +1,6 @@
 from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse
 import motor.motor_asyncio
-
 from question import Question, multiple_insertion
 from quiz import Quiz
 
@@ -22,13 +21,12 @@ async def create_quiz(q: Quiz):
     file_type = q.file["type"]
     parsed = q.convert_to_json()
     # upload the converted file to the database
-    # Check for duplicated record
     if parsed:
-        res = await q.insert_quiz(db["quizzes"])
-        # if no document is found
-        if res:
+        assigned_id = await q.insert_quiz(db["quizzes"])
+        # in case of first upload, also single questions are uploaded
+        if assigned_id:
             question_list = []
-            quiz_ref = {"$ref": "quizzes", "$id": ""}
+            quiz_ref = {"$ref": "quizzes", "$id": assigned_id}
             for question in q.file["contents"]["quiz"]["question"]:
                 new_question = Question(owner=q.owner, quiz_ref=quiz_ref, content=question)
                 question_list.append(new_question)
