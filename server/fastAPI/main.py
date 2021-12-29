@@ -10,8 +10,7 @@ from quiz import Quiz
 
 app = FastAPI()
 
-client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongo:27017/")
-db = client.test_db
+db = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongo:27017/").test_db
 
 
 @app.get("/v1")
