@@ -2,19 +2,15 @@ from pydantic import BaseModel, ValidationError, validator
 from typing import List
 import motor.motor_asyncio
 
+
 class OwnerInfo(BaseModel):
     id: str
+
 
 class Question(BaseModel): #TODO: does not work, useless. Understand why I can't create Question() object
     owner: OwnerInfo
     quiz_ref: dict
     content: dict
-
-    def __getitem__(self, item):
-        if isinstance(item.content, dict):
-            return item
-        else:
-            raise ValueError("Content of the question is wrong")
 
     @validator('content')
     def question_constraints(cls, v):
@@ -25,6 +21,7 @@ class Question(BaseModel): #TODO: does not work, useless. Understand why I can't
         for k in required_keys:
             if k not in set_keys:
                 raise ValueError(f"Question content error: missing {k} key")
+        return v
 
     @validator('quiz_ref')
     def dbref_constraint(cls, v):
@@ -35,20 +32,19 @@ class Question(BaseModel): #TODO: does not work, useless. Understand why I can't
         for k in required_keys:
             if k not in set_keys:
                 raise ValueError(f"Quiz dbref error: missing {k} key")
+        return v
+
+    async def get_question(self, dbcoll):
+        return await dbcoll.find_one({"content": self.content}, {"_id": 0, "quizref": 0})
 
 
-async def get_question(collection, question_content: dict):
-    result = await collection.find_one({"content": question_content}, {"_id": 0, "quizref": 0})
-    return result
-
-
-async def multiple_insertion(collection, questions: List[Question]):
+async def multiple_insertion(collection, questions):
     for d in list(questions):
-        if d["content"]["@type"] == "category":
+        if d.content["@type"] == "category":
             questions.remove(d)
         # remove duplicate data already in the db
-        elif await get_question(collection, d["content"]):
+        elif await d.get_question(collection):
             questions.remove(d)
     # multiple insertion in the database
     if questions:
-        return await collection.insert_many(questions)
+        return await collection.insert_many([q.dict() for q in questions])

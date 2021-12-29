@@ -6,7 +6,7 @@ import xmltodict
 import base64
 
 from question import Question, multiple_insertion
-from quiz import Quiz, convert_to_json, insert_quiz
+from quiz import Quiz
 
 app = FastAPI()
 
@@ -24,17 +24,16 @@ def index():
 async def create_quiz(q: Quiz):
     # retrieve the code and the file format
     file_type = q.file["type"]
-    json_quiz = convert_to_json(q.file["contents"])
-    q.file["contents"] = json_quiz
+    q.convert_to_json()
     # upload the converted file to the database
     # Check for duplicated record
-    res = await insert_quiz(db["quizzes"], q.file)
+    res = await q.insert_quiz(db["quizzes"])
     # if no document is found
-    if not res:
+    if res:
         question_list = []
         quiz_ref = {"$ref": "quizzes", "$id": ""}
-        for q in res.file["contents"]["quiz"]["question"]:
-            new_question = {"quiz_ref": quiz_ref, "content": q}
+        for question in q.file["contents"]["quiz"]["question"]:
+            new_question = Question(owner=q.owner, quiz_ref=quiz_ref, content=question)
             question_list.append(new_question)
             await multiple_insertion(db["questions"], question_list)
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=res)

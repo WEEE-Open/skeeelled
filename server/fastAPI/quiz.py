@@ -8,10 +8,10 @@ from question import OwnerInfo
 
 
 # model definition
-class Quiz(BaseModel): #TODO: NO CLUE WHY THESE MODELS DOES NOT WORK
-    owner: OwnerInfo = {"id": "example1234"}
+class Quiz(BaseModel):
+    owner: OwnerInfo
     is_simulation: Optional[bool] = False
-    file: dict
+    file: dict = {}
 
     # constraint check
     @validator('file')
@@ -20,26 +20,24 @@ class Quiz(BaseModel): #TODO: NO CLUE WHY THESE MODELS DOES NOT WORK
             raise ValueError('No data inserted')
         if 'type' not in v.keys() or 'contents' not in v.keys():
             raise ValueError('Bad format: missing keys')
-        if type(v["type"]) is not str and type(v["contents"]) is not str:
+        if not isinstance(v["type"], str) and not isinstance(type(v["contents"]), str):
             raise ValueError('Bad values: only type string is acceptable')
         return v
 
+    # retrieving a single quiz
+    async def get_quiz(self, dbcoll):
+        return await dbcoll.find_one(self.dict(), {"_id": 0})
 
-# retrieving a single quiz
-async def get_quiz(collection, quiz: Quiz):
-    return await collection.find_one(quiz)
+    def convert_to_json(self):
+        quiz_content = base64.b64decode(self.file["contents"])
+        # parsing xml
+        json_xml = xmltodict.parse(quiz_content)
+        self.file["contents"] = json_xml
+        return jsonable_encoder(json_xml)
 
-
-def convert_to_json(quiz_content: str):
-    quiz_content = base64.b64decode(quiz_content)
-    # parsing xml
-    json_xml = xmltodict.parse(quiz_content)
-    return jsonable_encoder(json_xml)
-
-
-async def insert_quiz(collection, quiz: Quiz):
-    # inserting a quiz if no duplicated quiz is found
-    if not await get_quiz(collection, quiz):
-        await collection.insert_one(quiz)
-        return await get_quiz(collection, quiz)
-    return None
+    async def insert_quiz(self, dbcoll):
+        # inserting a quiz if no duplicated quiz is found
+        if not await self.get_quiz(dbcoll):
+            await dbcoll.insert_one(self.dict())
+            return await self.get_quiz(dbcoll)
+        return None
