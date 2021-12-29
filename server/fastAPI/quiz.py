@@ -20,7 +20,7 @@ class Quiz(BaseModel):
             raise ValueError('No data inserted')
         if 'type' not in v.keys() or 'contents' not in v.keys():
             raise ValueError('Bad format: missing keys')
-        if not isinstance(v["type"], str) and not isinstance(type(v["contents"]), str):
+        if not isinstance(v["type"], str) or not isinstance(type(v["contents"]), str):
             raise ValueError('Bad values: only type string is acceptable')
         return v
 
