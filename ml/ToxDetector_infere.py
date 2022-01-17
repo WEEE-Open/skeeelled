@@ -20,7 +20,7 @@ tokens = tokenizer.tokenize(text, padding=True, truncation=True, is_split_into_w
 #    print(tokenizer.decode(idx))
 
 # Infere the inputs' labels through the model and obtain the logits
-outputs = model(**text_tkn, labels=torch.tensor([1]))
+outputs = model(**text_tkn, labels=torch.tensor([1,0]))
 print(outputs)
 probabilities = nn.functional.softmax(outputs.logits, dim=-1)
 print(probabilities)

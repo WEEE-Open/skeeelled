@@ -74,6 +74,11 @@ train_dataset = TorchSet(train_tkn, train_y)
 valid_dataset = TorchSet(valid_tkn, valid_y)
 test_dataset = TorchSet(test_tkn, test_y)
 
+# Initialize and log into the WandB project
+import wandb
+wandb.login() # API Key: 948b433c0e4757bbde2a79b9bb61678dafc7565c
+wandb.init(project="Neuraly")
+
 # Building pre-trained model and Trainer API
 from transformers import AutoModelForSequenceClassification, Trainer, TrainingArguments
 model = AutoModelForSequenceClassification.from_pretrained("./model") # neuraly/bert-base-italian-cased-sentiment
@@ -87,6 +92,7 @@ training_args = TrainingArguments(
     weight_decay=0.01,
     logging_dir='./ita_logs',
     logging_steps=10,
+    report_to='wandb',
 )
 trainer = Trainer(
     model=model,
