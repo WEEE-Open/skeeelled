@@ -76,7 +76,7 @@ test_dataset = TorchSet(test_tkn, test_y)
 
 # Initialize and log into the WandB project
 import wandb
-wandb.login() # API Key: 948b433c0e4757bbde2a79b9bb61678dafc7565c
+wandb.login()
 wandb.init(project="Neuraly")
 
 # Building pre-trained model and Trainer API
