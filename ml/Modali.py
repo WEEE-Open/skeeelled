@@ -14,35 +14,31 @@ import os
 #      pipeline      #
 #--------------------#
 def train():
-  from Detectors import ToxicityDetector
-  moderator = ToxicityDetector()
-  print("Object built")
-  moderator.train()
-
+  
   # Check if fine-tuned transformer models exist
   if os.path.exists('model'):
     pass
 
   else:
     # Check if dataset exists
-    if os.path.exists('Dataset_ITA.json'):
+    if os.path.exists('ITA-Dataset.json'):
       pass
 
     else:
       # Builds unlabelled dataset of scraped comments
-      from DatasetBuilder import DatasetBuilder
+      from DatasetHandler import Builder
       print(" ** Building the italian toxicity Dataset **\n")
       
-      builder = DatasetBuilder()
+      builder = Builder()
       builder.build()
       builder.shuffle()
 
-    # Start training on scraped dataset of comments
-    #from Detectors import ToxicityDetector
-    print(" ** Training the transformer model on Dataset_ITA.json **\n")
+    # Trains on scraped comments
+    from Detectors import ToxicityDetector
+    print(" ** Training the transformer model on ITA-Dataset.json **\n")
 
-    #moderator = ToxicityDetector()
-    #moderator.train()
+    moderator = ToxicityDetector(0)
+    moderator.train()
 
 
 #---------------------#
@@ -70,4 +66,5 @@ def infer(comment):
     #    if score > 0.4 && < 0.6 then quarantine it;
     #       if score > 0.6 then publish it
 
-infer("E Che Cazzo!!")
+infer("Tutto il corso è una merda")
+infer("Che risposta inutile! Rivediti un po' di analisi prima di blaterare")
