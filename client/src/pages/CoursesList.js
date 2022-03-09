@@ -1,10 +1,11 @@
 import {Table, Pagination, Row, Col, Card} from "react-bootstrap";
-import {useState/* , useEffect */} from "react";
+import {useEffect, useState/* , useEffect */} from "react";
 import {Link} from "react-router-dom";
 import Recent from "../base/recent/Recent.jsx";
 import {  } from "../base";
+import API from "../api/API";
 
-// import API from '../API';
+// import API from '../api/API';
 
 function PaginationRow() {
 	let active = 1;
@@ -49,6 +50,24 @@ function CoursesList() {
 	];
 
 	const [courses,setCourses] = useState(fakeCourses/*[]*/);
+	const [myCourses, setMyCourses] = useState([]);
+
+	/**Courses related**/
+	// courses
+	useEffect(()=> {
+		API.getCourses()
+			.then(courses => setCourses(courses))
+			.catch(err => console.log(err));
+	}, []);
+
+	// myCourses
+	useEffect(() => {
+		API.getMyCourses()
+			.then(myCourses => setMyCourses(myCourses))
+			.catch(err => console.log(err));
+	}, []);
+
+
 
 	// useEffect(() => {
 	//     const getCourses = async () => {
@@ -57,6 +76,7 @@ function CoursesList() {
 	//     }
 	//     getCourses();
 	// },[]);
+
 
 	return(<Row>
 		<Col>
