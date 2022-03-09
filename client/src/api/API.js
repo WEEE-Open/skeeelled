@@ -1,31 +1,55 @@
 import CoursesList from "../pages/CoursesList.js"
-import Course from "../entities/Course";
+import CourseObj from "../entities/CourseObj";
 
+const prefix = "/v1"
 
-const prefix = "/api"
+// header API
+const postLogout = async() => {
+    return new Promise((resolve, reject) => {
+        fetch(prefix + "/logout", {method: "POST"})
+            .then(res => {
+                if (res.ok) {
+                    resolve(null);
+                }
+                else {
+                    reject("Generic Error")
+                }
+            })
+            .catch(err=>{reject("Server Error")});
+    })
+}
 
 // Courses related APIs
-// const getMyCourses = async () => {
-//     return new Promise((resolve, reject) => {
-//         if (res.status === 404) {
-//
-//         }
-//     })
-// }
+const getMyCourses = async () => {
+    return new Promise((resolve, reject) => {
+        fetch(prefix + "/mycourses")
+            .then( res => {
+                if (res.status === 404) {
+                    resolve([]);
+                }
+                res.json()
+                    .then (json =>resolve(json.map(myCourses => CourseObj.from(myCourses))))
+                    .catch(err=> reject("Generic Error"));
+            })
+            .catch (err=> reject("Unavailable"));
+    });
+}
 
 const getCourses = async () => {
+
+
     return new Promise((resolve, reject) => {
         fetch(prefix + "/courses")
             .then( res => {
                 if (res.status === 404) {
-                    reject("There is no such course in the database");
+                    resolve([]);
                 }
                 else if (res.status === 401) {
                     reject("Authentication Error");
                 }
                 else if (res.ok) {
                     res.json()
-                        .then (json =>resolve(json.map(course => Course.from(course))))
+                        .then (json =>resolve(json.map(courses => CourseObj.from(courses))))
                         .catch(err=> reject("Generic Error"));
                 }
                 else {
@@ -36,5 +60,5 @@ const getCourses = async () => {
     });
 }
 
-const API = {getCourses};
+const API = {getCourses, getMyCourses};
 export default API;
