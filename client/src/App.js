@@ -4,7 +4,7 @@ import {Container, Row, Col, Alert, Button} from "react-bootstrap";
 import {useState, useEffect} from "react";
 import {Routes, Route, Navigate as Redirect, Link} from "react-router-dom";
 
-import {NavigationBar} from "./base/";
+import {NavigationBar, Footer} from "./base/";
 import LoginForm from "./pages/LoginForm.js";
 import Profile from "./pages/Profile";
 import CoursesList from "./pages/CoursesList";
@@ -95,6 +95,9 @@ function App() {
 						<Route path="/login" element={<LoginForm login={() => setLoggedIn(true)}/>}/>
 					</Routes>}
 				</Col>
+			</Row>
+			<Row>
+				<Footer/>
 			</Row>
 		</Container>
 	);
