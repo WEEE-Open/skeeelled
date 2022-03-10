@@ -1,6 +1,6 @@
 import { Table } from "../base";
 import { Button, Container, Row, Col, Pagination, Card } from "react-bootstrap";
-import styles from './myQuestions/myQuestions.module.scss'
+import styles from "./myQuestions/myQuestions.module.scss";
 
 const myQuestions = () => {
 	return (
