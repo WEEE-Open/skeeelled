@@ -1,4 +1,6 @@
-import Table from "./table/table";
-import NavigationBar from "./navigationBar/NavigationBar";
+import NavigationBar from "./NavigationBar";
+import Footer from "./Footer";
+import Table from "./Table";
+import Recent from "./Recent";
 
-export { Table, NavigationBar };
+export {NavigationBar, Footer, Table, Recent};

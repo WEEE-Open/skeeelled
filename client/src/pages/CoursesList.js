@@ -1,7 +1,7 @@
 import {Table, Pagination, Row, Col, Card} from "react-bootstrap";
 import {useEffect, useState/* , useEffect */} from "react";
 import {Link} from "react-router-dom";
-import Recent from "../base/recent/Recent.jsx";
+import {Recent} from "../base/"; //da index
 import {  } from "../base";
 import API from "../api/API";
 
