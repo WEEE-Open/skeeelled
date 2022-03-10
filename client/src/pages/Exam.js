@@ -1,7 +1,6 @@
 import parse from "html-react-parser";
 import { Button, Container, Row, Col, Card, Form } from "react-bootstrap";
 // styles
-import styles from "./exam.module.scss";
 
 const MultipleChoice = ({ index, questiontext, answer, ...rest }) => {
 	console.log({ answer });

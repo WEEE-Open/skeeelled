@@ -1,7 +1,6 @@
-import { Table } from "../../base";
+import { Table } from "../base";
 import { Button, Container, Row, Col, Pagination, Card } from "react-bootstrap";
-// styles
-import styles from "./questions.module.scss";
+const styles = {container:{header:"padding-bottom: 40px;",pagination:"justify-content: center;"}}; //toDel
 
 const Questions = () => {
 	return (

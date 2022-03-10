@@ -1,18 +1,7 @@
 import { useState } from "react";
-import { Table } from "../../base";
-
-import {
-	Button,
-	Container,
-	Card,
-	Row,
-	Col,
-	Pagination,
-	FloatingLabel,
-	Collapse,
-	Form,
-} from "react-bootstrap";
-import styles from "./answers.module.scss";
+import { Table } from "../base";
+import {Button, Container, Card, Row, Col, Pagination, FloatingLabel, Collapse, Form} from "react-bootstrap";
+const styles = {container:""/*{header:"padding-bottom:40px;",pagination:"justify-content:center;",collapse:"margin-top:10px;"}*/}; //toDel
 
 const Answers = () => {
 	const [adviceIsHidden, setAdviceIsHidden] = useState(true);
