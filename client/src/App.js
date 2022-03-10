@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {Container, Row, Col, Alert, Button} from "react-bootstrap";
 import {useState, useEffect} from "react";
 import {Routes, Route, Navigate as Redirect, Link} from "react-router-dom";
-
+ 
 import {NavigationBar, Footer} from "./base/";
 import LoginForm from "./pages/LoginForm.js";
 import Profile from "./pages/Profile";
