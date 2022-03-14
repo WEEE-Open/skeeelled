@@ -1,0 +1,32 @@
+#footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: ;
+}
+
+ #skeeelled-logo {
+    /*  logoSkeeelledFooter.svg {height/width}  */
+}
+
+ #weee-open-logo {
+     height: 20px;
+     vertical-align: -5pt;
+     padding-left: 10pt;
+}
+ #skeeell {
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     justify-content: center;
+     margin-top: -30px;
+     padding: 0;
+ }
+
+ #skeeell-logo {
+     height: 90px;
+     vertical-align: 0pt;
+     margin-left: -8pt;
+     padding-left: 3pt;
+}

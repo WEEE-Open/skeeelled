@@ -3,13 +3,14 @@ import {Link} from "react-router-dom";
 import {iconLogout, iconAdmin} from "../icons.js";
 import {logoSkeeelled} from "../img/";
 import styles from "./navigationBar/navigationBar.module.scss";
+import "./NavigationBar.css"
 
 function NavigationBar(props) {
 	return (
-		<Navbar bg={false ? "dark" : "light"} variant={false ? "dark" : "light"}>
+		<Navbar id={"navbar"} bg={false ? "dark" : "light"} variant={false ? "dark" : "light"}>
 			
 			<Link to={"/"}>
-				<Navbar.Brand><Image src={logoSkeeelled}/></Navbar.Brand>
+				<Navbar.Brand><Image if={"navbar-logo-skeeelled"} src={logoSkeeelled}/></Navbar.Brand>
 			</Link>
 
 			{props.admin ? (
@@ -18,9 +19,9 @@ function NavigationBar(props) {
 				</Link>
 			) : null}
 
-			<Button className="mx-2 mr-auto">Courses</Button>
+			<Nav.Link id={"course-link"} className={"mr-auto"}>Courses</Nav.Link>
 			
-			{/*props.user.isProfessor*/ true ? <Button className="mx-2">Add question</Button> : null}
+			{/*props.user.isProfessor*/ true ? <Nav.Link id={"add-question-link"} >Add question</Nav.Link> : null}
 
 			{props.logged ? (<>
 				<Link to={"/"} onClick={props.logout} className="mx-2">
@@ -28,9 +29,11 @@ function NavigationBar(props) {
 				</Link>
 			</>) : null}
 
-			<Nav>
-				<Navbar.Collapse className="mr-4">
-					<NavDropdown title="userimg">
+			<Nav id={"user-dropdown"}>
+				<Navbar.Collapse >
+					<NavDropdown align={{ lg: 'start' }}
+								 title="user.img"
+								 id="dropdown-menu-align-responsive-2">
 						<NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
 						<NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
 						<NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>

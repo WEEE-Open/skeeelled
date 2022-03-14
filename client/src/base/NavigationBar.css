@@ -1,0 +1,22 @@
+#navbar {
+    display: flex;
+    flex-direction: row;
+}
+
+#navbar-logo-skeeelled {
+    position:absolute;
+    left:0;
+    top:0;
+}
+
+.nav-link {
+    color: #00983a;
+}
+.nav-link:hover {
+    color: green;
+}
+
+#user-dropdown {
+    padding-right: 8%;
+}
+
