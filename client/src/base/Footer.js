@@ -13,18 +13,18 @@ function Footer() {
 	return (
 		<div id={"footer"} className="mx-auto"> {/*style={cssTemp.footer}*/}
 			<h5 className="mx-auto">
-				<a href={"https://github.com/weee-open/skeeelled"}>
-					<Image id={"skeeep-logo"} src={logoSkeeelledFooter} alt={"skeeelled"}/> {/*style={cssTemp.logoSkeeelled}*/}
+				<a id={"skeeelled-logo-1"} href={"https://github.com/weee-open/skeeelled"}>
+					<Image id={"skeeelled-logo"} src={logoSkeeelledFooter} alt={"skeeelled"}/>{/*style={cssTemp.logoSkeeelled}*/}
 				</a>
-                 is a tool realized by
+				is a tool realized by
 				<a href={"https://weeeopen.polito.it"}>
-					<Image id={"weee-open-logo"} src={logoWeeeOpen} alt={"WEEE Open"}/> {/*style={cssTemp.logoWeeeOpen}*/}
+					<Image id={"weee-open-logo"} src={logoWeeeOpen} alt={"WEEE Open"}/>{/*style={cssTemp.logoWeeeOpen}*/}
 				</a>
 			</h5>
 			<h5 id={"skeeell"} className="mx-auto">
                 See more about
 				<a href={"https://weeeopen.polito.it/skeeell"}>
-					<Image id={"skeeell-logo"} src={logoSkeeell} alt={"skeeell"} /> {/*style={cssTemp.logoSkeeell}*/}
+					<Image id={"skeeell-logo"} src={logoSkeeell} alt={"skeeell"} />{/*style={cssTemp.logoSkeeell}*/}
 				</a>
 			</h5>
 		</div>
