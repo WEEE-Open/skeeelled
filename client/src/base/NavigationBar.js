@@ -2,7 +2,6 @@ import {Navbar, Nav, NavDropdown, Button, Image, Form, OverlayTrigger, Popover} 
 import {Link} from "react-router-dom";
 import {iconUser, iconLogout, iconAdmin} from "../icons.js";
 import {logoSkeeelledLight} from "../img/";
-import styles from "./navigationBar/navigationBar.module.scss";
 import "./NavigationBar.css";
 
 function NavigationBar(props) {

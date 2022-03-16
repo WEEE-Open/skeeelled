@@ -2,3 +2,8 @@
     width:30%;
     margin-left:30px;
 }
+
+.navContainer {
+    display: flex;
+    justify-content: space-between;
+}
