@@ -64,23 +64,25 @@ function App() {
 			</Row>
 			<Row className='my-4'>
 				<Col xs={6} className='mx-auto'>
-					{message ? (
+					{message &&
 						<Alert variant={message.type} onClose={() => setMessage("")} dismissible={!message.noclose}>
 							{message.msg}
 						</Alert>
-					) : null}
+					}
 				</Col>
 			</Row>
 			<Row className='my-4'>
 				<Col xs={10} md={8} className='mx-auto'>
-					{/* <Exam question={parsedQuestions.quiz.question} /> */}
+					{/*
+					<Exam question={parsedQuestions.quiz.question} />
 					<Alert>
 						{"Test buttons: "}
 						<Link to="/login"><Button>login</Button></Link>
-						{/* <Link to="/courses"><Button>courses</Button></Link> */}
-						{/* <Link to="/myquestions"><Button>myquest</Button></Link> */}
+						<Link to="/courses"><Button>courses</Button></Link>
+						<Link to="/myquestions"><Button>myquest</Button></Link>
 						<Link to="/simulation"><Button>simulation</Button></Link>
 					</Alert>
+					*/}
 					{loggedIn ? <Routes>
 						<Route path="/*" element={<Redirect to="/profile"/>}/>
 						<Route path="/profile" element={<Profile/>}/>
