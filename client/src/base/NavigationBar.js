@@ -10,7 +10,7 @@ function NavigationBar(props) {
 		<Navbar id={"navbar"} bg={false ? "dark" : "light"} variant={false ? "dark" : "light"}>
 			
 			<Link to={"/"}>
-				<Navbar.Brand><Image if={"navbar-logo-skeeelled"} src={logoSkeeelled}/></Navbar.Brand>
+				<Navbar.Brand><Image id={"navbar-logo-skeeelled"} src={logoSkeeelled}/></Navbar.Brand>
 			</Link>
 
 			{props.admin ? (
@@ -21,7 +21,7 @@ function NavigationBar(props) {
 
 			<Nav.Link id={"course-link"} className={"mr-auto"}>Courses</Nav.Link>
 			
-			{/*props.user.isProfessor*/ true ? <Nav.Link id={"add-question-link"} >Add question</Nav.Link> : null}
+			{/*props.user.isProfessor*/ true ? <Nav.Link id={"add-question-link"} className={"mr-auto"}>Add question</Nav.Link> : null}
 
 			{props.logged ? (<>
 				<Link to={"/"} onClick={props.logout} className="mx-2">

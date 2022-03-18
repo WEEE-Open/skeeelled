@@ -13,7 +13,7 @@ function Footer() {
 	return (
 		<div id={"footer"} className="mx-auto"> {/*style={cssTemp.footer}*/}
 			<h5 className="mx-auto">
-				<a id={"skeeelled-logo-1"} href={"https://github.com/weee-open/skeeelled"}>
+				<a id={"skeeelled-logo-link"} href={"https://github.com/weee-open/skeeelled"}>
 					<Image id={"skeeelled-logo"} src={logoSkeeelledFooter} alt={"skeeelled"}/>{/*style={cssTemp.logoSkeeelled}*/}
 				</a>
 				is a tool realized by

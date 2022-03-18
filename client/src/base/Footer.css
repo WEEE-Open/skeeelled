@@ -3,18 +3,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     /*color: ;*/
-}
-
-#skeeelled-logo-1 {
-    pointer-events: visible;
 }
 
  #skeeelled-logo {
     /*  logoSkeeelledFooter.svg {height/width}  */
-     padding-right:10px;
-     margin:0px;
+     padding: 0px;
+     margin: 0px;
+     /*max-width: 60vw;*/
 }
 
  #weee-open-logo {

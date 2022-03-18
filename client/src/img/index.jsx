@@ -1,6 +1,6 @@
-import logoSkeeelled from "./logoSkeeelled.svg";
+import logoSkeeelled from "./skeeelledOfficial.svg";
 import logoSkeeell from "./logoSkeeell.svg";
 import logoWeeeOpen from "./logoWeeeOpen.svg";
-import logoSkeeelledFooter from "./logoSkeeelledFooter.svg"
+import logoSkeeelledFooter from "./skeeelledOfficialFooter.svg"
 
 export {logoSkeeelled, logoSkeeell, logoWeeeOpen, logoSkeeelledFooter};

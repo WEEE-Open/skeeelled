@@ -1,12 +1,14 @@
 #navbar {
     display: flex;
     flex-direction: row;
+    align-items: baseline;
 }
 
 #navbar-logo-skeeelled {
-    position:absolute;
-    left:0;
-    top:0;
+    padding: 0;
+    margin: 0;
+    height: 5vh;
+    width: 20vw;
 }
 
 .nav-link {
@@ -17,6 +19,6 @@
 }
 
 #user-dropdown {
-    padding-right: 8%;
+
 }
 
