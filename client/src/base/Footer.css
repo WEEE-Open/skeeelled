@@ -1,3 +1,4 @@
+/*<<<<<<< HEAD*/
 #footer {
     display: flex;
     flex-direction: column;
@@ -6,30 +7,46 @@
     /*color: ;*/
 }
 
- #skeeelled-logo {
-    /*  logoSkeeelledFooter.svg {height/width}  */
-     padding: 0px;
-     margin: 0px;
-     /*max-width: 60vw;*/
-}
-
  #weee-open-logo {
      height: 20px;
      vertical-align: -5pt;
      padding-left: 10pt;
 }
+
+ /*skeeelled*/
+#skeeelled {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+ /*skeeell*/
  #skeeell {
      display: flex;
      flex-direction: row;
-     align-items: center;
-     justify-content: center;
-     margin-top: -30px;
-     padding: 0;
+     align-items: flex-end;
  }
-
  #skeeell-logo {
-     height: 90px;
-     vertical-align: 0pt;
-     margin-left: -8pt;
-     padding-left: 3pt;
+     height: 50px;
+     margin-left: -10pt;
+
+
+/*=======*/
+/*.footer {*/
+/*    text-align:center*/
+/*}*/
+
+/*.logoSkeeelled {*/
+/*    height:35px*/
+/*}*/
+
+/*.logoWeeeOpen {*/
+/*    height:20px;*/
+/*    margin-left:10px*/
+/*}*/
+
+/*.logoSkeeell {*/
+/*    height:90px;*/
+/*    vertical-align:-26.5pt*/
+/*>>>>>>> origin/frontend-donato*/
 }

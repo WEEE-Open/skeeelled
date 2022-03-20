@@ -1,16 +1,26 @@
 import {Navbar, Nav, NavDropdown, Button, Image, Form, OverlayTrigger, Popover} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {iconLogout, iconAdmin} from "../icons.js";
-import {logoSkeeelled} from "../img/";
-import styles from "./navigationBar/navigationBar.module.scss";
-import "./NavigationBar.css"
+// // <<<<<<< HEAD
+// import {iconLogout, iconAdmin} from "../icons.js";
+// import {logoSkeeelled} from "../img/";
+// import styles from "./navigationBar/navigationBar.module.scss";
+// import "./NavigationBar.css"
+// =======
+import {iconUser, iconLogout, iconAdmin} from "../icons.js";
+import {logoSkeeelledLight} from "../img/";
+import "./NavigationBar.css";
+// >>>>>>> origin/frontend-donato
 
 function NavigationBar(props) {
 	return (
 		<Navbar id={"navbar"} bg={false ? "dark" : "light"} variant={false ? "dark" : "light"}>
 			
 			<Link to={"/"}>
-				<Navbar.Brand><Image id={"navbar-logo-skeeelled"} src={logoSkeeelled}/></Navbar.Brand>
+{/*<<<<<<< HEAD*/}
+				<Navbar.Brand><Image id={"navbar-logo-skeeelled"} src={logoSkeeelledLight}/></Navbar.Brand>
+{/*=======*/}
+				{/*<Navbar.Brand><Image src={logoSkeeelledLight} className="logo"/></Navbar.Brand>*/}
+{/*>>>>>>> origin/frontend-donato*/}
 			</Link>
 
 			{props.admin ? (
@@ -19,9 +29,10 @@ function NavigationBar(props) {
 				</Link>
 			) : null}
 
-			<Nav.Link id={"course-link"} className={"mr-auto"}>Courses</Nav.Link>
+{/*<<<<<<< HEAD*/}
+			<Nav.Link id={"course-link"}>Courses</Nav.Link>
 			
-			{/*props.user.isProfessor*/ true ? <Nav.Link id={"add-question-link"} className={"mr-auto"}>Add question</Nav.Link> : null}
+			{/*props.user.isProfessor*/ true ? <Nav.Link id={"add-question-link"} >Add question</Nav.Link> : null}
 
 			{props.logged ? (<>
 				<Link to={"/"} onClick={props.logout} className="mx-2">
@@ -31,7 +42,7 @@ function NavigationBar(props) {
 
 			<Nav id={"user-dropdown"}>
 				<Navbar.Collapse >
-					<NavDropdown align={{ lg: 'start' }}
+					<NavDropdown align={{ lg: 'end' }}
 								 title="user.img"
 								 id="dropdown-menu-align-responsive-2">
 						<NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
@@ -44,12 +55,33 @@ function NavigationBar(props) {
 						<NavDropdown.Divider />
 						<NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
 					</NavDropdown>
+{/*=======*/}
+{/*			/!*<Nav.Link href="" className="mx-2 mr-auto">Courses</Nav.Link>*!/*/}
+{/*			*/}
+{/*			/!*props.user.isProfessor*/ /*true && <Nav.Link href="" className="mx-2">Add question</Nav.Link>}*/}
+{/*			*/}
+{/*			/!*<Nav className="justify-content-end">*!/*/}
+{/*			/!*	<Navbar.Collapse className="mr-4">*!/*/}
+{/*			/!*			<NavDropdown title={iconUser}>*!/*/}
+{/*			/!*				<NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>*!/*/}
+{/*			/!*				<NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>*!/*/}
+{/*			/!*				<NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>*!/*/}
+{/*			/!*				<NavDropdown.Divider />*!/*/}
+{/*			/!*				<NavDropdown.Item href="#action/3.1">Dark</NavDropdown.Item>*!/*/}
+{/*			/!*				<NavDropdown.Item href="#action/3.2">Show hints</NavDropdown.Item>*!/*/}
+{/*			/!*				<NavDropdown.Item href="#action/3.3">Show discussion</NavDropdown.Item>*!/*/}
+{/*			/!*				{props.logged && <>*!/*/}
+{/*			/!*					<NavDropdown.Divider />*!/*/}
+{/*			/!*					<NavDropdown.Item onClick={props.logout}>Logout {iconLogout}</NavDropdown.Item>*!/*/}
+{/*			/!*				</>}*!/*/}
+{/*			/!*			</NavDropdown>*!/*/}
+{/*>>>>>>> origin/frontend-donato*/}
 				</Navbar.Collapse>
 			</Nav>
 
+
+
 			{/* <Form.Switch type="switch" id="custom-switch" label="Check this switch"/> */}
-
-
 			{/* <OverlayTrigger
 				trigger="click"
 				key="bottom"
@@ -64,8 +96,8 @@ function NavigationBar(props) {
 				}
 				>
 				<Button variant="secondary">Popover on bottom</Button>
-				</OverlayTrigger> */}
-
+				</OverlayTrigger>
+			*/}
 
 		</Navbar>
 	);
