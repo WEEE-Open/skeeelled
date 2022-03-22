@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { Table } from "../base";
+import {useState} from "react";
 import {Button, Container, Card, Row, Col, Pagination, FloatingLabel, Collapse, Form} from "react-bootstrap";
-const styles = {container:""/*{header:"padding-bottom:40px;",pagination:"justify-content:center;",collapse:"margin-top:10px;"}*/}; //toDel
+import {Table} from "../base";
+import "./Answers.css";
 
 const Answers = () => {
 	const [adviceIsHidden, setAdviceIsHidden] = useState(true);
 	const [answersAreHidden, setAnswersAreHidden] = useState(true);
 
 	return (
-		<Container className={styles.container}>
+		<Container className="container">
 			<Card body>
-				<Row lg={12} className={styles.header}>
+				<Row lg={12} className="header">
 					<Col>
 						<h5>
 							Dolor sit amet consectetur adipiscing elit pellentesque habitant ?
@@ -49,7 +49,7 @@ const Answers = () => {
 						</Button>
 					</Col>
 				</Row>
-				<Collapse className={styles.collapse} in={!answersAreHidden}>
+				<Collapse className="collapse" in={!answersAreHidden}>
 					<Row>
 						<Col lg='12'>
 							<Form.Group controlId='formGridState'>

@@ -1,7 +1,6 @@
-import {Navbar, Nav, NavDropdown, Button, Image, Form, OverlayTrigger, Popover} from "react-bootstrap";
+import {Navbar, Nav, NavDropdown, Image, Form, OverlayTrigger, Popover} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {iconUser, iconLogout, iconAdmin} from "../icons.js";
-import {logoSkeeelledLight} from "../img/";
 import "./NavigationBar.css";
 
 function NavigationBar(props) {
@@ -9,7 +8,7 @@ function NavigationBar(props) {
 		<Navbar bg={false ? 'dark' : 'light'} variant={false ? 'dark' : 'light'}>
 			
 			<Link to={"/"}>
-				<Navbar.Brand><Image src={logoSkeeelledLight} className="logo"/></Navbar.Brand>
+				<Navbar.Brand><Image src={"img/logoSkeeelledLight.svg"} className="logo"/></Navbar.Brand>
 			</Link>
 
 			{props.admin ? (
@@ -28,12 +27,12 @@ function NavigationBar(props) {
 							<NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
 							<NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
 							<NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
-							<NavDropdown.Divider />
-							<NavDropdown.Item href="#action/3.1">Dark</NavDropdown.Item>
-							<NavDropdown.Item href="#action/3.2">Show hints</NavDropdown.Item>
-							<NavDropdown.Item href="#action/3.3">Show discussion</NavDropdown.Item>
+							<NavDropdown.Divider/>
+							<Form.Switch label="Dark" type="switch" id="custom-switch"/>
+							<Form.Switch label="Show hints" type="switch" id="custom-switch"/>
+							<Form.Switch label="Show discussion" type="switch" id="custom-switch"/>
 							{props.logged && <>
-								<NavDropdown.Divider />
+								<NavDropdown.Divider/>
 								<NavDropdown.Item onClick={props.logout}>Logout {iconLogout}</NavDropdown.Item>
 							</>}
 						</NavDropdown>
@@ -42,7 +41,7 @@ function NavigationBar(props) {
 
 
 
-			{/* <Form.Switch type="switch" id="custom-switch" label="Check this switch"/> */}
+			{/* <Form.Switch label="Check this switch" type="switch" id="custom-switch"/> */}
 
 			{/* <OverlayTrigger
 				trigger="click"

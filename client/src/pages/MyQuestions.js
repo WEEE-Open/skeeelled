@@ -1,12 +1,12 @@
-import { Table } from "../base";
-import { Button, Container, Row, Col, Pagination, Card } from "react-bootstrap";
-import styles from './myQuestions/myQuestions.module.scss'
+import {Table} from "../base";
+import {Button, Container, Row, Col, Pagination, Card} from "react-bootstrap";
+import "./MyQuestions.css"
 
 const myQuestions = () => {
 	return (
-		<Container className={styles.container}>
+		<Container className="container">
 			<Card body>
-				<Row lg={12} className={styles.header}>
+				<Row lg={12} className="header">
 					<Col>
 						<h3>My Questions</h3>
 					</Col>
@@ -62,7 +62,7 @@ const myQuestions = () => {
 							]}
 						/>
 					</Col>
-					<Col className={styles.pagination} lg='12' sm='12' md='12'>
+					<Col className="pagination" lg='12' sm='12' md='12'>
 						<Pagination>
 							{[
 								<Pagination.Item key={1} active>

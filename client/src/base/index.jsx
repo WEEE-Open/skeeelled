@@ -3,4 +3,6 @@ import Footer from "./Footer";
 import Table from "./Table";
 import Recent from "./Recent";
 
-export {NavigationBar, Footer, Table, Recent};
+import DebugPaths from "./DebugPaths";
+
+export {NavigationBar, Footer, Table, Recent, DebugPaths};

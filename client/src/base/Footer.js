@@ -1,8 +1,5 @@
 import {Image} from "react-bootstrap";
-import {logoSkeeelledLight, logoSkeeellLight, logoWeeeOpen} from "../img";
-// import {logoSkeeelled} from "../../public/img/logoSkeeelled.svg";
-// import {logoSkeeell} from "../../public/img/logoSkeeell.svg";
-// import {logoWeeeOpen} from "../../public/img/logoWeeeOpen.svg";
+// import {logoSkeeelledLight, logoSkeeellLight, logoWeeeOpen} from "../img";
 import "./Footer.css";
 // const cssTemp = {
 //     footer:{"text-align":"center"},
@@ -16,17 +13,17 @@ function Footer() {
         <div className="mx-auto footer">
             <h5 className="mx-auto">
                 <a href={"https://github.com/weee-open/skeeelled"}>
-                    <Image className="logoSkeeelled" src={logoSkeeelledLight} alt={"skeeelled"}/>
+                    <Image className="logoSkeeelled" src={"img/logoSkeeelledLight.svg"} alt={"skeeelled"}/>
                 </a>
                 is a tool realized by 
                 <a href={"https://weeeopen.polito.it"}>
-                    <Image className="logoWeeeOpen" src={logoWeeeOpen} alt={"WEEE Open"}/>
+                    <Image className="logoWeeeOpen" src={"img/logoWeeeOpen.svg"} alt={"WEEE Open"}/>
                 </a>
             </h5>
             <h5 className="mx-auto">
                 See more about
                 <a href={"https://weeeopen.polito.it/skeeell"}>
-                    <Image className="logoSkeeell" src={logoSkeeellLight} alt={"skeeell"} />
+                    <Image className="logoSkeeell" src={"img/logoSkeeellLight.svg"} alt={"skeeell"} />
                 </a>
             </h5>
         </div>
