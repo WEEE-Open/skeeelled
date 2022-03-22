@@ -1,13 +1,11 @@
-import {Table} from "../base";
 import {Button, Container, Row, Col, Card, ListGroup, InputGroup, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import "./Profile.css";
-import ListEntry from "../base/ListEntry";
+import {ListEntry} from "../base/";
 
 function Profile() {
 	return(
 		<Container>
-			<ListEntry/>
 			<Card body>
 				<Row lg={12} className="header">
 					<Col>
@@ -18,6 +16,9 @@ function Profile() {
 						<Link to="/courses"><Button>View All</Button></Link>
 					</Col>
 				</Row>
+
+				<ListEntry title="prova ListEntry" rows={["aaa","bbb","ccc"]}/>
+
 				<Row>
 					<Col lg='12'>
 						<div className="innerHeader">
