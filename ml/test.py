@@ -63,7 +63,7 @@ incorrect_toxic = 0
 incorrect_non_toxic = 0
 
 for j in range(cardinality):
-    sample = str(new_features[j])
+    sample = str(new_features[j]).replace("[", "").replace("]", "").replace("'", ""). replace('"', '')
     label = infer(sample)
 
     print(j)
@@ -79,7 +79,7 @@ for j in range(cardinality):
     else:
         incorrect_non_toxic += 1
 
-    new_dataset.append({"text": str(features[j]), "label": 2, "class": label})
+    new_dataset.append({"text": str(features[j]), "label": new_labels[j], "class": label})
 
 
 print(correct/cardinality)
