@@ -15,10 +15,10 @@ class ProfanityDetector:
   def __init__(self, some_text):
     self.tokenized_comment = word_tokenize((str(some_text)).lower())
     self.stopwords = ["per", "è", "é", "e", "il", "che", "tua", "sua", "un", "uno", "una"]
-    self.vocabulary = ["merda", "cazzo"]
+    self.vocabulary = ["merda", "cazzo", "coglione", "stronzo", "puttana", "vaffanculo", "culo", "ricchione", "frocio"]
 
   # Check is each word in input text is present in profanity vocab
-  def is_present(self):
+  def purity_check(self):
     for word in self.tokenized_comment:
       # Exclude evry stopword from the actual check
       if word not in self.stopwords:
@@ -26,10 +26,10 @@ class ProfanityDetector:
         if word in self.vocabulary:
           # Only one occurrence is necessary to return the profanity status check
           print("\n   🤌 💩   Gotcha you naughty boy   💩🤌\n")
-          return True
+          return False
 
     # The input text does feature any known swear word/profanity
-    return False
+    return True
 
 
 #-------------------#
@@ -118,3 +118,15 @@ class ToxicityDetector:
     probabilities = torch.nn.functional.softmax(outputs.logits, dim=-1)
     # print(outputs, probabilities)
     return probabilities
+
+  def banning_policy(self, state_distribution):
+    # Extract toxicity states from labels' probability distribution
+    toxic, non_toxic = state_distribution[0,0], state_distribution[0,2]
+    uncertainty = state_distribution[0,1]
+    # Define and enforce the bannong policy
+    if toxic > 0.5:
+      return 0 # Negative
+    elif non_toxic > 0.5:
+      return 2 # Positive
+    else:
+      return 1 # Neutral

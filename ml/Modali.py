@@ -53,18 +53,15 @@ def infer(comment):
   from Detectors import ProfanityDetector
   detector = ProfanityDetector(comment)
   
-  if detector.is_present():
+  # Initialise score for swer-words reference
+  score = 0
+  # Check toxicity level in the comment
+  if detector.purity_check():
     # Check toxicity level in the comment
     from Detectors import ToxicityDetector
-    moderator = ToxicityDetector()
-    score = moderator.gauge(comment)
+    moderator = ToxicityDetector(0)
+    distribution = moderator.gauge(comment)
+    # Invoke policy to quarantine the comment or not
+    score = moderator.banning_policy(distribution)
 
-    # Banning policy ...
-    # ... to be defined !
-    #
-    # if score < 0.4 (out of 1.0) then ban it; 
-    #    if score > 0.4 && < 0.6 then quarantine it;
-    #       if score > 0.6 then publish it
-
-infer("Tutto il corso è una merda")
-infer("Che risposta inutile! Rivediti un po' di analisi prima di blaterare")
+  return score
