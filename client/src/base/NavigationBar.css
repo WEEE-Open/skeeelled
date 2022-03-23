@@ -2,9 +2,11 @@
 #navbar {
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
-    padding: 0;
+    align-items: center;
+    padding-top: 25px;
     margin: 0;
+    box-shadow: 10px 8px 15px #DADADA;
+    height: 10vh;
 }
 
 #navbar-logo-skeeelled {
@@ -26,7 +28,7 @@
 }
 
 #add-question-link {
-    padding-left: 50vw;
+    margin-left: 40vw;
 }
 
 /*=======*/
