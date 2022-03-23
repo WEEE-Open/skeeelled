@@ -14,7 +14,7 @@ function NavigationBar(props) {
 
 			{props.admin ? (
 				<Link to='/admin/list'>
-					<Navbar.Brand>{iconAdmin} Admin panel</Navbar.Brand>
+					<Navbar.Brand>{iconAdmin} Admin panel </Navbar.Brand>
 				</Link>
 			) : null}
 
@@ -24,7 +24,7 @@ function NavigationBar(props) {
 
 			{props.logged ? (<>
 				<Link to={"/"} onClick={props.logout} className="mx-2">
-					<Navbar.Brand>Logout {iconLogout}</Navbar.Brand>
+					<Navbar.Brand id={"logout-icon"}>Logout {iconLogout}</Navbar.Brand>
 				</Link>
 			</>) : null}
 

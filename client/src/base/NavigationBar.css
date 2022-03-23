@@ -7,13 +7,16 @@
     margin: 0;
     box-shadow: 10px 8px 15px #DADADA;
     height: 10vh;
+    position: relative;
+
 }
 
 #navbar-logo-skeeelled {
-    padding: 0;
-    margin: 0;
+    padding: auto;
+    margin: auto;
     height: 10vh;
-    width: 20vw;
+    width: 15vw;
+    vertical-align: baseline;
 }
 
 
@@ -24,10 +27,19 @@
     color: #000000;
 }
 
-#user-dropdown {
+#course-link{
+    font-size: 20px;
 }
 
 #add-question-link {
-    margin-left: 40vw;
+    margin-left: auto;
+    font-size: 20px;
 }
 
+#logout-icon {
+    margin: auto;
+}
+
+#user-dropdown {
+    padding-right: 5%;
+}
