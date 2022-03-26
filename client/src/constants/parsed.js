@@ -14,7 +14,7 @@ const parsedQuestions = {
 				},
 				questiontext: {
 					"@format": "html",
-					text: "<p><br></p><p><img src=\"@@PLUGINFILE@@/m1.png\" alt=\"\" width=\"300\" height=\"154\" role=\"presentation\" style=\"vertical-align:text-bottom; margin: 0 .5em;\" class=\"img-responsive\"></p><p>Una piramide &nbsp;\u00e8 alta 20 metri e ha una base quadrata, di lato pari a 40 metri. Su una delle sue facce \u00e8 stato scoperto un cunicolo che si dirige perpendicolarmente alla faccia stessa, verso il punto alla base della piramide posto sulla verticale condotta dal vertice. Quanto \u00e8 &nbsp;lungo, circa, &nbsp;tale cunicolo?<br></p>",
+					text: "<p><br></p><p><imgOld src=\"@@PLUGINFILE@@/m1.png\" alt=\"\" width=\"300\" height=\"154\" role=\"presentation\" style=\"vertical-align:text-bottom; margin: 0 .5em;\" class=\"imgOld-responsive\"></p><p>Una piramide &nbsp;\u00e8 alta 20 metri e ha una base quadrata, di lato pari a 40 metri. Su una delle sue facce \u00e8 stato scoperto un cunicolo che si dirige perpendicolarmente alla faccia stessa, verso il punto alla base della piramide posto sulla verticale condotta dal vertice. Quanto \u00e8 &nbsp;lungo, circa, &nbsp;tale cunicolo?<br></p>",
 					file: {
 						"@name": "m1.png",
 						"@path": "/",
@@ -305,7 +305,7 @@ const parsedQuestions = {
 				},
 				questiontext: {
 					"@format": "html",
-					text: "<p><img src=\"@@PLUGINFILE@@/m2.png\" alt=\"\" width=\"300\" height=\"157\" role=\"presentation\"><br></p><p>Gli angoli di un triangolo &nbsp;valgono&nbsp;\u03b1=25 gradi, \u03b2=35 gradi,&nbsp;\u03b3=120 gradi. L'altezza relativa al lato CB vale 1 (in opportune unit\u00e0 &nbsp;di misura). Quanto vale (in opportune unit\u00e0 di misura) l'area del triangolo?</p>",
+					text: "<p><imgOld src=\"@@PLUGINFILE@@/m2.png\" alt=\"\" width=\"300\" height=\"157\" role=\"presentation\"><br></p><p>Gli angoli di un triangolo &nbsp;valgono&nbsp;\u03b1=25 gradi, \u03b2=35 gradi,&nbsp;\u03b3=120 gradi. L'altezza relativa al lato CB vale 1 (in opportune unit\u00e0 &nbsp;di misura). Quanto vale (in opportune unit\u00e0 di misura) l'area del triangolo?</p>",
 					file: {
 						"@name": "m2.png",
 						"@path": "/",

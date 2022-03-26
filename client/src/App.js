@@ -1,19 +1,13 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Container, Row, Col, Alert, Button} from "react-bootstrap";
 import {useState, useEffect} from "react";
+import {Container, Row, Col, Alert, Button} from "react-bootstrap";
 import {Routes, Route, Navigate as Redirect, Link} from "react-router-dom";
  
-import {NavigationBar, Footer} from "./base/";
-import LoginForm from "./pages/LoginForm.js";
-import Profile from "./pages/Profile";
-import CoursesList from "./pages/CoursesList";
-import Questions from "./pages/Questions";
-import Answers from "./pages/Answers";
-// import MyQuestions from "./pages/myQuestions";
-// import Exam from "./pages/exam";
+import {NavigationBar, Footer, DebugPaths} from "./base/";
+import {Answers, CoursesList, Exam, LoginForm, MyQuestions, Profile, Questions} from "./pages/";
 // import parsedQuestions from "./constants/parsed";
-// import API from './API'
+// import API from './api/API'
 
 function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -71,6 +65,7 @@ function App() {
 					}
 				</Col>
 			</Row>
+			<DebugPaths/>
 			<Row className='my-4'>
 				<Col xs={10} md={8} className='mx-auto'>
 					{/*
@@ -91,6 +86,7 @@ function App() {
 						<Route path="/question/:questionid" element={<Answers/>}/>
 						<Route path="/discussion/:questionid" element={<p>Work in progress</p>}/>
 						<Route path="/simulation" element={<p>Work in progress</p>}/>
+						<Route path="/todel" element={<Exam/>}/>
 						{/* <MyQuestions /> */}
 					</Routes> : <Routes>
 						<Route path="/*" element={<Redirect to="/login"/>}/>

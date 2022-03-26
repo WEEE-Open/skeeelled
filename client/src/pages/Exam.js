@@ -1,11 +1,11 @@
 import parse from "html-react-parser";
-import { Button, Container, Row, Col, Card, Form } from "react-bootstrap";
-// styles
+import {Button, Container, Row, Col, Card, Form} from "react-bootstrap";
+import "./Exam.css";
 
 const MultipleChoice = ({ index, questiontext, answer, ...rest }) => {
 	console.log({ answer });
 	return (
-		<Form className={styles.multipleChoice}>
+		<Form className="multipleChoice">
 			<Form.Label>
 				{index})
 				{questiontext
@@ -35,14 +35,14 @@ const MultipleChoice = ({ index, questiontext, answer, ...rest }) => {
 
 const Exam = ({ question }) => {
 	return (
-		<Container className={styles.container}>
+		<Container className="container">
 			<Card body>
-				<Row lg={12} className={styles.header}>
+				<Row lg={12} className="header">
 					<Col>
 						<h3>Exam</h3>
 					</Col>
 				</Row>
-				{question.map(
+				{/* {question.map(
 					(item, index) =>
 						(item["@type"] = "multichoice" && (
 							<Row className='mt-10'>
@@ -51,7 +51,7 @@ const Exam = ({ question }) => {
 								</Col>
 							</Row>
 						))
-				)}
+				)} */}
 			</Card>
 		</Container>
 	);

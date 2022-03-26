@@ -1,7 +1,7 @@
-import {Navbar, Nav, NavDropdown, Button, Image, Form, OverlayTrigger, Popover} from "react-bootstrap";
+import {Navbar, Nav, NavDropdown, Image, Form, OverlayTrigger, Popover} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {logoSkeeelledLight} from "../img/index"
 import {iconUser, iconLogout, iconAdmin} from "../icons.js";
-import {logoSkeeelledLight} from "../img/";
 import "./NavigationBar.css";
 
 function NavigationBar(props) {
@@ -9,6 +9,7 @@ function NavigationBar(props) {
 		<Navbar id={"navbar"} bg={false ? "dark" : "light"} variant={false ? "dark" : "light"}>
 			
 			<Link to={"/"}>
+
 				<Navbar.Brand><Image id={"navbar-logo-skeeelled"} src={logoSkeeelledLight}/></Navbar.Brand>
 			</Link>
 
@@ -45,6 +46,28 @@ function NavigationBar(props) {
 					</NavDropdown>
 				</Navbar.Collapse>
 			</Nav>
+
+
+
+			{/* <Form.Switch label="Check this switch" type="switch" id="custom-switch"/> */}
+
+			{/* <OverlayTrigger
+				trigger="click"
+				key="bottom"
+				placement="bottom"
+				overlay={
+					<Popover id="popover-positioned-bottom">
+					<Popover.Header as="h3">Popover bottom</Popover.Header>
+					<Popover.Body>
+						<strong>Holy guacamole!</strong> Check this info.
+					</Popover.Body>
+					</Popover>
+				}
+				>
+				<Button variant="secondary">Popover on bottom</Button>
+				</OverlayTrigger>
+			*/}
+
 		</Navbar>
 	);
 }

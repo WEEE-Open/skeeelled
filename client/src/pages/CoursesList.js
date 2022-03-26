@@ -3,9 +3,7 @@ import {useEffect, useState/* , useEffect */} from "react";
 import {Link} from "react-router-dom";
 import {Recent} from "../base/"; //da index
 import {  } from "../base";
-import API from "../api/API";
-
-// import API from '../api/API';
+// import API from "../api/API";
 
 function PaginationRow() {
 	let active = 1;
