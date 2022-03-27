@@ -1,10 +1,10 @@
 from pydantic import BaseModel, validator
-from question import Question
 
 
 # models definitions
-class OwnerInfo(BaseModel):
+class CourseInfo(BaseModel):
     id: str
+    name: str
 
 
 class Course(BaseModel):
@@ -12,4 +12,4 @@ class Course(BaseModel):
     code: str
     years_active: list[int]
     professors: list[str]
-    questions: list[Question]
+    questions: list

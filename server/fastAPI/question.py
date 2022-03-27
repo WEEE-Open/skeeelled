@@ -1,15 +1,24 @@
 from pydantic import BaseModel, validator
+from typing import List, Any
+from datetime import datetime
 
 
 # models definitions
-class OwnerInfo(BaseModel):
+class QuestionInfo(BaseModel):
     id: str
 
 
 class Question(BaseModel):
-    owner: OwnerInfo
+    owner: Any
+    course: Any
     quiz_ref: dict
     content: dict
+    is_deleted: bool = False
+    hint: str = ""
+    tags: List[str] = []
+    timestamp: float = datetime.now().timestamp()
+    # mandatory limit parameter
+    answers: List = [str]
 
     # constraint check on question values
     @validator('content')
@@ -44,5 +53,6 @@ async def multiple_insertion(collection, questions):
         elif await d.get_question(collection):
             questions.remove(d)
     # multiple insertion in the database
+
     if questions:
         return await collection.insert_many([q.dict() for q in questions])

@@ -2,12 +2,12 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel, validator
 import base64
 import xmltodict
-from question import OwnerInfo
+from user import UserInfo
 
 
 # model definition
 class Quiz(BaseModel):
-    owner: OwnerInfo
+    owner: UserInfo
     is_simulation: bool = False
     file: dict = {}
 
@@ -39,7 +39,6 @@ class Quiz(BaseModel):
                 return None
         except:
             return None
-
 
     async def insert_quiz(self, dbcoll):
         # inserting a quiz if no duplicated quiz is found
