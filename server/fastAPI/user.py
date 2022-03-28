@@ -22,6 +22,6 @@ class User(BaseModel):
     my_Answers: List[str] = []
     last_session: float
     credibility_rate: float = -1.0
-    simulation_result: List = []
+    simulation_result: List[float] = []
 
 

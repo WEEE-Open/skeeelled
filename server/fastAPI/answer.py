@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Any
 from datetime import datetime
 
 
@@ -13,8 +13,8 @@ class AnswerInfo(BaseModel):
 
 
 class Answer(BaseModel):
-    author: any
-    info: any
+    author: Any
+    info: Any
     # replies may be just be a list to answwers to an answer
     parent: str
     replies: List[str]

@@ -3,8 +3,7 @@ from fastapi.responses import JSONResponse, HTMLResponse
 import motor.motor_asyncio
 from question import Question, multiple_insertion
 from quiz import Quiz
-from course import Course
-from random import choice
+
 
 app = FastAPI()
 
@@ -51,19 +50,3 @@ async def get_course(id: int):
     else:
         return JSONResponse(f"No courses found with id {id}")
 
-
-@app.get("/v1/add")
-async def generate_examples():
-    courses_list = []
-    for i in range(20):
-        new_question = Course(
-            name=choice(['Analisi', 'Chimica', 'Informatica']),
-            code=choice(['1R6', 'CD2', 'Y6T']),
-            professors=['lavy'],
-            years_active=choice([[2010], [2015, 2016], [2015, 2018, 2019]]),
-            questions=[])
-
-        courses_list.append(new_question.dict())
-
-    await db["courses"].insert_many(courses_list)
-    return HTMLResponse("Done")
