@@ -24,6 +24,11 @@ with open(os.path.join("test_set", "questions")) as jsonfile:
     qlist = json.load(jsonfile)
 for q in qlist:
     q.pop("_id")
+    matricola = f"d{randint(11111, 99999)}"
+    q['owner'] = UserInfo(
+                id=matricola,
+                username=f"nome.cognome.{matricola}",
+                profile_picture=profile_picture).dict()
 """end of freq used data"""
 
 
