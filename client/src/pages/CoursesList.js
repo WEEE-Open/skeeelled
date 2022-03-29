@@ -1,8 +1,7 @@
-import {Table, Pagination, Row, Col, Card} from "react-bootstrap";
-import {useEffect, useState/* , useEffect */} from "react";
-import {Link} from "react-router-dom";
-import {Recent} from "../base/"; //da index
-import {  } from "../base";
+import {Row, Col, Card, Pagination, Form} from "react-bootstrap";
+import {} from "react-router-dom";
+import {useState/* , useEffect */} from "react";
+import {Recent, List} from "../base/";
 // import API from "../api/API";
 
 function PaginationRow() {
@@ -25,32 +24,20 @@ function PaginationRow() {
 	);
 }
 
-function CoursesListRow({course}) {
-	return(
-		<tr>
-			<td width="1%">{course.code}</td>
-			<td>
-				<Link to={"/course/"+course.code}>{course.name}</Link>
-			</td>
-			<td>{course.prof}</td>
-			<td width="1%">({course.cfu})</td>
-		</tr>
-	);
-}
-
 function CoursesList() {
 
 	/** Mock courses **/
 	const fakeCourses = [
-		{code:"A0B1C2", name:"Analysis 1", cfu:10, prof:"Mario Rossi"},
-		{code:"D3E4F5", name:"Physics 1", cfu:10, prof:"Stefano Bianchi"},
-		{code:"G6H7I8", name:"Geometry", cfu:10, prof:"Giuseppe Verdi"},
+		{code:"A0B1C2", course:"Analysis 1", cfu:10, professor:"Mario Rossi"},
+		{code:"D3E4F5", course:"Physics 1", cfu:10, professor:"Stefano Bianchi"},
+		{code:"G6H7I8", course:"Geometry", cfu:10, professor:"Giuseppe Verdi"},
 	];
 
 	const [courses,setCourses] = useState(fakeCourses/*[]*/);
 	const [myCourses, setMyCourses] = useState([]);
 
 	/**Courses related**/
+	/*
 	// courses
 	useEffect(()=> {
 		API.getCourses()
@@ -64,6 +51,7 @@ function CoursesList() {
 			.then(myCourses => setMyCourses(myCourses))
 			.catch(err => console.log(err));
 	}, []);
+	*/
 
 
 
@@ -79,13 +67,16 @@ function CoursesList() {
 	return(<Row>
 		<Col>
 			<Card body>
-				<h1>Available courses</h1>
-				<Table striped className="my-5">
-					<tbody>
-						{courses.map((c,i) => <CoursesListRow course={c} key={i}/>)}
-					</tbody>
-				</Table>
-				{/* <Table striped columns={[]} rows={courses.map(row => [row.code,<Link to='/'>{row.name}</Link>,row.prof,"("+row.cfu+")"])}/> */}
+				<Row lg={12} className="py-0 header">
+					<Col>
+						<h3>Courses</h3>
+					</Col>
+					<Col>
+						<Form.Control onChange={() => {}} type="text" placeholder="Search courses" className="mx-auto"/>
+					</Col>
+				</Row>
+				<List scope="courses" title="All courses" rows={courses}/>
+				<List scope="courses" title="My courses" rows={courses}/>
 				<PaginationRow/>
 			</Card>
 		</Col>

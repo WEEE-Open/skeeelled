@@ -17,9 +17,9 @@ function NavigationBar(props) {
 				</Link>
 			) : null}
 
-			<Nav.Link href="" className="mx-2 mr-auto">Courses</Nav.Link>
+			<Link to="/courses" className="mx-2 mr-auto navLink">Courses</Link>
 			
-			{/*props.user.isProfessor*/ true && <Nav.Link href="" className="mx-2">Add question</Nav.Link>}
+			{/*props.user.isProfessor*/ true && <Link to="" className="navLink mx-2">Add question</Link>}
 
 			<Nav className="justify-content-end">
 				<Navbar.Collapse className="mr-4">

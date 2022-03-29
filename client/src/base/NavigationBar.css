@@ -1,9 +1,20 @@
 .logo {
     width:30%;
     margin-left:30px;
+    margin-right:-100px;
 }
 
 .navContainer {
     display: flex;
     justify-content: space-between;
+}
+
+.navLink {
+    color:#41413F;
+    text-decoration: none;
+}
+
+.navLink:hover {
+    color:#00983A;
+    text-decoration: none;
 }

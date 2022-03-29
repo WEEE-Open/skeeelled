@@ -1,14 +1,26 @@
-import {Table} from "../base";
+import {List} from "../base";
 import {Button, Container, Row, Col, Pagination, Card} from "react-bootstrap";
+import {useState/* , useEffect */} from "react";
 import "./Questions.css";
 
 const Questions = () => {
+
+	/** Mock courses **/
+	const fakeQuestions = [
+		{id:1, question:"A0B1C2?", author:"Analysis 1", createdat:"12/02/2021"},
+		{id:2, question:"D3E4F5?", author:"Physics 1", createdat:"12/02/2021"},
+		{id:3, question:"G6H7I8?", author:"Geometry", createdat:"12/02/2021"},
+	];
+
+	const [questions,setQuestions] = useState(fakeQuestions/*[]*/);
+
 	return (
 		<Container className="container">
 			<Card body>
 				<Row lg={12} className="header">
 					<Col>
-						<h3>
+						<List scope="questions" title="Data Management" rows={questions}/>
+						{/* <h3>
 							Data Management
 							<Button variant="secondary" className="mx-4">{"<- Back"}</Button>
 						</h3>
@@ -63,7 +75,7 @@ const Questions = () => {
 									<Button className='btn-sm'>View</Button>,
 								],
 							]}
-						/>
+						/> */}
 					</Col>
 					<Col className="pagination" lg='12' sm='12' md='12'>
 						<Pagination>
