@@ -1,4 +1,5 @@
 import asyncio
+import datetime
 import json
 import os.path
 import random
@@ -6,9 +7,11 @@ import random
 from fastAPI.course import Course, CourseInfo
 from fastAPI.user import User, UserInfo
 from fastAPI.simulation import ExamSimulation
+from fastAPI.question import QuestionInfo
 from random import choice, randint
 import motor.motor_asyncio
 from datetime import datetime as time
+from bson import ObjectId
 from json import load
 
 client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@0.0.0.0:27017/")
@@ -23,12 +26,13 @@ with open(os.path.join("test_set", "asd_but_in_b64")) as test_pic:
 with open(os.path.join("test_set", "questions")) as jsonfile:
     qlist = json.load(jsonfile)
 for q in qlist:
-    q.pop("_id")
     matricola = f"d{randint(11111, 99999)}"
+    q["_id"] = ObjectId(q["_id"]['$oid'])
     q['owner'] = UserInfo(
                 id=matricola,
                 username=f"nome.cognome.{matricola}",
                 profile_picture=profile_picture).dict()
+    q['timestamp'] = time.now().timestamp()
 """end of freq used data"""
 
 
@@ -48,6 +52,7 @@ async def generate_courses():
 
 
 async def generate_questions():
+
     await db["questions"].insert_many(qlist)
 
 
@@ -86,8 +91,16 @@ async def generate_users():
                        profile_picture=profile_picture,
                        is_active=choice([True, False]),
                        is_professor=True if matr[0] == 'd' else False)
+        for q_num in range(randint(0, len(qlist))):
+            newUser.my_Questions.append(QuestionInfo(
+                id=str(qlist[q_num]["_id"]),
+                timestamp=qlist[q_num]['timestamp'],
+                text=qlist[q_num]['content']["questiontext"]["text"]
+            ))
         user_list.append(newUser.dict())
     await db["users"].insert_many(user_list)
+
+
 
 if __name__ == "__main__":
     asyncio.run(generate_courses())
