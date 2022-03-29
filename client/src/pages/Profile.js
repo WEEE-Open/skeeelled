@@ -1,4 +1,4 @@
-import {Table} from "../base";
+import {Table, SearchBar} from "../base";
 import {Button, Container, Row, Col, Card, ListGroup, InputGroup, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import styles from "./profile/profile.module.scss";
@@ -17,7 +17,7 @@ function Profile() {
 						<h3>Hi, Name Surname!</h3>
 					</Col>
 					<Col>
-						<Form.Control onChange={() => {}} type="text" placeholder="Search courses" className="mx-auto"/>
+						<SearchBar />
 						<Link to="/courses"><Button>View All</Button></Link>
 					</Col>
 				</Row>
