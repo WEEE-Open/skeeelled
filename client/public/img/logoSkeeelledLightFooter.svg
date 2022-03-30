@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="text/ecmascript"
-<<<<<<< HEAD
-     width="375" zoomAndPan="magnify" contentStyleType="text/css" viewBox="0 0 375 187.499995" height="187.499995"
-=======
-     width="375" zoomAndPan="magnify" contentStyleType="text/css" viewBox="0 20 375 187.499995" height="187.499995"
->>>>>>> origin/frontend-donato
+     width="120" zoomAndPan="magnify" contentStyleType="text/css" viewBox="0 -40 375 190.499995" height="50.499995"
      preserveAspectRatio="xMidYMid meet" version="1.0">
     <defs>
         <filter x="0%" y="0%" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"
@@ -52,16 +48,16 @@
             <rect x="0" width="60" y="0" height="146"/>
         </clipPath>
     </defs>
-    <g fill="rgb(100%, 100%, 100%)" fill-opacity="1">
-        <use x="17.013554" y="136.504064" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#glyph-0-1"
+    <g fill="rgb(25.489807%, 25.489807%, 24.708557%)" fill-opacity="1">
+        <use x="17.014493" y="136.165979" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#glyph-0-1"
              xlink:type="simple" xlink:actuate="onLoad" xlink:show="embed"/>
     </g>
     <g fill="rgb(9.01947%, 61.569214%, 25.099182%)" fill-opacity="1">
         <use x="157.695314" y="135.664815" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#glyph-1-1"
              xlink:type="simple" xlink:actuate="onLoad" xlink:show="embed"/>
     </g>
-    <g fill="rgb(100%, 100%, 100%)" fill-opacity="1">
-        <use x="59.150211" y="136.504064" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#glyph-0-2"
+    <g fill="rgb(25.489807%, 25.489807%, 24.708557%)" fill-opacity="1">
+        <use x="59.150666" y="136.165979" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#glyph-0-2"
              xlink:type="simple" xlink:actuate="onLoad" xlink:show="embed"/>
     </g>
     <g mask="url(#mask-0)">
@@ -84,20 +80,20 @@
             </g>
         </g>
     </g>
-    <g fill="rgb(100%, 100%, 100%)" fill-opacity="1">
-        <use x="211.27908" y="136.503277" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#glyph-0-3"
+    <g fill="rgb(25.489807%, 25.489807%, 24.708557%)" fill-opacity="1">
+        <use x="211.278613" y="136.16519" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#glyph-0-3"
              xlink:type="simple" xlink:actuate="onLoad" xlink:show="embed"/>
     </g>
-    <g fill="rgb(100%, 100%, 100%)" fill-opacity="1">
-        <use x="226.575057" y="136.503277" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#glyph-0-3"
+    <g fill="rgb(25.489807%, 25.489807%, 24.708557%)" fill-opacity="1">
+        <use x="226.574574" y="136.16519" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#glyph-0-3"
              xlink:type="simple" xlink:actuate="onLoad" xlink:show="embed"/>
     </g>
-    <g fill="rgb(100%, 100%, 100%)" fill-opacity="1">
-        <use x="243.333559" y="136.503277" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#glyph-0-4"
+    <g fill="rgb(25.489807%, 25.489807%, 24.708557%)" fill-opacity="1">
+        <use x="243.333003" y="136.16519" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#glyph-0-4"
              xlink:type="simple" xlink:actuate="onLoad" xlink:show="embed"/>
     </g>
-    <g fill="rgb(100%, 100%, 100%)" fill-opacity="1">
-        <use x="297.941479" y="136.503277" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#glyph-0-5"
+    <g fill="rgb(25.489807%, 25.489807%, 24.708557%)" fill-opacity="1">
+        <use x="297.940282" y="136.16519" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#glyph-0-5"
              xlink:type="simple" xlink:actuate="onLoad" xlink:show="embed"/>
     </g>
 </svg>

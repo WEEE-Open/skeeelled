@@ -1,8 +1,7 @@
 import {Row, Col, Card} from "react-bootstrap";
-import {} from "react-router-dom";
-import {useState/* , useEffect */} from "react";
+import {useState} from "react";
 import "./Profile.css";
-import {ListGroup} from "../base/";
+import {ListGroup, SearchBar} from "../base/";
 
 function Profile() {
 	const fake = [
@@ -53,6 +52,7 @@ function Profile() {
 				<Col>
 					<h3>Hi, Name Surname!</h3>
 				</Col>
+				<SearchBar />
 			</Row>
 			<ListGroup lists={tests} cols={2} tiled/>
 		</Card>

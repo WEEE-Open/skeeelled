@@ -1,5 +1,6 @@
 import {Container, Row, Col} from "react-bootstrap";
 import {List} from "./"
+import "./ListGroup.css"
 
 function ListGroup(props) {
     return(

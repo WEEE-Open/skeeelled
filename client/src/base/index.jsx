@@ -7,5 +7,6 @@ import ListEntry from "./ListEntry";
 import ListGroup from "./ListGroup";
 
 import DebugPaths from "./DebugPaths";
+import SearchBar from "./SearchBar";
 
-export {NavigationBar, Footer, Table, Recent, List, ListEntry, ListGroup, DebugPaths};
+export {NavigationBar, Footer, Table, Recent, List, ListEntry, ListGroup, DebugPaths, SearchBar};

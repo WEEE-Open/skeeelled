@@ -1,29 +1,34 @@
 import {Navbar, Nav, NavDropdown, Image, Form, OverlayTrigger, Popover} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {logoSkeeelledLight} from "../img/index"
 import {iconUser, iconLogout, iconAdmin} from "../icons.js";
 import "./NavigationBar.css";
 
 function NavigationBar(props) {
 	return (
-		<Navbar bg={props.dark ? 'dark' : 'light'} variant={props.dark ? 'dark' : 'light'}>
+		<Navbar id={"navbar"} bg={props.dark ? 'dark' : 'light'} variant={props.dark ? 'dark' : 'light'}>
 			
 			<Link to={"/"}>
-				<Navbar.Brand><Image src={props.dark ? "img/logoSkeeelledDark.svg" : "img/logoSkeeelledLight.svg"} className="logo"/></Navbar.Brand>
+				<Navbar.Brand><Image id={"navbar-logo-skeeelled"} src={props.dark ? "img/logoSkeeelledDark.svg" : "img/logoSkeeelledLight.svg"} className="logo"/></Navbar.Brand>
 			</Link>
 
 			{props.admin ? (
 				<Link to='/admin/list'>
-					<Navbar.Brand>{iconAdmin} Admin panel</Navbar.Brand>
+					<Navbar.Brand>{iconAdmin} Admin panel </Navbar.Brand>
 				</Link>
 			) : null}
 
-			<Link to="/courses" className="mx-2 mr-auto navLink">Courses</Link>
+			<Nav.Link id={"course-link"} href="/courses">Courses</Nav.Link>
 			
-			{/*props.user.isProfessor*/ true && <Link to="" className="navLink mx-2">Add question</Link>}
+			{/*props.user.isProfessor*/ true ? <Nav.Link id={"add-question-link"} >Add question</Nav.Link> : null}
 
-			<Nav className="justify-content-end">
+			<Nav id={"user-dropdown"}>
 				<Navbar.Collapse className="mr-4">
-						<NavDropdown title={iconUser}>
+						<NavDropdown 
+              id="dropdown-menu-align-responsive-2"
+              title={iconUser}
+              align={{lg: 'end'}}
+            >
 							<NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
 							<NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
 							<NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>

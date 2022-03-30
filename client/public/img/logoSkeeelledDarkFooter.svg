@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="text/ecmascript"
-<<<<<<< HEAD
-     width="375" zoomAndPan="magnify" contentStyleType="text/css" viewBox="0 0 375 187.499995" height="187.499995"
-=======
-     width="375" zoomAndPan="magnify" contentStyleType="text/css" viewBox="0 20 375 187.499995" height="187.499995"
->>>>>>> origin/frontend-donato
+     width="120" zoomAndPan="magnify" contentStyleType="text/css" viewBox="0 -40 375 190.499995" height="50.499995"
      preserveAspectRatio="xMidYMid meet" version="1.0">
     <defs>
         <filter x="0%" y="0%" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple"

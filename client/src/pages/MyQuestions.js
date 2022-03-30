@@ -1,6 +1,8 @@
+
 import {Table} from "../base";
 import {Button, Container, Row, Col, Pagination, Card} from "react-bootstrap";
 import "./MyQuestions.css"
+
 
 const myQuestions = () => {
 	return (
