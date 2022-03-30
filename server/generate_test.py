@@ -97,9 +97,8 @@ async def generate_users():
                 timestamp=qlist[q_num]['timestamp'],
                 text=qlist[q_num]['content']["questiontext"]["text"]
             ))
-        user_list.append(newUser.dict())
+        user_list.append(newUser.dict(by_alias=True))
     await db["users"].insert_many(user_list)
-
 
 
 if __name__ == "__main__":

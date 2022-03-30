@@ -6,6 +6,8 @@ from datetime import datetime
 # models definitions
 class QuestionInfo(BaseModel):
     id: str
+    text: str
+    timestamp: float
 
 
 class Question(BaseModel):

@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List
 
 
@@ -9,7 +9,7 @@ class UserInfo(BaseModel):
 
 
 class User(BaseModel):
-    _id: str
+    id: str = Field(alias="_id")
     email: str
     username: str
     profile_picture: str
@@ -23,5 +23,8 @@ class User(BaseModel):
     last_session: float
     credibility_rate: float = -1.0
     simulation_result: List[float] = []
+
+
+
 
 
