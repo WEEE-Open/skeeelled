@@ -1,10 +1,29 @@
 .table {
-  margin-top:20px;
-  margin-bottom:20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .title {
   padding: 8px;
   background-color: #00983a;
   color: white;
+}
+
+.questionEntry {
+  padding-top: 2px;
+  padding-bottom: 8px;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  background-color: lightgrey;
+  border-radius: 5px;
+}
+
+.question {
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
+.tags {
+  font-size: .8em;
+  padding-right: 5px;
 }

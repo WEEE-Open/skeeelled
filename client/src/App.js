@@ -13,6 +13,7 @@ function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [admin, setAdmin] = useState(false);
 	const [message, setMessage] = useState("");
+	const [dark, setDark] = useState(false);
 
 	useEffect(() => {
 		if (!loggedIn) setMessage("");
@@ -53,7 +54,7 @@ function App() {
 		<Container fluid>
 			<Row>
 				<Col className='px-0'>
-					<NavigationBar logged={loggedIn} logout={doLogout} setlogged={setLoggedIn}/>
+					<NavigationBar dark={dark} setdark={setDark} logged={loggedIn} setlogged={setLoggedIn} logout={doLogout}/>
 				</Col>
 			</Row>
 			<Row className='my-4'>

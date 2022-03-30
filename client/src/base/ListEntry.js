@@ -1,4 +1,4 @@
-import {Button} from "react-bootstrap";
+import {Row, Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import "./ListEntry.css";
 
@@ -18,16 +18,20 @@ function ListEntryCourses(props) {
 }
 
 function ListEntryQuestions(props) {
-    return(<tr>
-        <td><Link to={"/question/"+props.row.id}><Button className="btn-sm">View</Button></Link></td>
-        <td>{props.row.question}</td>
-        <td>{props.row.author}</td>
-        <td>{props.row.createdat}</td>
-    </tr>);
+    return(<div className="questionEntry">
+        <Row><Col><Link to={"/question/"+props.row.id} className="question">{props.row.question}</Link></Col></Row>
+        <Row>
+            <Col>from {props.row.author}</Col>
+            <Col>Created at: {props.row.createdat}</Col>
+        </Row>
+        <Row><Col>{props.row.tags.map(t => <Link to="" className="tags">#{t}</Link>)}</Col></Row>
+        <Row><Col>{props.row.excerpt}</Col></Row>
+    </div>);
 }
 
 function ListEntryAnswers(props) {
     return(<tr>
+        <td>todo</td>
     </tr>);
 }
 

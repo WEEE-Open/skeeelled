@@ -5,10 +5,10 @@ import "./NavigationBar.css";
 
 function NavigationBar(props) {
 	return (
-		<Navbar bg={false ? 'dark' : 'light'} variant={false ? 'dark' : 'light'}>
+		<Navbar bg={props.dark ? 'dark' : 'light'} variant={props.dark ? 'dark' : 'light'}>
 			
 			<Link to={"/"}>
-				<Navbar.Brand><Image src={"img/logoSkeeelledLight.svg"} className="logo"/></Navbar.Brand>
+				<Navbar.Brand><Image src={props.dark ? "img/logoSkeeelledDark.svg" : "img/logoSkeeelledLight.svg"} className="logo"/></Navbar.Brand>
 			</Link>
 
 			{props.admin ? (
@@ -28,9 +28,9 @@ function NavigationBar(props) {
 							<NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
 							<NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
 							<NavDropdown.Divider/>
-							<Form.Switch label="Dark" type="switch" id="custom-switch"/>
-							<Form.Switch label="Show hints" type="switch" id="custom-switch"/>
-							<Form.Switch label="Show discussion" type="switch" id="custom-switch"/>
+							<Form.Switch label="Dark" id="custom-switch-dark" defaultChecked={props.dark} onChange={() => props.setdark(!props.dark)}/>
+							<Form.Switch label="Show hints" id="custom-switch-hint"/>
+							<Form.Switch label="Show discussion" id="custom-switch-disc"/>
 							{props.logged && <>
 								<NavDropdown.Divider/>
 								<NavDropdown.Item onClick={props.logout}>Logout {iconLogout}</NavDropdown.Item>
