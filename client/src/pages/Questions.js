@@ -1,12 +1,12 @@
-import { Table } from "../base";
-import { Button, Container, Row, Col, Pagination, Card } from "react-bootstrap";
-const styles = {container:{header:"padding-bottom: 40px;",pagination:"justify-content: center;"}}; //toDel
+import {Table} from "../base";
+import {Button, Container, Row, Col, Pagination, Card} from "react-bootstrap";
+import "./Questions.css";
 
 const Questions = () => {
 	return (
-		<Container className={styles.container}>
+		<Container className="container">
 			<Card body>
-				<Row lg={12} className={styles.header}>
+				<Row lg={12} className="header">
 					<Col>
 						<h3>
 							Data Management
@@ -65,7 +65,7 @@ const Questions = () => {
 							]}
 						/>
 					</Col>
-					<Col className={styles.pagination} lg='12' sm='12' md='12'>
+					<Col className="pagination" lg='12' sm='12' md='12'>
 						<Pagination>
 							{[
 								<Pagination.Item key={1} active>

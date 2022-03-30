@@ -1,0 +1,45 @@
+
+#navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 25px;
+    margin: 0;
+    box-shadow: 10px 8px 15px #DADADA;
+    height: 10vh;
+    position: relative;
+
+}
+
+#navbar-logo-skeeelled {
+    padding: auto;
+    margin: auto;
+    height: 10vh;
+    width: 15vw;
+    vertical-align: baseline;
+}
+
+
+.nav-link {
+    color: #3C3D3D;
+}
+.nav-link:hover {
+    color: #000000;
+}
+
+#course-link{
+    font-size: 20px;
+}
+
+#add-question-link {
+    margin-left: auto;
+    font-size: 20px;
+}
+
+#logout-icon {
+    margin: auto;
+}
+
+#user-dropdown {
+    padding-right: 5%;
+}

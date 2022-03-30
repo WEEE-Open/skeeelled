@@ -1,29 +1,30 @@
-import {Table} from "../base";
+
+import {Table, SearchBar} from "../base";
+
 import {Button, Container, Row, Col, Card, ListGroup, InputGroup, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import styles from "./profile/profile.module.scss";
-// const styles={container:{
-// 	header:"padding-bottom:40px;",
-// 	pagination:"justify-content:center;",
-// 	innerHeader:"background-color:black; color:white;"
-// }};
+import "./Profile.css";
+import {ListEntry} from "../base/";
 
 function Profile() {
 	return(
-		<Container className={styles.container}>
+		<Container>
 			<Card body>
-				<Row lg={12} className={styles.header}>
+				<Row lg={12} className="header">
 					<Col>
 						<h3>Hi, Name Surname!</h3>
 					</Col>
 					<Col>
-						<Form.Control onChange={() => {}} type="text" placeholder="Search courses" className="mx-auto"/>
+						<SearchBar />
 						<Link to="/courses"><Button>View All</Button></Link>
 					</Col>
 				</Row>
+
+				<ListEntry title="prova ListEntry" rows={["aaa","bbb","ccc"]}/>
+
 				<Row>
 					<Col lg='12'>
-						<div className={styles.innerHeader}>
+						<div className="innerHeader">
 							<h6>New questions in courses I'm enrolled in</h6>							
 						</div>
 					</Col>
@@ -39,7 +40,7 @@ function Profile() {
 				</Row>
 				<Row>
 					<Col lg='12'>
-						<div className={styles.innerHeader}>
+						<div className="innerHeader">
 							<h6>My Questions</h6>
 							<Button id='button-addon2'>View All</Button>
 						</div>
@@ -56,7 +57,7 @@ function Profile() {
 				</Row>
 				<Row>
 					<Col lg='12'>
-						<div className={styles.innerHeader}>
+						<div className="innerHeader">
 							<h6>My Answers</h6>
 							<Button id='button-addon2'>View All</Button>
 						</div>
@@ -73,7 +74,7 @@ function Profile() {
 				</Row>
 				<Row>
 					<Col lg='12'>
-						<div className={styles.innerHeader}>
+						<div className="innerHeader">
 							<h6>My Courses</h6>
 							<Button id='button-addon2'>View All</Button>
 						</div>
@@ -89,7 +90,7 @@ function Profile() {
 				</Row>
 				<Row>
 					<Col lg='12'>
-						<div className={styles.innerHeader}>
+						<div className="innerHeader">
 							<h6>My Results</h6>
 							<Button id='button-addon2'>View All</Button>
 						</div>

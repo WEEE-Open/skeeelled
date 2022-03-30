@@ -1,36 +1,39 @@
-import {Navbar, Nav, NavDropdown, Button, Image, Form, OverlayTrigger, Popover} from "react-bootstrap";
+import {Navbar, Nav, NavDropdown, Image, Form, OverlayTrigger, Popover} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {iconLogout, iconAdmin} from "../icons.js";
-import {logoSkeeelled} from "../img/";
-import styles from "./navigationBar/navigationBar.module.scss";
+import {logoSkeeelledLight} from "../img/index"
+import {iconUser, iconLogout, iconAdmin} from "../icons.js";
+import "./NavigationBar.css";
 
 function NavigationBar(props) {
 	return (
-		<Navbar bg={false ? "dark" : "light"} variant={false ? "dark" : "light"}>
+		<Navbar id={"navbar"} bg={false ? "dark" : "light"} variant={false ? "dark" : "light"}>
 			
 			<Link to={"/"}>
-				<Navbar.Brand><Image src={logoSkeeelled}/></Navbar.Brand>
+
+				<Navbar.Brand><Image id={"navbar-logo-skeeelled"} src={logoSkeeelledLight}/></Navbar.Brand>
 			</Link>
 
 			{props.admin ? (
 				<Link to='/admin/list'>
-					<Navbar.Brand>{iconAdmin} Admin panel</Navbar.Brand>
+					<Navbar.Brand>{iconAdmin} Admin panel </Navbar.Brand>
 				</Link>
 			) : null}
 
-			<Button className="mx-2 mr-auto">Courses</Button>
+			<Nav.Link id={"course-link"}>Courses</Nav.Link>
 			
-			{/*props.user.isProfessor*/ true ? <Button className="mx-2">Add question</Button> : null}
+			{/*props.user.isProfessor*/ true ? <Nav.Link id={"add-question-link"} >Add question</Nav.Link> : null}
 
 			{props.logged ? (<>
 				<Link to={"/"} onClick={props.logout} className="mx-2">
-					<Navbar.Brand>Logout {iconLogout}</Navbar.Brand>
+					<Navbar.Brand id={"logout-icon"}>Logout {iconLogout}</Navbar.Brand>
 				</Link>
 			</>) : null}
 
-			<Nav>
-				<Navbar.Collapse className="mr-4">
-					<NavDropdown title="userimg">
+			<Nav id={"user-dropdown"}>
+				<Navbar.Collapse >
+					<NavDropdown align={{ lg: 'end' }}
+								 title="user.img"
+								 id="dropdown-menu-align-responsive-2">
 						<NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
 						<NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
 						<NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
@@ -44,8 +47,9 @@ function NavigationBar(props) {
 				</Navbar.Collapse>
 			</Nav>
 
-			{/* <Form.Switch type="switch" id="custom-switch" label="Check this switch"/> */}
 
+
+			{/* <Form.Switch label="Check this switch" type="switch" id="custom-switch"/> */}
 
 			{/* <OverlayTrigger
 				trigger="click"
@@ -61,8 +65,8 @@ function NavigationBar(props) {
 				}
 				>
 				<Button variant="secondary">Popover on bottom</Button>
-				</OverlayTrigger> */}
-
+				</OverlayTrigger>
+			*/}
 
 		</Navbar>
 	);

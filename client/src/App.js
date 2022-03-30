@@ -1,19 +1,13 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Container, Row, Col, Alert, Button} from "react-bootstrap";
 import {useState, useEffect} from "react";
+import {Container, Row, Col, Alert, Button} from "react-bootstrap";
 import {Routes, Route, Navigate as Redirect, Link} from "react-router-dom";
  
-import {NavigationBar, Footer} from "./base/";
-import LoginForm from "./pages/LoginForm.js";
-import Profile from "./pages/Profile";
-import CoursesList from "./pages/CoursesList";
-import Questions from "./pages/Questions";
-import Answers from "./pages/Answers";
-// import MyQuestions from "./pages/myQuestions";
-// import Exam from "./pages/exam";
+import {NavigationBar, Footer, DebugPaths} from "./base/";
+import {Answers, CoursesList, Exam, LoginForm, MyQuestions, Profile, Questions} from "./pages/";
 // import parsedQuestions from "./constants/parsed";
-// import API from './API'
+// import API from './api/API'
 
 function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -64,23 +58,26 @@ function App() {
 			</Row>
 			<Row className='my-4'>
 				<Col xs={6} className='mx-auto'>
-					{message ? (
+					{message &&
 						<Alert variant={message.type} onClose={() => setMessage("")} dismissible={!message.noclose}>
 							{message.msg}
 						</Alert>
-					) : null}
+					}
 				</Col>
 			</Row>
+			<DebugPaths/>
 			<Row className='my-4'>
 				<Col xs={10} md={8} className='mx-auto'>
-					{/* <Exam question={parsedQuestions.quiz.question} /> */}
+					{/*
+					<Exam question={parsedQuestions.quiz.question} />
 					<Alert>
 						{"Test buttons: "}
 						<Link to="/login"><Button>login</Button></Link>
-						{/* <Link to="/courses"><Button>courses</Button></Link> */}
-						{/* <Link to="/myquestions"><Button>myquest</Button></Link> */}
+						<Link to="/courses"><Button>courses</Button></Link>
+						<Link to="/myquestions"><Button>myquest</Button></Link>
 						<Link to="/simulation"><Button>simulation</Button></Link>
 					</Alert>
+					*/}
 					{loggedIn ? <Routes>
 						<Route path="/*" element={<Redirect to="/profile"/>}/>
 						<Route path="/profile" element={<Profile/>}/>
@@ -89,6 +86,7 @@ function App() {
 						<Route path="/question/:questionid" element={<Answers/>}/>
 						<Route path="/discussion/:questionid" element={<p>Work in progress</p>}/>
 						<Route path="/simulation" element={<p>Work in progress</p>}/>
+						<Route path="/todel" element={<Exam/>}/>
 						{/* <MyQuestions /> */}
 					</Routes> : <Routes>
 						<Route path="/*" element={<Redirect to="/login"/>}/>

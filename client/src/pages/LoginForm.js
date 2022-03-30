@@ -1,5 +1,5 @@
-import { Modal, Form, Button, Alert } from "react-bootstrap";
-import { useState } from "react";
+import {useState} from "react";
+import {Modal, Form, Button, Alert} from "react-bootstrap";
 
 function LoginForm(props) {
 	const [username, setUsername] = useState("");
