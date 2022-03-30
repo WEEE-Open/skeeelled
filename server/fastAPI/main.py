@@ -50,3 +50,19 @@ async def get_course(id: int):
     else:
         return JSONResponse(f"No courses found with id {id}")
 
+
+@app.get("/v1/myQuestions")
+async def get_user_myQuestion(user_id: str, npages: int, itemsPerPage: int = -1):
+    user_questions = await db["users"].find_one({"_id": user_id}, {"my_Questions": 1})
+    if itemsPerPage != -1:
+        q_list = user_questions["my_Questions"]
+        pages = {}
+        for i in range(0, npages):
+            if len(q_list) < i*itemsPerPage:
+                pages[f"page_#{i}"] = []
+            elif len(q_list) < itemsPerPage+(i*itemsPerPage):
+                pages[f"page_#{i}"] = q_list[i * itemsPerPage:len(q_list)-1]
+            else:
+                pages[f"page_#{i}"] = q_list[i * itemsPerPage:itemsPerPage + (i * itemsPerPage)]
+        user_questions["my_Questions"] = pages
+    return JSONResponse(user_questions)
