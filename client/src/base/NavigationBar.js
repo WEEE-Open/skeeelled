@@ -6,11 +6,10 @@ import "./NavigationBar.css";
 
 function NavigationBar(props) {
 	return (
-		<Navbar id={"navbar"} bg={false ? "dark" : "light"} variant={false ? "dark" : "light"}>
+		<Navbar id={"navbar"} bg={props.dark ? 'dark' : 'light'} variant={props.dark ? 'dark' : 'light'}>
 			
 			<Link to={"/"}>
-
-				<Navbar.Brand><Image id={"navbar-logo-skeeelled"} src={logoSkeeelledLight}/></Navbar.Brand>
+				<Navbar.Brand><Image id={"navbar-logo-skeeelled"} src={props.dark ? "img/logoSkeeelledDark.svg" : "img/logoSkeeelledLight.svg"} className="logo"/></Navbar.Brand>
 			</Link>
 
 			{props.admin ? (
@@ -19,31 +18,29 @@ function NavigationBar(props) {
 				</Link>
 			) : null}
 
-			<Nav.Link id={"course-link"}>Courses</Nav.Link>
+			<Nav.Link id={"course-link"} href="/courses">Courses</Nav.Link>
 			
 			{/*props.user.isProfessor*/ true ? <Nav.Link id={"add-question-link"} >Add question</Nav.Link> : null}
 
-			{props.logged ? (<>
-				<Link to={"/"} onClick={props.logout} className="mx-2">
-					<Navbar.Brand id={"logout-icon"}>Logout {iconLogout}</Navbar.Brand>
-				</Link>
-			</>) : null}
-
 			<Nav id={"user-dropdown"}>
-				<Navbar.Collapse >
-					<NavDropdown align={{ lg: 'end' }}
-								 title="user.img"
-								 id="dropdown-menu-align-responsive-2">
-						<NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
-						<NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
-						<NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
-						<NavDropdown.Divider />
-						<NavDropdown.Item href="#action/3.1">Dark</NavDropdown.Item>
-						<NavDropdown.Item href="#action/3.2">Show hints</NavDropdown.Item>
-						<NavDropdown.Item href="#action/3.3">Show discussion</NavDropdown.Item>
-						<NavDropdown.Divider />
-						<NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
-					</NavDropdown>
+				<Navbar.Collapse className="mr-4">
+						<NavDropdown 
+              id="dropdown-menu-align-responsive-2"
+              title={iconUser}
+              align={{lg: 'end'}}
+            >
+							<NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+							<NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
+							<NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
+							<NavDropdown.Divider/>
+							<Form.Switch label="Dark" id="custom-switch-dark" defaultChecked={props.dark} onChange={() => props.setdark(!props.dark)}/>
+							<Form.Switch label="Show hints" id="custom-switch-hint"/>
+							<Form.Switch label="Show discussion" id="custom-switch-disc"/>
+							{props.logged && <>
+								<NavDropdown.Divider/>
+								<NavDropdown.Item onClick={props.logout}>Logout {iconLogout}</NavDropdown.Item>
+							</>}
+						</NavDropdown>
 				</Navbar.Collapse>
 			</Nav>
 

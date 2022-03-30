@@ -1,20 +1,21 @@
-import {Table} from "react-bootstrap";
+import {Alert, Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 function DebugPaths() {
+    const style={"padding":"5px"}
     return(
-        <Table striped>
-            <tbody>
-                <th>Dev only</th>
-                <tr><Link to="/profile">Profile</Link></tr>
-                <tr><Link to="/courses">Courses</Link></tr>
-                <tr><Link to="/course/ABCDEF">Course</Link></tr>
-                <tr><Link to="/question/QUESTID">Question</Link></tr>
-                <tr><Link to="/discussion/QUESTID">Discussion</Link></tr>
-                <tr><Link to="/simulation">Simulation</Link></tr>
-                <tr><Link to="/todel">Exam</Link></tr>
-            </tbody>
-        </Table>
+        <Alert dismissible>
+            <b>Dev only: </b>
+            <Link style={style} to="/login">Login</Link>
+            <Link style={style} to="/profile">Profile</Link>
+            <Link style={style} to="/courses">Courses</Link>
+            <Link style={style} to="/course/ABCDEF">Course</Link>
+            <Link style={style} to="/question/QUESTID">Question</Link>
+            <Link style={style} to="/myquestions">MyQuestions</Link>
+            <Link style={style} to="/discussion/QUESTID">Discussion</Link>
+            <Link style={style} to="/simulation">Simulation</Link>
+            <Link style={style} to="/todel">Exam</Link>
+        </Alert>
     );
 }
 

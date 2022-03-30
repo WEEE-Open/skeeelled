@@ -13,6 +13,7 @@ function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [admin, setAdmin] = useState(false);
 	const [message, setMessage] = useState("");
+	const [dark, setDark] = useState(false);
 
 	useEffect(() => {
 		if (!loggedIn) setMessage("");
@@ -53,7 +54,7 @@ function App() {
 		<Container fluid>
 			<Row>
 				<Col className='px-0'>
-					<NavigationBar logged={loggedIn} logout={doLogout} setlogged={setLoggedIn}/>
+					<NavigationBar dark={dark} setdark={setDark} logged={loggedIn} setlogged={setLoggedIn} logout={doLogout}/>
 				</Col>
 			</Row>
 			<Row className='my-4'>
@@ -70,13 +71,6 @@ function App() {
 				<Col xs={10} md={8} className='mx-auto'>
 					{/*
 					<Exam question={parsedQuestions.quiz.question} />
-					<Alert>
-						{"Test buttons: "}
-						<Link to="/login"><Button>login</Button></Link>
-						<Link to="/courses"><Button>courses</Button></Link>
-						<Link to="/myquestions"><Button>myquest</Button></Link>
-						<Link to="/simulation"><Button>simulation</Button></Link>
-					</Alert>
 					*/}
 					{loggedIn ? <Routes>
 						<Route path="/*" element={<Redirect to="/profile"/>}/>
