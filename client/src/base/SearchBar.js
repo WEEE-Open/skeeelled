@@ -15,7 +15,7 @@ const SearchInput = forwardRef(({ onClick, onChange, value }, ref) => {
 			placeholder="Search courses"
 			className="mx-auto"
 			value={value}
-			/>
+		/>
 	);
 });
 
@@ -34,15 +34,15 @@ function SearchBar({ apiCall }) {
 	const [suggestions, setSuggestions] = useState(fakeSuggestions);
 	const [inputText, setInputText] = useState("");
 
-		// Api call to get suggestions
-		const getSuggestions = () => {
-			console.log("get suggestions");
-		}
+	// Api call to get suggestions
+	const getSuggestions = () => {
+		console.log("get suggestions");
+	};
 
-		const onChangeInput = (event) => {
-			setInputText(event.target.value);
-			getSuggestions();
-		}
+	const onChangeInput = (event) => {
+		setInputText(event.target.value);
+		getSuggestions();
+	};
 
 	return (
 		<Dropdown>
@@ -50,7 +50,7 @@ function SearchBar({ apiCall }) {
 			{suggestions.length > 0 && (
 				<Dropdown.Menu>
 					{suggestions.map((s, i) => (
-						<Dropdown.Item key={i} onFocus={() => setInputText(s)}>{s}</Dropdown.Item>
+						<Dropdown.Item key={i} onFocus={() => setInputText(s)} onClick={() => setInputText(s)}>{s}</Dropdown.Item>
 					))}
 				</Dropdown.Menu>
 			)}
