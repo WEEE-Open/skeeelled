@@ -1,9 +1,10 @@
+import bson.errors
 from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse, HTMLResponse
 import motor.motor_asyncio
 from question import Question, multiple_insertion
 from quiz import Quiz
-
+from bson import ObjectId
 
 app = FastAPI()
 
@@ -42,13 +43,52 @@ async def create_quiz(q: Quiz):
                                     "Please check again your request body")
 
 
-@app.get("/v1/getCourse")
-async def get_course(id: int):
-    a = await db["courses"].find_one({"_id": id})
+@app.get("/v1/course")
+async def get_course(id: str):
+    if not check_valid_id(id):
+        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id is not a valid format")
+    a = await db["courses"].find_one(ObjectId(id))
     if a:
-        return JSONResponse(a)
+        # ObjectId is not JSON serializable, so i convert the value in string
+        a['_id'] = str(a['_id'])
+        return JSONResponse(status_code=status.HTTP_200_OK, content=a)
     else:
-        return JSONResponse(f"No courses found with id {id}")
+        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
+                            content=f"No course found with id {id}")
+
+
+@app.get("/v1/question")
+async def get_question(id: str):
+    if not check_valid_id(id):
+        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id is not a valid format")
+    a = await db["questions"].find_one(ObjectId(id), {'quiz_ref': 0})
+    if a:
+        # ObjectId is not JSON serializable, so i convert the value in string
+        a['_id'] = str(a['_id'])
+        return JSONResponse(status_code=status.HTTP_200_OK, content=a)
+    else:
+        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
+                            content=f"No question found with id {id}")
+
+
+@app.get("/v1/user")
+async def get_user(id: str):
+    if id[0] not in ('s', 'd'):
+        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id must start with d or s")
+    a = await db["users"].find_one(id)
+    if a:
+        return JSONResponse(status_code=status.HTTP_200_OK, content=a)
+    else:
+        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
+                            content=f"No user found with id {id}")
+
+
+def check_valid_id(id: str):
+    try:
+        ObjectId(id)
+    except (bson.errors.InvalidId, TypeError):
+        return False
+    return True
 
 
 @app.get("/v1/myQuestions")
@@ -58,7 +98,7 @@ async def get_user_myQuestion(user_id: str, npages: int, itemsPerPage: int = -1)
         q_list = user_questions["my_Questions"]
         pages = {}
         for i in range(0, npages):
-            if len(q_list) < i*itemsPerPage:
+            if len(q_list) < i * itemsPerPage:
                 pages[f"page_#{i}"] = []
             elif len(q_list) < itemsPerPage+(i*itemsPerPage):
                 pages[f"page_#{i}"] = q_list[i * itemsPerPage:len(q_list)-1]
