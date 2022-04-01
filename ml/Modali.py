@@ -37,7 +37,7 @@ def train():
     from Detectors import ToxicityDetector
     print(" ** Training the transformer model on ITA-Dataset.json **\n")
 
-    moderator = ToxicityDetector(0)
+    moderator = ToxicityDetector(1)
     moderator.train()
 
 
@@ -59,7 +59,7 @@ def infer(comment):
   if detector.purity_check():
     # Check toxicity level in the comment
     from Detectors import ToxicityDetector
-    moderator = ToxicityDetector(0)
+    moderator = ToxicityDetector(1)
     distribution = moderator.gauge(comment)
     # Invoke policy to quarantine the comment or not
     score = moderator.banning_policy(distribution)

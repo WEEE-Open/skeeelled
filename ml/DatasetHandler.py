@@ -2,7 +2,7 @@ import random
 import torch
 import json
 import os
-from Scraper import Reddit, Facebook
+from Scrapers import Reddit, Facebook
 
 
 #-----------------#

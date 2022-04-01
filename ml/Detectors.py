@@ -15,7 +15,7 @@ class ProfanityDetector:
   def __init__(self, some_text):
     self.tokenized_comment = word_tokenize((str(some_text)).lower())
     self.stopwords = ["per", "è", "é", "e", "il", "che", "tua", "sua", "un", "uno", "una"]
-    self.vocabulary = ["merda", "cazzo", "coglione", "stronzo", "puttana", "vaffanculo", "culo", "ricchione", "frocio"]
+    self.vocabulary = ["merda", "cazzo", "incazzato", "stocazzo", "coglione", "minchia", "minchiata", "minchiate", "stronzo", "stronzata", "stronzate", "puttana", "puttanata", "puttanate", "vaffanculo", "culo", "ricchione", "frocio", "incel"]
 
   # Check is each word in input text is present in profanity vocab
   def purity_check(self):
@@ -34,17 +34,21 @@ class ProfanityDetector:
 
 #-------------------#
 # TOXICITY DETECTOR #
-#    (Transformer)  #
+#   (Transformer)   #
 #-------------------#
 class ToxicityDetector:
 
   def __init__(self, idx):
     # List of HF hosted transformers (https://huggingface.co/models)
-    models = ["neuraly/bert-base-italian-cased-sentiment", #0
-              "Hate-speech-CNERG/dehatebert-mono-italian", #1
-              "MilaNLProc/feel-it-italian-sentiment",      #2
-              "dbmdz/bert-base-italian-xxl-uncased",       #3
-              "unideeplearning/polibert_sa"]               #4
+    models = ["m-polignano-uniba/bert_uncased_L-12_H-768_A-12_italian_alb3rt0", #0
+              "neuraly/bert-base-italian-cased-sentiment",                      #1
+              "Hate-speech-CNERG/dehatebert-mono-italian",                      #2
+              "MilaNLProc/feel-it-italian-sentiment",                           #3
+              "dbmdz/bert-base-italian-xxl-uncased",                            #4
+              "unideeplearning/polibert_sa"]                                    #5
+
+    # Assign inference hardware
+    self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
     # Initialise WandB project (requires .log files and credentials)
     wandb.init(mode="disabled")
@@ -55,6 +59,7 @@ class ToxicityDetector:
     from transformers import AutoTokenizer, AutoModelForSequenceClassification
     self.tokenizer = AutoTokenizer.from_pretrained(models[idx])
     self.model = AutoModelForSequenceClassification.from_pretrained(models[idx])
+    self.model = self.model.to(self.device)
 
     # Instantiate transformer's arguments (all tunable hyperp. of the model)
     from transformers import TrainingArguments
@@ -109,14 +114,13 @@ class ToxicityDetector:
     self.model.save_pretrained('./model')
     self.tokenizer.save_pretrained('./model')
 
-  def gauge(self, some_text):
+  def gauge(self, comment):
     # Tokenise the input text
-    tokens = self.tokenizer([some_text], padding=True, truncation=True, is_split_into_words=True, return_tensors="pt")
+    tokens = self.tokenizer([comment], padding=True, truncation=True, is_split_into_words=True, return_tensors="pt").to(self.device)
     # Obtain the logits of the input text
     outputs = self.model(**tokens)
-    # Compute the (normalised) porbability  of the input text
+    # Compute the labels' probability distribution
     probabilities = torch.nn.functional.softmax(outputs.logits, dim=-1)
-    # print(outputs, probabilities)
     return probabilities
 
   def banning_policy(self, state_distribution):
@@ -124,9 +128,9 @@ class ToxicityDetector:
     toxic, non_toxic = state_distribution[0,0], state_distribution[0,2]
     uncertainty = state_distribution[0,1]
     # Define and enforce the bannong policy
-    if toxic > 0.5:
+    if toxic > 0.5 and uncertainty > 0.0:
       return 0 # Negative
-    elif non_toxic > 0.5:
+    elif non_toxic > 0.5 and uncertainty > 0.0:
       return 2 # Positive
     else:
       return 1 # Neutral

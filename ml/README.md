@@ -1,12 +1,23 @@
-# Information of the dataset
+# Information of the dataset and the models
 
 The _ITA-Dataset.json_ is used for fine-tuning the transformer model. It consists of almost 70.000 entries divided in
 - 14.457 comments scraped from **Facebook's groups** 
 - 55.421 comments scraped from **Reddits' threads**
 
-Performance of [Neuraly](https://huggingface.co/neuraly/bert-base-italian-cased-sentiment) against the n=1497 labeled samples
+Performance of [Neuraly](https://huggingface.co/neuraly/bert-base-italian-cased-sentiment) against n=1497 labeled samples of the dataset
 
-- correct                      = 8.478%
-- incorrect (originally toxic) = 88.16% [false positives, n=549]
-- incorrect (originally non-t) = 93.46% [false negatives, n=949]
-- real time elapsed = 20 hours
+- correct                      = 28.17%
+- incorrect (originally toxic) = 63.57% [false positives, n=549]
+- incorrect (originally non-t) = 76.60% [false negatives, n=949]
+
+Performance of [Dehatebert](https://huggingface.co/Hate-speech-CNERG/dehatebert-mono-italian) against n=1497 labeled samples of the dataset
+
+- correct                      = 66.95%
+- incorrect (originally toxic) = 30.60% [false positives, n=549]
+- incorrect (originally non-t) = 34.45% [false negatives, n=949]
+
+Performance of [Feel-IT](https://huggingface.co/MilaNLProc/feel-it-italian-sentiment) against n=1497 labeled samples of the dataset
+
+- correct                      = 47.79%
+- incorrect (originally toxic) = 07.10% [false positives, n=549]
+- incorrect (originally non-t) = 78.29% [false negatives, n=949]
