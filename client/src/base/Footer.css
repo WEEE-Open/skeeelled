@@ -1,23 +1,23 @@
-.footer {
+#footer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.logoSkeeelled {
+#logoSkeeelled {
     height:40px;
     margin-right:5px;
     margin-bottom:6px;
 }
 
-.logoWeeeOpen {
+#logoWeeeOpen {
     height:20px;
     margin-left:8px;
     margin-top:4px;
 }
 
-.logoSkeeell {
+#logoSkeeell {
     height:42px;
     vertical-align:-9.5pt;
     margin-left:-7px;
