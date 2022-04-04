@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<svg width="113.39" height="113.39" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" data-name="Layer 1">
+ <defs>
+  <style>.cls-1{fill:#3e3f3c;}.cls-2{fill:#fff;stroke:#231f20;stroke-miterlimit:10;}</style>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <path class="cls-1" d="m157.52,84.88" id="svg_1" transform="translate(-85.04 -85.04)"/>
+  <rect class="cls-1" height="113.39" id="svg_2" transform="rotate(-45 57 56.695)" width="14.32" x="49.53"/>
+  <rect class="cls-1" height="113.39" id="svg_3" transform="rotate(45 56.695 56.695)" width="14.21" x="49.59" y="0"/>
+  <path class="cls-2" d="m134.57,85" id="svg_4" transform="translate(-85.04 -85.04) rotate(30)"/>
+ </g>
+</svg>

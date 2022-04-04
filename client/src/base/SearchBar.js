@@ -1,21 +1,38 @@
-import React, { forwardRef, useState } from "react";
-import { Form, Dropdown } from "react-bootstrap";
+import React, { forwardRef, useState, useEffect } from "react";
+import { Form, Dropdown, InputGroup, Button } from "react-bootstrap";
+import iconSearch from "./searchBar/SEARCH.svg";
+import iconClear from "./searchBar/CLEAR.svg";
+import styles from "./searchBar/searchBar.module.scss";
 import API from "../api/API";
 
-const SearchInput = forwardRef(({ onClick, onChange, value }, ref) => {
+const SearchInput = forwardRef(({ onClick, onChange, value, onClear }, ref) => {
+	console.log(value.length);
 	return (
-		<Form.Control
-			ref={ref}
-			onClick={(e) => {
-				e.preventDefault();
-				onClick(e);
-			}}
-			onChange={onChange}
-			type="text"
-			placeholder="Search courses"
-			className="mx-auto"
-			value={value}
-		/>
+		<InputGroup>
+			<Form.Control
+				ref={ref}
+				onClick={(e) => {
+					e.preventDefault();
+					onClick(e);
+				}}
+				onChange={onChange}
+				type="text"
+				placeholder="Search courses"
+				className={"mx-auto border-right-0 border " + styles.textInput}
+				value={value}
+
+			/>
+			<InputGroup.Append>
+				{value.length > 0 && (
+					<Button variant="link" onClick={onClear} className={"btn-outline-primary border-left-0 border " + styles.clearButton}>
+						<img width="20" height="20" src={iconClear} alt="Search" />
+					</Button>
+				)}
+				<Button variant={value.length > 0 ? "primary" : "link"} className="btn-outline-primary border-left-0 border">
+					<img width="20" height="20" src={iconSearch} alt="Search" />
+				</Button>
+			</InputGroup.Append>
+		</InputGroup>
 	);
 });
 
@@ -31,7 +48,7 @@ function SearchBar({ apiCall }) {
 		"duckduckgo download"
 	];
 
-	const [suggestions, setSuggestions] = useState(fakeSuggestions);
+	const [suggestions, setSuggestions] = useState([]);
 	const [inputText, setInputText] = useState("");
 
 	// Api call to get suggestions
@@ -39,14 +56,28 @@ function SearchBar({ apiCall }) {
 		console.log("get suggestions");
 	};
 
+	useEffect(() => {
+		if (inputText.length > 0) {
+			setSuggestions(fakeSuggestions);
+		}
+		else {
+			setSuggestions([]);
+		}
+	}, [inputText]);
+
 	const onChangeInput = (event) => {
 		setInputText(event.target.value);
 		getSuggestions();
 	};
 
+	const clearInput = () => {
+		setInputText("");
+		getSuggestions();
+	};
+
 	return (
 		<Dropdown>
-			<Dropdown.Toggle as={SearchInput} onChange={onChangeInput} value={inputText} />
+			<Dropdown.Toggle as={SearchInput} onChange={onChangeInput} value={inputText} onClear={clearInput} />
 			{suggestions.length > 0 && (
 				<Dropdown.Menu>
 					{suggestions.map((s, i) => (
