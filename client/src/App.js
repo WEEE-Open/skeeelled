@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import CoursesList from "./pages/CoursesList";
 import Questions from "./pages/Questions";
 import Answers from "./pages/Answers";
+import TextInput from "./base/TextInput";
 // import MyQuestions from "./pages/myQuestions";
 // import Exam from "./pages/exam";
 // import parsedQuestions from "./constants/parsed";
@@ -89,6 +90,7 @@ function App() {
 						<Route path="/question/:questionid" element={<Answers/>}/>
 						<Route path="/discussion/:questionid" element={<p>Work in progress</p>}/>
 						<Route path="/simulation" element={<p>Work in progress</p>}/>
+						<Route path="/addquestion" element={<TextInput/>}/>
 						{/* <MyQuestions /> */}
 					</Routes> : <Routes>
 						<Route path="/*" element={<Redirect to="/login"/>}/>

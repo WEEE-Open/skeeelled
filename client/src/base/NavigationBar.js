@@ -20,7 +20,7 @@ function NavigationBar(props) {
 
 			<Button className="mx-2 mr-auto">Courses</Button>
 			
-			{/*props.user.isProfessor*/ true ? <Button className="mx-2">Add question</Button> : null}
+			{/*props.user.isProfessor*/ true ? <Link to="/addquestion"><Button className="mx-2">Add question</Button></Link> : null}
 
 			{props.logged ? (<>
 				<Link to={"/"} onClick={props.logout} className="mx-2">
