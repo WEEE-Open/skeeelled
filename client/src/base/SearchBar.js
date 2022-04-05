@@ -6,7 +6,6 @@ import styles from "./searchBar/searchBar.module.scss";
 import API from "../api/API";
 
 const SearchInput = forwardRef(({ onClick, onChange, value, onClear }, ref) => {
-	console.log(value.length);
 	return (
 		<InputGroup>
 			<Form.Control

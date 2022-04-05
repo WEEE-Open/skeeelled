@@ -24,17 +24,22 @@ const insertTex = {
 	}
 }
 
-function TextInput() {
-	const [value, setValue] = useState("");
-	const [selectedTab, setSelectedTab] = useState("write");
+function TextInput({ value, onChange, selectedTab, onTabChange }) {
+	const [val, setVal] = (value !== undefined && onChange !== undefined)
+		? [value, onChange]
+		: useState("");
+
+	const [selTab, setSelTab] = (selectedTab !== undefined && onTabChange !== undefined)
+		? [selectedTab, onTabChange]
+		: useState("write");
 
 	return (
 		<Container>
 			<ReactMde 
-				value={value}
-				onChange={setValue}
-				selectedTab={selectedTab}
-				onTabChange={setSelectedTab}
+				value={val}
+				onChange={setVal}
+				selectedTab={selTab}
+				onTabChange={setSelTab}
 				commands={{ "insert-tex": insertTex }}
 				toolbarCommands={[...getDefaultToolbarCommands(), ["insert-tex"]]}
 				generateMarkdownPreview={(markdown) => 
