@@ -12,6 +12,8 @@ class User(BaseModel):
     id: str = Field(alias="_id")
     email: str
     username: str
+    name: str
+    surname: str
     profile_picture: str
     is_active: bool = False
     is_professor: bool = False

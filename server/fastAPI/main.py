@@ -75,7 +75,7 @@ async def get_question(id: str):
 async def get_user(id: str):
     if id[0] not in ('s', 'd'):
         return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id must start with d or s")
-    a = await db["users"].find_one(id)
+    a = await db["users"].find_one(id, {'name': 1, 'surname': 1, 'username': 1, 'profile_picture': 1, '_id': 0})
     if a:
         return JSONResponse(status_code=status.HTTP_200_OK, content=a)
     else:
