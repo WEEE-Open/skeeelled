@@ -87,9 +87,13 @@ async def generate_users():
     await db[DbName.USER].drop()
     for i in range(50):
         matr = choice([f"s{randint(183545, 309999)}", f"d{randint(11111, 99999)}"])
+        name = choice(["Mario", "Giovanni", "Guido"])
+        surname = choice(["Rossi", "Bianchi", "Verdi"])
         newUser = User(_id=matr,
                        email=f"{matr}@{'studenti.' if matr[0] == 's' else ''}polito.it",
-                       username=f"nome.cognome.{matr}",
+                       username=f"{name.lower()}.{surname.lower()}.{matr}",
+                       name=name,
+                       surname=surname,
                        last_session=time.now().timestamp(),
                        profile_picture=profile_picture,
                        is_active=choice([True, False]),
