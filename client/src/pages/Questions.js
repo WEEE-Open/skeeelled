@@ -5,7 +5,6 @@ import "./Questions.css";
 
 const Questions = () => {
 
-	/** Mock courses **/
 	const fakeQuestions = [
 		{id:1,question:"What is a vector?",author:"Donato",createdat:"15:20 12/01/2021",tags:["vectors"],excerpt:"Cras justo odio..."},
 		{id:2,question:"Who is Maxwell?",author:"Jim",createdat:"17:30 13/02/2021",tags:["physics"],excerpt:"Cras justo odio..."},

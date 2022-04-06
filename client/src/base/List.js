@@ -13,19 +13,21 @@ function HeaderColspan(scope) {
     }
 }
 
-function ListQuestions({props}) {
+function ListDefault({props}) {
     return(<>
-        <h3 className="listTitle">{props.title}</h3>
-        {props.rows.map(r => (
-            <ListEntry scope={props.scope} row={r}/>
-        ))}
-    </>);
-}
-
-function List(props) {
-    return(<>
-        {props.scope==="questions" ? <ListQuestions props={props}/> : <Table bordered borderless className="table">
-            <thead className="title">
+        {props.rounded ? <table className="list roundedList">
+            <thead>
+                <tr>
+                    <th className="listTitle" colspan={HeaderColspan(props.scope)}>{props.title}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {props.rows.map(r => (
+                    <ListEntry scope={props.scope} row={r}/>
+                ))}
+            </tbody>
+        </table> : <Table striped bordered borderless className="list">
+            <thead className="listTitle">
                 <tr>
                     <th colspan={HeaderColspan(props.scope)}>{props.title}</th>
                 </tr>
@@ -37,6 +39,31 @@ function List(props) {
             </tbody>
         </Table>}
     </>);
+}
+
+function ListQuestions({props}) {
+    return(<>
+        <h3 className="listQuestionsTitle">{props.title}</h3>
+        {props.rows.map(r => (
+            <ListEntry scope={props.scope} row={r}/>
+        ))}
+    </>);
+}
+
+function ListAnswers({props}) {
+    return(<Table striped bordered borderless className="list">
+        <tbody>
+            {props.rows.map(r => (
+                <ListEntry scope={props.scope} row={r}/>
+            ))}
+        </tbody>
+    </Table>);
+}
+
+function List(props) {
+    if(props.scope==="questions") return(<ListQuestions props={props}/>);
+    if(props.scope==="answers") return(<ListAnswers props={props}/>);
+    return(<ListDefault props={props}/>);
 }
 
 export default List;

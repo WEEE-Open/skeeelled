@@ -1,6 +1,5 @@
 import {Navbar, Nav, NavDropdown, Image, Form, OverlayTrigger, Popover} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {logoSkeeelledLight} from "../img/index"
 import {iconUser, iconLogout, iconAdmin} from "../icons.js";
 import "./NavigationBar.css";
 

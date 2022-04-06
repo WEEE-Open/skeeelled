@@ -54,7 +54,7 @@ function Profile() {
 				</Col>
 				<SearchBar />
 			</Row>
-			<ListGroup lists={tests} cols={2} tiled/>
+			<ListGroup lists={tests} cols={2} tiled rounded/>
 		</Card>
 	);
 }

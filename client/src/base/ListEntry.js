@@ -1,10 +1,10 @@
-import {Row, Col} from "react-bootstrap";
+import {Row, Col, Image} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import "./ListEntry.css";
 
 function ListEntryDefault(props) {
-    return(<tr>
-        {props.row.map(cell => (<td>{cell}</td>))}
+    return(<tr>        
+        {props.row.map(cell => (<td>{props.row.length===1 && <span className="greenDot">●</span>}{cell}</td>))}
     </tr>);
 }
 
@@ -30,9 +30,17 @@ function ListEntryQuestions(props) {
 }
 
 function ListEntryAnswers(props) {
-    return(<tr>
-        <td>todo</td>
-    </tr>);
+    return(<>
+        <tr>
+            <td colspan="4">{props.row.author}, {props.row.createdat}</td>
+        </tr>
+        <tr>
+            <td>{props.row.like-props.row.dislike>0 && "+"}{props.row.like-props.row.dislike}</td>
+            <td><Image src={"icons/UP ARROW.svg"} width="2%"/></td>
+            <td><Image src={"icons/DOWN ARROW.svg"} width="2%"/></td>
+            <td>{props.row.answer}</td>
+        </tr>
+    </>);
 }
 
 function ListEntryTest(props) {
