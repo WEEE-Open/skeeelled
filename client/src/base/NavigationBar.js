@@ -8,7 +8,7 @@ function NavigationBar(props) {
 		<Navbar id={"navbar"} bg={props.dark ? 'dark' : 'light'} variant={props.dark ? 'dark' : 'light'}>
 			
 			<Link to={"/"}>
-				<Navbar.Brand><Image id={"navbar-logo-skeeelled"} src={props.dark ? "img/logoSkeeelledDark.svg" : "img/logoSkeeelledLight.svg"} className="logo"/></Navbar.Brand>
+				<Navbar.Brand><Image id={"navbar-logo-skeeelled"} src={props.dark ? "/img/logoSkeeelledDark.svg" : "/img/logoSkeeelledLight.svg"} className="logo"/></Navbar.Brand>
 			</Link>
 
 			{props.admin ? (

@@ -36,8 +36,8 @@ function ListEntryAnswers(props) {
         </tr>
         <tr>
             <td>{props.row.like-props.row.dislike>0 && "+"}{props.row.like-props.row.dislike}</td>
-            <td><Image src={"icons/UP ARROW.svg"} width="2%"/></td>
-            <td><Image src={"icons/DOWN ARROW.svg"} width="2%"/></td>
+            <td><Image src={"/icons/UP ARROW.svg"} width="2%"/></td>
+            <td><Image src={"/icons/DOWN ARROW.svg"} width="2%"/></td>
             <td>{props.row.answer}</td>
         </tr>
     </>);
