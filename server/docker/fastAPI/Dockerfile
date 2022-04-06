@@ -2,7 +2,7 @@
 FROM python:3.9
 ENV PYTHONUNBUFFERED=1
 WORKDIR /code
-COPY ./requirements.txt ./
+COPY ./docker/fastAPI/requirements.txt ./
 RUN pip install -r requirements.txt
-COPY ./entrypoint.sh /
+COPY ./docker/fastAPI/entrypoint.sh /
 ENTRYPOINT ["sh", "/entrypoint.sh"]
