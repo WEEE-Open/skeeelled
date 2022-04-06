@@ -66,19 +66,17 @@ function SearchBar({ apiCall }) {
 
 	const onChangeInput = (event) => {
 		setInputText(event.target.value);
-		getSuggestions();
 	};
 
 	const clearInput = () => {
 		setInputText("");
-		getSuggestions();
 	};
 
 	return (
 		<Dropdown>
 			<Dropdown.Toggle as={SearchInput} onChange={onChangeInput} value={inputText} onClear={clearInput} />
 			{suggestions.length > 0 && (
-				<Dropdown.Menu>
+				<Dropdown.Menu className="w-100">
 					{suggestions.map((s, i) => (
 						<Dropdown.Item key={i} onFocus={() => setInputText(s)} onClick={() => setInputText(s)}>{s}</Dropdown.Item>
 					))}
