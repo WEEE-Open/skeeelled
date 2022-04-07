@@ -1,4 +1,4 @@
-import {Row, Col} from "react-bootstrap";
+import {Row, Col, Container} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import "./ListEntry.css";
 
@@ -43,12 +43,25 @@ function ListEntryTest(props) {
     </tr>);
 }
 
+function ListEntrySuggestion(props) {
+    return(
+        <Container>
+            <Row><Col><Link to={"/suggestion/"+props.row.id} className="suggestion">{props.row.suggestion}</Link></Col></Row>
+            <Row>
+                <Col>from {props.row.author}</Col>
+                <Col>Created at: {props.row.createdat}</Col>
+            </Row>
+        </Container>
+    )
+}
+
 function ListEntry(props) {
     return(<>
         {props.scope==="default" && <ListEntryDefault row={props.row}/>}
         {props.scope==="courses" && <ListEntryCourses row={props.row}/>}
         {props.scope==="questions" && <ListEntryQuestions row={props.row}/>}
         {props.scope==="answers" && <ListEntryAnswers row={props.row}/>}
+        {props.scope==="test" && <ListEntryTest row={props.row}/>}
         {props.scope==="test" && <ListEntryTest row={props.row}/>}
     </>);
 }
