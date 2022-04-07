@@ -1,12 +1,7 @@
-.table {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.title {
-  padding: 8px;
-  background-color: #00983a;
-  color: white;
+.greenDot {
+  margin-left:2px;
+  margin-right:8px;
+  color:#00983a;
 }
 
 .questionEntry {
