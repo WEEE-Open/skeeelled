@@ -17,7 +17,7 @@ function Profile() {
 						<h3>Hi, Name Surname!</h3>
 					</Col>
 					<Col>
-						<SearchBar />
+						<SearchBar/>
 						<Link to="/courses"><Button>View All</Button></Link>
 					</Col>
 				</Row>

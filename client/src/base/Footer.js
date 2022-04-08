@@ -2,10 +2,10 @@ import {Image} from "react-bootstrap";
 import {logoSkeeelled, logoSkeeell, logoWeeeOpen} from "../img/";
 
 const cssTemp = {
-	footer:{"text-align":"center"},
+	footer:{"textAlign":"center"},
 	logoSkeeelled:{height:"35px"},
-	logoWeeeOpen:{height:"20px","margin-left":"10px"},
-	logoSkeeell:{height:"90px","vertical-align":"-26.5pt"}
+	logoWeeeOpen:{height:"20px","marginLeft":"10px"},
+	logoSkeeell:{height:"90px","verticalAlign":"-26.5pt"}
 };
 
 function Footer() {
