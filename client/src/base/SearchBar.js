@@ -2,10 +2,10 @@ import React, { useRef, useState, forwardRef } from "react";
 import { Form, Dropdown, InputGroup, Button } from "react-bootstrap";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 
-import iconSearch from "./searchBar/SEARCH.svg";
-import iconClear from "./searchBar/CLEAR.svg";
+//import iconSearch from "../../public/icons/SEARCH.svg";
+//import iconClear from "../../public/icons/x.svg";
 import styles from "./searchBar/searchBar.module.scss";
-import 'react-bootstrap-typeahead/css/Typeahead.css';
+import "react-bootstrap-typeahead/css/Typeahead.css";
 
 function SearchBar({ apiCall }) {
 
@@ -58,11 +58,11 @@ function SearchBar({ apiCall }) {
 						}} 
 						className={"btn-outline-primary border-left-0 border " + styles.clearButton}
 					>
-						<img width="20" height="20" src={iconClear} alt="Search" />
+						<img width="20" height="20" src="icons/x.svg" alt="Search" />
 					</Button>
 				)}
 				<Button variant={value.length > 0 ? "primary" : "link"} className="btn-outline-primary border-left-0 border">
-					<img width="20" height="20" src={iconSearch} alt="Search" />
+					<img width="20" height="20" src="/icons/SEARCH.svg" alt="Search" />
 				</Button>
 			</InputGroup.Append>
 		</InputGroup>
