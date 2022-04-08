@@ -2,8 +2,6 @@ import React, { useRef, useState, forwardRef } from "react";
 import { Form, Dropdown, InputGroup, Button } from "react-bootstrap";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 
-//import iconSearch from "../../public/icons/SEARCH.svg";
-//import iconClear from "../../public/icons/x.svg";
 import styles from "./searchBar/searchBar.module.scss";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
