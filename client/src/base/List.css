@@ -40,3 +40,15 @@
 .roundedList tr:last-child td:last-child {
     border-bottom-right-radius: 10px;
 }
+
+.listSuggestionTitle {
+    padding: 5px;
+}
+
+.suggesiton{
+    padding: 5px;
+}
+
+.listSuggestion-questions{
+    padding: 5px;
+}

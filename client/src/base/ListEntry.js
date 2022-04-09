@@ -55,8 +55,8 @@ function ListEntryTest(props) {
 function ListEntrySuggestion(props) {
     return(
         <Container>
-            <Row><Col><Link to={"/suggestion/"+props.row.id} className="suggestion">{props.row.suggestion}</Link></Col></Row>
             <Row>
+                <Col><Link to={"/suggestion/"+props.row.id} className="suggestion">{props.row.question}</Link></Col>
                 <Col>from {props.row.author}</Col>
                 <Col>Created at: {props.row.createdat}</Col>
             </Row>
@@ -71,7 +71,7 @@ function ListEntry(props) {
         {props.scope==="questions" && <ListEntryQuestions row={props.row}/>}
         {props.scope==="answers" && <ListEntryAnswers row={props.row}/>}
         {props.scope==="test" && <ListEntryTest row={props.row}/>}
-        {props.scope==="test" && <ListEntryTest row={props.row}/>}
+        {props.scope==="suggestion" && <ListEntrySuggestion row={props.row}/>}
     </>);
 }
 

@@ -116,8 +116,8 @@ const Questions = () => {
 					</Card>
 				</Col>
 				<Col className="d-none d-md-inline-block col-md-4">
-					<Suggestion scope={"questions"} title={"Latest Questions"} rows={suggestions} />
-					<Suggestion scope={"questions"} title={"Hottest Questions"} rows={suggestions} />
+					<Suggestion scope={"suggestion"} title={"Latest Questions"} rows={suggestions} />
+					<Suggestion scope={"suggestion"} title={"Hottest Questions"} rows={suggestions} />
 				</Col>
 			</Row>
 			{/*<Container className="container">*/}
