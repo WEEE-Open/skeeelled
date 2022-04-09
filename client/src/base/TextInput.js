@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import ReactMde, { getDefaultToolbarCommands } from "react-mde";
+import ReactMde, { getDefaultToolbarCommands } from "@sahircansurmeli/react-mde";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -8,7 +8,7 @@ import rehypeKatex from "rehype-katex";
 
 import texLogo from "./textInput/TeX_logo.svg";
 
-import "react-mde/lib/styles/css/react-mde-all.css";
+import "@sahircansurmeli/react-mde/lib/styles/css/react-mde-all.css";
 import "katex/dist/katex.min.css";
 import "./textInput/textInput.css";
 
@@ -22,7 +22,7 @@ const insertTex = {
 			end: state.selection.end - 1
 		});
 	}
-}
+};
 
 function TextInput({ value, onChange, selectedTab, onTabChange }) {
 	const [val, setVal] = (value !== undefined && onChange !== undefined)
