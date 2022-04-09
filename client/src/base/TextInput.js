@@ -6,15 +6,13 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 
-import texLogo from "./textInput/TeX_logo.svg";
-
 import "@sahircansurmeli/react-mde/lib/styles/css/react-mde-all.css";
 import "katex/dist/katex.min.css";
 import "./textInput/textInput.css";
 
 const insertTex = {
 	name: "insert-tex",
-	icon: () => <img src={texLogo} width="20" height="20" alt="Insert TeX" />,
+	icon: () => <img src="/icons/TeX_logo.svg" width="26" height="15" alt="Insert TeX" />,
 	execute: ({ textApi, initialState }) => {
 		const state = textApi.replaceSelection(`$${initialState.selectedText}$`);
 		textApi.setSelectionRange({
