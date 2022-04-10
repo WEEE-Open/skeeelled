@@ -5,10 +5,12 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import rehypeHighlight from "rehype-highlight";
 
 import "@sahircansurmeli/react-mde/lib/styles/css/react-mde-all.css";
 import "katex/dist/katex.min.css";
 import "./textInput/textInput.css";
+import "highlight.js/styles/github.css";
 
 const insertTex = {
 	name: "insert-tex",
@@ -80,7 +82,7 @@ function TextInput({ value, onChange, selectedTab, onTabChange }) {
 					Promise.resolve(
 						<ReactMarkdown
 							remarkPlugins={[remarkGfm, remarkMath]}
-							rehypePlugins={[rehypeKatex]}
+							rehypePlugins={[rehypeKatex, rehypeHighlight]}
 						>
 							{markdown}
 						</ReactMarkdown>
