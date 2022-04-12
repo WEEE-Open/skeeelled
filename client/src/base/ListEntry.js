@@ -1,5 +1,4 @@
 import {Row, Col, Container, Image} from "react-bootstrap";
-
 import {Link} from "react-router-dom";
 import "./ListEntry.css";
 
@@ -55,11 +54,11 @@ function ListEntryTest(props) {
 function ListEntrySuggestion(props) {
     return(
         <Container>
-            <Row>
-                <Col><Link to={"/suggestion/"+props.row.id} className="suggestion">{props.row.question}</Link></Col>
+            <Col>
+                <Col><Link to={"/suggestion/"+props.row.id} className="suggestion-question">{props.row.question}</Link></Col>
                 <Col>from {props.row.author}</Col>
                 <Col>Created at: {props.row.createdat}</Col>
-            </Row>
+            </Col>
         </Container>
     )
 }

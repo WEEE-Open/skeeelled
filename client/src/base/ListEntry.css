@@ -22,3 +22,8 @@
   font-size: .8em;
   padding-right: 5px;
 }
+
+.suggestion-question{
+  font-size: 15px;
+  text-decoration: none;
+}
