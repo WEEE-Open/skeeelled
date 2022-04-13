@@ -13,6 +13,10 @@
   border-radius: 5px;
 }
 
+.answerEntry {
+  width: 0%;
+}
+
 .question {
   font-size: 1.2em;
   text-decoration: none;

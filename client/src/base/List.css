@@ -14,6 +14,10 @@
     margin-bottom: 20px;
 }
 
+.listAnswers tr:nth-child(4n+1) {
+    background-color: #eee;
+}
+
 .roundedList {
     border-spacing:0px;
     border-collapse:separate;
