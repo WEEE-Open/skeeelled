@@ -1,7 +1,7 @@
 import { Row, Col, Card } from "react-bootstrap";
 import { useState } from "react";
 import "./Profile.css";
-import { ListGroup, SearchBar } from "../base/";
+import { ListGroup, SearchBar } from "../base";
 
 function Profile() {
 	const fake = [

@@ -1,6 +1,6 @@
-import {List, Recent} from "../base";
-import {Button, Container, Row, Col, Pagination, Card, Form} from "react-bootstrap";
-import {useEffect, useState/* , useEffect */} from "react";
+import { List, Recent } from "../base";
+import { Button, Container, Row, Col, Pagination, Card, Form } from "react-bootstrap";
+import { useEffect, useState/* , useEffect */ } from "react";
 import "./Questions.css";
 import Suggestion from "../base/Suggestion";
 
@@ -10,12 +10,12 @@ const Questions = () => {
 
 	/** Mock courses **/
 	const fakeQuestions = [
-		{id:1,question:"What is a vector?",author:"Donato",createdat:"15:20 12/01/2021",tags:["vectors"],excerpt:"Cras justo odio..."},
-		{id:2,question:"Who is Maxwell?",author:"Jim",createdat:"17:30 13/02/2021",tags:["physics"],excerpt:"Cras justo odio..."},
-		{id:3,question:"How many meters per second?",author:"Derek",createdat:"19:40 14/03/2021",tags:["physics","kinematic"],excerpt:"Cras justo odio..."}
+		{ id: 1, question: "What is a vector?", author: "Donato", createdat: "15:20 12/01/2021", tags: ["vectors"], excerpt: "Cras justo odio..." },
+		{ id: 2, question: "Who is Maxwell?", author: "Jim", createdat: "17:30 13/02/2021", tags: ["physics"], excerpt: "Cras justo odio..." },
+		{ id: 3, question: "How many meters per second?", author: "Derek", createdat: "19:40 14/03/2021", tags: ["physics", "kinematic"], excerpt: "Cras justo odio..." }
 	];
 
-	const [questions,setQuestions] = useState(fakeQuestions/*[]*/);
+	const [questions, setQuestions] = useState(fakeQuestions/*[]*/);
 	const [suggestions, setSuggestions] = useState(fakeQuestions/*[]*/);
 
 
@@ -28,7 +28,7 @@ const Questions = () => {
 							<Card body>
 								<Row lg={12} className="header">
 									<Col>
-										<List scope="questions" title="Physics I" rows={questions}/>
+										<List scope="questions" title="Physics I" rows={questions} />
 										{/* <h3>
 								Data Management
 								<Button variant="secondary" className="mx-4">{"<- Back"}</Button>
@@ -210,7 +210,7 @@ const Questions = () => {
 			{/*	</Card>*/}
 			{/*</Container>*/}
 		</>
-		);
+	);
 };
 
 export default Questions;
