@@ -1,110 +1,71 @@
-import {Table, SearchBar} from "../base";
-import {Button, Container, Row, Col, Card, ListGroup, InputGroup, Form} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import styles from "./profile/profile.module.scss";
-// const styles={container:{
-// 	header:"padding-bottom:40px;",
-// 	pagination:"justify-content:center;",
-// 	innerHeader:"background-color:black; color:white;"
-// }};
+import { Row, Col, Card } from "react-bootstrap";
+import { useState } from "react";
+import "./Profile.css";
+import { ListGroup, SearchBar } from "../base/";
 
 function Profile() {
-	return(
-		<Container className={styles.container}>
-			<Card body>
-				<Row lg={12} className={styles.header}>
-					<Col>
-						<h3>Hi, Name Surname!</h3>
-					</Col>
-					<Col>
-						<SearchBar/>
-						<Link to="/courses"><Button>View All</Button></Link>
-					</Col>
-				</Row>
-				<Row>
-					<Col lg='12'>
-						<div className={styles.innerHeader}>
-							<h6>New questions in courses I'm enrolled in</h6>							
-						</div>
-					</Col>
-					<Col lg='12'>
-						<ListGroup>
-							<ListGroup.Item>Cras justo odio</ListGroup.Item>
-							<ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-							<ListGroup.Item>Morbi leo risus</ListGroup.Item>
-							<ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-							<ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-						</ListGroup>
-					</Col>
-				</Row>
-				<Row>
-					<Col lg='12'>
-						<div className={styles.innerHeader}>
-							<h6>My Questions</h6>
-							<Button id='button-addon2'>View All</Button>
-						</div>
-					</Col>
-					<Col lg='12'>
-						<ListGroup>
-							<ListGroup.Item>Cras justo odio</ListGroup.Item>
-							<ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-							<ListGroup.Item>Morbi leo risus</ListGroup.Item>
-							<ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-							<ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-						</ListGroup>
-					</Col>
-				</Row>
-				<Row>
-					<Col lg='12'>
-						<div className={styles.innerHeader}>
-							<h6>My Answers</h6>
-							<Button id='button-addon2'>View All</Button>
-						</div>
-					</Col>
-					<Col lg='12'>
-						<ListGroup>
-							<ListGroup.Item>Cras justo odio</ListGroup.Item>
-							<ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-							<ListGroup.Item>Morbi leo risus</ListGroup.Item>
-							<ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-							<ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-						</ListGroup>
-					</Col>
-				</Row>
-				<Row>
-					<Col lg='12'>
-						<div className={styles.innerHeader}>
-							<h6>My Courses</h6>
-							<Button id='button-addon2'>View All</Button>
-						</div>
-					</Col>
-					<Col lg='12'>
-						<ListGroup>
-							<ListGroup.Item>Data Management</ListGroup.Item>
-							<ListGroup.Item>Data Science Lab</ListGroup.Item>
-							<ListGroup.Item>Statistical Methods</ListGroup.Item>
-							<ListGroup.Item>Decision Making</ListGroup.Item>
-						</ListGroup>
-					</Col>
-				</Row>
-				<Row>
-					<Col lg='12'>
-						<div className={styles.innerHeader}>
-							<h6>My Results</h6>
-							<Button id='button-addon2'>View All</Button>
-						</div>
-					</Col>
-					<Col lg='12'>
-						<ListGroup>
-							<ListGroup.Item>Data Management</ListGroup.Item>
-							<ListGroup.Item>Data Science Lab</ListGroup.Item>
-							<ListGroup.Item>Statistical Methods</ListGroup.Item>
-							<ListGroup.Item>Decision Making</ListGroup.Item>
-						</ListGroup>
-					</Col>
-				</Row>
-			</Card>
-		</Container>
+	const fake = [
+		{
+			scope: "default",
+			title: "New questions in courses I'm enrolled in",
+			rows: [
+				["Cras justo odio"],
+				["Dapibus ac facilisis in"],
+				["Morbi leo risus"],
+				["Porta ac consectetur ac"],
+				["Vestibulum at eros"]
+			]
+		},
+		{
+			scope: "test",
+			title: "My questions",
+			rows: [
+				{ a: "aaa", b: "bbb", c: "ccc" },
+				{ a: "aaa", b: "bbb", c: "ccc" },
+				{ a: "aaa", b: "bbb", c: "ccc" }
+			]
+		},
+		{
+			scope: "test",
+			title: "My answers",
+			rows: [
+				{ a: "aaa", b: "bbb", c: "ccc" },
+				{ a: "aaa", b: "bbb", c: "ccc" },
+				{ a: "aaa", b: "bbb", c: "ccc" }
+			]
+		},
+		{
+			scope: "default",
+			title: "My courses",
+			rows: [
+				["aaa", "bbb", "ccc"],
+				["aaa", "bbb", "ccc"],
+				["aaa", "bbb", "ccc"],
+			]
+		},
+		{
+			scope: "test",
+			title: "My results",
+			rows: [
+				{ a: "aaa", b: "bbb", c: "ccc" },
+				{ a: "aaa", b: "bbb", c: "ccc" },
+				{ a: "aaa", b: "bbb", c: "ccc" }
+			]
+		}
+	];
+
+	const [tests, setTests] = useState(fake);
+
+	return (
+		<Card body>
+			<Row lg={12} className="py-0 header">
+				<Col>
+					<h3>Hi, Name Surname!</h3>
+				</Col>
+				<SearchBar />
+			</Row>
+			<ListGroup lists={tests} cols={2} tiled rounded />
+		</Card>
 	);
 }
 

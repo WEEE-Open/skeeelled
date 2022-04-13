@@ -1,0 +1,52 @@
+.logo {
+    width:30%;
+    margin-left:30px;
+    margin-right:-100px;
+}
+
+#navbar {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 25px;
+    margin: 0;
+    box-shadow: 10px 8px 15px #DADADA;
+    height: 10vh;
+    position: relative;
+}
+
+.navLink {
+    color:#41413F;
+    text-decoration: none;
+}
+
+.navLink:hover {
+    color:#00983A;
+    text-decoration: none;
+}
+
+#navbar-logo-skeeelled {
+    padding: auto;
+    margin: auto;
+    height: 10vh;
+    width: 15vw;
+    vertical-align: baseline;
+}
+
+#course-link{
+    font-size: 20px;
+}
+
+#add-question-link {
+    margin-left: auto;
+    font-size: 20px;
+}
+
+#logout-icon {
+    margin: auto;
+}
+
+#user-dropdown {
+    padding-right: 5%;
+}

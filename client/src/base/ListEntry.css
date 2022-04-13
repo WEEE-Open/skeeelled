@@ -1,0 +1,28 @@
+.greenDot {
+  margin-left:2px;
+  margin-right:8px;
+  color:#00983a;
+}
+
+.questionEntry {
+  padding-top: 2px;
+  padding-bottom: 8px;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  background-color: lightgrey;
+  border-radius: 5px;
+}
+
+.answerEntry {
+  width: 0%;
+}
+
+.question {
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
+.tags {
+  font-size: .8em;
+  padding-right: 5px;
+}

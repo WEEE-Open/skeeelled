@@ -1,51 +1,51 @@
-import {Navbar, Nav, NavDropdown, Button, Image, Form, OverlayTrigger, Popover} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {iconLogout, iconAdmin} from "../icons.js";
-import {logoSkeeelled} from "../img/";
-import styles from "./navigationBar/navigationBar.module.scss";
+import { Navbar, Nav, NavDropdown, Image, Form, OverlayTrigger, Popover } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { iconUser, iconLogout, iconAdmin } from "../icons.js";
+import "./NavigationBar.css";
 
 function NavigationBar(props) {
 	return (
-		<Navbar bg={false ? "dark" : "light"} variant={false ? "dark" : "light"}>
-			
+		<Navbar id={"navbar"} bg={props.dark ? 'dark' : 'light'} variant={props.dark ? 'dark' : 'light'}>
+
 			<Link to={"/"}>
-				<Navbar.Brand><Image src={logoSkeeelled}/></Navbar.Brand>
+				<Navbar.Brand><Image id={"navbar-logo-skeeelled"} src={props.dark ? "/img/logoSkeeelledDark.svg" : "/img/logoSkeeelledLight.svg"} className="logo" /></Navbar.Brand>
 			</Link>
 
 			{props.admin ? (
 				<Link to='/admin/list'>
-					<Navbar.Brand>{iconAdmin} Admin panel</Navbar.Brand>
+					<Navbar.Brand>{iconAdmin} Admin panel </Navbar.Brand>
 				</Link>
 			) : null}
 
-			<Button className="mx-2 mr-auto">Courses</Button>
-			
-			{/*props.user.isProfessor*/ true ? <Link to="/addquestion"><Button className="mx-2">Add question</Button></Link> : null}
+			<Nav.Link id={"course-link"} href="/courses">Courses</Nav.Link>
 
-			{props.logged ? (<>
-				<Link to={"/"} onClick={props.logout} className="mx-2">
-					<Navbar.Brand>Logout {iconLogout}</Navbar.Brand>
-				</Link>
-			</>) : null}
+			{/*props.user.isProfessor*/ true ? <Nav.Link id={"add-question-link"} >Add question</Nav.Link> : null}
 
-			<Nav>
+			<Nav id={"user-dropdown"}>
 				<Navbar.Collapse className="mr-4">
-					<NavDropdown title="userimg">
+					<NavDropdown
+						id="dropdown-menu-align-responsive-2"
+						title={iconUser}
+						align={{ lg: 'end' }}
+					>
 						<NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
 						<NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
 						<NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
 						<NavDropdown.Divider />
-						<NavDropdown.Item href="#action/3.1">Dark</NavDropdown.Item>
-						<NavDropdown.Item href="#action/3.2">Show hints</NavDropdown.Item>
-						<NavDropdown.Item href="#action/3.3">Show discussion</NavDropdown.Item>
-						<NavDropdown.Divider />
-						<NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
+						<Form.Switch label="Dark" id="custom-switch-dark" defaultChecked={props.dark} onChange={() => props.setdark(!props.dark)} />
+						<Form.Switch label="Show hints" id="custom-switch-hint" />
+						<Form.Switch label="Show discussion" id="custom-switch-disc" />
+						{props.logged && <>
+							<NavDropdown.Divider />
+							<NavDropdown.Item onClick={props.logout}>Logout {iconLogout}</NavDropdown.Item>
+						</>}
 					</NavDropdown>
 				</Navbar.Collapse>
 			</Nav>
 
-			{/* <Form.Switch type="switch" id="custom-switch" label="Check this switch"/> */}
 
+
+			{/* <Form.Switch label="Check this switch" type="switch" id="custom-switch"/> */}
 
 			{/* <OverlayTrigger
 				trigger="click"
@@ -61,8 +61,8 @@ function NavigationBar(props) {
 				}
 				>
 				<Button variant="secondary">Popover on bottom</Button>
-				</OverlayTrigger> */}
-
+				</OverlayTrigger>
+			*/}
 
 		</Navbar>
 	);

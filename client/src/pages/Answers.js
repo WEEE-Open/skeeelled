@@ -1,16 +1,23 @@
-import { useState } from "react";
-import { Table } from "../base";
+import {useState} from "react";
 import {Button, Container, Card, Row, Col, Pagination, FloatingLabel, Collapse, Form} from "react-bootstrap";
-const styles = {container:""/*{header:"padding-bottom:40px;",pagination:"justify-content:center;",collapse:"margin-top:10px;"}*/}; //toDel
+import {List} from "../base";
+import "./Answers.css";
 
-const Answers = () => {
+function Answers() {
+	const fakeAnswers = [
+		{id:1,answer:"Cras justo odio dapibus ac facilisis in",author:"Donato",createdat:"15:20 12/01/2021",like:5,dislike:2},
+		{id:2,answer:"Morbi leo risus porta ac consectetur ac",author:"Jim",createdat:"17:30 13/02/2021",like:5,dislike:7},
+		{id:3,answer:"Vestibulum at eros",author:"Derek",createdat:"19:40 14/03/2021",like:9,dislike:1}
+	];
+
+	const [answers, setAnswers] = useState(fakeAnswers);
 	const [adviceIsHidden, setAdviceIsHidden] = useState(true);
 	const [answersAreHidden, setAnswersAreHidden] = useState(true);
 
 	return (
-		<Container className={styles.container}>
+		<Container className="container">
 			<Card body>
-				<Row lg={12} className={styles.header}>
+				<Row lg={12} className="header">
 					<Col>
 						<h5>
 							Dolor sit amet consectetur adipiscing elit pellentesque habitant ?
@@ -49,7 +56,7 @@ const Answers = () => {
 						</Button>
 					</Col>
 				</Row>
-				<Collapse className={styles.collapse} in={!answersAreHidden}>
+				<Collapse className="collapse" in={!answersAreHidden}>
 					<Row>
 						<Col lg='12'>
 							<Form.Group controlId='formGridState'>
@@ -57,7 +64,13 @@ const Answers = () => {
 							</Form.Group>
 						</Col>
 						<Col lg='12'>
-							<Table
+							
+
+							<List scope="answers" title="Physics I" rows={answers}/>
+
+
+
+							{/* <Table
 								columns={["#", "Answer", "Likes", "Dislikes", "Actions"]}
 								rows={[
 									[
@@ -109,7 +122,7 @@ const Answers = () => {
 										<Button className='btn-sm bg-danger'>Dislike</Button>,
 									],
 								]}
-							/>
+							/> */}
 						</Col>
 						<Col lg='12' sm='12' md='12'>
 							<Pagination>

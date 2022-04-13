@@ -1,0 +1,19 @@
+.multipleChoice {
+  margin-top: 10px;
+  background-color: rgb(243 242 242);
+  padding: 10px;
+  border-radius: 10px;
+
+}
+
+p {
+  margin: 0;
+}
+
+.header {
+  padding-bottom: 40px;
+}
+
+.pagination {
+  justify-content: center;
+}
