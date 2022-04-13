@@ -38,7 +38,7 @@ for q in qlist:
 
 
 async def generate_courses():
-    await db[DbName.COURSE].drop()
+    await db[DbName.COURSE.value].drop()
     courses_list = []
     for i in range(20):
         new_question = Course(
@@ -50,16 +50,16 @@ async def generate_courses():
 
         courses_list.append(new_question.dict())
 
-    await db[DbName.COURSE].insert_many(courses_list)
+    await db[DbName.COURSE.value].insert_many(courses_list)
 
 
 async def generate_questions():
-    await db[DbName.USER].drop()
-    await db[DbName.QUESTION].insert_many(qlist)
+    await db[DbName.USER.value].drop()
+    await db[DbName.QUESTION.value].insert_many(qlist)
 
 
 async def generate_simulations():
-    await db[DbName.EXAM_SIM].drop()
+    await db[DbName.EXAM_SIM.value].drop()
     sim_list = []
     for i in range(10):
         matricola = f"s{randint(183545, 309999)}"
@@ -79,12 +79,12 @@ async def generate_simulations():
         )
         sim_list.append(new_sim.dict())
 
-    await db[DbName.EXAM_SIM].insert_many(sim_list)
+    await db[DbName.EXAM_SIM.value].insert_many(sim_list)
 
 
 async def generate_users():
     user_list = []
-    await db[DbName.USER].drop()
+    await db[DbName.USER.value].drop()
     for i in range(50):
         matr = choice([f"s{randint(183545, 309999)}", f"d{randint(11111, 99999)}"])
         name = choice(["Mario", "Giovanni", "Guido"])
@@ -105,7 +105,7 @@ async def generate_users():
                 text=qlist[q_num]['content']["questiontext"]["text"]
             ))
         user_list.append(newUser.dict(by_alias=True))
-    await db[DbName.USER].insert_many(user_list)
+    await db[DbName.USER.value].insert_many(user_list)
 
 
 if __name__ == "__main__":

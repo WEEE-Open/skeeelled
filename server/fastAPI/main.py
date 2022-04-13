@@ -25,7 +25,7 @@ async def create_quiz(q: Quiz):
     parsed = q.convert_to_json()
     # upload the converted file to the database
     if parsed:
-        assigned_id = await q.insert_quiz(db[DbName.QUIZ])
+        assigned_id = await q.insert_quiz(db[DbName.QUIZ.value])
         # in case of first upload, also single questions are uploaded
         if assigned_id:
             question_list = []
@@ -33,7 +33,7 @@ async def create_quiz(q: Quiz):
             for question in q.file["contents"]["quiz"]["question"]:
                 new_question = Question(owner=q.owner, quiz_ref=quiz_ref, content=question)
                 question_list.append(new_question)
-                await multiple_insertion(db[DbName.QUESTION], question_list)
+                await multiple_insertion(db[DbName.QUESTION.value], question_list)
             return JSONResponse(status_code=status.HTTP_201_CREATED, content="Quiz created")
         else:
             return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -48,7 +48,7 @@ async def create_quiz(q: Quiz):
 async def get_course(id: str):
     if not check_valid_id(id):
         return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id is not a valid format")
-    a = await db[DbName.COURSE].find_one(ObjectId(id))
+    a = await db[DbName.COURSE.value].find_one(ObjectId(id))
     if a:
         # ObjectId is not JSON serializable, so i convert the value in string
         a['_id'] = str(a['_id'])
@@ -62,7 +62,7 @@ async def get_course(id: str):
 async def get_question(id: str):
     if not check_valid_id(id):
         return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id is not a valid format")
-    a = await db[DbName.QUESTION].find_one(ObjectId(id), {'quiz_ref': 0})
+    a = await db[DbName.QUESTION.value].find_one(ObjectId(id), {'quiz_ref': 0})
     if a:
         # ObjectId is not JSON serializable, so i convert the value in string
         a['_id'] = str(a['_id'])
@@ -76,7 +76,8 @@ async def get_question(id: str):
 async def get_user(id: str):
     if id[0] not in ('s', 'd'):
         return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id must start with d or s")
-    a = await db[DbName.USER].find_one(id, {'name': 1, 'surname': 1, 'username': 1, 'profile_picture': 1, '_id': 0})
+    a = await db[DbName.USER.value].find_one(id,
+                                             {'name': 1, 'surname': 1, 'username': 1, 'profile_picture': 1, '_id': 0})
     if a:
         return JSONResponse(status_code=status.HTTP_200_OK, content=a)
     else:
@@ -94,7 +95,7 @@ def check_valid_id(id: str):
 
 @app.get("/v1/myQuestions")
 async def get_user_myQuestion(user_id: str, npages: int, itemsPerPage: int = -1):
-    user_questions = await db[DbName.USER].find_one({"_id": user_id}, {"my_Questions": 1})
+    user_questions = await db[DbName.USER.value].find_one({"_id": user_id}, {"my_Questions": 1})
     if itemsPerPage != -1:
         q_list = user_questions["my_Questions"]
         pages = {}
