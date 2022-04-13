@@ -32,14 +32,18 @@ function ListEntryQuestions(props) {
 function ListEntryAnswers(props) {
     return(<>
         <tr>
-            <td colspan="4">{props.row.author}, {props.row.createdat}</td>
+            <td colspan="2">{props.row.author}, {props.row.createdat}</td>
         </tr>
         <tr>
-            <td>{props.row.like-props.row.dislike>0 && "+"}{props.row.like-props.row.dislike}</td>
-            <td><Image src={"/icons/UP ARROW.svg"} width="2%"/></td>
-            <td><Image src={"/icons/DOWN ARROW.svg"} width="2%"/></td>
-            <td>{props.row.answer}</td>
+            <td className="answerEntry">{props.row.like-props.row.dislike>0 && "+"}{props.row.like-props.row.dislike}</td>
+            <td rowspan="3">{props.row.answer}</td>
         </tr>
+        <tr><td className="answerEntry">
+            <Link to=""><Image src={"/icons/UP ARROW.svg"} width="90%" onClick={() => {}}/></Link>
+        </td></tr>
+        <tr><td className="answerEntry">
+            <Link to=""><Image src={"/icons/DOWN ARROW.svg"} width="90%" onClick={() => {}}/></Link>
+        </td></tr>
     </>);
 }
 

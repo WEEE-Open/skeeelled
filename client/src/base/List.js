@@ -51,7 +51,7 @@ function ListQuestions({props}) {
 }
 
 function ListAnswers({props}) {
-    return(<Table striped bordered borderless className="list">
+    return(<Table borderless className="list listAnswers">
         <tbody>
             {props.rows.map(r => (
                 <ListEntry scope={props.scope} row={r}/>
