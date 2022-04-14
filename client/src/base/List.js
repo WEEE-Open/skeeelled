@@ -1,5 +1,5 @@
 import { Table } from "react-bootstrap";
-import { ListEntry } from "./"
+import { ListEntry } from "./";
 import "./List.css";
 
 function HeaderColspan(scope) {
@@ -18,7 +18,7 @@ function ListDefault({ props }) {
 		{props.rounded ? <table className="list roundedList">
 			<thead>
 				<tr>
-					<th className="listTitle" colspan={HeaderColspan(props.scope)}>{props.title}</th>
+					<th className="listTitle" colSpan={HeaderColspan(props.scope)}>{props.title}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,7 +29,7 @@ function ListDefault({ props }) {
 		</table> : <Table striped bordered borderless className="list">
 			<thead className="listTitle">
 				<tr>
-					<th colspan={HeaderColspan(props.scope)}>{props.title}</th>
+					<th colSpan={HeaderColspan(props.scope)}>{props.title}</th>
 				</tr>
 			</thead>
 			<tbody>

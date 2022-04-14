@@ -33,11 +33,11 @@ function ListEntryQuestions(props) {
 function ListEntryAnswers(props) {
 	return (<>
 		<tr>
-			<td colspan="2">{props.row.author}, {props.row.createdat}</td>
+			<td colSpan="2">{props.row.author}, {props.row.createdat}</td>
 		</tr>
 		<tr>
 			<td className="answerEntry">{props.row.like - props.row.dislike > 0 && "+"}{props.row.like - props.row.dislike}</td>
-			<td rowspan="3">{props.row.answer}</td>
+			<td rowSpan="3">{props.row.answer}</td>
 		</tr>
 		<tr><td className="answerEntry">
 			<Link to=""><Image src={"/icons/UP ARROW.svg"} width="90%" onClick={() => { }} /></Link>
@@ -65,7 +65,7 @@ function ListEntrySuggestion(props) {
 				<Col>Created at: {props.row.createdat}</Col>
 			</Row>
 		</Container>
-	)
+	);
 }
 
 function ListEntry(props) {

@@ -8,7 +8,7 @@ function Suggestion(props) {
 		<Container id='suggestion-container' fluid>
 			<Card
 				style={{
-					width: '25vw',
+					width: "25vw",
 					borderRadius: 20,
 				}}
 			>
@@ -17,7 +17,7 @@ function Suggestion(props) {
 				</Card.Body>
 			</Card>
 		</Container>
-	)
+	);
 }
 
 export default Suggestion;

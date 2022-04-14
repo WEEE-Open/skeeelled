@@ -5,7 +5,7 @@ import "./NavigationBar.css";
 
 function NavigationBar(props) {
 	return (
-		<Navbar id={"navbar"} bg={props.dark ? 'dark' : 'light'} variant={props.dark ? 'dark' : 'light'}>
+		<Navbar id={"navbar"} bg={props.dark ? "dark" : "light"} variant={props.dark ? "dark" : "light"}>
 
 			<Link to={"/"}>
 				<Navbar.Brand><Image id={"navbar-logo-skeeelled"} src={props.dark ? "/img/logoSkeeelledDark.svg" : "/img/logoSkeeelledLight.svg"} className="logo" /></Navbar.Brand>
@@ -26,7 +26,7 @@ function NavigationBar(props) {
 					<NavDropdown
 						id="dropdown-menu-align-responsive-2"
 						title={iconUser}
-						align={{ lg: 'end' }}
+						align={{ lg: "end" }}
 					>
 						<NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
 						<NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
