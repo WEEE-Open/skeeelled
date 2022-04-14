@@ -39,7 +39,7 @@ function SearchBar({ apiCall }) {
 				isLoading={false}
 				searchText=""
 				emptyLabel=""
-				propmptText=""
+				promptText=""
 				options={suggestions}
 				filterBy={() => true}
 				renderMenuItemChildren={(option) => <span>{option.label}</span>}
