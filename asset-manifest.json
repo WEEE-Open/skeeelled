@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "https://weee-open.github.io/skeeelled/static/css/main.c09f14ed.chunk.css",
-    "main.js": "https://weee-open.github.io/skeeelled/static/js/main.3222ab27.chunk.js",
-    "main.js.map": "https://weee-open.github.io/skeeelled/static/js/main.3222ab27.chunk.js.map",
+    "main.js": "https://weee-open.github.io/skeeelled/static/js/main.e528d328.chunk.js",
+    "main.js.map": "https://weee-open.github.io/skeeelled/static/js/main.e528d328.chunk.js.map",
     "runtime-main.js": "https://weee-open.github.io/skeeelled/static/js/runtime-main.3389a649.js",
     "runtime-main.js.map": "https://weee-open.github.io/skeeelled/static/js/runtime-main.3389a649.js.map",
     "static/css/2.df166ece.chunk.css": "https://weee-open.github.io/skeeelled/static/css/2.df166ece.chunk.css",
@@ -28,6 +28,6 @@
     "static/css/2.df166ece.chunk.css",
     "static/js/2.0a563eea.chunk.js",
     "static/css/main.c09f14ed.chunk.css",
-    "static/js/main.3222ab27.chunk.js"
+    "static/js/main.e528d328.chunk.js"
   ]
 }
