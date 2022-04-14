@@ -1,46 +1,46 @@
 .list {
-    margin-top:20px;
-    margin-bottom:20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .listTitle {
-    padding: 12px;
-    background-color: #00983a;
-    color: white;
+  padding: 12px;
+  background-color: #00983a;
+  color: white;
 }
 
 .listQuestionsTitle {
-    margin-left: 20px;
-    margin-bottom: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
 }
 
 .listAnswers tr:nth-child(4n+1) {
-    background-color: #eee;
+  background-color: #eee;
 }
 
 .roundedList {
-    border-spacing:0px;
-    border-collapse:separate;
-    width:100%;
+  border-spacing: 0;
+  border-collapse: separate;
+  width: 100%;
 }
 
 .roundedList th {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .roundedList td {
-    padding: 0.5rem;
+  padding: 0.5rem;
 }
 
 .roundedList tr:nth-child(odd) {
-    background-color: #eee;
+  background-color: #eee;
 }
 
 .roundedList tr:last-child td:first-child {
-    border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .roundedList tr:last-child td:last-child {
-    border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }

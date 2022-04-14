@@ -1,7 +1,7 @@
 .greenDot {
-  margin-left:2px;
-  margin-right:8px;
-  color:#00983a;
+  margin-left: 2px;
+  margin-right: 8px;
+  color: #00983a;
 }
 
 .questionEntry {
@@ -23,6 +23,6 @@
 }
 
 .tags {
-  font-size: .8em;
+  font-size: 0.8em;
   padding-right: 5px;
 }
