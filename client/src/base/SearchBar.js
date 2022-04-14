@@ -56,7 +56,7 @@ function SearchBar({ apiCall }) {
 					}}
 					className={"btn-outline-primary border-left-0 border " + styles.clearButton}
 				>
-					<img width="20" height="20" src="icons/x.svg" alt="Search" />
+					<img width="20" height="20" src="/icons/x.svg" alt="Search" />
 				</Button>
 			)}
 			<Button variant={value.length > 0 ? "primary" : "link"} className="btn-outline-primary border-left-0 border">
