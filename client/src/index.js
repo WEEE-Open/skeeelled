@@ -4,10 +4,11 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+const { PUBLIC_URL } = process.env;
 
 ReactDOM.render(
 	// <React.StrictMode>
-	<Router>
+	<Router basename={PUBLIC_URL}>
 		<App />
 	</Router>,
 	// </React.StrictMode>,
