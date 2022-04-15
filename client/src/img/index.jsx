@@ -1,4 +1,3 @@
-
 import logoSkeeelledLight from "./logoSkeeelledLight.svg";
 import logoSkeeelledDark from "./logoSkeeelledDark.svg";
 import logoSkeeellLight from "./logoSkeeellLight.svg";
@@ -8,5 +7,12 @@ import logoWeeeOpen from "./logoWeeeOpen.svg";
 import logoSkeeelledLightFooter from "../img/logoSkeeelledLightFooter.svg";
 import logoSkeeelledDarkFooter from "../img/logoSkeeelledDarkFooter.svg";
 
-export {logoSkeeelledLight, logoSkeeelledDark, logoSkeeellLight, logoSkeeellDark, logoWeeeOpen, logoSkeeelledLightFooter, logoSkeeelledDarkFooter};
-
+export {
+  logoSkeeelledLight,
+  logoSkeeelledDark,
+  logoSkeeellLight,
+  logoSkeeellDark,
+  logoWeeeOpen,
+  logoSkeeelledLightFooter,
+  logoSkeeelledDarkFooter,
+};

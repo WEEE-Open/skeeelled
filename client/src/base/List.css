@@ -14,7 +14,7 @@
   margin-bottom: 20px;
 }
 
-.listAnswers tr:nth-child(4n+1) {
+.listAnswers tr:nth-child(4n + 1) {
   background-color: #eee;
 }
 

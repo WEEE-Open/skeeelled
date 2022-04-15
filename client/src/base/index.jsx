@@ -10,4 +10,15 @@ import TextInput from "./TextInput";
 import SearchBar from "./SearchBar";
 import DebugPaths from "./DebugPaths";
 
-export {NavigationBar, Footer, Table, Recent, List, ListEntry, ListGroup, DebugPaths, SearchBar, TextInput};
+export {
+  NavigationBar,
+  Footer,
+  Table,
+  Recent,
+  List,
+  ListEntry,
+  ListGroup,
+  DebugPaths,
+  SearchBar,
+  TextInput,
+};

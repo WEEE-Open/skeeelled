@@ -6,20 +6,21 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 let basename = "";
-const {PUBLIC_URL} = process.env;
+const { PUBLIC_URL } = process.env;
 
 if (PUBLIC_URL) {
-	const splitArray = PUBLIC_URL.split("://")[1].split("/");
-	basename = splitArray.length > 1 && `/${splitArray[splitArray.length - 1]}` || "";
+  const splitArray = PUBLIC_URL.split("://")[1].split("/");
+  basename =
+    (splitArray.length > 1 && `/${splitArray[splitArray.length - 1]}`) || "";
 }
 
 ReactDOM.render(
-	// <React.StrictMode>
-	<Router basename={basename}>
-		<App />
-	</Router>,
-	// </React.StrictMode>,
-	document.getElementById("root")
+  // <React.StrictMode>
+  <Router basename={basename}>
+    <App />
+  </Router>,
+  // </React.StrictMode>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
