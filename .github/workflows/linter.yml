@@ -34,7 +34,7 @@ jobs:
           git config --global user.name "weee-open-bot"
 
       - name: Run ESLint
-        run: eslint --ext .js --ext .jsx --fix --no-color --format json  "./client"
+        run: npx eslint --ext .js --ext .jsx --fix --no-color --format json  "./client"
         continue-on-error: true
 
       - name: Commit ESLint changes
@@ -42,7 +42,7 @@ jobs:
           git commit -am "Fix code style issues with ESLint" || echo "No changes to commit"
 
       - name: Run Prettier
-        run: prettier --write "./client"
+        run: npx prettier --write "./client"
         continue-on-error: true
 
       - name: Commit Prettier changes
