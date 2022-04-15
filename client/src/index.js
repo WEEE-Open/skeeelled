@@ -5,9 +5,13 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-const { PUBLIC_URL } = process.env;
-const splitArray = PUBLIC_URL.split("://")[1].split("/");
-const basename = splitArray.length > 1 && `/${splitArray[splitArray.length - 1]}` || "";
+let basename = "";
+const {PUBLIC_URL} = process.env;
+
+if (PUBLIC_URL) {
+	const splitArray = PUBLIC_URL.split("://")[1].split("/");
+	basename = splitArray.length > 1 && `/${splitArray[splitArray.length - 1]}` || "";
+}
 
 ReactDOM.render(
 	// <React.StrictMode>
