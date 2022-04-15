@@ -38,6 +38,8 @@ const Questions = () => {
 		return matches;
 	}
 
+	// TODO: also take a look at Bootstrap class infixes to detect the current breakpoint
+	// to see which approach is better -- https://getbootstrap.com/docs/5.1/layout/breakpoints/
 	const isDesktop = useMediaQuery('(min-width: 960px)')
 
 	return (
