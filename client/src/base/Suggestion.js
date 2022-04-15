@@ -3,6 +3,7 @@ import { ListEntry } from "./index";
 import { Card, Container, Row } from "react-bootstrap";
 import "./Suggestion.css";
 
+
 function Suggestion(props) {
 	return (
 		<Container id='suggestion-container' fluid>

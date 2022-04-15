@@ -1,5 +1,5 @@
-import { Table } from "react-bootstrap";
-import { ListEntry } from "./";
+import {Col, Container, Row, Table} from "react-bootstrap";
+import {ListEntry} from "./"
 import "./List.css";
 
 function HeaderColspan(scope) {
@@ -60,10 +60,27 @@ function ListAnswers({ props }) {
 	</Table>);
 }
 
+function ListSuggestion({props}) {
+    return(
+        <>
+            <Container>
+                <h3 className="listSuggestionTitle">{props.title}</h3>
+                <div className="listSuggestion-questions">
+                    {
+                        props.rows.map(r =>(
+                            <ListEntry scope={props.scope} row={r}/>
+                        ))}
+                </div>
+            </Container>
+        </>
+    )
+}
+
 function List(props) {
-	if (props.scope === "questions") return (<ListQuestions props={props} />);
-	if (props.scope === "answers") return (<ListAnswers props={props} />);
-	return (<ListDefault props={props} />);
+    if(props.scope==="questions") return(<ListQuestions props={props}/>);
+    if(props.scope==="answers") return(<ListAnswers props={props}/>);
+    if(props.scope==="suggestion") return(<ListSuggestion props={props}/>);
+    return(<ListDefault props={props}/>);
 }
 
 export default List;
