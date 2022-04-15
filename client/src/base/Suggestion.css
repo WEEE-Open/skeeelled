@@ -2,3 +2,9 @@
     font-size: 12px;
     margin: 3vh;
 }
+
+@media screen and (max-width: 900px) {
+  #suggestion-container {
+    font-size: 10px;
+  }
+}

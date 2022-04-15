@@ -44,7 +44,7 @@ jobs:
           git config --global user.email "weee-open-bot@users.noreply.github.com"
           git config --global user.name "weee-open-bot"
 
-      - name: Deploy development instance
+      - name: Build and deploy staging instance
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
           npm run deploy -- --user "weee-open-bot <weee-open-bot@users.noreply.github.com>" --message "Deploy commit ${GITHUB_SHA}"

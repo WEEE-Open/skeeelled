@@ -4,7 +4,7 @@ import {useState, useEffect} from "react";
 import {Container, Row, Col, Alert, Button} from "react-bootstrap";
 import {Routes, Route, Navigate as Redirect, Link} from "react-router-dom";
  
-import {NavigationBar, Footer, DebugPaths} from "./base/";
+import {NavigationBar, Footer, DebugPaths, TextInput} from "./base/";
 import {Answers, CoursesList, Exam, LoginForm, MyQuestions, Profile, Questions} from "./pages/";
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'
@@ -80,6 +80,7 @@ function App() {
 						<Route path="/question/:questionid" element={<Answers/>}/>
 						<Route path="/discussion/:questionid" element={<p>Work in progress</p>}/>
 						<Route path="/simulation" element={<p>Work in progress</p>}/>
+						<Route path="/addquestion" element={<TextInput/>}/>
 						<Route path="/todel" element={<Exam/>}/>
 						{/* <MyQuestions /> */}
 					</Routes> : <Routes>

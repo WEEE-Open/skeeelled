@@ -1,7 +1,7 @@
 .greenDot {
-  margin-left:2px;
-  margin-right:8px;
-  color:#00983a;
+  margin-left: 2px;
+  margin-right: 8px;
+  color: #00983a;
 }
 
 .questionEntry {
@@ -13,17 +13,21 @@
   border-radius: 5px;
 }
 
+.answerEntry {
+  width: 0;
+}
+
 .question {
   font-size: 1.2em;
   text-decoration: none;
 }
 
 .tags {
-  font-size: .8em;
+  font-size: 0.8em;
   padding-right: 5px;
 }
 
-.suggestion-question{
+.suggestion-question {
   font-size: 15px;
   text-decoration: none;
 }

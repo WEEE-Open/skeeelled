@@ -5,9 +5,17 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+let basename = "";
+const {PUBLIC_URL} = process.env;
+
+if (PUBLIC_URL) {
+	const splitArray = PUBLIC_URL.split("://")[1].split("/");
+	basename = splitArray.length > 1 && `/${splitArray[splitArray.length - 1]}` || "";
+}
+
 ReactDOM.render(
 	// <React.StrictMode>
-	<Router>
+	<Router basename={basename}>
 		<App />
 	</Router>,
 	// </React.StrictMode>,

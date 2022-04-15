@@ -1,0 +1,9 @@
+.mde-header-item button {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+ul.contains-task-list {
+  list-style-type: none;
+  padding-left: 0 !important;
+}

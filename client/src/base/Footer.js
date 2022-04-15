@@ -1,6 +1,6 @@
 import {Image} from "react-bootstrap";
 import {logoSkeeelledLight, logoSkeeellLight, logoSkeeelledDark, logoSkeeellDark, logoWeeeOpen} from "../img/";
-import {logoSkeeelledLightFooter,logoSkeeellLightFooter, logoSkeeelledDarkFooter,logoSkeeellDarkFooter} from "../img/";
+import {logoSkeeelledLightFooter, logoSkeeellLightFooter, logoSkeeelledDarkFooter, logoSkeeellDarkFooter} from "../img/";
 import "./Footer.css";
 
 function Footer() {

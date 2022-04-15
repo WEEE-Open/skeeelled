@@ -153,6 +153,6 @@ function Answers() {
 			</Card>
 		</Container>
 	);
-};
+}
 
 export default Answers;
