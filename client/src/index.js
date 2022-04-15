@@ -4,11 +4,14 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+
 const { PUBLIC_URL } = process.env;
+const splitArray = PUBLIC_URL.split("://")[1].split("/");
+const basename = splitArray.length > 1 && `/${splitArray[splitArray.length - 1]}` || "";
 
 ReactDOM.render(
 	// <React.StrictMode>
-	<Router basename={PUBLIC_URL}>
+	<Router basename={basename}>
 		<App />
 	</Router>,
 	// </React.StrictMode>,
