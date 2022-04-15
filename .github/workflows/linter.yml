@@ -25,13 +25,16 @@ jobs:
         with:
           node-version: 17
 
+      - name: Install Node.js dependencies
+        run: npm ci
+
       - name: Set up git credentials
         run: |
           git config --global user.email "weee-open-bot@users.noreply.github.com"
           git config --global user.name "weee-open-bot"
 
       - name: Run ESLint
-        run: npx --no-install eslint --ext .js --ext .jsx --fix --no-color --format json  "./client"
+        run: eslint --ext .js --ext .jsx --fix --no-color --format json  "./client"
         continue-on-error: true
 
       - name: Commit ESLint changes
@@ -39,7 +42,7 @@ jobs:
           git commit -am "Fix code style issues with ESLint" || echo "No changes to commit"
 
       - name: Run Prettier
-        run: npx --no-install prettier --write "./client"
+        run: prettier --write "./client"
         continue-on-error: true
 
       - name: Commit Prettier changes
