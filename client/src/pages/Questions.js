@@ -24,23 +24,23 @@ const Questions = () => {
 		const [matches, setMatches] =  useState(false);
 
 		useEffect(()=> {
-			const media = window.matchMedia(query)
+			const media = window.matchMedia(query);
 			if (media.matches !== matches) {
-				setMatches(media.matches)
+				setMatches(media.matches);
 			}
 			const listener = () => {
-				setMatches(media.matches)
-			}
-			window.addEventListener('resize', listener)
-			return () => window.removeEventListener('resize', listener);
-		}, [matches, query])
+				setMatches(media.matches);
+			};
+			window.addEventListener("resize", listener);
+			return () => window.removeEventListener("resize", listener);
+		}, [matches, query]);
 
 		return matches;
-	}
+	};
 
 	// TODO: also take a look at Bootstrap class infixes to detect the current breakpoint
 	// to see which approach is better -- https://getbootstrap.com/docs/5.1/layout/breakpoints/
-	const isDesktop = useMediaQuery('(min-width: 960px)')
+	const isDesktop = useMediaQuery("(min-width: 960px)");
 
 	return (
 		<>
@@ -93,40 +93,40 @@ const Questions = () => {
 				:
 				<>
 					<Card body>
-							<Container className="container">
-								<Card body>
-									<Row lg={12} className="header">
-										<Col>
-											<List scope="questions" title="Physics I" rows={questions}/>
-										</Col>
-										<Col className="pagination" lg='12' sm='12' md='12'>
-											<Pagination>
-												{[
-													<Pagination.Item key={1} active>
-														{1}
-													</Pagination.Item>,
-													<Pagination.Item key={2} active={false}>
-														{2}
-													</Pagination.Item>,
-													<Pagination.Item key={3} active={false}>
-														{3}
-													</Pagination.Item>,
-													<Pagination.Item key={4} active={false}>
-														{4}
-													</Pagination.Item>,
-													<Pagination.Item key={5} active={false}>
-														{5}
-													</Pagination.Item>,
-													<Pagination.Item key={6} active={false}>
-														{6}
-													</Pagination.Item>,
-												]}
-											</Pagination>
-										</Col>
-									</Row>
-								</Card>
-							</Container>
-						</Card>
+						<Container className="container">
+							<Card body>
+								<Row lg={12} className="header">
+									<Col>
+										<List scope="questions" title="Physics I" rows={questions}/>
+									</Col>
+									<Col className="pagination" lg='12' sm='12' md='12'>
+										<Pagination>
+											{[
+												<Pagination.Item key={1} active>
+													{1}
+												</Pagination.Item>,
+												<Pagination.Item key={2} active={false}>
+													{2}
+												</Pagination.Item>,
+												<Pagination.Item key={3} active={false}>
+													{3}
+												</Pagination.Item>,
+												<Pagination.Item key={4} active={false}>
+													{4}
+												</Pagination.Item>,
+												<Pagination.Item key={5} active={false}>
+													{5}
+												</Pagination.Item>,
+												<Pagination.Item key={6} active={false}>
+													{6}
+												</Pagination.Item>,
+											]}
+										</Pagination>
+									</Col>
+								</Row>
+							</Card>
+						</Container>
+					</Card>
 					<Container>
 						<Row md={2} sm={2}>
 							<Col><Suggestion scope={"suggestion"} title={"Latest Questions"} rows={suggestions} /></Col>

@@ -56,26 +56,26 @@ function ListEntryTest(props) {
 }
 
 function ListEntrySuggestion(props) {
-    return(
-        <Container>
-            <Col>
-                <Col><Link to={"/suggestion/"+props.row.id} className="suggestion-question">{props.row.question}</Link></Col>
-                <Col>from {props.row.author}</Col>
-                <Col>Created at: {props.row.createdat}</Col>
-            </Col>
-        </Container>
-    )
+	return(
+		<Container>
+			<Col>
+				<Col><Link to={"/suggestion/"+props.row.id} className="suggestion-question">{props.row.question}</Link></Col>
+				<Col>from {props.row.author}</Col>
+				<Col>Created at: {props.row.createdat}</Col>
+			</Col>
+		</Container>
+	);
 }
 
 function ListEntry(props) {
-    return(<>
-        {props.scope==="default" && <ListEntryDefault row={props.row}/>}
-        {props.scope==="courses" && <ListEntryCourses row={props.row}/>}
-        {props.scope==="questions" && <ListEntryQuestions row={props.row}/>}
-        {props.scope==="answers" && <ListEntryAnswers row={props.row}/>}
-        {props.scope==="test" && <ListEntryTest row={props.row}/>}
-        {props.scope==="suggestion" && <ListEntrySuggestion row={props.row}/>}
-    </>);
+	return(<>
+		{props.scope==="default" && <ListEntryDefault row={props.row}/>}
+		{props.scope==="courses" && <ListEntryCourses row={props.row}/>}
+		{props.scope==="questions" && <ListEntryQuestions row={props.row}/>}
+		{props.scope==="answers" && <ListEntryAnswers row={props.row}/>}
+		{props.scope==="test" && <ListEntryTest row={props.row}/>}
+		{props.scope==="suggestion" && <ListEntrySuggestion row={props.row}/>}
+	</>);
 
 }
 
