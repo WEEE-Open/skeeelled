@@ -1,5 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# npm test
-npx lint-staged --cwd client
+# only run pre-commit hook with npx if the current user has npx installed (-> is a frontend dev)
+# = do not force other devs to install node and npm pointlessly
+if command -v npx &> /dev/null; then
+  npx lint-staged --cwd client
+fi
