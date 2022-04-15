@@ -12,7 +12,7 @@ jobs:
     if: ${{ github.event.pusher.name != 'weee-open-bot' }}
     defaults:
       run:
-        working-directory: client
+        working-directory: .
 
     steps:
       - name: Check out Git repository
@@ -25,27 +25,26 @@ jobs:
         with:
           node-version: 17
 
-      - name: Install Node.js dependencies
-        run: npm install
-
       - name: Set up git credentials
         run: |
           git config --global user.email "weee-open-bot@users.noreply.github.com"
           git config --global user.name "weee-open-bot"
 
       - name: Run ESLint
-        run: npx --no-install eslint --ext .js --ext .jsx --fix --no-color --format json  "." || true
+        run: npx --no-install eslint --ext .js --ext .jsx --fix --no-color --format json  "./client"
+        continue-on-error: true
 
       - name: Commit ESLint changes
         run: |
           git commit -am "Fix code style issues with ESLint" || echo "No changes to commit"
 
-      - name: Run Stylelint
-        run: npx stylelint --ignore-pattern "**/*.min.css" --fix "**/*.{css,scss}" || true
+      - name: Run Prettier
+        run: npx --no-install prettier --write "./client"
+        continue-on-error: true
 
-      - name: Commit Stylelint changes
+      - name: Commit Prettier changes
         run: |
-          git commit -am "Fix code style issues with Stylelint" || echo "No changes to commit"
+          git commit -am "Fix code style issues with Prettier" || echo "No changes to commit"
 
       - name: Push changes
         run: git push
