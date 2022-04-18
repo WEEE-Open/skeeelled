@@ -33,8 +33,8 @@ function NavigationBar(props) {
 							<NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
 							<NavDropdown.Divider/>
 							<Form.Switch label="Dark" id="custom-switch-dark" defaultChecked={props.dark} onChange={() => props.setdark(!props.dark)}/>
-							<Form.Switch label="Show hints" id="custom-switch-hint"/>
-							<Form.Switch label="Show discussion" id="custom-switch-disc"/>
+							<Form.Switch label="Show hints" id="custom-switch-hint" defaultChecked={props.showhints} onChange={() => props.setshowhints(!props.showhints)}/>
+							<Form.Switch label="Show discussion" id="custom-switch-disc" defaultChecked={props.showdiscussion} onChange={() => props.setshowdiscussion(!props.showdiscussion)}/>
 							{props.logged && <>
 								<NavDropdown.Divider/>
 								<NavDropdown.Item onClick={props.logout}>Logout {iconLogout}</NavDropdown.Item>
