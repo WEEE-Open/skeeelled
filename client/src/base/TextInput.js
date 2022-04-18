@@ -72,15 +72,14 @@ const insertTex = {
 };
 
 function TextInput({ value, onChange, selectedTab, onTabChange }) {
-  const [val, setVal] =
-    value !== undefined && onChange !== undefined
-      ? [value, onChange]
-      : useState("");
+  const [val, setVal] = useState(value !== undefined && onChange !== undefined
+      ? [onChange]
+      : "");
 
-  const [selTab, setSelTab] =
-    selectedTab !== undefined && onTabChange !== undefined
-      ? [selectedTab, onTabChange]
-      : useState("write");
+  const [selTab, setSelTab] = useState(selectedTab !== undefined && onTabChange !== undefined
+      ? [onTabChange]
+      : "write")
+
 
   return (
     <Container>
