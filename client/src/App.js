@@ -13,6 +13,7 @@ import {
   MyQuestions,
   Profile,
   Questions,
+  ListFullPage
 } from "./pages/";
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'
@@ -104,6 +105,7 @@ function App() {
               <Route path="/simulation" element={<p>Work in progress</p>} />
               <Route path="/addquestion" element={<TextInput />} />
               <Route path="/todel" element={<Exam />} />
+                <Route path="/listfullpage" element={<ListFullPage />} />
               {/* <MyQuestions /> */}
             </Routes>
           ) : (
