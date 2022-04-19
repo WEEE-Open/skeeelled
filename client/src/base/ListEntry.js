@@ -76,7 +76,7 @@ function ListEntryAnswers(props) {
       <tr>
         <td className="answerEntry">
           <Link to="">
-            <Image src={"icons/UP ARROW.svg"} width="90%" onClick={() => {}} />
+            <Image src={"../icons/UP ARROW.svg"} width="90%" onClick={() => {}} />
           </Link>
         </td>
       </tr>
@@ -84,7 +84,7 @@ function ListEntryAnswers(props) {
         <td className="answerEntry">
           <Link to="">
             <Image
-              src={"icons/DOWN ARROW.svg"}
+              src={"../icons/DOWN ARROW.svg"}
               width="90%"
               onClick={() => {}}
             />
