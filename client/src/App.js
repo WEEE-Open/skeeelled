@@ -15,6 +15,7 @@ import {
 } from "./pages/";
 // cannot access from "./pages/"
 import ListFullPage from "./pages/ListFullPage";
+import Bookmarks from "./pages/Bookmarks"
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'
 
@@ -105,7 +106,8 @@ function App() {
               <Route path="/simulation" element={<p>Work in progress</p>} />
               <Route path="/addquestion" element={<TextInput />} />
               <Route path="/todel" element={<Exam />} />
-              <Route path="/fullpage" element={<ListFullPage />} />
+              <Route path="/listfullpage/:listName" element={<ListFullPage />} />
+              <Route path="/bookmarks" element={<Bookmarks/>} />
               {/* <MyQuestions /> */}
             </Routes>
           ) : (

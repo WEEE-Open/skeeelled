@@ -8,9 +8,10 @@ import {
   Card,
   Form,
 } from "react-bootstrap";
-import { useEffect, useState /* , useEffect */ } from "react";
+import { useEffect, useState } from "react";
 import "./Questions.css";
 import Suggestion from "../base/Suggestion";
+import {Link} from "react-router-dom";
 
 const Questions = () => {
   /** Mock courses **/
@@ -69,6 +70,9 @@ const Questions = () => {
 
   return (
     <>
+      <Link to={{pathname:"/bookmarks"}} state={{scope: "questions", title: "Bookmarked Questions: Physics I", rows: questions}}>
+        <img className="bookmark-svg" alt="BOOKMARK.svg" src={"../icons/BOOKMARK.svg"}/>
+      </Link>
       {isDesktop ? (
         <>
           <Row>

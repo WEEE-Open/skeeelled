@@ -1,7 +1,7 @@
-import {List} from "../base";
 import {Card, Container, Pagination} from "react-bootstrap";
-import {useLocation} from "react-router-dom";
+import {List} from "../base";
 import {useState} from "react";
+import {useLocation} from "react-router-dom";
 
 function PaginationRow() {
     let [active, setActive] = useState(1)
@@ -25,9 +25,9 @@ function PaginationRow() {
     )
 }
 
-function ListFullPage () {
+export default function Bookmarks() {
     const location = useLocation();
-    return (
+    return(
         <>
             <Container>
                 <Card body>
@@ -39,5 +39,3 @@ function ListFullPage () {
         </>
     )
 }
-
-export default ListFullPage
