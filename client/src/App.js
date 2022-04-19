@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Alert, Button } from "react-bootstrap";
 import { Routes, Route, Navigate as Redirect, Link } from "react-router-dom";
-
 import { NavigationBar, Footer, DebugPaths, TextInput } from "./base/";
 import {
   Answers,
@@ -13,8 +12,9 @@ import {
   MyQuestions,
   Profile,
   Questions,
-  ListFullPage
 } from "./pages/";
+// cannot access from "./pages/"
+import ListFullPage from "./pages/ListFullPage";
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'
 
@@ -105,7 +105,7 @@ function App() {
               <Route path="/simulation" element={<p>Work in progress</p>} />
               <Route path="/addquestion" element={<TextInput />} />
               <Route path="/todel" element={<Exam />} />
-                <Route path="/listfullpage" element={<ListFullPage />} />
+              <Route path="/fullpage" element={<ListFullPage />} />
               {/* <MyQuestions /> */}
             </Routes>
           ) : (
