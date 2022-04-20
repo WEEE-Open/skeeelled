@@ -1,4 +1,3 @@
-import { Row, Col, Image } from "react-bootstrap";
 import { Row, Col, Container, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./ListEntry.css";
