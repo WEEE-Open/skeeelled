@@ -72,38 +72,31 @@ const insertTex = {
 };
 
 function TextInput({ value, onChange, selectedTab, onTabChange }) {
-  const [val, setVal] =
-    value !== undefined && onChange !== undefined
-      ? [value, onChange]
-      : useState("");
+	const [val, setVal] = useState("");
+	const [selTab, setSelTab] = useState("write");
 
-  const [selTab, setSelTab] =
-    selectedTab !== undefined && onTabChange !== undefined
-      ? [selectedTab, onTabChange]
-      : useState("write");
-
-  return (
-    <Container>
-      <ReactMde
-        value={val}
-        onChange={setVal}
-        selectedTab={selTab}
-        onTabChange={setSelTab}
-        commands={{ "insert-tex": insertTex }}
-        toolbarCommands={[...getDefaultToolbarCommands(), ["insert-tex"]]}
-        generateMarkdownPreview={(markdown) =>
-          Promise.resolve(
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm, remarkMath]}
-              rehypePlugins={[rehypeKatex, rehypeHighlight]}
-            >
-              {markdown}
-            </ReactMarkdown>
-          )
-        }
-      />
-    </Container>
-  );
+	return (
+		<Container>
+			<ReactMde
+				value={value || val}
+				onChange={onChange || setVal}
+				selectedTab={selectedTab || selTab}
+				onTabChange={onTabChange || setSelTab}
+				commands={{ "insert-tex": insertTex }}
+				toolbarCommands={[...getDefaultToolbarCommands(), ["insert-tex"]]}
+				generateMarkdownPreview={(markdown) =>
+					Promise.resolve(
+						<ReactMarkdown
+							remarkPlugins={[remarkGfm, remarkMath]}
+							rehypePlugins={[rehypeKatex, rehypeHighlight]}
+						>
+							{markdown}
+						</ReactMarkdown>
+					)
+				}
+			/>
+		</Container>
+	);
 }
 
 export default TextInput;
