@@ -1,4 +1,5 @@
 import { Row, Col, Image } from "react-bootstrap";
+import { Row, Col, Container, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./ListEntry.css";
 
@@ -62,14 +63,14 @@ function ListEntryAnswers(props) {
   return (
     <>
       <tr>
-        <td colspan="2">
+        <td colSpan="2">
           {props.row.author}, {props.row.createdat}
         </td>
       </tr>
       <tr>
         <td className="answerEntry">
           <Link to="">
-            <Image src={"/icons/UP ARROW.svg"} width="90%" onClick={() => {}} />
+            <Image src={"icons/UP ARROW.svg"} width="90%" onClick={() => {}} />
           </Link>
         </td>
         <td rowspan="3">{props.row.answer}</td>
@@ -84,7 +85,7 @@ function ListEntryAnswers(props) {
         <td className="answerEntry">
           <Link to="">
             <Image
-              src={"/icons/DOWN ARROW.svg"}
+              src={"icons/DOWN ARROW.svg"}
               width="90%"
               onClick={() => {}}
             />
@@ -105,6 +106,25 @@ function ListEntryTest(props) {
   );
 }
 
+function ListEntrySuggestion(props) {
+  return (
+    <Container>
+      <Col>
+        <Col>
+          <Link
+            to={"/suggestion/" + props.row.id}
+            className="suggestion-question"
+          >
+            {props.row.question}
+          </Link>
+        </Col>
+        <Col>from {props.row.author}</Col>
+        <Col>Created at: {props.row.createdat}</Col>
+      </Col>
+    </Container>
+  );
+}
+
 function ListEntry(props) {
   return (
     <>
@@ -113,6 +133,7 @@ function ListEntry(props) {
       {props.scope === "questions" && <ListEntryQuestions row={props.row} />}
       {props.scope === "answers" && <ListEntryAnswers row={props.row} />}
       {props.scope === "test" && <ListEntryTest row={props.row} />}
+      {props.scope === "suggestion" && <ListEntrySuggestion row={props.row} />}
     </>
   );
 }

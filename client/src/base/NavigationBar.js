@@ -24,8 +24,8 @@ function NavigationBar(props) {
             id={"navbar-logo-skeeelled"}
             src={
               props.dark
-                ? "/img/logoSkeeelledDark.svg"
-                : "/img/logoSkeeelledLight.svg"
+                ? "img/logoSkeeelledDark.svg"
+                : "img/logoSkeeelledLight.svg"
             }
             className="logo"
           />
@@ -38,15 +38,13 @@ function NavigationBar(props) {
         </Link>
       ) : null}
 
-      <Nav.Link id={"course-link"} href="/courses">
+      <Nav.Link as={Link} id={"course-link"} to="/courses">
         Courses
       </Nav.Link>
 
-      {
-        /*props.user.isProfessor*/ true ? (
-          <Nav.Link id={"add-question-link"}>Add question</Nav.Link>
-        ) : null
-      }
+      <Nav.Link as={Link} id={"add-question-link"} to="/addquestion">
+        Add question
+      </Nav.Link>
 
       <Nav id={"user-dropdown"}>
         <Navbar.Collapse className="mr-4">

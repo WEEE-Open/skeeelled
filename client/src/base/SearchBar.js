@@ -1,61 +1,72 @@
-import React, { forwardRef, useState } from "react";
-import { Form, Dropdown } from "react-bootstrap";
-import API from "../api/API";
+import React, { useRef, useState } from "react";
+import { InputGroup, Button } from "react-bootstrap";
+import { AsyncTypeahead } from "react-bootstrap-typeahead";
 
-const SearchInput = forwardRef(({ onClick, onChange, value }, ref) => {
-	return (
-		<Form.Control
-			ref={ref}
-			onClick={(e) => {
-				e.preventDefault();
-				onClick(e);
-			}}
-			onChange={onChange}
-			type="text"
-			placeholder="Search courses"
-			className="mx-auto"
-			value={value}
-		/>
-	);
-});
-
-SearchInput.displayName = "SearchInput";
+import styles from "./searchBar/searchBar.module.scss";
+import "react-bootstrap-typeahead/css/Typeahead.css";
+import "react-bootstrap-typeahead/css/Typeahead.bs5.css";
 
 function SearchBar({ apiCall }) {
+  /* Mock search suggestions */
+  const fakeSuggestions = [
+    { label: "duckduckgo" },
+    { label: "duckduck" },
+    { label: "duckduckgo browser" },
+    { label: "duckduckgo download" },
+  ];
 
-	/* Mock search suggestions */
-	const fakeSuggestions = [
-		"duckduckgo",
-		"duckduck",
-		"duckduckgo browser",
-		"duckduckgo download"
-	];
+  const [suggestions, setSuggestions] = useState([]);
+  const [value, setValue] = useState("");
 
-	const [suggestions, setSuggestions] = useState(fakeSuggestions);
-	const [inputText, setInputText] = useState("");
+  const onSearch = (inputText) => {
+    setValue(inputText);
+    if (inputText.length > 0) {
+      setSuggestions(fakeSuggestions);
+    } else {
+      setSuggestions([]);
+    }
+  };
 
-	// Api call to get suggestions
-	const getSuggestions = () => {
-		console.log("get suggestions");
-	};
+  const ref = useRef();
 
-	const onChangeInput = (event) => {
-		setInputText(event.target.value);
-		getSuggestions();
-	};
-
-	return (
-		<Dropdown>
-			<Dropdown.Toggle as={SearchInput} onChange={onChangeInput} value={inputText} />
-			{suggestions.length > 0 && (
-				<Dropdown.Menu>
-					{suggestions.map((s, i) => (
-						<Dropdown.Item key={i} onFocus={() => setInputText(s)} onClick={() => setInputText(s)}>{s}</Dropdown.Item>
-					))}
-				</Dropdown.Menu>
-			)}
-		</Dropdown>
-	);
+  return (
+    <InputGroup>
+      <AsyncTypeahead
+        id="Search bar"
+        placeholder="Search courses"
+        isLoading={false}
+        searchText=""
+        emptyLabel=""
+        promptText=""
+        options={suggestions}
+        filterBy={() => true}
+        renderMenuItemChildren={(option) => <span>{option.label}</span>}
+        ref={ref}
+        onInputChange={onSearch}
+        onSearch={() => {}}
+      />
+      {value.length > 0 && (
+        <Button
+          variant="link"
+          onClick={() => {
+            ref.current.clear();
+            setValue("");
+          }}
+          className={
+            "btn-outline-primary border-left-0 border " + styles.clearButton
+          }
+        >
+          <img width="20" height="20" src="icons/x.svg" alt="Search" />
+        </Button>
+      )}
+      <Button
+        variant={value.length > 0 ? "primary" : "link"}
+        className="btn-outline-primary border-left-0 border"
+      >
+        <img width="20" height="20" src="icons/SEARCH.svg" alt="Search" />
+      </Button>
+    </InputGroup>
+  );
 }
 
 export default SearchBar;

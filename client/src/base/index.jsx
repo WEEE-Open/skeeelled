@@ -5,8 +5,20 @@ import Recent from "./Recent";
 import List from "./List";
 import ListEntry from "./ListEntry";
 import ListGroup from "./ListGroup";
+import TextInput from "./TextInput";
 
-import DebugPaths from "./DebugPaths";
 import SearchBar from "./SearchBar";
+import DebugPaths from "./DebugPaths";
 
-export {NavigationBar, Footer, Table, Recent, List, ListEntry, ListGroup, DebugPaths, SearchBar};
+export {
+  NavigationBar,
+  Footer,
+  Table,
+  Recent,
+  List,
+  ListEntry,
+  ListGroup,
+  DebugPaths,
+  SearchBar,
+  TextInput,
+};
