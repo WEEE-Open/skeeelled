@@ -7,4 +7,13 @@ import MyQuestions from "./MyQuestions";
 import Profile from "./Profile";
 import Questions from "./Questions";
 
-export {Answers, CoursesList, Exam, Home, LoginForm, MyQuestions, Profile, Questions};
+export {
+  Answers,
+  CoursesList,
+  Exam,
+  Home,
+  LoginForm,
+  MyQuestions,
+  Profile,
+  Questions,
+};
