@@ -1,3 +1,4 @@
+import { Row, Col, Image } from "react-bootstrap";
 import { Row, Col, Container, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./ListEntry.css";
@@ -68,16 +69,16 @@ function ListEntryAnswers(props) {
       </tr>
       <tr>
         <td className="answerEntry">
-          {props.row.like - props.row.dislike > 0 && "+"}
-          {props.row.like - props.row.dislike}
-        </td>
-        <td rowSpan="3">{props.row.answer}</td>
-      </tr>
-      <tr>
-        <td className="answerEntry">
           <Link to="">
             <Image src={"icons/UP ARROW.svg"} width="90%" onClick={() => {}} />
           </Link>
+        </td>
+        <td rowspan="3">{props.row.answer}</td>
+      </tr>
+      <tr>
+        <td className="answerEntry">
+          {props.row.like - props.row.dislike > 0 && "+"}
+          {props.row.like - props.row.dislike}
         </td>
       </tr>
       <tr>

@@ -53,7 +53,9 @@ function NavigationBar(props) {
             title={iconUser}
             align={{ lg: "end" }}
           >
-            <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+            <Link to="/profile">
+              <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+            </Link>
             <NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
             <NavDropdown.Divider />
@@ -63,8 +65,18 @@ function NavigationBar(props) {
               defaultChecked={props.dark}
               onChange={() => props.setdark(!props.dark)}
             />
-            <Form.Switch label="Show hints" id="custom-switch-hint" />
-            <Form.Switch label="Show discussion" id="custom-switch-disc" />
+            <Form.Switch
+              label="Show hints"
+              id="custom-switch-hint"
+              defaultChecked={props.showhints}
+              onChange={() => props.setshowhints(!props.showhints)}
+            />
+            <Form.Switch
+              label="Show discussion"
+              id="custom-switch-disc"
+              defaultChecked={props.showdiscussion}
+              onChange={() => props.setshowdiscussion(!props.showdiscussion)}
+            />
             {props.logged && (
               <>
                 <NavDropdown.Divider />

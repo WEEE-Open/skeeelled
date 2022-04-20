@@ -9,6 +9,9 @@ function DebugPaths() {
       <Link style={style} to="/login">
         Login
       </Link>
+      <Link style={style} to="/">
+        Home
+      </Link>
       <Link style={style} to="/profile">
         Profile
       </Link>
