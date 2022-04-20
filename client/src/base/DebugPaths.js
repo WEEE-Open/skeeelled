@@ -7,6 +7,7 @@ function DebugPaths() {
         <Alert dismissible>
             <b>Dev only: </b>
             <Link style={style} to="/login">Login</Link>
+            <Link style={style} to="/">Home</Link>
             <Link style={style} to="/profile">Profile</Link>
             <Link style={style} to="/courses">Courses</Link>
             <Link style={style} to="/course/ABCDEF">Course</Link>

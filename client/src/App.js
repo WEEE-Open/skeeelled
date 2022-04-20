@@ -5,7 +5,7 @@ import {Container, Row, Col, Alert, Button} from "react-bootstrap";
 import {Routes, Route, Navigate as Redirect, Link} from "react-router-dom";
  
 import {NavigationBar, Footer, DebugPaths} from "./base/";
-import {Answers, CoursesList, Exam, LoginForm, MyQuestions, Profile, Questions} from "./pages/";
+import {Answers, CoursesList, Exam, Home, LoginForm, MyQuestions, Profile, Questions} from "./pages/";
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'
 
@@ -85,7 +85,8 @@ function App() {
 					<Exam question={parsedQuestions.quiz.question} />
 					*/}
 					{loggedIn ? <Routes>
-						<Route path="/*" element={<Redirect to="/profile"/>}/>
+						<Route path="/*" element={<Redirect to="/"/>}/>
+						<Route path="/" element={<Home/>}/>
 						<Route path="/profile" element={<Profile/>}/>
 						<Route path="/courses" element={<CoursesList/>}/>
 						<Route path="/course/:coursecode" element={<Questions/>}/>

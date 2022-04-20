@@ -28,7 +28,7 @@ function NavigationBar(props) {
               title={iconUser}
               align={{lg: 'end'}}
             >
-							<NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+							<Link to="/profile"><NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item></Link>
 							<NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
 							<NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
 							<NavDropdown.Divider/>
