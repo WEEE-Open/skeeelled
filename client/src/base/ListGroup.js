@@ -1,7 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { List } from "./";
 import "./ListGroup.css";
-import {Route, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function ListGroup(props) {
   return (

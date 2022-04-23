@@ -2,32 +2,39 @@ import { Row, Col, Card, Pagination, Form } from "react-bootstrap";
 import {} from "react-router-dom";
 import { useState /* , useEffect */ } from "react";
 import { Recent, List, SearchBar } from "../base/";
+import Suggestion from "../base/Suggestion";
 // import API from "../api/API";
 
 function PaginationRow() {
-  let active = 1;
+  let [active, setActive] = useState(1)
   let items = [];
-  for (let number = 1; number <= 5; number++) {
+  for( let num = 1; num <= 5; num++) {
     items.push(
-      <Pagination.Item key={number} active={number === active} activeLabel="">
-        {number}
-      </Pagination.Item>
-    );
+        <Pagination.Item key={num} active={num === active} onClick={()=>{
+          setActive(active = num)
+        }}>
+          {num}
+        </Pagination.Item>
+    )
   }
 
   return (
-    <Pagination>
-      <Pagination.First />
-      {items}
-      <Pagination.Last />
-    </Pagination>
-  );
+      <Pagination>
+        <Pagination.First />
+        {items}
+        <Pagination.Last />
+      </Pagination>
+  )
 }
 
 function CoursesList() {
-  /** Mock courses **/
+  /** Mock courses and questions **/
   const fakeCourses = [
-    { code: "A0B1C2", course: "Analysis 1", cfu: 10, professor: "Mario Rossi" },
+    { code: "A0B1C2",
+      course: "Analysis 1",
+      cfu: 10,
+      professor: "Mario Rossi",
+    },
     {
       code: "D3E4F5",
       course: "Physics 1",
@@ -41,11 +48,37 @@ function CoursesList() {
       professor: "Giuseppe Verdi",
     },
   ];
+  const fakeQuestions = [
+    {
+      id: 1,
+      question: "What is a vector?",
+      author: "Donato",
+      createdat: "15:20 12/01/2021",
+      tags: ["vectors"],
+      excerpt: "Cras justo odio...",
+    },
+    {
+      id: 2,
+      question: "Who is Maxwell?",
+      author: "Jim",
+      createdat: "17:30 13/02/2021",
+      tags: ["physics"],
+      excerpt: "Cras justo odio...",
+    },
+    {
+      id: 3,
+      question: "How many meters per second?",
+      author: "Derek",
+      createdat: "19:40 14/03/2021",
+      tags: ["physics", "kinematic"],
+      excerpt: "Cras justo odio...",
+    },
+  ];
 
   const [courses, setCourses] = useState(fakeCourses /*[]*/);
   const [myCourses, setMyCourses] = useState([]);
-
-  /**Courses related**/
+  const [questions, setQuestions] = useState(fakeQuestions /*[]*/);
+  /**Courses and questions related**/
   /*
 	// courses
 	useEffect(()=> {
@@ -75,21 +108,32 @@ function CoursesList() {
       <Col>
         <Card body>
           <Row lg={12} className="py-0 header">
-            <Col>
               <h3>Courses</h3>
-            </Col>
-            <Col>
-              <SearchBar />
-            </Col>
+          </Row>
+          <Row>
+            <SearchBar />
           </Row>
           <List scope="courses" title="All courses" rows={courses} />
           <List scope="courses" title="My courses" rows={courses} />
           <PaginationRow />
         </Card>
       </Col>
-      <Col className="d-none d-md-block col-md-4">
-        <Recent />
-      </Col>
+        <Col className="d-none d-md-inline-block col-md-4">
+          <Row>
+            <Suggestion
+                scope={"suggestion"}
+                title={"Latest Questions"}
+                rows={questions}
+            />
+          </Row>
+          <Row>
+            <Suggestion
+                scope={"suggestion"}
+                title={"Hot Questions"}
+                rows={questions}
+            />
+          </Row>
+        </Col>
     </Row>
   );
 }
