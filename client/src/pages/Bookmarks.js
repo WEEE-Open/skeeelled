@@ -1,5 +1,5 @@
 import {Card, Container, Pagination} from "react-bootstrap";
-import {List} from "../base";
+import {List, SearchBar} from "../base";
 import {useState} from "react";
 import {useLocation} from "react-router-dom";
 
@@ -32,6 +32,7 @@ export default function Bookmarks() {
             <Container>
                 <Card body>
                     <h2>{location.state.title}</h2>
+                    <SearchBar/>
                     <List scope={location.state.scope} title={""} rows={location.state.rows}/>
                     <PaginationRow/>
                 </Card>

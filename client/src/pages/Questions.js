@@ -70,9 +70,6 @@ const Questions = () => {
 
   return (
     <>
-      <Link to={{pathname:"/bookmarks"}} state={{scope: "questions", title: "Bookmarked Questions: Physics I", rows: questions}}>
-        <img className="bookmark-svg" alt="BOOKMARK.svg" src={"../icons/BOOKMARK.svg"}/>
-      </Link>
       {isDesktop ? (
         <>
           <Row>
