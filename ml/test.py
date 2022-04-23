@@ -40,7 +40,6 @@ for j in range(0, len(features)):
     if labels[j] == True: # Toxic
         dataset.append({"text": str(features[j]), "label": toxic_id})
         toxic += 1
-
     elif labels[j] == False: # Non-Toxic
         dataset.append({"text": str(features[j]), "label": non_toxic_id})
         non_toxic += 1
@@ -70,10 +69,7 @@ for j in range(cardinality):
     label = infer(sample)
     
     # Redirect model's inferred label (True/False) to numeric values (1/0)
-    if label == True:
-        model_label = 1 # Toxic
-    else:
-        model_label = 0 # Non-Toxic
+    model_label = 1 if label is True else 0
 
     # Print on-screen wheter comment is toxic or not (manually classified)
     if new_labels[j] == 0:

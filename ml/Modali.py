@@ -15,7 +15,7 @@ from torch import nn
 # Trainining/testing #
 #      pipeline      #
 #--------------------#
-def train():
+def train(model_id):
   
   # Check if fine-tuned transformer models exist
   if os.path.exists('model'):
@@ -39,7 +39,7 @@ def train():
     from Detectors import ToxicityDetector
     print(" ** Training the transformer model on ITA-Dataset.json **\n")
 
-    moderator = ToxicityDetector(1)
+    moderator = ToxicityDetector(model_id)
     moderator.train()
 
 
@@ -72,8 +72,9 @@ class Polyglot:
     # Compare the standard error of english's label w.r.t. the argmax of the distribution
     else:
       std_err = (probabilities[language_id] - probabilities[13])/probabilities[language_id]
-      # Lastly check whether the english label is indeed the second most probable in the PMF
+      # Check (normalised) confidence on the english language
       if std_err < 0.95:
+        # Lastly check whether the english label is indeed the second most probable in the PMF
         filtered_probabilities = np.delete(probabilities, argmax)
         filtered_argmax = np.where(filtered_probabilities == np.amax(filtered_probabilities, axis=-1))
         # Return the english label accordingly
@@ -87,6 +88,9 @@ class Polyglot:
             return 13
           else:
             return None
+      else:
+        print("The model has detected the english language with not enough confidence")
+        return None
 
 
   def discern(self, input_text):
@@ -106,9 +110,6 @@ class Polyglot:
 #---------------------#
 def infer(comment):
 
-  # Perform training if model has not been fine-tuned
-  train()
-
   # Filter unwanted characters out of the input text
   sample = comment.replace("[", "").replace("]", "").replace('\\n', ' ').replace('\\', ' ').replace("'", ""). replace('"', '')
 
@@ -116,8 +117,8 @@ def infer(comment):
   score = True
 
   # Discern language of the comment between english and italian...
-  Linguist = Polyglot()
-  language_id = Linguist.discern(sample)
+  linguist = Polyglot()
+  language_id = linguist.discern(sample)
 
   # ... and instantiate sentiment analysis model accordingly!
   if language_id == 5:

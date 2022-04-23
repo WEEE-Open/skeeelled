@@ -129,10 +129,7 @@ class ToxicityDetector:
     # Extract toxicity states from labels' probability distribution
     non_toxic, toxic = state_distribution[0,0], state_distribution[0,1]
     # Define and enforce the bannong policy
-    if toxic > 0.5:
-      return True  # Toxic
-    else:
-      return False # Non-Toxic
+    return toxic > 0.5
 
 
   def gauge(self, comment):
