@@ -20,6 +20,10 @@ const insertTex = {
   icon: () => (
     <img src="icons/TeX_logo.svg" width="26" height="15" alt="Insert TeX" />
   ),
+  buttonProps: {
+    "aria-label": "Add TeX",
+    "title": "Add TeX"
+  },
   execute: ({ textApi, initialState }) => {
     const newSelectionRange = MarkdownUtil.selectWord({
       text: initialState.text,
