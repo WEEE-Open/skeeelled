@@ -185,7 +185,7 @@ const Questions = () => {
               <Col>
                 <Suggestion
                   scope={"suggestion"}
-                  title={"Hot Questions"}
+                  title={"Hottest Questions"}
                   rows={suggestions}
                 />
               </Col>

@@ -1,5 +1,5 @@
 import { Row, Col, Card, Pagination, Form } from "react-bootstrap";
-import {} from "react-router-dom";
+import {Link} from "react-router-dom";
 import { useState /* , useEffect */ } from "react";
 import { Recent, List, SearchBar } from "../base/";
 import Suggestion from "../base/Suggestion";
@@ -113,8 +113,12 @@ function CoursesList() {
           <Row>
             <SearchBar />
           </Row>
-          <List scope="courses" title="All courses" rows={courses} />
-          <List scope="courses" title="My courses" rows={courses} />
+          <Link className="list-attributes" to={{pathname:"/listfullpage/" + "all courses"}} state={{ scope: "courses", title: "All courses", rows: courses }}>
+            <List scope="courses" title="All courses" rows={courses} />
+          </Link>
+          <Link className="list-attributes" to={{pathname:"/listfullpage/" + "my courses"}} state={{ scope: "courses", title: "My courses", rows: courses }}>
+            <List scope="courses" title="My courses" rows={courses} />
+          </Link>
           <PaginationRow />
         </Card>
       </Col>
@@ -129,7 +133,7 @@ function CoursesList() {
           <Row>
             <Suggestion
                 scope={"suggestion"}
-                title={"Hot Questions"}
+                title={"Hottest Questions"}
                 rows={questions}
             />
           </Row>

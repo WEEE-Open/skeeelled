@@ -33,7 +33,7 @@ function ListFullPage () {
                 <Card body>
                     <h2>{location.state.title}</h2>
                     <List scope={location.state.scope} title={""} rows={location.state.rows}/>
-                    <PaginationRow/>
+                    {location.state.title === "My courses"? <></>:<PaginationRow/>}
                 </Card>
             </Container>
         </>
