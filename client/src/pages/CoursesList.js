@@ -1,7 +1,7 @@
 import { Row, Col, Card, Pagination, Form } from "react-bootstrap";
 import {} from "react-router-dom";
 import { useState /* , useEffect */ } from "react";
-import { Recent, List } from "../base/";
+import { Recent, List, SearchBar } from "../base/";
 // import API from "../api/API";
 
 function PaginationRow() {
@@ -79,12 +79,7 @@ function CoursesList() {
               <h3>Courses</h3>
             </Col>
             <Col>
-              <Form.Control
-                onChange={() => {}}
-                type="text"
-                placeholder="Search courses"
-                className="mx-auto"
-              />
+              <SearchBar />
             </Col>
           </Row>
           <List scope="courses" title="All courses" rows={courses} />

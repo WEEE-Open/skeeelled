@@ -68,23 +68,23 @@ function ListEntryAnswers(props) {
       </tr>
       <tr>
         <td className="answerEntry">
-          {props.row.like - props.row.dislike > 0 && "+"}
-          {props.row.like - props.row.dislike}
+          <Link to="">
+            <Image src={process.env.PUBLIC_URL + "/icons/UP ARROW.svg"} width="90%" onClick={() => {}} />
+          </Link>
         </td>
-        <td rowSpan="3">{props.row.answer}</td>
+        <td rowspan="3">{props.row.answer}</td>
       </tr>
       <tr>
         <td className="answerEntry">
-          <Link to="">
-            <Image src={"icons/UP ARROW.svg"} width="90%" onClick={() => {}} />
-          </Link>
+          {props.row.like - props.row.dislike > 0 && "+"}
+          {props.row.like - props.row.dislike}
         </td>
       </tr>
       <tr>
         <td className="answerEntry">
           <Link to="">
             <Image
-              src={"icons/DOWN ARROW.svg"}
+              src={process.env.PUBLIC_URL + "/icons/DOWN ARROW.svg"}
               width="90%"
               onClick={() => {}}
             />

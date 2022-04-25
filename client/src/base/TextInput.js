@@ -18,7 +18,7 @@ import "highlight.js/styles/github.css";
 const insertTex = {
   name: "insert-tex",
   icon: () => (
-    <img src="icons/TeX_logo.svg" width="26" height="15" alt="Insert TeX" />
+    <img src={process.env.PUBLIC_URL + "/icons/TeX_logo.svg"} width="26" height="15" alt="Insert TeX" />
   ),
   buttonProps: {
     "aria-label": "Add TeX",
@@ -76,31 +76,31 @@ const insertTex = {
 };
 
 function TextInput({ value, onChange, selectedTab, onTabChange }) {
-	const [val, setVal] = useState("");
-	const [selTab, setSelTab] = useState("write");
+  const [val, setVal] = useState("");
+  const [selTab, setSelTab] = useState("write");
 
-	return (
-		<Container>
-			<ReactMde
-				value={value || val}
-				onChange={onChange || setVal}
-				selectedTab={selectedTab || selTab}
-				onTabChange={onTabChange || setSelTab}
-				commands={{ "insert-tex": insertTex }}
-				toolbarCommands={[...getDefaultToolbarCommands(), ["insert-tex"]]}
-				generateMarkdownPreview={(markdown) =>
-					Promise.resolve(
-						<ReactMarkdown
-							remarkPlugins={[remarkGfm, remarkMath]}
-							rehypePlugins={[rehypeKatex, rehypeHighlight]}
-						>
-							{markdown}
-						</ReactMarkdown>
-					)
-				}
-			/>
-		</Container>
-	);
+  return (
+    <Container>
+      <ReactMde
+        value={value || val}
+        onChange={onChange || setVal}
+        selectedTab={selectedTab || selTab}
+        onTabChange={onTabChange || setSelTab}
+        commands={{ "insert-tex": insertTex }}
+        toolbarCommands={[...getDefaultToolbarCommands(), ["insert-tex"]]}
+        generateMarkdownPreview={(markdown) =>
+          Promise.resolve(
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm, remarkMath]}
+              rehypePlugins={[rehypeKatex, rehypeHighlight]}
+            >
+              {markdown}
+            </ReactMarkdown>
+          )
+        }
+      />
+    </Container>
+  );
 }
 
 export default TextInput;

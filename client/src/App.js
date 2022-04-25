@@ -9,6 +9,7 @@ import {
   Answers,
   CoursesList,
   Exam,
+  Home,
   LoginForm,
   MyQuestions,
   Profile,
@@ -19,6 +20,8 @@ import {
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [showHints, setShowHints] = useState(false);
+  const [showDiscussion, setShowDiscussion] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [message, setMessage] = useState("");
   const [dark, setDark] = useState(false);
@@ -67,6 +70,10 @@ function App() {
             setdark={setDark}
             logged={loggedIn}
             setlogged={setLoggedIn}
+            showhints={showHints}
+            setshowhints={setShowHints}
+            showdiscussion={showDiscussion}
+            setshowdiscussion={setShowDiscussion}
             logout={doLogout}
           />
         </Col>
@@ -92,11 +99,22 @@ function App() {
 					*/}
           {loggedIn ? (
             <Routes>
-              <Route path="/*" element={<Redirect to="/profile" />} />
+              <Route path="/*" element={<Redirect to="/" />} />
+              <Route path="/" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/courses" element={<CoursesList />} />
               <Route path="/course/:coursecode" element={<Questions />} />
-              <Route path="/question/:questionid" element={<Answers />} />
+              <Route
+                path="/question/:questionid"
+                element={
+                  <Answers
+                    showhints={showHints}
+                    setshowhints={setShowHints}
+                    showdiscussion={showDiscussion}
+                    setshowdiscussion={setShowDiscussion}
+                  />
+                }
+              />
               <Route
                 path="/discussion/:questionid"
                 element={<p>Work in progress</p>}

@@ -1,39 +1,48 @@
-import { Row, Col, Card, Image } from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
 import { useState } from "react";
-import "./Profile.css";
+import "./Home.css";
 import { ListGroup, SearchBar } from "../base/";
 
-function Profile() {
+function Home() {
   const fake = [
     {
       scope: "default",
+      title: "New questions in courses I'm enrolled in",
+      rows: [
+        ["Cras justo odio"],
+        ["Dapibus ac facilisis in"],
+        ["Morbi leo risus"],
+        ["Porta ac consectetur ac"],
+        ["Vestibulum at eros"],
+      ],
+    },
+    {
+      scope: "default",
+      title: "Replies",
+      rows: [
+        ["Cras justo odio"],
+        ["Dapibus ac facilisis in"],
+        ["Morbi leo risus"],
+        ["Porta ac consectetur ac"],
+        ["Vestibulum at eros"],
+      ],
+    },
+    {
+      scope: "test",
       title: "My questions",
       rows: [
-        ["Cras justo odio"],
-        ["Dapibus ac facilisis in"],
-        ["Morbi leo risus"],
-        ["Porta ac consectetur ac"],
-        ["Vestibulum at eros"],
+        { a: "aaa", b: "bbb", c: "ccc" },
+        { a: "aaa", b: "bbb", c: "ccc" },
+        { a: "aaa", b: "bbb", c: "ccc" },
       ],
     },
     {
-      scope: "default",
+      scope: "test",
       title: "My answers",
       rows: [
-        ["Cras justo odio"],
-        ["Dapibus ac facilisis in"],
-        ["Morbi leo risus"],
-        ["Porta ac consectetur ac"],
-        ["Vestibulum at eros"],
-      ],
-    },
-    {
-      scope: "default",
-      title: "My simulation results",
-      rows: [
-        ["aaa", "bbb", "ccc"],
-        ["aaa", "bbb", "ccc"],
-        ["aaa", "bbb", "ccc"],
+        { a: "aaa", b: "bbb", c: "ccc" },
+        { a: "aaa", b: "bbb", c: "ccc" },
+        { a: "aaa", b: "bbb", c: "ccc" },
       ],
     },
   ];
@@ -43,17 +52,13 @@ function Profile() {
   return (
     <Card body>
       <Row lg={12} className="py-0 header">
-        <Col xs={2}>
-          <Image src={process.env.PUBLIC_URL +"icons/PERSON.svg"} />
-        </Col>
         <Col>
-          <h3>Name Surname</h3>
-          <h4>@Nickname</h4>
+          <h3>Hi, Name Surname!</h3>
         </Col>
       </Row>
-      <ListGroup lists={tests} cols={2} rounded />
+      <ListGroup lists={tests} cols={2} tiled rounded />
     </Card>
   );
 }
 
-export default Profile;
+export default Home;
