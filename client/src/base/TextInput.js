@@ -18,7 +18,7 @@ import "highlight.js/styles/github.css";
 const insertTex = {
   name: "insert-tex",
   icon: () => (
-    <img src="icons/TeX_logo.svg" width="26" height="15" alt="Insert TeX" />
+    <img src={process.env.PUBLIC_URL + "/icons/TeX_logo.svg"} width="26" height="15" alt="Insert TeX" />
   ),
   execute: ({ textApi, initialState }) => {
     const newSelectionRange = MarkdownUtil.selectWord({
