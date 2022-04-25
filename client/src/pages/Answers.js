@@ -21,7 +21,8 @@ function Answers(props) {
     author: "Sahircan Sürmeli",
     tags: ["distributions", "functionals", "test functions"],
     text: "Find all distributions $T \\in D^\\prime$ such that $T^\\prime = \\delta_0 + \\delta_2 - 2\\delta^\\prime_1$.",
-    date: new Date("April 23, 2022")
+    date: new Date("April 23, 2022"),
+    advice: "You have to integrate something."
   };
 
   const fakeAnswers = [
@@ -52,7 +53,6 @@ function Answers(props) {
   ];
 
   const [answers, setAnswers] = useState(fakeAnswers);
-  const [adviceIsHidden, setAdviceIsHidden] = useState(!props.showhints);
   const [answersAreHidden, setAnswersAreHidden] = useState(
     !props.showdiscussion
   );
@@ -62,23 +62,6 @@ function Answers(props) {
       <Row lg={12} className="header">
         <Col>
           {<QuestionPreview question={fakeQuestion} />}
-
-          {adviceIsHidden ? (
-            <Button
-              className="btn-sm"
-              onClick={() => {
-                setAdviceIsHidden(false);
-              }}
-            >
-              Help me!
-            </Button>
-          ) : (
-            <h6>
-              habitant morbi tristique senectus et netus. Lorem sed risus
-              ultricies tristique nulla aliquet enim. Blandit cursus risus at
-              ultrices mi tempus.
-            </h6>
-          )}
         </Col>
       </Row>
 
