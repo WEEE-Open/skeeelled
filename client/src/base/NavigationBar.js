@@ -24,8 +24,8 @@ function NavigationBar(props) {
             id={"navbar-logo-skeeelled"}
             src={
               props.dark
-                ? "img/logoSkeeelledDark.svg"
-                : "img/logoSkeeelledLight.svg"
+                ? process.env.PUBLIC_URL + "/img/logoSkeeelledDark.svg"
+                : process.env.PUBLIC_URL + "/img/logoSkeeelledLight.svg"
             }
             className="logo"
           />
