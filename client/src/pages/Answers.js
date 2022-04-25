@@ -10,10 +10,12 @@ import {
   Collapse,
   Form,
 } from "react-bootstrap";
-import { List } from "../base";
+import { List, QuestionPreview } from "../base";
 import "./Answers.css";
 
 function Answers(props) {
+  const fakeQuestion = "Find all distributions $T \\in D^\\prime$ such that $T^\\prime = \\delta_0 + \\delta_2 - 2\\delta^\\prime_1$.";
+
   const fakeAnswers = [
     {
       id: 1,
@@ -41,6 +43,7 @@ function Answers(props) {
     },
   ];
 
+
   const [answers, setAnswers] = useState(fakeAnswers);
   const [adviceIsHidden, setAdviceIsHidden] = useState(!props.showhints);
   const [answersAreHidden, setAnswersAreHidden] = useState(
@@ -52,9 +55,7 @@ function Answers(props) {
       <Card body>
         <Row lg={12} className="header">
           <Col>
-            <h5>
-              Dolor sit amet consectetur adipiscing elit pellentesque habitant ?
-            </h5>
+            {<QuestionPreview value={fakeQuestion} />}
 
             {adviceIsHidden ? (
               <Button
