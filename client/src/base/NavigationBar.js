@@ -57,7 +57,9 @@ function NavigationBar(props) {
               <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
             </Link>
             <NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
+            <Link to="/settings">
+              <NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
+            </Link>
             <NavDropdown.Divider />
             <Form.Switch
               label="Dark"

@@ -14,6 +14,7 @@ import {
   MyQuestions,
   Profile,
   Questions,
+  UserSettings
 } from "./pages/";
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'
@@ -102,6 +103,7 @@ function App() {
               <Route path="/*" element={<Redirect to="/" />} />
               <Route path="/" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/settings" element={<UserSettings />} />
               <Route path="/courses" element={<CoursesList />} />
               <Route path="/course/:coursecode" element={<Questions />} />
               <Route
