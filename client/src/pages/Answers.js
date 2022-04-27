@@ -55,21 +55,29 @@ function Answers(props) {
             <h5>
               Dolor sit amet consectetur adipiscing elit pellentesque habitant ?
             </h5>
-            <Button
-              className="btn-sm"
-              onClick={() => {
-                setAdviceIsHidden(!adviceIsHidden);
-              }}
-            >
-              Help me!
-            </Button>
-            {!adviceIsHidden &&
+            {adviceIsHidden ? 
+              <Button
+                className="btn-sm"
+                onClick={() => {
+                  setAdviceIsHidden(!adviceIsHidden);
+                }}
+              >
+                Show hint
+              </Button> : <>
+              <Button
+                className="btn-sm"
+                onClick={() => {
+                  setAdviceIsHidden(!adviceIsHidden);
+                }}
+              >
+                Hide hint
+              </Button>
               <h6>
                 habitant morbi tristique senectus et netus. Lorem sed risus
                 ultricies tristique nulla aliquet enim. Blandit cursus risus at
                 ultrices mi tempus.
               </h6>
-            }
+            </>}
           </Col>
         </Row>
 

@@ -1,8 +1,16 @@
 import { Row, Col, Card, Image, Form, Button } from "react-bootstrap";
-import "./Profile.css";
-import { ListGroup } from "../base/";
+import { useState } from "react";
+import "./UserSettings.css";
+import { ListGroup, List } from "../base/";
 
 function UserSettings() {
+  const fake = [
+    [<Form.Check/>,"Analisys I"],
+    [<Form.Check/>,"Physics I"],
+    [<Form.Check/>,"Geometry"]
+  ];
+  const [courses, setCourses] = useState(fake);
+
   return (
     <Card body>
       <Row lg={12} className="py-0 header">
@@ -16,20 +24,15 @@ function UserSettings() {
           <Form.Check label="Public profile"/>
         </Col>
       </Row>
-      <hr/>
       <Row>
           <Col>
-            <h4>Enrolled in</h4>
-            <Form.Check label="Course 1"/>
-            <Form.Check label="Course 2"/>
-            <Form.Check label="Course 3"/>
+            <List rows={courses} title={"Enrolled in"} scope={"default"}/>
           </Col>
       </Row>
-      <hr/>
       <Row>
           <Col>
             <Button>Add new course</Button>
-            <Button style={{float: 'right'}}>Save</Button>
+            <Button className="saveButton">Save</Button>
           </Col>
       </Row>
     </Card>

@@ -47,7 +47,7 @@ function NavigationBar(props) {
       </Nav.Link>
 
       <Nav id={"user-dropdown"}>
-        <Navbar.Collapse className="mr-4">
+        <Navbar.Collapse className="mr-4 mt-0">
           <NavDropdown
             id="dropdown-menu-align-responsive-2"
             title={iconUser}
