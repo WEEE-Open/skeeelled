@@ -30,10 +30,12 @@ for q in qlist:
     matricola = f"d{randint(11111, 99999)}"
     q["_id"] = ObjectId(q["_id"]['$oid'])
     q['owner'] = UserInfo(
-                id=matricola,
-                username=f"nome.cognome.{matricola}",
-                profile_picture=profile_picture).dict()
+        id=matricola,
+        username=f"nome.cognome.{matricola}",
+        profile_picture=profile_picture).dict()
     q['timestamp'] = time.now().timestamp()
+    q['tags'] = choice(["Test", "Analisi", "Domanda", "Kek"])
+    q['course'] = CourseInfo(id=str(randint(0, 100)), name="Analisi").dict()
 """end of freq used data"""
 
 
@@ -44,7 +46,7 @@ async def generate_courses():
         new_question = Course(
             name=choice(['Analisi', 'Chimica', 'Informatica']),
             code=choice(['1R6', 'CD2', 'Y6T']),
-            professors=['lavy'],
+            professors=[UserInfo(id=1, username="Lavy", profile_picture="462fd1a")],
             years_active=choice([[2010], [2015, 2016], [2015, 2018, 2019]]),
             questions=[])
 
@@ -97,7 +99,8 @@ async def generate_users():
                        last_session=time.now().timestamp(),
                        profile_picture=profile_picture,
                        is_active=choice([True, False]),
-                       is_professor=True if matr[0] == 'd' else False)
+                       is_professor=True if matr[0] == 'd' else False,
+                       related_courses=[CourseInfo(id=1, name="Anal")])
         for q_num in range(randint(0, len(qlist))):
             newUser.my_Questions.append(QuestionInfo(
                 id=str(qlist[q_num]["_id"]),
