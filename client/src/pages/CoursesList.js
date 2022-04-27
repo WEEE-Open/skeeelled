@@ -113,11 +113,11 @@ function CoursesList() {
           <Row>
             <SearchBar />
           </Row>
-          <Link className="list-attributes" to={{pathname:"/listfullpage/" + "all courses"}} state={{ scope: "courses", title: "All courses", rows: courses }}>
-            <List scope="courses" title="All courses" rows={courses} />
-          </Link>
           <Link className="list-attributes" to={{pathname:"/listfullpage/" + "my courses"}} state={{ scope: "courses", title: "My courses", rows: courses }}>
             <List scope="courses" title="My courses" rows={courses} />
+          </Link>
+          <Link className="list-attributes" to={{pathname:"/listfullpage/" + "all courses"}} state={{ scope: "courses", title: "All courses", rows: courses }}>
+            <List scope="courses" title="All courses" rows={courses} />
           </Link>
           <PaginationRow />
         </Card>
