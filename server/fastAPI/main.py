@@ -102,9 +102,48 @@ async def get_user_myQuestion(user_id: str, npages: int, itemsPerPage: int = -1)
         for i in range(0, npages):
             if len(q_list) < i * itemsPerPage:
                 pages[f"page_#{i}"] = []
-            elif len(q_list) < itemsPerPage+(i*itemsPerPage):
-                pages[f"page_#{i}"] = q_list[i * itemsPerPage:len(q_list)-1]
+            elif len(q_list) < itemsPerPage + (i * itemsPerPage):
+                pages[f"page_#{i}"] = q_list[i * itemsPerPage:len(q_list) - 1]
             else:
                 pages[f"page_#{i}"] = q_list[i * itemsPerPage:itemsPerPage + (i * itemsPerPage)]
         user_questions["my_Questions"] = pages
     return JSONResponse(user_questions)
+
+
+@app.get("/v1/searchCourses")
+async def search_courses(query: str, limit: int = 10):
+    result = db[DbName.COURSE.value].find({"name": {'$regex': f'(?i){query}'}}, {'_id': 0})
+    result = await result.to_list(limit)
+    if result:
+        return JSONResponse(status_code=status.HTTP_200_OK, content=result)
+    result = db[DbName.QUESTION.value].find({"content.name.text": {'$regex': f'(?i){query}'}},
+                                            {'_id': 0, 'quiz_ref': 0})
+    result = await result.to_list(limit)
+    if result:
+        return JSONResponse(status_code=status.HTTP_200_OK, content=result)
+    return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
+                        content=f"No course found")
+
+
+@app.get("/v1/searchQuestion")
+async def search_question(query: str, course_id: str, limit: int = 10):
+    result = db[DbName.QUESTION.value].find(
+        {"content.name.text": {'$regex': f'(?i){query}'}, "course.id": course_id}, {'_id': 0, 'quiz_ref': 0})
+    result = await result.to_list(limit)
+    if result:
+        return JSONResponse(status_code=status.HTTP_200_OK, content=result)
+
+    result = db[DbName.QUESTION.value].find(
+        {"tags": {'$regex': f'(?i){query}'}, "course.id": course_id}, {'_id': 0, 'quiz_ref': 0})
+    result = await result.to_list(limit)
+    if result:
+        return JSONResponse(status_code=status.HTTP_200_OK, content=result)
+
+    result = db[DbName.QUESTION.value].find(
+        {"content.questiontext.text": {'$regex': f'(?i){query}'}, "course.id": course_id}, {'_id': 0, 'quiz_ref': 0})
+    result = await result.to_list(limit)
+    if result:
+        return JSONResponse(status_code=status.HTTP_200_OK, content=result)
+
+    return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
+                        content=f"No question found")
