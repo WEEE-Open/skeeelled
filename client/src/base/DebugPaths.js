@@ -33,6 +33,9 @@ function DebugPaths() {
       <Link style={style} to="/simulation">
         Simulation
       </Link>
+      <Link style={style} to="/settings">
+        UserSettings
+      </Link>
       <Link style={style} to="/todel">
         Exam
       </Link>

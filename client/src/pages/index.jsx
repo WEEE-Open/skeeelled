@@ -6,6 +6,7 @@ import LoginForm from "./LoginForm";
 import MyQuestions from "./MyQuestions";
 import Profile from "./Profile";
 import Questions from "./Questions";
+import UserSettings from "./UserSettings";
 
 export {
   Answers,
@@ -16,4 +17,5 @@ export {
   MyQuestions,
   Profile,
   Questions,
+  UserSettings,
 };

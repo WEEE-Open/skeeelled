@@ -13,6 +13,7 @@ import {
   MyQuestions,
   Profile,
   Questions,
+  UserSettings,
 } from "./pages/";
 // cannot access from "./pages/"
 import ListFullPage from "./pages/ListFullPage";
@@ -103,6 +104,7 @@ function App() {
               <Route path="/*" element={<Redirect to="/" />} />
               <Route path="/" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/settings" element={<UserSettings />} />
               <Route path="/courses" element={<CoursesList />} />
               <Route path="/course/:coursecode" element={<Questions />} />
               <Route

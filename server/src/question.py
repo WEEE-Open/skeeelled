@@ -10,9 +10,14 @@ class QuestionInfo(BaseModel):
     timestamp: float
 
 
+from answer import Answer
+from course import CourseInfo
+
+
 class Question(BaseModel):
     owner: Any
-    course: Any
+    title: str
+    course: CourseInfo
     quiz_ref: dict
     content: dict
     is_deleted: bool = False
@@ -20,7 +25,7 @@ class Question(BaseModel):
     tags: List[str] = []
     timestamp: float = datetime.now().timestamp()
     # mandatory limit parameter
-    answers: List = [str]
+    answers: List = [Answer]
 
     # constraint check on question values
     @validator('content')
