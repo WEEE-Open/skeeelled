@@ -31,9 +31,9 @@ services:
   server:
     build:
       context: server
-      dockerfile: ./docker/fastAPI/Dockerfile
+      dockerfile: server/docker/FastAPI/Dockerfile
     volumes:
-      - ./server/fastAPI:/code
+      - ./server/FastAPI:/code
     ports:
       - "8000:8000"
     depends_on:
