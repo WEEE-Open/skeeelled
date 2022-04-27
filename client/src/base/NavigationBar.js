@@ -38,45 +38,53 @@ function NavigationBar(props) {
         </Link>
       ) : null}
 
-      <Nav.Link as={Link} id={"course-link"} to="/courses">
+      <Nav.Link as={Link} id={props.dark ? "course-link-dark" : "course-link"} to="/courses">
         Courses
       </Nav.Link>
 
-      <Nav.Link as={Link} id={"add-question-link"} to="/addquestion">
+      <Nav.Link as={Link} id={props.dark ? "add-question-link-dark" : "add-question-link"} to="/addquestion">
         Add question
       </Nav.Link>
 
       <Nav id={"user-dropdown"}>
-        <Navbar.Collapse className="mr-4">
+        <Navbar.Collapse className="mr-4 mt-0">
           <NavDropdown
             id="dropdown-menu-align-responsive-2"
             title={iconUser}
             align={{ lg: "end" }}
           >
-            <Link to="/profile">
+            <Link to="/profile" className="dropdown-link">
               <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
             </Link>
             <NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
+            <Link to="/settings" className="dropdown-link">
+              <NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
+            </Link>
             <NavDropdown.Divider />
-            <Form.Switch
-              label="Dark"
-              id="custom-switch-dark"
-              defaultChecked={props.dark}
-              onChange={() => props.setdark(!props.dark)}
-            />
-            <Form.Switch
-              label="Show hints"
-              id="custom-switch-hint"
-              defaultChecked={props.showhints}
-              onChange={() => props.setshowhints(!props.showhints)}
-            />
-            <Form.Switch
-              label="Show discussion"
-              id="custom-switch-disc"
-              defaultChecked={props.showdiscussion}
-              onChange={() => props.setshowdiscussion(!props.showdiscussion)}
-            />
+            <div className="dropdown-item">
+              <Form.Switch
+                label="Dark"
+                id="custom-switch-dark"
+                defaultChecked={props.dark}
+                onChange={() => props.setdark(!props.dark)}
+              />
+            </div>
+            <div className="dropdown-item">
+              <Form.Switch
+                label="Show hints"
+                id="custom-switch-hint"
+                defaultChecked={props.showhints}
+                onChange={() => props.setshowhints(!props.showhints)}
+              />
+            </div>
+            <div className="dropdown-item">
+              <Form.Switch
+                label="Show discussion"
+                id="custom-switch-disc"
+                defaultChecked={props.showdiscussion}
+                onChange={() => props.setshowdiscussion(!props.showdiscussion)}
+              />
+            </div>
             {props.logged && (
               <>
                 <NavDropdown.Divider />

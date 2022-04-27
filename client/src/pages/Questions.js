@@ -8,7 +8,7 @@ import {
   Card,
   Form,
 } from "react-bootstrap";
-import { useEffect, useState /* , useEffect */ } from "react";
+import { useState, useEffect } from "react";
 import "./Questions.css";
 import Suggestion from "../base/Suggestion";
 

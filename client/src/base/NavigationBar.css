@@ -16,16 +16,6 @@
   position: relative;
 }
 
-.navLink {
-  color: #41413f;
-  text-decoration: none;
-}
-
-.navLink:hover {
-  color: #00983a;
-  text-decoration: none;
-}
-
 #navbar-logo-skeeelled {
   padding: auto;
   margin: auto;
@@ -35,12 +25,33 @@
 }
 
 #course-link {
+  color: #41413f;
   font-size: 20px;
+}
+
+#course-link-dark {
+  color: white;
+  font-size: 20px;
+}
+
+#course-link:hover, #course-link-dark:hover {
+  color: #00983a;
 }
 
 #add-question-link {
   margin-left: auto;
+  color: #41413f;
   font-size: 20px;
+}
+
+#add-question-link-dark {
+  margin-left: auto;
+  color: white;
+  font-size: 20px;
+}
+
+#add-question-link:hover, #add-question-link-dark:hover {
+  color: #00983a;
 }
 
 #logout-icon {
@@ -49,4 +60,12 @@
 
 #user-dropdown {
   padding-right: 5%;
+}
+
+.dropdown-link {
+  text-decoration: none;
+}
+
+.dropdown-item {
+  padding: 4px 16px 4px 16px;
 }
