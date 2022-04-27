@@ -41,7 +41,8 @@ If you're on Linux, [lazydocker](https://github.com/jesseduffield/lazydocker) is
 
 ### `client`
 
-To develop the client stand-alone:
+To develop the client stand-alone:  
+
 0. Install [Node.js](https://nodejs.org/en/) 
 1. `cd client`
 2. `npm i`
@@ -57,7 +58,8 @@ The latest commit to the `master` branch gets automatically deployed to our stag
 
 To develop the backend, we recommend to run `docker-compose up -d` as suggested above, since both MongoDB and FastAPI are required, and Mongo Express may be useful.
 
-If you really want to go down the FastAPI stand-alone route (and note that you will have to run a MongoDB instance separately), you can run the following commands:
+If you really want to go down the FastAPI stand-alone route (and note that you will have to run a MongoDB instance separately), you can run the following commands:  
+
 0. Install [Python](https://www.python.org/downloads/)
 1. `cd server`
 2. `python3 -m venv venv`
