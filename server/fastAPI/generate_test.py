@@ -4,16 +4,16 @@ import json
 import os.path
 import random
 
-from fastAPI.course import Course, CourseInfo
-from fastAPI.user import User, UserInfo
-from fastAPI.simulation import ExamSimulation
-from fastAPI.question import QuestionInfo
+from course import CourseInfo, Course
+from user import UserInfo, User
+from simulation import ExamSimulation
+from question import QuestionInfo
 from random import choice, randint
 import motor.motor_asyncio
 from datetime import datetime as time
 from bson import ObjectId
 from json import load
-from fastAPI.table_names import DbName
+from table_names import DbName
 
 client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@0.0.0.0:27017/")
 client.get_io_loop = asyncio.get_running_loop
