@@ -75,7 +75,8 @@ const insertTex = {
   },
 };
 
-function TextInput({ value, onChange, selectedTab, onTabChange }) {
+function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
+  console.log(childProps);
   const [val, setVal] = useState("");
   const [selTab, setSelTab] = useState("write");
 
@@ -98,6 +99,7 @@ function TextInput({ value, onChange, selectedTab, onTabChange }) {
             </ReactMarkdown>
           )
         }
+        childProps={childProps}
       />
     </Container>
   );
