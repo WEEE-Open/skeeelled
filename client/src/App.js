@@ -14,7 +14,7 @@ import {
   MyQuestions,
   Profile,
   Questions,
-  UserSettings
+  UserSettings,
 } from "./pages/";
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'

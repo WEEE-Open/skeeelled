@@ -6,9 +6,9 @@ import { List } from "../base/";
 
 function UserSettings() {
   const fake = [
-    [<Form.Check/>,"Analisys I"],
-    [<Form.Check/>,"Physics I"],
-    [<Form.Check/>,"Geometry"]
+    [<Form.Check />, "Analisys I"],
+    [<Form.Check />, "Physics I"],
+    [<Form.Check />, "Geometry"],
   ];
   const [courses, setCourses] = useState(fake);
 
@@ -21,20 +21,22 @@ function UserSettings() {
         <Col>
           <h3>Name Surname</h3>
           <h4>@Nickname</h4>
-          <Form.Control placeholder="Change nickname"/>
-          <Form.Check label="Public profile"/>
+          <Form.Control placeholder="Change nickname" />
+          <Form.Check label="Public profile" />
         </Col>
       </Row>
       <Row>
-          <Col>
-            <List rows={courses} title={"Enrolled in"} scope={"default"}/>
-          </Col>
+        <Col>
+          <List rows={courses} title={"Enrolled in"} scope={"default"} />
+        </Col>
       </Row>
       <Row>
-          <Col>
-            <Link to="/courses"><Button>Add new course</Button></Link>
-            <Button className="saveButton">Save</Button>
-          </Col>
+        <Col>
+          <Link to="/courses">
+            <Button>Add new course</Button>
+          </Link>
+          <Button className="saveButton">Save</Button>
+        </Col>
       </Row>
     </Card>
   );

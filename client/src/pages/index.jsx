@@ -17,5 +17,5 @@ export {
   MyQuestions,
   Profile,
   Questions,
-  UserSettings
+  UserSettings,
 };

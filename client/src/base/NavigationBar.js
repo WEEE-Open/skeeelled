@@ -38,11 +38,19 @@ function NavigationBar(props) {
         </Link>
       ) : null}
 
-      <Nav.Link as={Link} id={props.dark ? "course-link-dark" : "course-link"} to="/courses">
+      <Nav.Link
+        as={Link}
+        id={props.dark ? "course-link-dark" : "course-link"}
+        to="/courses"
+      >
         Courses
       </Nav.Link>
 
-      <Nav.Link as={Link} id={props.dark ? "add-question-link-dark" : "add-question-link"} to="/addquestion">
+      <Nav.Link
+        as={Link}
+        id={props.dark ? "add-question-link-dark" : "add-question-link"}
+        to="/addquestion"
+      >
         Add question
       </Nav.Link>
 

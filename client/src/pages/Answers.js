@@ -54,8 +54,8 @@ function Answers(props) {
           <Col>
             <h5>
               Dolor sit amet consectetur adipiscing elit pellentesque habitant ?
-              {adviceIsHidden
-                ? <Button
+              {adviceIsHidden ? (
+                <Button
                   id={"hint-button"}
                   className="btn-sm"
                   onClick={() => {
@@ -64,7 +64,8 @@ function Answers(props) {
                 >
                   Show hint
                 </Button>
-                : <Button
+              ) : (
+                <Button
                   id={"hint-button"}
                   className="btn-sm"
                   onClick={() => {
@@ -73,15 +74,15 @@ function Answers(props) {
                 >
                   Hide hint
                 </Button>
-              }
+              )}
             </h5>
-            {!adviceIsHidden &&
+            {!adviceIsHidden && (
               <h6>
                 habitant morbi tristique senectus et netus. Lorem sed risus
                 ultricies tristique nulla aliquet enim. Blandit cursus risus at
                 ultrices mi tempus.
               </h6>
-            }
+            )}
           </Col>
         </Row>
 
