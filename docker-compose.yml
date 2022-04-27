@@ -2,8 +2,8 @@
 version: '3.1'
 
 services:
-  #mongodb installation. It generates the "data" subdir in the project
-  mongo:
+  # mongodb installation (it generates the "data" subdir in the project)
+  mongodb:
     image: mongo
     restart: on-failure
     volumes:
@@ -14,32 +14,21 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
 
-  #developement only dashboard for easy checking on db changes
+  # development only dashboard for easily checking db changes
   mongo-express:
     image: mongo-express
     restart: always
     ports:
-      - 8081:8081
+      - "8081:8081"
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
     depends_on:
-      - mongo
+      - mongodb
 
-  #web server
-  nginx:
-    build: ./server/docker/nginx
-    volumes:
-      - ./server/static:/static
-    ports:
-      - "80:80"
-    depends_on:
-      - web
-    restart: on-failure
-
-  #python image that executes django and gunicorn
-  web:
+  # FastAPI backend (served by uvicorn in development)
+  server:
     build:
       context: server
       dockerfile: ./docker/fastAPI/Dockerfile
@@ -48,8 +37,21 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - mongo
-  node:
+      - mongodb
+
+  # web server (acting as a reverse proxy in production)
+  nginx:
+    build: ./server/docker/nginx
+    volumes:
+      - ./server/static:/static
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+    restart: on-failure
+
+  # ReactJS frontend (run with npm start in development)
+  client:
     build:
       context: ./client
       dockerfile: docker/node/Dockerfile
