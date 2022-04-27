@@ -1,7 +1,8 @@
 import { Row, Col, Card, Image, Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./UserSettings.css";
-import { ListGroup, List } from "../base/";
+import { List } from "../base/";
 
 function UserSettings() {
   const fake = [
@@ -31,7 +32,7 @@ function UserSettings() {
       </Row>
       <Row>
           <Col>
-            <Button>Add new course</Button>
+            <Link to="/courses"><Button>Add new course</Button></Link>
             <Button className="saveButton">Save</Button>
           </Col>
       </Row>
