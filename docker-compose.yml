@@ -4,7 +4,7 @@ version: '3.1'
 services:
   # mongodb installation (it generates the "data" subdir in the project)
   mongodb:
-    image: mongo
+    image: mongo:5.0.8
     restart: on-failure
     volumes:
      - ./data/db:/data/db
@@ -16,24 +16,24 @@ services:
 
   # development only dashboard for easily checking db changes
   mongo-express:
-    image: mongo-express
-    restart: always
+    image: mongo-express:1.0.0-alpha.4
+    restart: on-failure
     ports:
       - "8081:8081"
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+      ME_CONFIG_MONGODB_URL: "mongodb://root:example@mongodb:27017/"
     depends_on:
       - mongodb
 
   # FastAPI backend (served by uvicorn in development)
   server:
     build:
-      context: server
-      dockerfile: server/docker/FastAPI/Dockerfile
+      context: ./server
+      dockerfile: docker/FastAPI/Dockerfile
     volumes:
-      - ./server/FastAPI:/code
+      - ./server/src:/code
     ports:
       - "8000:8000"
     depends_on:
