@@ -8,6 +8,9 @@ class UserInfo(BaseModel):
     profile_picture: str
 
 
+from course import CourseInfo
+
+
 class User(BaseModel):
     id: str = Field(alias="_id")
     email: str
@@ -18,7 +21,7 @@ class User(BaseModel):
     is_active: bool = False
     is_professor: bool = False
     is_admin: bool = False
-    related_courses: List = []
+    related_courses: List = [CourseInfo]
     my_Questions: List = []
     # it is a list of Answer id
     my_Answers: List[str] = []
