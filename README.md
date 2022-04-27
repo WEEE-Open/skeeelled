@@ -51,7 +51,7 @@ If you intend to commit any changes, please also run `npm i` in the root (`skeee
 At the moment we have configured husky to lint all the files residing in the `client` directory with `prettier`.  
 All your changed files should be properly linted by this procedure to avoid unnecessary merge conflicts.
 
-The latest commit to the `master` branch gets automatically deployed to our staging instance [👉 here 👈]("https://weee-open.github.io/skeeelled").
+The latest commit to the `master` branch gets automatically deployed to our staging instance [👉 here 👈](https://weee-open.github.io/skeeelled).
 
 ### `server`
 
