@@ -56,7 +56,7 @@ async def generate_courses():
 
 
 async def generate_questions():
-    await db[DbName.USER.value].drop()
+    await db[DbName.QUESTION.value].drop()
     await db[DbName.QUESTION.value].insert_many(qlist)
 
 
