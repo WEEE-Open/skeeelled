@@ -69,7 +69,11 @@ function ListEntryAnswers(props) {
       <tr>
         <td className="answerEntry">
           <Link to="">
-            <Image src={"../icons/UP ARROW.svg"} width="90%" onClick={() => {}} />
+            <Image
+              src={process.env.PUBLIC_URL + "/icons/UP ARROW.svg"}
+              width="90%"
+              onClick={() => {}}
+            />
           </Link>
         </td>
         <td rowspan="3">{props.row.answer}</td>
@@ -84,7 +88,7 @@ function ListEntryAnswers(props) {
         <td className="answerEntry">
           <Link to="">
             <Image
-              src={"../icons/DOWN ARROW.svg"}
+              src={process.env.PUBLIC_URL + "/icons/DOWN ARROW.svg"}
               width="90%"
               onClick={() => {}}
             />

@@ -7,9 +7,12 @@ class CourseInfo(BaseModel):
     name: str
 
 
+from user import UserInfo
+
+
 class Course(BaseModel):
     name: str
     code: str
     years_active: list[int]
-    professors: list[str]
+    professors: list[UserInfo]
     questions: list

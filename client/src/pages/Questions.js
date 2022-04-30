@@ -8,7 +8,9 @@ import {
   Card,
   Form,
 } from "react-bootstrap";
+
 import { useEffect, useState } from "react";
+
 import "./Questions.css";
 import Suggestion from "../base/Suggestion";
 import {Link} from "react-router-dom";

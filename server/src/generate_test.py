@@ -4,15 +4,16 @@ import json
 import os.path
 import random
 
-from fastAPI.course import Course, CourseInfo
-from fastAPI.user import User, UserInfo
-from fastAPI.simulation import ExamSimulation
-from fastAPI.question import QuestionInfo
+from course import CourseInfo, Course
+from user import UserInfo, User
+from simulation import ExamSimulation
+from question import QuestionInfo
 from random import choice, randint
 import motor.motor_asyncio
 from datetime import datetime as time
 from bson import ObjectId
 from json import load
+from table_names import DbName
 
 client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@0.0.0.0:27017/")
 client.get_io_loop = asyncio.get_running_loop
@@ -29,35 +30,38 @@ for q in qlist:
     matricola = f"d{randint(11111, 99999)}"
     q["_id"] = ObjectId(q["_id"]['$oid'])
     q['owner'] = UserInfo(
-                id=matricola,
-                username=f"nome.cognome.{matricola}",
-                profile_picture=profile_picture).dict()
+        id=matricola,
+        username=f"nome.cognome.{matricola}",
+        profile_picture=profile_picture).dict()
     q['timestamp'] = time.now().timestamp()
+    q['tags'] = choice(["Test", "Analisi", "Domanda", "Kek"])
+    q['course'] = CourseInfo(id=str(randint(0, 100)), name="Analisi").dict()
 """end of freq used data"""
 
 
 async def generate_courses():
+    await db[DbName.COURSE.value].drop()
     courses_list = []
     for i in range(20):
         new_question = Course(
             name=choice(['Analisi', 'Chimica', 'Informatica']),
             code=choice(['1R6', 'CD2', 'Y6T']),
-            professors=['lavy'],
+            professors=[UserInfo(id=1, username="Lavy", profile_picture="462fd1a")],
             years_active=choice([[2010], [2015, 2016], [2015, 2018, 2019]]),
             questions=[])
 
         courses_list.append(new_question.dict())
 
-    await db["courses"].insert_many(courses_list)
+    await db[DbName.COURSE.value].insert_many(courses_list)
 
 
 async def generate_questions():
-
-    await db["questions"].insert_many(qlist)
+    await db[DbName.QUESTION.value].drop()
+    await db[DbName.QUESTION.value].insert_many(qlist)
 
 
 async def generate_simulations():
-
+    await db[DbName.EXAM_SIM.value].drop()
     sim_list = []
     for i in range(10):
         matricola = f"s{randint(183545, 309999)}"
@@ -77,20 +81,26 @@ async def generate_simulations():
         )
         sim_list.append(new_sim.dict())
 
-    await db["ExamSimulations"].insert_many(sim_list)
+    await db[DbName.EXAM_SIM.value].insert_many(sim_list)
 
 
 async def generate_users():
     user_list = []
+    await db[DbName.USER.value].drop()
     for i in range(50):
         matr = choice([f"s{randint(183545, 309999)}", f"d{randint(11111, 99999)}"])
+        name = choice(["Mario", "Giovanni", "Guido"])
+        surname = choice(["Rossi", "Bianchi", "Verdi"])
         newUser = User(_id=matr,
                        email=f"{matr}@{'studenti.' if matr[0] == 's' else ''}polito.it",
-                       username=f"nome.cognome.{matr}",
+                       username=f"{name.lower()}.{surname.lower()}.{matr}",
+                       name=name,
+                       surname=surname,
                        last_session=time.now().timestamp(),
                        profile_picture=profile_picture,
                        is_active=choice([True, False]),
-                       is_professor=True if matr[0] == 'd' else False)
+                       is_professor=True if matr[0] == 'd' else False,
+                       related_courses=[CourseInfo(id=1, name="Anal")])
         for q_num in range(randint(0, len(qlist))):
             newUser.my_Questions.append(QuestionInfo(
                 id=str(qlist[q_num]["_id"]),
@@ -98,7 +108,7 @@ async def generate_users():
                 text=qlist[q_num]['content']["questiontext"]["text"]
             ))
         user_list.append(newUser.dict(by_alias=True))
-    await db["users"].insert_many(user_list)
+    await db[DbName.USER.value].insert_many(user_list)
 
 
 if __name__ == "__main__":
