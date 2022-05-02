@@ -1,0 +1,54 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - README*
+      - LICENSE
+      - .readme
+
+jobs:
+  run-client-cd:
+    name: Run Client CD
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pusher.name != 'weee-open-bot' }}
+    defaults:
+      run:
+        working-directory: client
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_ACTIONS_BOT_PAT }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Set up git credentials
+        run: |
+          git config --global user.email "weee-open-bot@users.noreply.github.com"
+          git config --global user.name "weee-open-bot"
+
+      - name: Build and deploy staging instance
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          npm run deploy -- --user "weee-open-bot <weee-open-bot@users.noreply.github.com>" --message "Deploy commit ${GITHUB_SHA}"
+        env:
+          CI: false # this overrides the "treat warnings as errors" behavior
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_BOT_PAT }}

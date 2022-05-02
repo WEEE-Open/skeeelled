@@ -1,12 +1,9 @@
 name: Lint
 
 on:
-  # Trigger the workflow on push or pull request,
-  # but only for the main branches
   push:
     branches:
       - master
-      - main
 
 jobs:
   run-client-linters:
@@ -15,7 +12,7 @@ jobs:
     if: ${{ github.event.pusher.name != 'weee-open-bot' }}
     defaults:
       run:
-        working-directory: client
+        working-directory: .
 
     steps:
       - name: Check out Git repository
@@ -29,26 +26,20 @@ jobs:
           node-version: 17
 
       - name: Install Node.js dependencies
-        run: yarn install
+        run: npm ci
 
       - name: Set up git credentials
         run: |
           git config --global user.email "weee-open-bot@users.noreply.github.com"
           git config --global user.name "weee-open-bot"
 
-      - name: Run ESLint
-        run: npx --no-install eslint --ext .js --ext .jsx --fix --no-color --format json  "." || true
+      - name: Run Prettier
+        run: npx prettier --write "./client"
+        continue-on-error: true
 
-      - name: Commit ESLint changes
+      - name: Commit Prettier changes
         run: |
-          git commit -am "Fix code style issues with ESLint" || echo "No changes to commit"
-
-      - name: Run Stylelint
-        run: npx stylelint --ignore-pattern "**/*.min.css" --fix "**/*.{css,scss}" || true
-
-      - name: Commit Stylelint changes
-        run: |
-          git commit -am "Fix code style issues with Stylelint" || echo "No changes to commit"
+          git commit -am "Fix code style issues with Prettier" || echo "No changes to commit"
 
       - name: Push changes
         run: git push
