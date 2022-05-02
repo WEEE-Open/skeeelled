@@ -6,11 +6,13 @@ import {
   Col,
   Pagination,
   Card,
-  Form,
+  Image,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Questions.css";
-import Suggestion from "../base/Suggestion";
+import { SearchBar, Suggestion } from "../base/";
+import { iconAdd } from "../icons"
 
 const Questions = () => {
   /** Mock courses **/
@@ -74,43 +76,49 @@ const Questions = () => {
           <Row>
             <Col>
               <Card body>
-                <Container className="container">
-                  <Card body>
-                    <Row lg={12} className="header">
-                      <Col>
-                        <List
-                          scope="questions"
-                          title="Physics I"
-                          rows={questions}
-                        />
-                      </Col>
-                      <Col className="pagination" lg="12" sm="12" md="12">
-                        <Pagination>
-                          {[
-                            <Pagination.Item key={1} active>
-                              {1}
-                            </Pagination.Item>,
-                            <Pagination.Item key={2} active={false}>
-                              {2}
-                            </Pagination.Item>,
-                            <Pagination.Item key={3} active={false}>
-                              {3}
-                            </Pagination.Item>,
-                            <Pagination.Item key={4} active={false}>
-                              {4}
-                            </Pagination.Item>,
-                            <Pagination.Item key={5} active={false}>
-                              {5}
-                            </Pagination.Item>,
-                            <Pagination.Item key={6} active={false}>
-                              {6}
-                            </Pagination.Item>,
-                          ]}
-                        </Pagination>
-                      </Col>
-                    </Row>
-                  </Card>
-                </Container>
+                <h3 className="listQuestionsTitle">
+                  Physics I
+                  <Link to="/simulation"><Button className="right-button">Start simulation</Button></Link>
+                  <Link to="/courses"><Button className="right-button">{iconAdd} Add course</Button></Link>
+                </h3>
+                <Row>
+                  <Col className="listQuestionsTitle">
+                    <SearchBar />
+                  </Col>
+                </Row>
+                <Row lg={12} className="header">
+                  <Col>
+                    <List
+                      scope="questions"
+                      title="Physics I"
+                      rows={questions}
+                    />
+                  </Col>
+                  <Col className="pagination" lg="12" sm="12" md="12">
+                    <Pagination>
+                      {[
+                        <Pagination.Item key={1} active>
+                          {1}
+                        </Pagination.Item>,
+                        <Pagination.Item key={2} active={false}>
+                          {2}
+                        </Pagination.Item>,
+                        <Pagination.Item key={3} active={false}>
+                          {3}
+                        </Pagination.Item>,
+                        <Pagination.Item key={4} active={false}>
+                          {4}
+                        </Pagination.Item>,
+                        <Pagination.Item key={5} active={false}>
+                          {5}
+                        </Pagination.Item>,
+                        <Pagination.Item key={6} active={false}>
+                          {6}
+                        </Pagination.Item>,
+                      ]}
+                    </Pagination>
+                  </Col>
+                </Row>
               </Card>
             </Col>
             <Col className="d-none d-md-inline-block col-md-4">

@@ -56,3 +56,8 @@
 .listSuggestion-questions {
   padding: 5px;
 }
+
+.right-button {
+  float:right;
+  margin-right:5px;
+}

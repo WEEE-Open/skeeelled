@@ -1,4 +1,5 @@
-import { Col, Container, Row, Table } from "react-bootstrap";
+import { Col, Container, Row, Table, Button, Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { ListEntry } from "./";
 import "./List.css";
 
@@ -52,7 +53,6 @@ function ListDefault({ props }) {
 function ListQuestions({ props }) {
   return (
     <>
-      <h3 className="listQuestionsTitle">{props.title}</h3>
       {props.rows.map((r) => (
         <ListEntry scope={props.scope} row={r} />
       ))}
