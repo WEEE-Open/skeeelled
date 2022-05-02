@@ -76,4 +76,49 @@ If you're using PyCharm Professional, I suggest you to add this configuration:
 
 ### `ml`
 
-TODO: add scrapers, dataset composition, comments, ML pipeline usage
+A machine-learning model is deployed to automatically monitor and moderate the comment activity of each post. Its primary objective is __to prevent users to abuse the forum by posting profanity, blasphemy, hate-speech toxic content in the comments section__. This is achieved by performing _Sentiment Analysis_, a common form of text classification used in _Natural Language Processing_ (an interdisciplinary subset of Machine Learning) where one of multiple sentiment labels (e.g. anger, fear, joy etc...) is inferred by the model based on the content of the text. 
+
+The resulting mini-library called `Modalii - Moderatore Automatico per le Lingue Italiana & Inglese` uses the [HuggingFace Transformers](https://huggingface.co/docs/transformers/index) library in order to assemble the full pipeline of the moderator. The models hosted in the library are imported locally and fine-tuned on purposely-built datasets for toxicity detection in STEM-oriented comments.
+
+#### Pipeline
+Given an input string, representing the __comment__ to be classified, the library offers a high-level `infer` function to retrieve its __sentiment__
+
+| Full-input pipeline                                                                   |
+|---------------------------------------------------------------------------------------|
+|__comment__ ➡️ `Polyglot` ➡️ `ProfanityDetector` ➡️ `ToxicityDetector` ➡️ __sentiment__|
+
+The `Modalii` library uses a binary-classification paradigm where a normalised __score__ variable represents the above __sentiment__ and contains the degree of toxicity detected within the comment. The actions taken by the library are either to `pass` the comment or to `quarantine` it according to a specific _banning policy_ acting on __score__ as returned by the pipeline.
+The `Polyglot` model is a [language identification](https://huggingface.co/papluca/xlm-roberta-base-language-detection) class which discern the language with which the comment is written (either __english__, __italian__ or __neither__). According to which language is identified a `ProfanityDetector` class is instantiated which is a simple Bag of Words (BoW) model, based on two language-specific vocabularies, that detects the presence of any blasphemic word and automatically bans the comment. Finally, if the comments passes the `purity_check` performed by the latter, a `ToxicityDetector` class takes care of the last hate-speech/toxicity assessment. This step is also language-specific with one model for the [italian](https://huggingface.co/Hate-speech-CNERG/dehatebert-mono-italian) language and another for the [english](https://huggingface.co/martin-ha/toxic-comment-model) language. While the latter is used _"as is"_, the former is fine-tuned on an ad-hoc built and manually labelled dataset (see __Datasets__ section) using the `train` high-level function provided by the library
+
+| Training pipeline                             |
+|-----------------------------------------------|
+|`Builder` ➡️ `Reddit` ➡️ `Facebook` ➡️ `Loader`|
+
+We remark that correct use of the library's APIs is to instantiate the function on _string_ variables. Should the user want to use `infer` on a dataset (either `.csv`, `.json` etc...) then a miminalistic pre-processing (not provided by the library) is required. An example of such action is given in `test.py`.
+
+#### Transformers
+Both the `Polyglot` and the two language-specific `ToxicityDetector`s classes are based on HuggingFace hosted [Transformers](https://huggingface.co/docs/transformers/philosophy). Simply put a `Transformer`, in the context of deep-learning, is a combination of two mechanics:
+* A _Sequence-2-Sequence_ translation of the input text (also known as encoder-decoder architecture);
+* An _Attention mechanism_ that focuses the important keywords of a given input sequence.
+For our purposes we identify each hosted model with:
+* a `Tokenizer` which takes the input text and vectorise it (according to a pre-defined dictionary) to make it digestible for the input layer of neural network;
+* a `Classifier` that elaborates the input through the _Attention_ mechanism discussed above and returning a vector with the probabilities of each label.
+These deep neural networks are very large architectures that revolutionised the world of automatic text interaction, including the tasks required by common-days chatbots, translators, word masking etc...
+The reader might refer to this well-written [article](https://medium.com/inside-machine-learning/what-is-a-transformer-d07dd1fbec04) for a preliminary but thorough introduction to the architecture.
+
+#### Datasets
+We previously mentioned that `Modalii` comes with a secondary high-level `train` function that provides a straight-forward fine-tuning facility for the italian `ToxicityDetector` model. The fine-tuning is performed on a specific dataset that is composed by `Reddit`'s threads and `Facebook` groups scraped comments. The `Builder` class is automatically instantiate by the training pipeline if neither `ITA-Dataset.json` not `ENG-Dataset.json` are present in the top-level directory (where `Modalii.py` is located); such class scrapes both `Reddit` and `Facebook` comments found in the __Subreddits__ and __Groups__ (respectively) that are specified by the `source` variable in the _initialiser_ of each class. The user can change those to her/his own liking to build a separate dataset (notice that the new scraped dataset will not be automatically labelled). Finally the `Loader` class takes care of the interaction with the scraped `.json` dataset and the HuggingFace Transformer model.
+
+To be able to use the `Builder` class the user must have both a Reddit and Facebook active account. The `Facebook` class is based on the [facebook-scraper](https://github.com/kevinzg/facebook-scraper) library and uses the `get_posts` API to retrieve all the comments in the posts of the groups specified in the `source` variable. The user must ensure to be logged it to her/his account to use the library as no further action are required. On the contrary the `Reddit` class is based on [praw](https://praw.readthedocs.io/en/stable/) which required the `reddit_client_id`, `reddit_client_secret_key` and `reddit_user_agent` to be manually input in its instance. Those are imported from a `.env` file in which they are specified. The user can retrieve those by creating an app on the bottom button [here](https://www.reddit.com/prefs/apps), name it as it likes, and using the information provided there
+
+| `.env`                                                   |
+|----------------------------------------------------------|
+|reddit_client_id = 'code-you-find-below-username'         |
+|reddit_client_secret_key = 'code-you-find-on-"secret"-tab'|
+|reddit_user_agent = 'name-you-gave-to-the-app'            |
+
+Also the training is performed using the [Weights & Biases](https://wandb.ai/site) monitoring tool. To be able to use that the user must create an account with the library and retrieve its [API key](https://docs.wandb.ai/guides/track/public-api-guide)
+
+| `.env`                                 |
+|----------------------------------------|
+|api_key = 'wand-key-given-on-the-prompt'|
