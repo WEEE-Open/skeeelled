@@ -1,11 +1,11 @@
-import { Row, Col, Card, Pagination, Form } from "react-bootstrap";
+import {Row, Col, Card, Pagination, Form, Button, Stack} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import { useState /* , useEffect */ } from "react";
 import { Recent, List, SearchBar } from "../base/";
 import Suggestion from "../base/Suggestion";
 // import API from "../api/API";
 
-function PaginationRow() {
+const PaginationRow = () => {
   let [active, setActive] = useState(1)
   let items = [];
   for( let num = 1; num <= 5; num++) {
@@ -48,6 +48,7 @@ function CoursesList() {
       professor: "Giuseppe Verdi",
     },
   ];
+
   const fakeQuestions = [
     {
       id: 1,
@@ -77,7 +78,11 @@ function CoursesList() {
 
   const [courses, setCourses] = useState(fakeCourses /*[]*/);
   const [myCourses, setMyCourses] = useState([]);
-  const [questions, setQuestions] = useState(fakeQuestions /*[]*/);
+  const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
+  const suggestionType = ["Latest", "Hottest"];
+  const coursesType = ["My Courses", "All Courses"]
+
+
   /**Courses and questions related**/
   /*
 	// courses
@@ -113,30 +118,30 @@ function CoursesList() {
           <Row>
             <SearchBar />
           </Row>
-          <Link className="list-attributes" to={{pathname:"/listfullpage/" + "my courses"}} state={{ scope: "courses", title: "My courses", rows: courses }}>
-            <List scope="courses" title="My courses" rows={courses} />
-          </Link>
-          <Link className="list-attributes" to={{pathname:"/listfullpage/" + "all courses"}} state={{ scope: "courses", title: "All courses", rows: courses }}>
-            <List scope="courses" title="All courses" rows={courses} />
-          </Link>
+          {coursesType.map(type => {
+            return (
+                <Link className="list-attributes" to={{pathname:"/listfullpage/" + type.toLowerCase()}} state={{ scope: "courses", title: type, rows: courses }}>
+                  <List scope="courses" title={type} rows={courses} />
+                </Link>
+            )
+          })}
           <PaginationRow />
         </Card>
       </Col>
         <Col className="d-none d-md-inline-block col-md-4">
-          <Row>
-            <Suggestion
-                scope={"suggestion"}
-                title={"Latest Questions"}
-                rows={questions}
-            />
-          </Row>
-          <Row>
-            <Suggestion
-                scope={"suggestion"}
-                title={"Hottest Questions"}
-                rows={questions}
-            />
-          </Row>
+          <Stack gap={4}>
+            {suggestionType.map(type => {
+              return (
+                  <Row>
+                    <Suggestion
+                        scope={"suggestion"}
+                        title={ type + " Questions"}
+                        rows={suggestions}
+                    />
+                  </Row>
+              )
+            })}
+          </Stack>
         </Col>
     </Row>
   );

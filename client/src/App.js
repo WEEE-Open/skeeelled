@@ -14,10 +14,11 @@ import {
   Profile,
   Questions,
   UserSettings,
+  ListFullPage,
+  Bookmarks,
+  StartSimulation,
+  Simulation
 } from "./pages/";
-// cannot access from "./pages/"
-import ListFullPage from "./pages/ListFullPage";
-import Bookmarks from "./pages/Bookmarks"
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'
 
@@ -123,11 +124,12 @@ function App() {
                 path="/discussion/:questionid"
                 element={<p>Work in progress</p>}
               />
-              <Route path="/simulation" element={<p>Work in progress</p>} />
+              <Route path="/simulation/:simulationType" element={<Simulation/>} />
               <Route path="/addquestion" element={<TextInput />} />
               <Route path="/todel" element={<Exam />} />
               <Route path="/listfullpage/:listName" element={<ListFullPage />} />
               <Route path="/bookmarks" element={<Bookmarks/>} />
+              <Route path="/startsimulation/:courseName" element={<StartSimulation/>}/>
               {/* <MyQuestions /> */}
             </Routes>
           ) : (

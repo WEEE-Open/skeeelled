@@ -14,7 +14,7 @@ function ListGroup(props) {
               .slice(i * props.cols, (i + 1) * props.cols)
               .map((l) => (
                     <Col>
-                      <Link className="list-attributes" to={{pathname:"/listfullpage/" + l.title}} state={{ scope: l.scope, title: l.title, rows: l.rows }}>
+                      <Link className="list-attributes" to={{pathname:"/listfullpage/" + (l.title).replace(/\s/g, '').toLowerCase()}} state={{ scope: l.scope, title: l.title, rows: l.rows }}>
                         <List
                             scope={l.scope}
                             title={l.title}

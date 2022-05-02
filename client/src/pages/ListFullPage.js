@@ -25,7 +25,7 @@ function PaginationRow() {
     )
 }
 
-function ListFullPage () {
+export default function ListFullPage () {
     const location = useLocation();
     return (
         <>
@@ -39,5 +39,3 @@ function ListFullPage () {
         </>
     )
 }
-
-export default ListFullPage

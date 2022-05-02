@@ -30,7 +30,7 @@ function DebugPaths() {
       <Link style={style} to="/discussion/QUESTID">
         Discussion
       </Link>
-      <Link style={style} to="/simulation">
+      <Link style={style} to="/startsimulation/">
         Simulation
       </Link>
       <Link style={style} to="/settings">
