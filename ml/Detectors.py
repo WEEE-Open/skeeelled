@@ -15,12 +15,14 @@ class ProfanityDetector:
   def __init__(self, language_id):
     if language_id == 0:
       # Italian dictionary of swear/stop-words is built
-      self.stopwords = ["per", "è", "é", "e", "il", "che", "tua", "sua", "un", "uno", "una"]
-      self.vocabulary = ["merda", "cazzo", "incazzato", "stocazzo", "coglione", "minchia", "minchiata", "minchiate", "stronzo", "stronzata", "stronzate", "puttana", "puttanata", "puttanate", "vaffanculo", "culo", "ricchione", "frocio", "incel"]
+      from Vocabulary import italian_vocab
+      self.stopwords = italian_vocab[0]
+      self.swearwords = italian_vocab[1]
     else:
       # English dictionary of swear/stop-words is built
-      self.stopwords = ["per", "è", "é", "e", "il", "che", "tua", "sua", "un", "uno", "una"]
-      self.vocabulary = ["merda", "cazzo", "incazzato", "stocazzo", "coglione", "minchia", "minchiata", "minchiate", "stronzo", "stronzata", "stronzate", "puttana", "puttanata", "puttanate", "vaffanculo", "culo", "ricchione", "frocio", "incel"]
+      from Vocabulary import english_vocab
+      self.stopwords = english_vocab[0]
+      self.swearwords = english_vocab[1]
 
 
   # Check is each word in input text is present in profanity vocab
@@ -30,12 +32,11 @@ class ProfanityDetector:
       # Exclude evry stopword from the actual check
       if word not in self.stopwords:
         # Swear word/Profanity is found in the input text
-        if word in self.vocabulary:
+        if word in self.swearwords:
           # Only one occurrence is necessary to return the profanity status check
-          print("\n   🤌 💩   Gotcha you naughty boy   💩🤌\n")
           return False
 
-    # The input text does feature any known swear word/profanity
+    # The input text does not feature any known swear word/profanity
     return True
 
 

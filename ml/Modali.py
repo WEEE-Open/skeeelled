@@ -11,37 +11,6 @@ import os
 import numpy as np
 from torch import nn
 
-#--------------------#
-# Trainining/testing #
-#      pipeline      #
-#--------------------#
-def train(model_id):
-  
-  # Check if fine-tuned transformer models exist
-  if os.path.exists('model'):
-    pass
-
-  else:
-    # Check if dataset exists
-    if os.path.exists('ITA-Dataset.json') or os.path.exists('ENG-Dataset.json'):
-      pass
-
-    else:
-      # Builds unlabelled dataset of scraped comments
-      from DatasetHandler import Builder
-      print(" ** Building the italian toxicity Dataset **\n")
-      
-      builder = Builder()
-      builder.build()
-      builder.shuffle()
-
-    # Trains on scraped comments
-    from Detectors import ToxicityDetector
-    print(" ** Training the transformer model on ITA-Dataset.json **\n")
-
-    moderator = ToxicityDetector(model_id)
-    moderator.train()
-
 
 #-------------------------#
 # Language identification #
@@ -89,7 +58,7 @@ class Polyglot:
           else:
             return None
       else:
-        print("The model has detected the english language with not enough confidence")
+        print("The model has detected the english language but without enough confidence")
         return None
 
 
@@ -106,7 +75,38 @@ class Polyglot:
 
 
 #---------------------#
-# Full input pipeline #
+# Trainining pipeline #
+#---------------------#
+def train(model_id):
+  
+  # Check if fine-tuned transformer models exist
+  if os.path.exists('model'):
+    pass
+
+  else:
+    # Check if dataset exists
+    if os.path.exists('ITA-Dataset.json') or os.path.exists('ENG-Dataset.json'):
+      pass
+
+    else:
+      # Builds unlabelled dataset of scraped comments
+      from DatasetHandler import Builder
+      print(" ** Building the italian toxicity Dataset **\n")
+      
+      builder = Builder()
+      builder.build()
+      builder.shuffle()
+
+    # Trains on scraped comments
+    from Detectors import ToxicityDetector
+    print(" ** Training the transformer model on ITA-Dataset.json **\n")
+
+    moderator = ToxicityDetector(model_id)
+    moderator.train()
+
+
+#---------------------#
+# Full-input pipeline #
 #---------------------#
 def infer(comment):
 
