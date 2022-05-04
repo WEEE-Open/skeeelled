@@ -79,7 +79,7 @@ const Questions = () => {
                 <h3 className="listQuestionsTitle">
                   Physics I
                   <Link to="/simulation"><Button className="right-button">Start simulation</Button></Link>
-                  <Link to="/courses"><Button className="right-button">{iconAdd} Add course</Button></Link>
+                  <Button className="right-button" onClick={() => {}}>{iconAdd} Add course</Button>
                 </h3>
                 <Row>
                   <Col className="listQuestionsTitle">
