@@ -1,9 +1,9 @@
-.outline-secondary{
-    font-size: 20px;
+.outline-secondary {
+  font-size: 20px;
 }
-.pagination-finish{
-    display: flex;
-    margin: 20px;
-    align-items: baseline;
-    justify-content: center;
+.pagination-finish {
+  display: flex;
+  margin: 20px;
+  align-items: baseline;
+  justify-content: center;
 }

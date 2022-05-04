@@ -17,7 +17,7 @@ import {
   ListFullPage,
   Bookmarks,
   StartSimulation,
-  Simulation
+  Simulation,
 } from "./pages/";
 import SimulationResult from "./pages/SimulationResult";
 // import parsedQuestions from "./constants/parsed";
@@ -125,13 +125,25 @@ function App() {
                 path="/discussion/:questionid"
                 element={<p>Work in progress</p>}
               />
-              <Route path="/simulation/:simulationType" element={<Simulation/>} />
+              <Route
+                path="/simulation/:simulationType"
+                element={<Simulation />}
+              />
               <Route path="/addquestion" element={<TextInput />} />
               <Route path="/todel" element={<Exam />} />
-              <Route path="/listfullpage/:listName" element={<ListFullPage />} />
-              <Route path="/bookmarks" element={<Bookmarks/>} />
-              <Route path="/startsimulation/:courseName" element={<StartSimulation/>}/>
-              <Route path="/simulationresult/:courseName" element={<SimulationResult/>}/>
+              <Route
+                path="/listfullpage/:listName"
+                element={<ListFullPage />}
+              />
+              <Route path="/bookmarks" element={<Bookmarks />} />
+              <Route
+                path="/startsimulation/:courseName"
+                element={<StartSimulation />}
+              />
+              <Route
+                path="/simulationresult/:courseName"
+                element={<SimulationResult />}
+              />
               {/* <MyQuestions /> */}
             </Routes>
           ) : (

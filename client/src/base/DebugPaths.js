@@ -18,7 +18,11 @@ function DebugPaths() {
       <Link style={style} to="/courses">
         Courses
       </Link>
-      <Link style={style} to="/course/ABCDEF" state={{courseId:"courseId", title:"Course Name"}}>
+      <Link
+        style={style}
+        to="/course/ABCDEF"
+        state={{ courseId: "courseId", title: "Course Name" }}
+      >
         Course
       </Link>
       <Link style={style} to="/question/QUESTID">

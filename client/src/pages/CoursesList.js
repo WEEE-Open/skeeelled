@@ -1,40 +1,48 @@
-import {Row, Col, Card, Pagination, Form, Button, Stack} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {
+  Row,
+  Col,
+  Card,
+  Pagination,
+  Form,
+  Button,
+  Stack,
+} from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { useState /* , useEffect */ } from "react";
 import { Recent, List, SearchBar } from "../base/";
 import Suggestion from "../base/Suggestion";
 // import API from "../api/API";
 
 const PaginationRow = () => {
-  let [active, setActive] = useState(1)
+  let [active, setActive] = useState(1);
   let items = [];
-  for( let num = 1; num <= 5; num++) {
+  for (let num = 1; num <= 5; num++) {
     items.push(
-        <Pagination.Item key={num} active={num === active} onClick={()=>{
-          setActive(active = num)
-        }}>
-          {num}
-        </Pagination.Item>
-    )
+      <Pagination.Item
+        key={num}
+        active={num === active}
+        onClick={() => {
+          setActive((active = num));
+        }}
+      >
+        {num}
+      </Pagination.Item>
+    );
   }
 
   return (
-      <Pagination>
-        <Pagination.First />
-        {items}
-        <Pagination.Last />
-      </Pagination>
-  )
-}
+    <Pagination>
+      <Pagination.First />
+      {items}
+      <Pagination.Last />
+    </Pagination>
+  );
+};
 
 function CoursesList() {
   /** Mock courses and questions **/
   const fakeCourses = [
-    { code: "A0B1C2",
-      course: "Analysis 1",
-      cfu: 10,
-      professor: "Mario Rossi",
-    },
+    { code: "A0B1C2", course: "Analysis 1", cfu: 10, professor: "Mario Rossi" },
     {
       code: "D3E4F5",
       course: "Physics 1",
@@ -80,8 +88,7 @@ function CoursesList() {
   const [myCourses, setMyCourses] = useState([]);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
   const suggestionType = ["Latest", "Hottest"];
-  const coursesType = ["My Courses", "All Courses"]
-
+  const coursesType = ["My Courses", "All Courses"];
 
   /**Courses and questions related**/
   /*
@@ -113,36 +120,40 @@ function CoursesList() {
       <Col>
         <Card body>
           <Row lg={12} className="py-0 header">
-              <h3>Courses</h3>
+            <h3>Courses</h3>
           </Row>
           <Row>
             <SearchBar />
           </Row>
-          {coursesType.map(type => {
+          {coursesType.map((type) => {
             return (
-                <Link className="list-attributes" to={{pathname:"/listfullpage/" + type.toLowerCase()}} state={{ scope: "courses", title: type, rows: courses }}>
-                  <List scope="courses" title={type} rows={courses} />
-                </Link>
-            )
+              <Link
+                className="list-attributes"
+                to={{ pathname: "/listfullpage/" + type.toLowerCase() }}
+                state={{ scope: "courses", title: type, rows: courses }}
+              >
+                <List scope="courses" title={type} rows={courses} />
+              </Link>
+            );
           })}
           <PaginationRow />
         </Card>
       </Col>
-        <Col className="d-none d-md-inline-block col-md-4">
-          <Stack gap={4}>
-            {suggestionType.map(type => {
-              return (
-                  <Row>
-                    <Suggestion
-                        scope={"suggestion"}
-                        title={ type + " Questions"}
-                        rows={suggestions}
-                    />
-                  </Row>
-              )
-            })}
-          </Stack>
-        </Col>
+      <Col className="d-none d-md-inline-block col-md-4">
+        <Stack gap={4}>
+          {suggestionType.map((type) => {
+            return (
+              <Row>
+                <Suggestion
+                  scope={"suggestion"}
+                  title={type + " Questions"}
+                  rows={suggestions}
+                />
+              </Row>
+            );
+          })}
+        </Stack>
+      </Col>
     </Row>
   );
 }

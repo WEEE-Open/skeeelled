@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { iconUser, iconLogout, iconAdmin } from "../icons.js";
 import "./NavigationBar.css";
-import {useState} from "react";
+import { useState } from "react";
 
 const fakeQuestions = [
   {
@@ -40,7 +40,6 @@ const fakeQuestions = [
 ];
 
 function NavigationBar(props) {
-
   const [questions, setQuestions] = useState(fakeQuestions /*[]*/);
 
   return (
@@ -95,7 +94,14 @@ function NavigationBar(props) {
             <Link to="/profile" className="dropdown-link">
               <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
             </Link>
-            <Link to={{pathname:"/bookmarks"}} state={{scope: "questions", title: "Bookmarked Questions", rows: questions}}>
+            <Link
+              to={{ pathname: "/bookmarks" }}
+              state={{
+                scope: "questions",
+                title: "Bookmarked Questions",
+                rows: questions,
+              }}
+            >
               <NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
             </Link>
             <Link to="/settings" className="dropdown-link">

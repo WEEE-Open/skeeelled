@@ -1,4 +1,4 @@
-import {Row, Col, Container, Image, Card} from "react-bootstrap";
+import { Row, Col, Container, Image, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./ListEntry.css";
 
@@ -20,7 +20,12 @@ function ListEntryCourses(props) {
     <tr>
       <td>{props.row.code}</td>
       <td>
-        <Link to={"/course/" + props.row.code} state={{ courseId:props.row.code, title:props.row.course}}>{props.row.course}</Link>
+        <Link
+          to={"/course/" + props.row.code}
+          state={{ courseId: props.row.code, title: props.row.course }}
+        >
+          {props.row.course}
+        </Link>
       </td>
       <td>{props.row.professor}</td>
       <td>{props.row.cfu}</td>

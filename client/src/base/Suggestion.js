@@ -8,11 +8,7 @@ function Suggestion(props) {
     <Container className="suggestion-container" fluid>
       <Card className="suggestion-card">
         <Card.Body>
-          <List
-            scope={props.scope}
-            title={props.title}
-            rows={props.rows}
-          />
+          <List scope={props.scope} title={props.title} rows={props.rows} />
         </Card.Body>
       </Card>
     </Container>
