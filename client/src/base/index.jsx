@@ -6,6 +6,8 @@ import List from "./List";
 import ListEntry from "./ListEntry";
 import ListGroup from "./ListGroup";
 import TextInput from "./TextInput";
+import QuestionPreview from "./QuestionPreview";
+import Discussion from "./Discussion";
 
 import SearchBar from "./SearchBar";
 import DebugPaths from "./DebugPaths";
@@ -21,4 +23,6 @@ export {
   DebugPaths,
   SearchBar,
   TextInput,
+  QuestionPreview,
+  Discussion
 };
