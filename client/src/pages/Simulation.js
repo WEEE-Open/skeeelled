@@ -1,32 +1,8 @@
 import {Link, useLocation} from "react-router-dom";
-import {useState} from "react";
-import {Card, Row, Col, Pagination, Container, Button} from "react-bootstrap";
+import {useCallback, useEffect, useState, Component} from "react";
+import {Card, Row, Col, Pagination, Container, Button, Form} from "react-bootstrap";
 import "./Simulation.css"
-import {List, ListEntry} from "../base";
-
-
-
-const PaginationRow = (props) => {
-    let [active, setActive] = useState(1)
-    let items = [];
-    for( let num = 1; num <= 5; num++) {
-        items.push(
-            <Pagination.Item key={num} active={num === active} onClick={()=>{
-                setActive(active = num)
-            }}>
-                {num}
-            </Pagination.Item>
-        )
-    }
-
-    return (
-        <Pagination>
-            <Pagination.First />
-            {items}
-            <Pagination.Last />
-        </Pagination>
-    )
-}
+import {List, ListEntry, TextInput} from "../base";
 
 export default function Simulation (props) {
 
@@ -57,9 +33,45 @@ export default function Simulation (props) {
         },
     ];
 
+
+
     const [questions, setQuestions] = useState(fakeQuestions /*[]*/);
+
     const simulationQuizType = ["open", "close"];
+    const [pageNum, setPageNum] = useState(1)
+
+    const radomizer = simulationQuizType[Math.floor(Math.random()*simulationQuizType.length)]
+    const [randomQuizType,setRandomQuizType] = useState(radomizer)
+
     const locationState = useLocation().state
+
+
+
+    const PaginationRow = (props) => {
+
+        let items = [];
+        for( let num = 1; num <= 5; num++) {
+            items.push(
+                <Pagination.Item key={num} active={num === pageNum} onClick={()=>{
+                    setPageNum(num)
+                }}>
+                    {num}
+                </Pagination.Item>
+            )
+        }
+
+        return (
+            <Pagination>
+                <Pagination.First />
+                {items}
+                <Pagination.Last />
+            </Pagination>
+        )
+    }
+
+    useEffect(()=>{
+        setRandomQuizType(radomizer)
+    },[pageNum])
 
     return (
         <Container>
@@ -78,10 +90,24 @@ export default function Simulation (props) {
             </Row>
             <Card>
                 <Card>
-
+                    <h1>{"Question " + pageNum}</h1>
+                    <Card.Text>
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    </Card.Text>
                 </Card>
                 <Card>
+                    { randomQuizType === "open"?(
+                        <TextInput/>
+                    ) : (
 
+                            <Card>
+                            {["A","B","C","D"].map(e => {
+                                return(
+                                    <Form.Check type="default-checkbox" label={e}/>
+                                )
+                            })}
+                            </Card>
+                        ) }
                 </Card>
             </Card>
         </Container>
