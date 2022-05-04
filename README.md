@@ -73,6 +73,16 @@ If you're using PyCharm Professional, I suggest you to add this configuration:
 |------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
 | ![PyCharm edit configurations](.readme/screenshot_pycharm_edit_configurations.png) | ![PyCharm add configuration](.readme/screenshot_pycharm_add_configuration.png) |
 
+The APIs documentation is made automatically available by FastAPI at http://localhost:8000/docs, but if you want to add any details you are free to do so by adding a docstring such as:
+```py
+@app.get("/v1")
+def index():
+    """
+    This API lets you test if the backend is working properly.
+    This is an info docstring that will also appear at the Swagger link.
+    """
+    return {"msg": "You successfully reached API v1"}
+```
 
 ### `ml`
 
