@@ -1,33 +1,87 @@
 import React, { useState } from "react";
-import { Collapse, Row, Col, Form, Pagination } from "react-bootstrap";
+import { Collapse, Row, Col, Form, Pagination, Button } from "react-bootstrap";
 
 import List from "./List";
 
-function Discussion({ show, title, answers, no_pages, current_page }) {
+const fakeAnswers = [
+  {
+    id: 1,
+    answer: "Cras justo odio dapibus ac facilisis in",
+    author: "Donato",
+    createdat: "15:20 12/01/2021",
+    like: 5,
+    dislike: 2,
+  },
+  {
+    id: 2,
+    answer: "Morbi leo risus porta ac consectetur ac",
+    author: "Jim",
+    createdat: "17:30 13/02/2021",
+    like: 5,
+    dislike: 7,
+  },
+  {
+    id: 3,
+    answer: "Vestibulum at eros",
+    author: "Derek",
+    createdat: "19:40 14/03/2021",
+    like: 9,
+    dislike: 1,
+  },
+];
+
+const no_pages = 5;
+
+function Discussion(props) {
+
+  const [showDiscussion, setShowDiscussion] = useState(props.showdiscussion || false);
+  const [answers, setAnswers] = useState(fakeAnswers);
+  const [currentPage, setCurrentPage] = useState(1);
+
   return (
-    <Collapse className="collapse" in={show}>
+    <>
       <Row>
         <Col lg="12">
-          <Form.Group controlId="formGridState">
-            <Form.Control placeholder="Search" />
-          </Form.Group>
-        </Col>
-        <Col lg="12">
-          <List scope="answers" title={title} rows={answers} />
-        </Col>
-        <Col lg="12" sm="12" md="12">
-          <Pagination>
-            {
-              [...Array(no_pages)].map((_, idx) => (
-                <Pagination.Item key={idx + 1} active={current_page === idx + 1}>
-                  {idx + 1}
-                </Pagination.Item>
-              ))
-            }
-          </Pagination>
+          <Button
+            onClick={() => setShowDiscussion((value) => !value)}
+            aria-controls="example-collapse-text"
+            aria-expanded={showDiscussion}
+            className={`w-100 ${showDiscussion ? "btn-warning" : "btn-success"
+              }`}
+          >
+            {showDiscussion ? "Hide discussion" : "Show discusssion"}
+          </Button>
         </Col>
       </Row>
-    </Collapse>
+
+      <Collapse className="collapse" in={showDiscussion}>
+        <Row>
+          <Col lg="12">
+            <Form.Group controlId="formGridState">
+              <Form.Control placeholder="Search" />
+            </Form.Group>
+          </Col>
+          <Col lg="12">
+            <List scope="answers" rows={answers} />
+          </Col>
+          <Col lg="12" sm="12" md="12">
+            <Pagination>
+              {
+                [...Array(no_pages)].map((_, idx) => (
+                  <Pagination.Item 
+                    key={idx + 1}
+                    active={currentPage === idx + 1} 
+                    onClick={() => setCurrentPage(idx + 1)}
+                  >
+                    {idx + 1}
+                  </Pagination.Item>
+                ))
+              }
+            </Pagination>
+          </Col>
+        </Row>
+      </Collapse>
+    </>
   );
 }
 
