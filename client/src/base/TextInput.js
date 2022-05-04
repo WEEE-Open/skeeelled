@@ -27,7 +27,7 @@ const insertTex = {
   ),
   buttonProps: {
     "aria-label": "Add TeX",
-    "title": "Add TeX"
+    title: "Add TeX",
   },
   execute: ({ textApi, initialState }) => {
     const newSelectionRange = MarkdownUtil.selectWord({
@@ -45,7 +45,7 @@ const insertTex = {
     if (
       selectedText.substring(0, 1) === "$" &&
       selectedText.substring(selectedText.length - 1, selectedText.length) ===
-      "$"
+        "$"
     ) {
       state2 = textApi.replaceSelection(
         selectedText.substring(1, selectedText.length - 1)

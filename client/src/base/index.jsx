@@ -24,5 +24,5 @@ export {
   SearchBar,
   TextInput,
   QuestionPreview,
-  Discussion
+  Discussion,
 };

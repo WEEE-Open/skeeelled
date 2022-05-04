@@ -8,7 +8,6 @@ import rehypeHighlight from "rehype-highlight";
 
 import "./ListEntry.css";
 
-
 function ListEntryDefault(props) {
   return (
     <tr>
@@ -81,7 +80,11 @@ function ListEntryAnswers(props) {
       <tr>
         <td className="answerEntry">
           <Link to="">
-            <Image src={process.env.PUBLIC_URL + "/icons/UP ARROW.svg"} width="18px" onClick={() => {}} />
+            <Image
+              src={process.env.PUBLIC_URL + "/icons/UP ARROW.svg"}
+              width="18px"
+              onClick={() => {}}
+            />
           </Link>
         </td>
         <ReactMarkdown

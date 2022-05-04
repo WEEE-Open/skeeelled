@@ -19,8 +19,13 @@ function QuestionPreview({ question }) {
         <div class="d-flex justify-content-between">
           <div class="p2">{`${question.course_code} ${question.course_name}`}</div>
           <div class="p2">
-            <small>Posted by {question.author} on&nbsp;
-              {question.date.toLocaleDateString("it-IT", { year: 'numeric', month: 'numeric', day: 'numeric' })}
+            <small>
+              Posted by {question.author} on&nbsp;
+              {question.date.toLocaleDateString("it-IT", {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+              })}
             </small>
           </div>
         </div>
@@ -43,9 +48,7 @@ function QuestionPreview({ question }) {
             {showAdvice ? "Hide advice" : "Show advice"}
           </Button>
         )}
-        {showAdvice && (
-          <h6 className="mt-3">{question.advice}</h6>
-        )}
+        {showAdvice && <h6 className="mt-3">{question.advice}</h6>}
       </Card.Body>
     </Card>
   );

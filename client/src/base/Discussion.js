@@ -33,8 +33,9 @@ const fakeAnswers = [
 const no_pages = 5;
 
 function Discussion(props) {
-
-  const [showDiscussion, setShowDiscussion] = useState(props.showdiscussion || false);
+  const [showDiscussion, setShowDiscussion] = useState(
+    props.showdiscussion || false
+  );
   const [answers, setAnswers] = useState(fakeAnswers);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -46,8 +47,9 @@ function Discussion(props) {
             onClick={() => setShowDiscussion((value) => !value)}
             aria-controls="example-collapse-text"
             aria-expanded={showDiscussion}
-            className={`w-100 ${showDiscussion ? "btn-warning" : "btn-success"
-              }`}
+            className={`w-100 ${
+              showDiscussion ? "btn-warning" : "btn-success"
+            }`}
           >
             {showDiscussion ? "Hide discussion" : "Show discusssion"}
           </Button>
@@ -66,17 +68,15 @@ function Discussion(props) {
           </Col>
           <Col lg="12" sm="12" md="12">
             <Pagination>
-              {
-                [...Array(no_pages)].map((_, idx) => (
-                  <Pagination.Item 
-                    key={idx + 1}
-                    active={currentPage === idx + 1} 
-                    onClick={() => setCurrentPage(idx + 1)}
-                  >
-                    {idx + 1}
-                  </Pagination.Item>
-                ))
-              }
+              {[...Array(no_pages)].map((_, idx) => (
+                <Pagination.Item
+                  key={idx + 1}
+                  active={currentPage === idx + 1}
+                  onClick={() => setCurrentPage(idx + 1)}
+                >
+                  {idx + 1}
+                </Pagination.Item>
+              ))}
             </Pagination>
           </Col>
         </Row>

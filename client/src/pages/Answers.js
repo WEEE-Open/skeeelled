@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { QuestionPreview, Discussion, TextInput } from "../base";
 import "./Answers.css";
 
@@ -15,7 +11,7 @@ const fakeQuestion = {
   tags: ["distributions", "functionals", "test functions"],
   text: "Find all distributions $T \\in D^\\prime$ such that $T^\\prime = \\delta_0 + \\delta_2 - 2\\delta^\\prime_1$.",
   date: new Date("April 23, 2022"),
-  advice: "You have to integrate something."
+  advice: "You have to integrate something.",
 };
 
 function Answers(props) {
@@ -26,24 +22,22 @@ function Answers(props) {
   return (
     <Container className="container">
       <Row lg={12} className="header">
-        <Col>
-          {<QuestionPreview question={question} />}
-        </Col>
+        <Col>{<QuestionPreview question={question} />}</Col>
       </Row>
 
       <Row className="header">
         <Col>
-          <TextInput childProps={{
-            textArea: {
-              placeholder: "Leave a comment"
-            }
-          }} />
+          <TextInput
+            childProps={{
+              textArea: {
+                placeholder: "Leave a comment",
+              },
+            }}
+          />
         </Col>
       </Row>
 
-      <Discussion
-        showdiscussion={props.showdiscussion}
-      />
+      <Discussion showdiscussion={props.showdiscussion} />
     </Container>
   );
 }
