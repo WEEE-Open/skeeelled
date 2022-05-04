@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Alert, Button } from "react-bootstrap";
 import { Routes, Route, Navigate as Redirect, Link } from "react-router-dom";
-
 import { NavigationBar, Footer, DebugPaths, TextInput } from "./base/";
 import {
   Answers,
@@ -15,7 +14,12 @@ import {
   Profile,
   Questions,
   UserSettings,
+  ListFullPage,
+  Bookmarks,
+  StartSimulation,
+  Simulation
 } from "./pages/";
+import SimulationResult from "./pages/SimulationResult";
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'
 
@@ -121,9 +125,13 @@ function App() {
                 path="/discussion/:questionid"
                 element={<p>Work in progress</p>}
               />
-              <Route path="/simulation" element={<p>Work in progress</p>} />
+              <Route path="/simulation/:simulationType" element={<Simulation/>} />
               <Route path="/addquestion" element={<TextInput />} />
               <Route path="/todel" element={<Exam />} />
+              <Route path="/listfullpage/:listName" element={<ListFullPage />} />
+              <Route path="/bookmarks" element={<Bookmarks/>} />
+              <Route path="/startsimulation/:courseName" element={<StartSimulation/>}/>
+              <Route path="/simulationresult/:courseName" element={<SimulationResult/>}/>
               {/* <MyQuestions /> */}
             </Routes>
           ) : (

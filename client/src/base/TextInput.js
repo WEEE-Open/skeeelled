@@ -77,6 +77,7 @@ const insertTex = {
 };
 
 function TextInput({ value, onChange, selectedTab, onTabChange }) {
+
   const [val, setVal] = useState("");
   const [selTab, setSelTab] = useState("write");
 

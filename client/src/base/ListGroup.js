@@ -1,6 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { List } from "./";
 import "./ListGroup.css";
+import {Link} from "react-router-dom";
 
 function ListGroup(props) {
   return (
@@ -12,14 +13,16 @@ function ListGroup(props) {
             {props.lists
               .slice(i * props.cols, (i + 1) * props.cols)
               .map((l) => (
-                <Col>
-                  <List
-                    scope={l.scope}
-                    title={l.title}
-                    rows={l.rows}
-                    rounded={props.rounded}
-                  />
-                </Col>
+                    <Col>
+                      <Link className="list-attributes" to={{pathname:"/listfullpage/" + (l.title).replace(/\s/g, '').toLowerCase()}} state={{ scope: l.scope, title: l.title, rows: l.rows }}>
+                        <List
+                            scope={l.scope}
+                            title={l.title}
+                            rows={l.rows}
+                            rounded={props.rounded}
+                        />
+                      </Link>
+                    </Col>
               ))}
             {props.tiled &&
               (i + 1) * props.cols > props.lists.length - 1 &&
