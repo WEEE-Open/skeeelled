@@ -15,16 +15,16 @@ from bson import ObjectId
 from json import load
 from table_names import DbName
 
-client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@0.0.0.0:27017/")
+client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongodb:27017/")
 client.get_io_loop = asyncio.get_running_loop
 db = client["test_db"]
 
 """frequently used data for test generation"""
-with open(os.path.join("test_set", "asd_but_in_b64")) as test_pic:
+with open(os.path.join("/test_data_base", "asd_but_in_b64")) as test_pic:
     profile_picture = test_pic.read().strip()
 
 
-with open(os.path.join("test_set", "questions")) as jsonfile:
+with open(os.path.join("/test_data_base", "questions")) as jsonfile:
     qlist = json.load(jsonfile)
 for q in qlist:
     matricola = f"d{randint(11111, 99999)}"
@@ -112,8 +112,10 @@ async def generate_users():
 
 
 if __name__ == "__main__":
+    print("Beginning test data generation...")
     asyncio.run(generate_courses())
     asyncio.run(generate_users())
     asyncio.run(generate_questions())
     asyncio.run(generate_simulations())
+    print("Test data generation finished successfully.")
 
