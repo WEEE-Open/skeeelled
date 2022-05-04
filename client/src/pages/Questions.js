@@ -11,7 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import "./Questions.css";
 import Suggestion from "../base/Suggestion";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 
 function PaginationRow (props) {
@@ -94,12 +94,14 @@ const Questions = () => {
   // to see which approach is better -- https://getbootstrap.com/docs/5.1/layout/breakpoints/
   const isDesktop = useMediaQuery("(min-width: 960px)");
 
+  const locationState = useLocation().state
+
   return (
       <>
         <Container>
           <Stack gap={4}>
             <Row>
-              <Link to={{pathname:"/startsimulation/" + "PhysicsI"}} state={{title:"Physics I"}}>
+              <Link to={{pathname:"/startsimulation/" + locationState.courseId}} state={{ courseId: locationState.courseId, title: locationState.title}}>
                 <Button className="flex-md" variant="outline-success">Start Simulation</Button>
               </Link>
             </Row>
@@ -113,7 +115,7 @@ const Questions = () => {
                             <Col>
                               <List
                                   scope="questions"
-                                  title="Physics I"
+                                  title= {locationState.title}
                                   rows={questions}
                               />
                             </Col>

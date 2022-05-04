@@ -12,7 +12,7 @@ export default function StartSimulation () {
     const [isMulti, setIsMulti] = useState(false);
 
 
-    const location = useLocation()
+    const locationState = useLocation().state
 
     return(
         <>
@@ -52,7 +52,7 @@ export default function StartSimulation () {
                                             {simulationTypes.map((type) => {
                                                 return(
                                                     <Col>
-                                                        <Link to={{pathname:"/simulation/" + type.toLowerCase()}} state={{type:type, title:location.state.title}}>
+                                                        <Link to={{pathname:"/simulation/" + locationState.courseId}} state={{type:type, title:locationState.title, courseId:locationState.course}}>
                                                             <Button className="btn-outline-success" variant="outline-success">
                                                                 {type + " Question"}
                                                             </Button>

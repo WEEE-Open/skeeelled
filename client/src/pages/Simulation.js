@@ -1,6 +1,6 @@
 import {Link, useLocation} from "react-router-dom";
 import {useState} from "react";
-import {Card, Row, Col, Pagination, Container} from "react-bootstrap";
+import {Card, Row, Col, Pagination, Container, Button} from "react-bootstrap";
 import "./Simulation.css"
 import {List, ListEntry} from "../base";
 
@@ -58,22 +58,31 @@ export default function Simulation (props) {
     ];
 
     const [questions, setQuestions] = useState(fakeQuestions /*[]*/);
-    const location = useLocation()
+    const simulationQuizType = ["open", "close"];
+    const locationState = useLocation().state
 
     return (
         <Container>
-            <h3>{location.state.type + " Questions of " + location.state.title}</h3>
+            <h3>{locationState.type + " Questions of " + locationState.title}</h3>
             <Row className="pagination-finish" >
                 <Col>
                     <PaginationRow/>
                 </Col>
                 <Col>
-                    <Link className="outline-secondary" to={{pathname:"/"}}>
-                        FINISH
+                    <Link className="outline-secondary" to={{pathname:"/simulationresult/" + locationState.courseId}} state={{courseId:locationState.courseId, title:locationState.title}}>
+                        <Button className="btn-outline-success" variant="outline-success">
+                            Finish
+                        </Button>
                     </Link>
                 </Col>
             </Row>
             <Card>
+                <Card>
+
+                </Card>
+                <Card>
+
+                </Card>
             </Card>
         </Container>
     )
