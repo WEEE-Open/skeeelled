@@ -103,7 +103,7 @@ export default function Simulation (props) {
                             <Card>
                             {["A","B","C","D"].map(e => {
                                 return(
-                                    <Form.Check type="default-checkbox" label={e}/>
+                                    <Form.Check type="checkbox" label={e}/>
                                 )
                             })}
                             </Card>
