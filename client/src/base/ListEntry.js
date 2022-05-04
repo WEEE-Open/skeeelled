@@ -1,6 +1,13 @@
 import { Row, Col, Container, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import rehypeHighlight from "rehype-highlight";
+
 import "./ListEntry.css";
+
 
 function ListEntryDefault(props) {
   return (
@@ -72,7 +79,13 @@ function ListEntryAnswers(props) {
             <Image src={process.env.PUBLIC_URL + "/icons/UP ARROW.svg"} width="18px" onClick={() => {}} />
           </Link>
         </td>
-        <td rowspan="3">{props.row.answer}</td>
+        <ReactMarkdown
+          rowspan="3"
+          remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={[rehypeKatex, rehypeHighlight]}
+        >
+          {props.row.answer}
+        </ReactMarkdown>
       </tr>
       <tr>
         <td className="answerEntry">

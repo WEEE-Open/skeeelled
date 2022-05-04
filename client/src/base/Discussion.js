@@ -6,7 +6,7 @@ import List from "./List";
 const fakeAnswers = [
   {
     id: 1,
-    answer: "Cras justo odio dapibus ac facilisis in",
+    answer: "$\\int_{a}^{b}{x^2 dx}$",
     author: "Donato",
     createdat: "15:20 12/01/2021",
     like: 5,
