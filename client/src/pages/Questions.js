@@ -6,11 +6,39 @@ import {
   Col,
   Pagination,
   Card,
-  Form,
+  Stack,
 } from "react-bootstrap";
-import { useEffect, useState /* , useEffect */ } from "react";
+
+import { useEffect, useState } from "react";
 import "./Questions.css";
 import Suggestion from "../base/Suggestion";
+import { Link, useLocation } from "react-router-dom";
+
+function PaginationRow(props) {
+  let [active, setActive] = useState(1);
+  let items = [];
+  for (let num = 1; num <= 5; num++) {
+    items.push(
+      <Pagination.Item
+        key={num}
+        active={num === active}
+        onClick={() => {
+          setActive((active = num));
+        }}
+      >
+        {num}
+      </Pagination.Item>
+    );
+  }
+
+  return (
+    <Pagination>
+      <Pagination.First />
+      {items}
+      <Pagination.Last />
+    </Pagination>
+  );
+}
 
 const Questions = () => {
   /** Mock courses **/
@@ -43,6 +71,7 @@ const Questions = () => {
 
   const [questions, setQuestions] = useState(fakeQuestions /*[]*/);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
+  const suggestionType = ["Latest", "Hottest"];
 
   // hook for responsive react
   const useMediaQuery = (query) => {
@@ -67,220 +96,102 @@ const Questions = () => {
   // to see which approach is better -- https://getbootstrap.com/docs/5.1/layout/breakpoints/
   const isDesktop = useMediaQuery("(min-width: 960px)");
 
+  const locationState = useLocation().state;
+
   return (
     <>
-      {isDesktop ? (
-        <>
+      <Container>
+        <Stack gap={4}>
           <Row>
-            <Col>
-              <Card body>
-                <Container className="container">
-                  <Card body>
-                    <Row lg={12} className="header">
-                      <Col>
-                        <List
-                          scope="questions"
-                          title="Physics I"
-                          rows={questions}
-                        />
-                      </Col>
-                      <Col className="pagination" lg="12" sm="12" md="12">
-                        <Pagination>
-                          {[
-                            <Pagination.Item key={1} active>
-                              {1}
-                            </Pagination.Item>,
-                            <Pagination.Item key={2} active={false}>
-                              {2}
-                            </Pagination.Item>,
-                            <Pagination.Item key={3} active={false}>
-                              {3}
-                            </Pagination.Item>,
-                            <Pagination.Item key={4} active={false}>
-                              {4}
-                            </Pagination.Item>,
-                            <Pagination.Item key={5} active={false}>
-                              {5}
-                            </Pagination.Item>,
-                            <Pagination.Item key={6} active={false}>
-                              {6}
-                            </Pagination.Item>,
-                          ]}
-                        </Pagination>
-                      </Col>
-                    </Row>
-                  </Card>
-                </Container>
-              </Card>
-            </Col>
-            <Col className="d-none d-md-inline-block col-md-4">
-              <Row>
-                <Suggestion
-                  scope={"suggestion"}
-                  title={"Latest Questions"}
-                  rows={suggestions}
-                />
-              </Row>
-              <Row>
-                <Suggestion
-                  scope={"suggestion"}
-                  title={"Hottest Questions"}
-                  rows={suggestions}
-                />
-              </Row>
-            </Col>
+            <Link
+              to={{ pathname: "/startsimulation/" + locationState.courseId }}
+              state={{
+                courseId: locationState.courseId,
+                title: locationState.title,
+              }}
+            >
+              <Button className="flex-md" variant="outline-success">
+                Start Simulation
+              </Button>
+            </Link>
           </Row>
-        </>
-      ) : (
-        <>
-          <Card body>
-            <Container className="container">
-              <Card body>
-                <Row lg={12} className="header">
-                  <Col>
-                    <List
-                      scope="questions"
-                      title="Physics I"
-                      rows={questions}
-                    />
-                  </Col>
-                  <Col className="pagination" lg="12" sm="12" md="12">
-                    <Pagination>
-                      {[
-                        <Pagination.Item key={1} active>
-                          {1}
-                        </Pagination.Item>,
-                        <Pagination.Item key={2} active={false}>
-                          {2}
-                        </Pagination.Item>,
-                        <Pagination.Item key={3} active={false}>
-                          {3}
-                        </Pagination.Item>,
-                        <Pagination.Item key={4} active={false}>
-                          {4}
-                        </Pagination.Item>,
-                        <Pagination.Item key={5} active={false}>
-                          {5}
-                        </Pagination.Item>,
-                        <Pagination.Item key={6} active={false}>
-                          {6}
-                        </Pagination.Item>,
-                      ]}
-                    </Pagination>
-                  </Col>
-                </Row>
-              </Card>
-            </Container>
-          </Card>
-          <Container>
-            <Row md={2} sm={2}>
+          {isDesktop ? (
+            <Row>
               <Col>
-                <Suggestion
-                  scope={"suggestion"}
-                  title={"Latest Questions"}
-                  rows={suggestions}
-                />
+                <Card body>
+                  <Container className="container">
+                    <Card body>
+                      <Row lg={12} className="header">
+                        <Col>
+                          <List
+                            scope="questions"
+                            title={locationState.title}
+                            rows={questions}
+                          />
+                        </Col>
+                        <Col className="pagination" lg="12" sm="12" md="12">
+                          <PaginationRow />
+                        </Col>
+                      </Row>
+                    </Card>
+                  </Container>
+                </Card>
               </Col>
-              <Col>
-                <Suggestion
-                  scope={"suggestion"}
-                  title={"Hottest Questions"}
-                  rows={suggestions}
-                />
+              <Col className="d-sm-inline-block col-md-4">
+                <Stack gap={4}>
+                  {suggestionType.map((type) => {
+                    return (
+                      <Row>
+                        <Suggestion
+                          scope={"suggestion"}
+                          title={type + " Questions"}
+                          rows={suggestions}
+                        />
+                      </Row>
+                    );
+                  })}
+                </Stack>
               </Col>
             </Row>
-          </Container>
-        </>
-      )}
-      {/*<Container className="container">*/}
-      {/*	<Card body>*/}
-      {/*		<Row lg={12} className="header">*/}
-      {/*			<Col>*/}
-      {/*				<List scope="questions" title="Physics I" rows={questions}/>*/}
-      {/*				/!* <h3>*/}
-      {/*				Data Management*/}
-      {/*				<Button variant="secondary" className="mx-4">{"<- Back"}</Button>*/}
-      {/*			</h3>*/}
-      {/*		</Col>*/}
-      {/*	</Row>*/}
-      {/*	<Row className='mt-10'>*/}
-      {/*		<Col lg='12'>*/}
-      {/*			<Table*/}
-      {/*				striped*/}
-      {/*				columns={["#", "Question", "Answers", "Created At", "Actions"]}*/}
-      {/*				rows={[*/}
-      {/*					[*/}
-      {/*						1,*/}
-      {/*						"Senectus et netus et malesuada. Eu augue ut lectus arcu bibendum at. Congue mauris rhoncus aenean vel elit. ",*/}
-      {/*						20,*/}
-      {/*						"12/02/2021",*/}
-      {/*						<Button className='btn-sm'>View</Button>,*/}
-      {/*					],*/}
-      {/*					[*/}
-      {/*						2,*/}
-      {/*						"Condimentum mattis pellentesque id nibh tortor id aliquet. Est velit egestas dui id ornare",*/}
-      {/*						5,*/}
-      {/*						"05/04/2021",*/}
-      {/*						<Button className='btn-sm'>View</Button>,*/}
-      {/*					],*/}
-      {/*					[*/}
-      {/*						3,*/}
-      {/*						"Massa sapien faucibus et molestie ac feugiat",*/}
-      {/*						20,*/}
-      {/*						"12/02/2021",*/}
-      {/*						<Button className='btn-sm'>View</Button>,*/}
-      {/*					],*/}
-      {/*					[*/}
-      {/*						4,*/}
-      {/*						"Diam ut venenatis tellus in metus vulputate.",*/}
-      {/*						5,*/}
-      {/*						"05/04/2021",*/}
-      {/*						<Button className='btn-sm'>View</Button>,*/}
-      {/*					],*/}
-      {/*					[*/}
-      {/*						5,*/}
-      {/*						"Iaculis eu non diam phasellus Vitae nunc sed velit dignissim sodales",*/}
-      {/*						20,*/}
-      {/*						"12/02/2021",*/}
-      {/*						<Button className='btn-sm'>View</Button>,*/}
-      {/*					],*/}
-      {/*					[*/}
-      {/*						6,*/}
-      {/*						"Blandit cursus risus at ultrices mi tempus",*/}
-      {/*						5,*/}
-      {/*						"05/04/2021",*/}
-      {/*						<Button className='btn-sm'>View</Button>,*/}
-      {/*					],*/}
-      {/*				]}*/}
-      {/*			/> *!/*/}
-      {/*			</Col>*/}
-      {/*			<Col className="pagination" lg='12' sm='12' md='12'>*/}
-      {/*				<Pagination>*/}
-      {/*					{[*/}
-      {/*						<Pagination.Item key={1} active>*/}
-      {/*							{1}*/}
-      {/*						</Pagination.Item>,*/}
-      {/*						<Pagination.Item key={2} active={false}>*/}
-      {/*							{2}*/}
-      {/*						</Pagination.Item>,*/}
-      {/*						<Pagination.Item key={3} active={false}>*/}
-      {/*							{3}*/}
-      {/*						</Pagination.Item>,*/}
-      {/*						<Pagination.Item key={4} active={false}>*/}
-      {/*							{4}*/}
-      {/*						</Pagination.Item>,*/}
-      {/*						<Pagination.Item key={5} active={false}>*/}
-      {/*							{5}*/}
-      {/*						</Pagination.Item>,*/}
-      {/*						<Pagination.Item key={6} active={false}>*/}
-      {/*							{6}*/}
-      {/*						</Pagination.Item>,*/}
-      {/*					]}*/}
-      {/*				</Pagination>*/}
-      {/*			</Col>*/}
-      {/*		</Row>*/}
-      {/*	</Card>*/}
-      {/*</Container>*/}
+          ) : (
+            <Stack gap={4}>
+              <Row>
+                <Card body>
+                  <Container className="container">
+                    <Card body>
+                      <Row lg={12} className="header">
+                        <Col>
+                          <List
+                            scope="questions"
+                            title="Physics I"
+                            rows={questions}
+                          />
+                        </Col>
+                        <Col className="pagination" lg="12" sm="12" md="12">
+                          <PaginationRow />
+                        </Col>
+                      </Row>
+                    </Card>
+                  </Container>
+                </Card>
+              </Row>
+              <Row md={2} sm={2}>
+                {suggestionType.map((type) => {
+                  return (
+                    <Col className="col-md-6">
+                      <Suggestion
+                        scope={"suggestion"}
+                        title={type + " Questions"}
+                        rows={suggestions}
+                      />
+                    </Col>
+                  );
+                })}
+              </Row>
+            </Stack>
+          )}
+        </Stack>
+      </Container>
     </>
   );
 };
