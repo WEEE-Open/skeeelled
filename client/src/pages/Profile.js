@@ -51,7 +51,7 @@ function Profile() {
           <h4>@Nickname</h4>
         </Col>
       </Row>
-      <ListGroup lists={tests} cols={2} rounded />
+      <ListGroup lists={tests} cols={2} rounded dotted />
     </Card>
   );
 }

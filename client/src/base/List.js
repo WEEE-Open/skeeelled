@@ -1,4 +1,4 @@
-import { Col, Container, Row, Table, Button, Image } from "react-bootstrap";
+import { Col, Container, Row, Table, Form, FloatingLabel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ListEntry } from "./";
 import "./List.css";
@@ -28,12 +28,12 @@ function ListDefault({ props }) {
           </thead>
           <tbody>
             {props.rows.map((r) => (
-              <ListEntry scope={props.scope} row={r} />
+              <ListEntry row={r} scope={props.scope} dotted={props.dotted} />
             ))}
           </tbody>
         </table>
       ) : (
-        <Table striped bordered borderless className="list">
+        <Table striped borderless className="list">
           <thead className="listTitle">
             <tr>
               <th colSpan={HeaderColspan(props.scope)}>{props.title}</th>
@@ -87,10 +87,23 @@ function ListSuggestion({ props }) {
   );
 }
 
+function ListSelection({ props }) {
+  return (
+    <FloatingLabel label={props.title}>
+      <Form.Select aria-label="Selection" className="my-4">
+        {props.rows.map((r,i) => (
+          <ListEntry scope={props.scope} row={r} key={i} />
+        ))}
+      </Form.Select>
+    </FloatingLabel>
+  );
+}
+
 function List(props) {
   if (props.scope === "questions") return <ListQuestions props={props} />;
   if (props.scope === "answers") return <ListAnswers props={props} />;
   if (props.scope === "suggestion") return <ListSuggestion props={props} />;
+  if (props.scope === "selection") return <ListSelection props={props} />;
   return <ListDefault props={props} />;
 }
 

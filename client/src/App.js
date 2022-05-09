@@ -6,6 +6,7 @@ import { Routes, Route, Navigate as Redirect, Link } from "react-router-dom";
 
 import { NavigationBar, Footer, DebugPaths, TextInput } from "./base/";
 import {
+  AddQuestion,
   Answers,
   CoursesList,
   Exam,
@@ -122,7 +123,7 @@ function App() {
                 element={<p>Work in progress</p>}
               />
               <Route path="/simulation" element={<p>Work in progress</p>} />
-              <Route path="/addquestion" element={<TextInput />} />
+              <Route path="/addquestion" element={<AddQuestion/>/* <TextInput /> */} />
               <Route path="/todel" element={<Exam />} />
               {/* <MyQuestions /> */}
             </Routes>

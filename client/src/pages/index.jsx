@@ -1,3 +1,4 @@
+import AddQuestion from "./AddQuestion";
 import Answers from "./Answers";
 import CoursesList from "./CoursesList";
 import Exam from "./Exam";
@@ -9,6 +10,7 @@ import Questions from "./Questions";
 import UserSettings from "./UserSettings";
 
 export {
+  AddQuestion,
   Answers,
   CoursesList,
   Exam,

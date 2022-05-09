@@ -7,7 +7,7 @@ function ListEntryDefault(props) {
     <tr>
       {props.row.map((cell) => (
         <td>
-          {props.row.length === 1 && <span className="greenDot">●</span>}
+          {props.dotted && <span className="greenDot">●</span>}
           {cell}
         </td>
       ))}
@@ -128,15 +128,22 @@ function ListEntrySuggestion(props) {
   );
 }
 
+function ListEntrySelection(props) {
+  return (
+    <option value={props.key+1}>{props.row}</option>
+  );
+}
+
 function ListEntry(props) {
   return (
     <>
-      {props.scope === "default" && <ListEntryDefault row={props.row} />}
+      {props.scope === "default" && <ListEntryDefault row={props.row} dotted={props.dotted}/>}
       {props.scope === "courses" && <ListEntryCourses row={props.row} />}
       {props.scope === "questions" && <ListEntryQuestions row={props.row} />}
       {props.scope === "answers" && <ListEntryAnswers row={props.row} />}
       {props.scope === "test" && <ListEntryTest row={props.row} />}
       {props.scope === "suggestion" && <ListEntrySuggestion row={props.row} />}
+      {props.scope === "selection" && <ListEntrySelection row={props.row} />}
     </>
   );
 }
