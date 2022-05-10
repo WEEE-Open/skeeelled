@@ -50,9 +50,7 @@ export default function StartSimulation () {
                                             <Form.Switch className="multiquiz-toggle" type="switch" label="Multiple Choice Questions Only (With Grade)" onChange={()=>setIsMulti(!isMulti)}/>
                                         </div>
                                     </Row>
-                                    {
-                                        userInput||userInput === 0?<></>:<Alert variant="danger">Only Number Inputs Are Allowed</Alert>
-                                    }
+                                    { userInput||userInput === 0?<></>:<Alert variant="danger">Only Number Inputs Are Allowed</Alert> }
                                     <Stack gap={4}>
                                         {isMulti ?
                                             <Row>
@@ -90,8 +88,7 @@ export default function StartSimulation () {
                                         }
                                         <Row className="bottom-group">
                                             {
-                                                numQuestions&&maxScore?
-                                                simulationTypes.map((type) => {
+                                                numQuestions&&maxScore? simulationTypes.map((type) => {
                                                     return (
                                                         <Col>
                                                             <Link
@@ -111,10 +108,7 @@ export default function StartSimulation () {
                                                                 </Button>
                                                             </Link>
                                                         </Col>
-                                                    )
-                                                }) : (
-                                                        <Alert variant="danger">Invalid Inputs</Alert>
-                                                    )
+                                                    )}) : ( <Alert variant="danger">Invalid Inputs</Alert> )
                                             }
                                         </Row>
                                     </Stack>
