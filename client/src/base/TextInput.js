@@ -16,16 +16,6 @@ import "katex/dist/katex.min.css";
 import "highlight.js/styles/github.css";
 import "./QuestionPreview.css";
 
-function _arrayBufferToBase64(buffer) {
-  var binary = '';
-  var bytes = new Uint8Array(buffer);
-  var len = bytes.byteLength;
-  for (var i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return window.btoa(binary);
-}
-
 function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
   const [val, setVal] = useState("");
   const [selTab, setSelTab] = useState("write");
@@ -41,32 +31,35 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
     yield file.name;
   };
 
-  const generatePreviewMarkdown = (markdown) => {
+  const generatePreviewMarkdown = async (markdown) => {
     const re = new RegExp(
-      Object.keys(base64Imgs).map(fn => `\\!\\[.*\\]\\(${fn}\\)`).join("|"),
+      Object.keys(base64Imgs).map(fn => `!\\[.*\\]\\(${fn}\\)`).join("|"),
       "gi"
     );
 
-    return markdown.replaceAll(re, (matched) => {
-      const alt = matched.match(/!\[.*\]/)[0];
-      const fn = matched.match(/\]\(.*\)/)[0];
-
-      return `${alt}(${base64Imgs[fn.slice(2, fn.length-1)]})`;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(markdown.replaceAll(re, (match) => {
+          const alt = match.match(/!\[.*\]/)[0];
+          const fn = match.match(/\]\(.*\)/)[0];
+          return `${alt}(${base64Imgs[fn.slice(2, fn.length - 1)]})`;
+        }));
+      });
     });
-  } 
+  }
 
   return (
     <Container>
       <ReactMde
+        loadingPreview="Loading preview..."
         value={value || val}
         onChange={onChange || setVal}
         selectedTab={selectedTab || selTab}
         onTabChange={onTabChange || setSelTab}
         commands={{ "insert-tex": insertTex, "upload-img": saveImage }}
         toolbarCommands={[...getDefaultToolbarCommands(), ["insert-tex"]]}
-        generateMarkdownPreview={(markdown) => {
-          const previewMarkdown = generatePreviewMarkdown(markdown);
-
+        generateMarkdownPreview={async (markdown) => {
+          const previewMarkdown = await generatePreviewMarkdown(markdown);
           return Promise.resolve(
             <ReactMarkdown
               remarkPlugins={[remarkGfm, remarkMath]}
