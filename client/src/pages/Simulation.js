@@ -37,11 +37,11 @@ export default function Simulation (props) {
 
     const [questions, setQuestions] = useState(fakeQuestions /*[]*/);
 
-    const simulationQuizType = ["open", "close"];
+    const simulationRandomQuizType = ["open", "close"];
     const [pageNum, setPageNum] = useState(1)
 
-    const radomizer = simulationQuizType[Math.floor(Math.random()*simulationQuizType.length)]
-    const [randomQuizType,setRandomQuizType] = useState(radomizer)
+    const randomizer = simulationRandomQuizType[Math.floor(Math.random()*simulationRandomQuizType.length)]
+    const [quizType,setQuizType] = useState(randomizer)
 
     const locationState = useLocation().state
 
@@ -70,7 +70,7 @@ export default function Simulation (props) {
     }
 
     useEffect(()=>{
-        setRandomQuizType(radomizer)
+        locationState.isMulti? setQuizType("close"):setQuizType(randomizer)
     },[pageNum])
 
     return (
@@ -96,7 +96,7 @@ export default function Simulation (props) {
                     </Card.Text>
                 </Card>
                 <Card>
-                    { randomQuizType === "open"?(
+                    { quizType === "open"?(
                         <TextInput/>
                     ) : (
 
