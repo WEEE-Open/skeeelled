@@ -32,6 +32,12 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
   };
 
   const generatePreviewMarkdown = async (markdown) => {
+    const filenamesToReplace = Object.keys(base64Imgs);
+
+    if (filenamesToReplace.length < 1) {
+      return markdown;
+    }
+
     const re = new RegExp(
       Object.keys(base64Imgs).map(fn => `!\\[.*\\]\\(${fn}\\)`).join("|"),
       "gi"
@@ -40,9 +46,12 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(markdown.replaceAll(re, (match) => {
-          const alt = match.match(/!\[.*\]/)[0];
-          const fn = match.match(/\]\(.*\)/)[0];
-          return `${alt}(${base64Imgs[fn.slice(2, fn.length - 1)]})`;
+          const alt = match.match(/!\[.*\]/);
+          const fn = match.match(/\]\(.*\)/);
+          if (!alt || !fn) {
+            return match;
+          }
+          return `${alt[0]}(${base64Imgs[fn[0].slice(2, fn[0].length - 1)]})`;
         }));
       });
     });
