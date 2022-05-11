@@ -14,7 +14,7 @@ import "@sahircansurmeli/react-mde/lib/styles/css/react-mde-all.css";
 import "./textInput/textInput.css";
 import "katex/dist/katex.min.css";
 import "highlight.js/styles/github.css";
-import "./QuestionPreview.css";
+import "./MarkdownPreview.css";
 
 function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
   const [val, setVal] = useState("");

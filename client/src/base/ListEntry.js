@@ -1,12 +1,13 @@
 import { Row, Col, Container, Image, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
+import MarkdownPreview from "./MarkdownPreview";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 
 import "./ListEntry.css";
+import QuestionPreview from "./QuestionPreview";
 
 function ListEntryDefault(props) {
   return (
@@ -87,13 +88,10 @@ function ListEntryAnswers(props) {
             />
           </Link>
         </td>
-        <ReactMarkdown
+        <MarkdownPreview 
           rowspan="3"
-          remarkPlugins={[remarkGfm, remarkMath]}
-          rehypePlugins={[rehypeKatex, rehypeHighlight]}
-        >
-          {props.row.answer}
-        </ReactMarkdown>
+          markdown={props.row.answer}
+        />
       </tr>
       <tr>
         <td className="answerEntry">

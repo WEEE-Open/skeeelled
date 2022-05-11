@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReactMarkdown from "react-markdown";
+import MarkdownPreview from "./MarkdownPreview";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -32,12 +32,7 @@ function QuestionPreview({ question }) {
       </Card.Header>
       <Card.Body>
         <Card.Title>{question.title}</Card.Title>
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm, remarkMath]}
-          rehypePlugins={[rehypeKatex, rehypeHighlight]}
-        >
-          {question.text}
-        </ReactMarkdown>
+        <MarkdownPreview markdown={question.text} />
         {question.advice && (
           <Button
             className="btn-sm mt-5"
