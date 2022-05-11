@@ -88,10 +88,7 @@ function ListEntryAnswers(props) {
             />
           </Link>
         </td>
-        <MarkdownPreview 
-          rowspan="3"
-          markdown={props.row.answer}
-        />
+        <MarkdownPreview rowspan="3" markdown={props.row.answer} />
       </tr>
       <tr>
         <td className="answerEntry">

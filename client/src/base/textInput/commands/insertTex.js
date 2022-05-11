@@ -63,7 +63,7 @@ const insertTex = {
         end: state2.selection.end - 1,
       });
     }
-  }
+  },
 };
 
 export default insertTex;

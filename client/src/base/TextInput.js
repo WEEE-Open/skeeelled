@@ -22,11 +22,11 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
   const [base64Imgs, setBase64Imgs] = useState({});
 
   const uploadImage = async function* (data, file) {
-    setBase64Imgs(prev => {
+    setBase64Imgs((prev) => {
       return {
         ...prev,
-        [file.name]: data
-      }
+        [file.name]: data,
+      };
     });
     yield file.name;
   };
@@ -39,23 +39,27 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
     }
 
     const re = new RegExp(
-      Object.keys(base64Imgs).map(fn => `!\\[.*\\]\\(${fn}\\)`).join("|"),
+      Object.keys(base64Imgs)
+        .map((fn) => `!\\[.*\\]\\(${fn}\\)`)
+        .join("|"),
       "gi"
     );
 
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(markdown.replaceAll(re, (match) => {
-          const alt = match.match(/!\[.*\]/);
-          const fn = match.match(/\]\(.*\)/);
-          if (!alt || !fn) {
-            return match;
-          }
-          return `${alt[0]}(${base64Imgs[fn[0].slice(2, fn[0].length - 1)]})`;
-        }));
+        resolve(
+          markdown.replaceAll(re, (match) => {
+            const alt = match.match(/!\[.*\]/);
+            const fn = match.match(/\]\(.*\)/);
+            if (!alt || !fn) {
+              return match;
+            }
+            return `${alt[0]}(${base64Imgs[fn[0].slice(2, fn[0].length - 1)]})`;
+          })
+        );
       });
     });
-  }
+  };
 
   return (
     <Container>
@@ -82,7 +86,7 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
         paste={{
           saveImage: uploadImage,
           command: "upload-img",
-          multiple: true
+          multiple: true,
         }}
       />
     </Container>

@@ -8,14 +8,14 @@ const saveImage = {
 
     const {
       event,
-      pasteOptions: { saveImage, multiple, accept }
+      pasteOptions: { saveImage, multiple, accept },
     } = context;
 
     const items = isPasteEvent(context)
       ? dataTransferToArray(event.clipboardData.items)
       : isDragEvent(context)
-        ? dataTransferToArray(event.dataTransfer.items)
-        : fileListToArray(event.target.files);
+      ? dataTransferToArray(event.dataTransfer.items)
+      : fileListToArray(event.target.files);
 
     const filteredItems = filterItems(items, { multiple, accept });
 
@@ -43,10 +43,9 @@ const saveImage = {
       );
 
       if (uploadingText === placeHolder) {
-
         textApi.setSelectionRange({
           start: initialState.selection.start,
-          end: initialState.selection.start + placeHolder.length
+          end: initialState.selection.start + placeHolder.length,
         });
 
         const realImageMarkdown = imageUrl
@@ -58,11 +57,11 @@ const saveImage = {
         textApi.replaceSelection(realImageMarkdown);
         textApi.setSelectionRange({
           start: newState.selection.start + selectionDelta,
-          end: newState.selection.end + selectionDelta
+          end: newState.selection.end + selectionDelta,
         });
       }
     }
-  }
+  },
 };
 
 async function readFileAsync(file) {
@@ -88,19 +87,19 @@ function filterItems(items, { multiple, accept }) {
   if (accept) {
     const acceptedTypes = accept.split(",");
     const fileExtensions = new Set(
-      acceptedTypes.filter(t => /^\.\w+/.test(t)).map(t => t.split(".")[1])
+      acceptedTypes.filter((t) => /^\.\w+/.test(t)).map((t) => t.split(".")[1])
     );
     const mimeTypes = new Set(
-      acceptedTypes.filter(t => /^[-\w.]+\/[-\w.]+$/.test(t))
+      acceptedTypes.filter((t) => /^[-\w.]+\/[-\w.]+$/.test(t))
     );
     const anyTypes = new Set(
       acceptedTypes
-        .filter(t => /(audio|video|image)\/\*/.test(t))
-        .map(t => t.split("/")[0])
+        .filter((t) => /(audio|video|image)\/\*/.test(t))
+        .map((t) => t.split("/")[0])
     );
 
     filteredItems = filteredItems.filter(
-      f =>
+      (f) =>
         fileExtensions.has(f.name.split(".")[1]) ||
         mimeTypes.has(f.type) ||
         anyTypes.has(f.type.split("/")[0])
