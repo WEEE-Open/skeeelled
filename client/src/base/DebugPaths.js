@@ -18,7 +18,11 @@ function DebugPaths() {
       <Link style={style} to="/courses">
         Courses
       </Link>
-      <Link style={style} to="/course/ABCDEF">
+      <Link
+        style={style}
+        to="/course/ABCDEF"
+        state={{ courseId: "courseId", title: "Course Name" }}
+      >
         Course
       </Link>
       <Link style={style} to="/question/QUESTID">
@@ -30,7 +34,7 @@ function DebugPaths() {
       <Link style={style} to="/discussion/QUESTID">
         Discussion
       </Link>
-      <Link style={style} to="/simulation">
+      <Link style={style} to="/startsimulation/">
         Simulation
       </Link>
       <Link style={style} to="/settings">

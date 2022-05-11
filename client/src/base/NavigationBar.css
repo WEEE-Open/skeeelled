@@ -34,7 +34,8 @@
   font-size: 20px;
 }
 
-#course-link:hover, #course-link-dark:hover {
+#course-link:hover,
+#course-link-dark:hover {
   color: #00983a;
 }
 
@@ -50,7 +51,8 @@
   font-size: 20px;
 }
 
-#add-question-link:hover, #add-question-link-dark:hover {
+#add-question-link:hover,
+#add-question-link-dark:hover {
   color: #00983a;
 }
 

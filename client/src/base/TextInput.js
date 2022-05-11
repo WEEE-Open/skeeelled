@@ -11,8 +11,8 @@ import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 
 import "@sahircansurmeli/react-mde/lib/styles/css/react-mde-all.css";
-import "katex/dist/katex.min.css";
 import "./textInput/textInput.css";
+import "katex/dist/katex.min.css";
 import "highlight.js/styles/github.css";
 
 const insertTex = {
@@ -25,6 +25,10 @@ const insertTex = {
       alt="Insert TeX"
     />
   ),
+  buttonProps: {
+    "aria-label": "Add TeX",
+    title: "Add TeX",
+  },
   execute: ({ textApi, initialState }) => {
     const newSelectionRange = MarkdownUtil.selectWord({
       text: initialState.text,
@@ -76,7 +80,7 @@ const insertTex = {
   },
 };
 
-function TextInput({ value, onChange, selectedTab, onTabChange }) {
+function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
   const [val, setVal] = useState("");
   const [selTab, setSelTab] = useState("write");
 
@@ -99,6 +103,7 @@ function TextInput({ value, onChange, selectedTab, onTabChange }) {
             </ReactMarkdown>
           )
         }
+        childProps={childProps}
       />
     </Container>
   );

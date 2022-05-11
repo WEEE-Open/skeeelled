@@ -1,6 +1,9 @@
-#suggestion-container {
+.suggestion-container {
   font-size: 12px;
-  margin: 3vh;
+}
+.suggestion-card {
+  width: "25vw";
+  border-radius: 20px;
 }
 
 @media screen and (max-width: 900px) {

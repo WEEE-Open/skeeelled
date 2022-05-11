@@ -1,5 +1,11 @@
-import { Row, Col, Container, Image } from "react-bootstrap";
+import { Row, Col, Container, Image, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import rehypeHighlight from "rehype-highlight";
+
 import "./ListEntry.css";
 
 function ListEntryDefault(props) {
@@ -20,7 +26,12 @@ function ListEntryCourses(props) {
     <tr>
       <td>{props.row.code}</td>
       <td>
-        <Link to={"/course/" + props.row.code}>{props.row.course}</Link>
+        <Link
+          to={"/course/" + props.row.code}
+          state={{ courseId: props.row.code, title: props.row.course }}
+        >
+          {props.row.course}
+        </Link>
       </td>
       <td>{props.row.professor}</td>
       <td>{props.row.cfu}</td>
@@ -71,12 +82,18 @@ function ListEntryAnswers(props) {
           <Link to="">
             <Image
               src={process.env.PUBLIC_URL + "/icons/UP ARROW.svg"}
-              width="90%"
+              width="18px"
               onClick={() => {}}
             />
           </Link>
         </td>
-        <td rowspan="3">{props.row.answer}</td>
+        <ReactMarkdown
+          rowspan="3"
+          remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={[rehypeKatex, rehypeHighlight]}
+        >
+          {props.row.answer}
+        </ReactMarkdown>
       </tr>
       <tr>
         <td className="answerEntry">
@@ -89,7 +106,7 @@ function ListEntryAnswers(props) {
           <Link to="">
             <Image
               src={process.env.PUBLIC_URL + "/icons/DOWN ARROW.svg"}
-              width="90%"
+              width="18px"
               onClick={() => {}}
             />
           </Link>

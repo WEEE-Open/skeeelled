@@ -1,0 +1,20 @@
+.outline-secondary {
+  font-size: 20px;
+}
+.pagination-finish {
+  display: flex;
+  margin: 20px;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.simulation-question-card,
+.simulation-question-text-card,
+.simulation-question-answer-ratio-card {
+  padding: 10pt;
+  border-radius: 20px;
+}
+.simulation-question-answer {
+  border-radius: 20px;
+  padding: 0;
+}
