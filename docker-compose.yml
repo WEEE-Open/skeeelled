@@ -32,7 +32,8 @@ services:
       context: ./server
       dockerfile: docker/FastAPI/Dockerfile
     volumes:
-      - ./server/src:/code
+      - ./server/src:/src
+      - ./server/test_data_base:/test_data_base
     ports:
       - "8000:8000"
     depends_on:

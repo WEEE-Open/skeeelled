@@ -9,7 +9,7 @@ from table_names import DbName
 
 app = FastAPI()
 
-db = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongo:27017/").test_db
+db = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongodb:27017/").test_db
 
 
 @app.get("/v1")

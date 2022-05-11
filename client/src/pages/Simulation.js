@@ -108,6 +108,6 @@ export default function Simulation (props) {
                     </Card.Body>
                 </Stack>
             </Card>
-        </Container>
-    )
+    </Container>
+  );
 }
