@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "https://weee-open.github.io/skeeelled/static/css/main.9d9effaa.chunk.css",
-    "main.js": "https://weee-open.github.io/skeeelled/static/js/main.e2349478.chunk.js",
-    "main.js.map": "https://weee-open.github.io/skeeelled/static/js/main.e2349478.chunk.js.map",
-    "runtime-main.js": "https://weee-open.github.io/skeeelled/static/js/runtime-main.58362a90.js",
-    "runtime-main.js.map": "https://weee-open.github.io/skeeelled/static/js/runtime-main.58362a90.js.map",
+    "main.css": "https://weee-open.github.io/skeeelled/static/css/main.14cfd93e.chunk.css",
+    "main.js": "https://weee-open.github.io/skeeelled/static/js/main.35cd13be.chunk.js",
+    "main.js.map": "https://weee-open.github.io/skeeelled/static/js/main.35cd13be.chunk.js.map",
+    "runtime-main.js": "https://weee-open.github.io/skeeelled/static/js/runtime-main.4bb01bde.js",
+    "runtime-main.js.map": "https://weee-open.github.io/skeeelled/static/js/runtime-main.4bb01bde.js.map",
     "static/css/2.df166ece.chunk.css": "https://weee-open.github.io/skeeelled/static/css/2.df166ece.chunk.css",
-    "static/js/2.4d3937a8.chunk.js": "https://weee-open.github.io/skeeelled/static/js/2.4d3937a8.chunk.js",
-    "static/js/2.4d3937a8.chunk.js.map": "https://weee-open.github.io/skeeelled/static/js/2.4d3937a8.chunk.js.map",
-    "static/js/3.e208f21e.chunk.js": "https://weee-open.github.io/skeeelled/static/js/3.e208f21e.chunk.js",
-    "static/js/3.e208f21e.chunk.js.map": "https://weee-open.github.io/skeeelled/static/js/3.e208f21e.chunk.js.map",
+    "static/js/2.eda77438.chunk.js": "https://weee-open.github.io/skeeelled/static/js/2.eda77438.chunk.js",
+    "static/js/2.eda77438.chunk.js.map": "https://weee-open.github.io/skeeelled/static/js/2.eda77438.chunk.js.map",
+    "static/js/3.bd1a2651.chunk.js": "https://weee-open.github.io/skeeelled/static/js/3.bd1a2651.chunk.js",
+    "static/js/3.bd1a2651.chunk.js.map": "https://weee-open.github.io/skeeelled/static/js/3.bd1a2651.chunk.js.map",
     "index.html": "https://weee-open.github.io/skeeelled/index.html",
     "static/css/2.df166ece.chunk.css.map": "https://weee-open.github.io/skeeelled/static/css/2.df166ece.chunk.css.map",
-    "static/css/main.9d9effaa.chunk.css.map": "https://weee-open.github.io/skeeelled/static/css/main.9d9effaa.chunk.css.map",
-    "static/js/2.4d3937a8.chunk.js.LICENSE.txt": "https://weee-open.github.io/skeeelled/static/js/2.4d3937a8.chunk.js.LICENSE.txt",
+    "static/css/main.14cfd93e.chunk.css.map": "https://weee-open.github.io/skeeelled/static/css/main.14cfd93e.chunk.css.map",
+    "static/js/2.eda77438.chunk.js.LICENSE.txt": "https://weee-open.github.io/skeeelled/static/js/2.eda77438.chunk.js.LICENSE.txt",
     "static/media/katex.min.css": "https://weee-open.github.io/skeeelled/static/media/KaTeX_Typewriter-Regular.c5c02d76.ttf",
     "static/media/logoSkeeellDark.aa3ae18b.svg": "https://weee-open.github.io/skeeelled/static/media/logoSkeeellDark.aa3ae18b.svg",
     "static/media/logoSkeeellLight.196ac81d.svg": "https://weee-open.github.io/skeeelled/static/media/logoSkeeellLight.196ac81d.svg",
@@ -24,10 +24,10 @@
     "static/media/logoWeeeOpen.a7c8f3ee.svg": "https://weee-open.github.io/skeeelled/static/media/logoWeeeOpen.a7c8f3ee.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.58362a90.js",
+    "static/js/runtime-main.4bb01bde.js",
     "static/css/2.df166ece.chunk.css",
-    "static/js/2.4d3937a8.chunk.js",
-    "static/css/main.9d9effaa.chunk.css",
-    "static/js/main.e2349478.chunk.js"
+    "static/js/2.eda77438.chunk.js",
+    "static/css/main.14cfd93e.chunk.css",
+    "static/js/main.35cd13be.chunk.js"
   ]
 }
