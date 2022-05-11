@@ -86,7 +86,7 @@ export default function StartSimulation() {
                                         }
                                         <Row className="bottom-group">
                                             {
-                                                numQuestions&&maxScore? simulationTypes.map((type) => {
+                                                numQuestions&&maxScore&&!isNaN(penaltyScore)? simulationTypes.map((type) => {
                                                     return (
                                                         <Col>
                                                             <Link

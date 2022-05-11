@@ -35,7 +35,7 @@ export default function Simulation (props) {
                         Confirm your submission to see the result.
                     </Modal.Body>
                     <Modal.Footer>
-                        <Link className="outline-secondary" to={{pathname:"/simulationresult/" + locationState.courseId}} state={{courseId:locationState.courseId, title:locationState.title}}>
+                        <Link className="outline-secondary" to={{pathname:"/simulationresult/" + locationState.courseId}} state={{courseId:locationState.courseId, title:locationState.title, num:locationState.num, penalty:locationState.penalty, max:locationState.max, isMulti:locationState.isMulti, pointPerCorrectAns: locationState.max/ locationState.num}}>
                             <Button className="btn-outline-success" variant="outline-success">
                                 Confirm
                             </Button>
