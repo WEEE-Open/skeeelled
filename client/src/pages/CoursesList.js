@@ -127,10 +127,17 @@ function CoursesList() {
           </Row>
           {coursesType.map((type) => {
             return (
-                <Link className="list-attributes" to={{pathname:"/listfullpage/" + type.replace(/\s/g, '').toLowerCase()}} state={{ scope: "courses", title: type, rows: courses }}>
-                  <List scope="courses" title={type} rows={courses} />
-                </Link>
-            )
+              <Link
+                className="list-attributes"
+                to={{
+                  pathname:
+                    "/listfullpage/" + type.replace(/\s/g, "").toLowerCase(),
+                }}
+                state={{ scope: "courses", title: type, rows: courses }}
+              >
+                <List scope="courses" title={type} rows={courses} />
+              </Link>
+            );
           })}
           <PaginationRow />
         </Card>
