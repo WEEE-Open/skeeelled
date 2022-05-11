@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Questions.css";
 import { SearchBar, Suggestion } from "../base/";
-import { iconAdd } from "../icons"
 
 const Questions = () => {
   /** Mock courses **/
@@ -79,7 +78,7 @@ const Questions = () => {
                 <h3 className="listQuestionsTitle">
                   Physics I
                   <Link to="/simulation"><Button className="right-button">Start simulation</Button></Link>
-                  <Button className="right-button" onClick={() => {}}>{iconAdd} Add course</Button>
+                  <Button className="right-button" onClick={() => {}}>Add course</Button>
                 </h3>
                 <Row>
                   <Col className="listQuestionsTitle">
