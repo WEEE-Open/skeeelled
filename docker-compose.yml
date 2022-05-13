@@ -56,7 +56,8 @@ services:
       context: ./client
       dockerfile: docker/node/Dockerfile
     volumes:
-      - ./client:/app
+      - ./client/public:/app/public
+      - ./client/src:/app/src
     command: ["npm", "start"]
     ports:
       - "3000:3000"
