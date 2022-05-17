@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { useCallback, useEffect, useState, Component } from "react";
+import { useCallback, useEffect, useState, Component, useRef} from "react";
 import {
   Card,
   Row,
@@ -17,7 +17,6 @@ import { List, ListEntry, TextInput } from "../base";
 export default function Simulation(props) {
   const simulationRandomQuizType = ["open", "close"];
   const [pageNum, setPageNum] = useState(1);
-
   const randomizer =
     simulationRandomQuizType[
       Math.floor(Math.random() * simulationRandomQuizType.length)
@@ -94,14 +93,55 @@ export default function Simulation(props) {
       </Pagination>
     );
   };
-
   useEffect(() => {
     locationState.isMulti ? setQuizType("close") : setQuizType(randomizer);
   }, [pageNum]);
 
+    const [timeIn, setTimeIn] = useState({
+        h: Math.floor(parseInt(locationState.duration) / 60),
+        m: parseInt(locationState.duration) % 60,
+        s:0
+    })
+
+  const Duration = (props) => {
+      useEffect(() => {
+          const myInterval = setInterval(()=> {
+              setTimeIn((time) => {
+                  const updateTime = {...time}
+                  if (time.s > 0) {
+                      updateTime.s--;
+                  }
+                  if(time.s === 0) {
+                      if (time.h ===0 && time.m === 0 ) {
+                          clearInterval(myInterval);
+                      }
+                      else if (time.m > 0) {
+                          updateTime.m--;
+                          updateTime.s = 59;
+                      }
+                      else if (time.h > 0) {
+                          updateTime.h--;
+                          updateTime.m = 59;
+                          updateTime.s = 59;
+                      }
+                  }
+                  return updateTime
+              });
+          }, 1000);
+          return () => clearInterval(myInterval);
+      }, [timeIn])
+
+      return (
+          <>
+              <h3>{timeIn.h.toString().padStart(2,'0')}:{timeIn.m.toString().padStart(2,'0')}:{timeIn.s.toString().padStart(2,'0')}</h3>
+          </>
+      )
+  }
+
   return (
     <Container>
       <h3>{locationState.type + " Questions of " + locationState.title}</h3>
+        <Duration/>
       <Row className="pagination-finish">
         <Col>
           <PaginationRow numPage={locationState.num} />

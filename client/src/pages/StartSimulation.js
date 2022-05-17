@@ -23,12 +23,13 @@ export default function StartSimulation() {
   const [numQuestions, setNumQuestions] = useState(10);
   const [penaltyScore, setPenaltyScore] = useState(-0.5);
   const [maxScore, setMaxScore] = useState(30);
+  const [duration, setDuration] = useState(60); /* unit: minute */
   const [userInput, setUserInput] = useState(1);
 
   const locationState = useLocation().state;
 
   useEffect(() => {
-    userInput ? console.log(userInput) : console.log("x");
+    userInput ? console.log(userInput) : console.log(undefined);
   }, [userInput]);
 
   return (
@@ -64,12 +65,11 @@ export default function StartSimulation() {
                           <Card.Body>
                             <Stack gap={2}>
                               <h6>
-                                ( Number of Question and Maximum Score Must Not
-                                Be Zero )
+                                ( Number of Question, Maximum Score, and Duration Must Not Be Zero )
                               </h6>
                               <InputGroup>
                                 <InputGroup.Text>
-                                  Number of Questions{" "}
+                                  Number of Questions
                                 </InputGroup.Text>
                                 <FormControl
                                   aria-label={numQuestions}
@@ -93,7 +93,7 @@ export default function StartSimulation() {
                               </InputGroup>
                               <InputGroup>
                                 <InputGroup.Text>
-                                  Maximum Score{" "}
+                                  Maximum Score
                                 </InputGroup.Text>
                                 <FormControl
                                   aria-label={maxScore}
@@ -104,6 +104,19 @@ export default function StartSimulation() {
                                   }}
                                 />
                               </InputGroup>
+                              <InputGroup>
+                                <InputGroup.Text>
+                                  Duration (Minutes)
+                                </InputGroup.Text>
+                                <FormControl
+                                    aria-label={duration}
+                                    placeholder={duration}
+                                    onChange={(e) => {
+                                      setUserInput(Number(e.target.value));
+                                      setDuration(Number(e.target.value));
+                                    }}
+                                />
+                              </InputGroup>
                             </Stack>
                           </Card.Body>
                         </Card>
@@ -112,7 +125,7 @@ export default function StartSimulation() {
                       <></>
                     )}
                     <Row className="bottom-group">
-                      {numQuestions && maxScore && !isNaN(penaltyScore) ? (
+                      {numQuestions && maxScore && !isNaN(penaltyScore) && duration? (
                         simulationTypes.map((type) => {
                           return (
                             <Col>
@@ -129,6 +142,7 @@ export default function StartSimulation() {
                                   penalty: penaltyScore,
                                   max: maxScore,
                                   isMulti: isMulti,
+                                  duration: duration
                                 }}
                               >
                                 <Button
