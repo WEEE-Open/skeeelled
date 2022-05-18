@@ -1,6 +1,6 @@
-import { Col, Container, Row, Table, Form, FloatingLabel } from "react-bootstrap";
+import { Col, Container, Row, Table, Form, FloatingLabel, Button, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { ListEntry } from "./";
+import { ListEntry, SearchBar } from "./";
 import "./List.css";
 
 function HeaderColspan(scope) {
@@ -53,6 +53,19 @@ function ListDefault({ props }) {
 function ListQuestions({ props }) {
   return (
     <>
+      <h3 className="listQuestionsTitle">
+        Physics I
+        <Link to="/simulation"><Button className="right-button">Start simulation</Button></Link>
+        <Button className="right-button" onClick={() => {}}>
+          <Image className="add-icon" src={process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"} width="13px"/>
+          {" Add course"}
+        </Button>
+      </h3>
+      <Row>
+        <Col className="listQuestionsTitle">
+          <SearchBar />
+        </Col>
+      </Row>
       {props.rows.map((r) => (
         <ListEntry scope={props.scope} row={r} />
       ))}
@@ -69,6 +82,18 @@ function ListAnswers({ props }) {
         ))}
       </tbody>
     </Table>
+  );
+}
+
+function ListReplies({ props }) {
+  return (
+    <>
+      <h4>{props.title}</h4>
+      <hr/>
+      {props.rows.map((r) => (
+        <ListEntry scope={props.scope} row={r} />
+      ))}
+    </>
   );
 }
 
@@ -102,6 +127,7 @@ function ListSelection({ props }) {
 function List(props) {
   if (props.scope === "questions") return <ListQuestions props={props} />;
   if (props.scope === "answers") return <ListAnswers props={props} />;
+  if (props.scope === "replies") return <ListReplies props={props} />;
   if (props.scope === "suggestion") return <ListSuggestion props={props} />;
   if (props.scope === "selection") return <ListSelection props={props} />;
   return <ListDefault props={props} />;

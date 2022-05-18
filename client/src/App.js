@@ -14,6 +14,7 @@ import {
   MyQuestions,
   Profile,
   Questions,
+  Replies,
   UserSettings,
   ListFullPage,
   Bookmarks,
@@ -124,7 +125,7 @@ function App() {
               />
               <Route
                 path="/discussion/:questionid"
-                element={<p>Work in progress</p>}
+                element={<Replies />}
               />
               <Route
                 path="/simulation/:simulationType"

@@ -7,6 +7,7 @@ import LoginForm from "./LoginForm";
 import MyQuestions from "./MyQuestions";
 import Profile from "./Profile";
 import Questions from "./Questions";
+import Replies from "./Replies";
 import UserSettings from "./UserSettings";
 import ListFullPage from "./ListFullPage";
 import Bookmarks from "./Bookmarks";
@@ -23,6 +24,7 @@ export {
   MyQuestions,
   Profile,
   Questions,
+  Replies,
   UserSettings,
   ListFullPage,
   Bookmarks,

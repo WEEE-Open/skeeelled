@@ -88,7 +88,7 @@ function ListEntryAnswers(props) {
           </Link>
         </td>
         <ReactMarkdown
-          rowspan="3"
+          rowspan="2"
           remarkPlugins={[remarkGfm, remarkMath]}
           rehypePlugins={[rehypeKatex, rehypeHighlight]}
         >
@@ -111,8 +111,27 @@ function ListEntryAnswers(props) {
             />
           </Link>
         </td>
+        <td>
+          <Link to="/discussion/1" className="reply-link">Reply</Link>
+        </td>
       </tr>
     </>
+  );
+}
+
+function ListEntryReplies(props) {
+  return (
+    <div className="questionEntry">
+      <Row>
+        <Col>
+          {props.row.reply}
+        </Col>
+      </Row>
+      <Row className="tags">
+        <Col>from {props.row.author}</Col>
+        <Col>Created at: {props.row.createdat}</Col>
+      </Row>
+    </div>
   );
 }
 
@@ -158,6 +177,7 @@ function ListEntry(props) {
       {props.scope === "courses" && <ListEntryCourses row={props.row} />}
       {props.scope === "questions" && <ListEntryQuestions row={props.row} />}
       {props.scope === "answers" && <ListEntryAnswers row={props.row} />}
+      {props.scope === "replies" && <ListEntryReplies row={props.row} />}
       {props.scope === "test" && <ListEntryTest row={props.row} />}
       {props.scope === "suggestion" && <ListEntrySuggestion row={props.row} />}
       {props.scope === "selection" && <ListEntrySelection row={props.row} />}
