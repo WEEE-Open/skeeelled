@@ -3,12 +3,14 @@ import datetime
 import json
 import os.path
 import random
+import string
 
 from course import CourseInfo, Course
 from user import UserInfo, User
 from simulation import ExamSimulation
 from question import QuestionInfo
-from random import choice, randint
+from answer import Answer, AnswerInfo
+from random import choice, randint, sample
 import motor.motor_asyncio
 from datetime import datetime as time
 from bson import ObjectId
@@ -22,7 +24,6 @@ db = client["test_db"]
 """frequently used data for test generation"""
 with open(os.path.join("test_set", "asd_but_in_b64")) as test_pic:
     profile_picture = test_pic.read().strip()
-
 
 with open(os.path.join("test_set", "questions")) as jsonfile:
     qlist = json.load(jsonfile)
@@ -57,6 +58,10 @@ async def generate_courses():
 
 async def generate_questions():
     await db[DbName.QUESTION.value].drop()
+    answers = db[DbName.ANSWER.value].find()
+    answers = await answers.to_list(50)
+    for q in qlist:
+        q['answers'] = sample(answers, randint(0, 4))
     await db[DbName.QUESTION.value].insert_many(qlist)
 
 
@@ -82,6 +87,20 @@ async def generate_simulations():
         sim_list.append(new_sim.dict())
 
     await db[DbName.EXAM_SIM.value].insert_many(sim_list)
+
+
+async def generate_answers():
+    await db[DbName.ANSWER.value].drop()
+    answers_list = []
+    for i in range(50):
+        answ = Answer(content=''.join(random.choices(string.ascii_letters, k=50)),
+                      upvotes=randint(0, 100),
+                      downvotes=randint(0, 100),
+                      replies=[''.join(random.choices(string.ascii_letters, k=50)) for _ in range(randint(0, 4))],
+                      has_verified_upvotes=choice((True, False))
+                      )
+        answers_list.append(answ.dict(by_alias=True))
+    await db[DbName.ANSWER.value].insert_many(answers_list)
 
 
 async def generate_users():
@@ -112,8 +131,8 @@ async def generate_users():
 
 
 if __name__ == "__main__":
+    asyncio.run(generate_answers())
     asyncio.run(generate_courses())
     asyncio.run(generate_users())
     asyncio.run(generate_questions())
     asyncio.run(generate_simulations())
-

@@ -15,13 +15,12 @@ class AnswerInfo(BaseModel):
 class Answer(BaseModel):
     author: Any
     info: Any
-    # replies may be just be a list to answwers to an answer
-    parent: str
+    # replies may be just be a list to answers to an answer
+    # parent: str
     replies: List[str]
     upvotes: int
     downvotes: int
-    verified_upvotes: int
+    has_verified_upvotes: bool  # Any professor of the same course has upvoted this answer
     timestamp: float = datetime.now().timestamp()
     content: str
-    media: List
-
+    # media: List
