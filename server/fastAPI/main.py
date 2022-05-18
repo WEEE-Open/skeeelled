@@ -147,3 +147,18 @@ async def search_question(query: str, course_id: str, limit: int = 10):
 
     return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
                         content=f"No question found")
+
+
+@app.get("/v1/searchDiscussion")
+async def search_discussion(query: str, question_id: str, limit: int = 10):
+    if not check_valid_id(question_id):
+        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id is not a valid format")
+    result = db[DbName.QUESTION.value].find(
+        {"$or": [{"answers.content": {'$regex': f'(?i){query}'}}, {"answers.replies": {'$regex': f'(?i){query}'}}],
+         "_id": ObjectId(question_id)}, {'_id': 0, "quiz_ref": 0, "answers._id": 0})
+    result = await result.to_list(limit)
+    if result:
+        return JSONResponse(status_code=status.HTTP_200_OK, content=result)
+
+    return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
+                        content=f"No question found")
