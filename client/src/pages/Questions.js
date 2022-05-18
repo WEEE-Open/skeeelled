@@ -118,7 +118,6 @@ const Questions = () => {
           {isDesktop ? (
             <Row>
               <Col>
-                <Card body>
                   <Container className="container">
                     <Card body>
                       <Row lg={12} className="header">
@@ -135,7 +134,6 @@ const Questions = () => {
                       </Row>
                     </Card>
                   </Container>
-                </Card>
               </Col>
               <Col className="d-sm-inline-block col-md-4">
                 <Stack gap={4}>

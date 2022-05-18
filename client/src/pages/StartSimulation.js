@@ -25,6 +25,8 @@ export default function StartSimulation() {
   const [maxScore, setMaxScore] = useState(30);
   const [duration, setDuration] = useState(60); /* unit: minute */
   const [userInput, setUserInput] = useState(1);
+  const totNumOfQuestion = undefined;
+  const [maxNumOfQuestion, setMaxNumOfQuestion] = useState(totNumOfQuestion?totNumOfQuestion:100)
 
   const locationState = useLocation().state;
 
@@ -69,7 +71,7 @@ export default function StartSimulation() {
                               </h6>
                               <InputGroup>
                                 <InputGroup.Text>
-                                  Number of Questions
+                                  Number of Questions (Maximum: {maxNumOfQuestion})
                                 </InputGroup.Text>
                                 <FormControl
                                   aria-label={numQuestions}
@@ -125,7 +127,7 @@ export default function StartSimulation() {
                       <></>
                     )}
                     <Row className="bottom-group">
-                      {numQuestions && maxScore && !isNaN(penaltyScore) && duration? (
+                      {numQuestions && maxScore && !isNaN(penaltyScore) && duration && numQuestions < maxNumOfQuestion? (
                         simulationTypes.map((type) => {
                           return (
                             <Col>

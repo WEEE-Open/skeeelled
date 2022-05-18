@@ -138,6 +138,7 @@ export default function Simulation(props) {
     );
   };
 
+
   // mock question type
   useEffect(() => {
     locationState.isMulti ? setQuizType("close") : setQuizType(randomizer);
