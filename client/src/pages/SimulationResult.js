@@ -19,6 +19,7 @@ export default function SimulationResult() {
     <>
       <Container>
         <h3>Simulation Result of {locationState.title}</h3>
+        <h3>Time Used: {locationState.timeElapsed} / {locationState.duration}</h3>
         <Card className="result-table-card">
           <h3>
             {numCorrect * pointPerCorrect -

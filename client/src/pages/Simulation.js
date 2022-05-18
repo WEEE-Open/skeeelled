@@ -14,6 +14,8 @@ import {
 import "./Simulation.css";
 import { List, ListEntry, TextInput } from "../base";
 
+
+
 const Duration = (props) => {
 
     const [timeIn, setTimeIn] = useState({
@@ -55,12 +57,48 @@ const Duration = (props) => {
         </>
     )
 };
+
 const FinishModal = (props) => {
 
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const timeIn = Math.floor(parseInt(props.duration) / 60).toString().padStart(2,'0') + ':' + (parseInt(props.duration) % 60).toString().padStart(2,'0') + ':' + (0).toString().padStart(2,'0')
+
+    const [timeRecord, setTimeRecord] = useState( {
+        h: Math.floor(parseInt(props.duration) / 60),
+        m: parseInt(props.duration) % 60,
+        s:0
+    })
+
+    useEffect(() => {
+        const myInterval = setInterval(()=> {
+            setTimeRecord((time) => {
+                const updateTime = {...time}
+                if (time.s > 0) {
+                    updateTime.s--;
+                }
+                if(time.s === 0) {
+                    if (time.h ===0 && time.m === 0 ) {
+                        clearInterval(myInterval);
+                    }
+                    else if (time.m > 0) {
+                        updateTime.m--;
+                        updateTime.s = 59;
+                    }
+                    else if (time.h > 0) {
+                        updateTime.h--;
+                        updateTime.m = 59;
+                        updateTime.s = 59;
+                    }
+                }
+                return updateTime
+            });
+        }, 1000);
+        return () => clearInterval(myInterval);
+    }, [timeRecord])
 
     return (
         <>
@@ -88,6 +126,8 @@ const FinishModal = (props) => {
                             max: props.locationState.max,
                             isMulti: props.locationState.isMulti,
                             pointPerCorrectAns: props.locationState.max / props.locationState.num,
+                            duration: timeIn,
+                            timeElapsed: `${timeRecord.h.toString().padStart(2,'0')}:${timeRecord.m.toString().padStart(2,'0')}:${timeRecord.s.toString().padStart(2,'0')}`
                         }}
                     >
                         <Button className="btn-outline-success" variant="outline-success">
@@ -153,7 +193,7 @@ export default function Simulation(props) {
           <PaginationRow numPage={locationState.num} />
         </Col>
         <Col>
-          <FinishModal locationState={locationState}/>
+          <FinishModal locationState={locationState} duration={locationState.duration}/>
         </Col>
       </Row>
       <Card className="simulation-question-card">
