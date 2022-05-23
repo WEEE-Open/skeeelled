@@ -58,11 +58,11 @@ export default function SimulationResult() {
         <h3>Simulation Result of {locationState.title}</h3>
         <h3>Time Used: {locationState.duration} / {locationState.timeElapsed} </h3>
         <Card className="result-table-card">
-          <h3>
+          <h1>
             {numCorrect * pointPerCorrect -
               numPenalty * Math.abs(pointPerWrong)}
             /{maxScore}
-          </h3>
+          </h1>
           <Table striped bordered hover size="lg">
             <thead>
               <tr>
