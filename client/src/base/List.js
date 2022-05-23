@@ -87,10 +87,25 @@ function ListSuggestion({ props }) {
   );
 }
 
+function ListSimulationResult ({props}) {
+  return (
+    <>
+      <Container>
+        <h4 className="listSimulationResultTitle">Your Answers</h4>
+        <div className='listSimulationResults'>
+          {props.rows.map((r) => (
+              <ListEntry scope={props.scope} row={r}/>
+          ))}
+        </div>
+      </Container>
+    </>
+  );
+}
 function List(props) {
   if (props.scope === "questions") return <ListQuestions props={props} />;
   if (props.scope === "answers") return <ListAnswers props={props} />;
   if (props.scope === "suggestion") return <ListSuggestion props={props} />;
+  if(props.scope === "simulationResult") return <ListSimulationResult props={props}/>;
   return <ListDefault props={props} />;
 }
 

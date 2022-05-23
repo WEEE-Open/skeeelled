@@ -11,6 +11,7 @@ import ListFullPage from "./ListFullPage";
 import Bookmarks from "./Bookmarks";
 import StartSimulation from "./StartSimulation";
 import Simulation from "./Simulation";
+import SimulationResult from "./SimulationResult";
 
 export {
   Answers,
@@ -26,4 +27,5 @@ export {
   Bookmarks,
   StartSimulation,
   Simulation,
+  SimulationResult
 };

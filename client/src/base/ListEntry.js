@@ -1,4 +1,4 @@
-import { Row, Col, Container, Image, Card } from "react-bootstrap";
+import {Row, Col, Container, Image, Card, Accordion} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MarkdownPreview from "./MarkdownPreview";
 import remarkGfm from "remark-gfm";
@@ -8,6 +8,7 @@ import rehypeHighlight from "rehype-highlight";
 
 import "./ListEntry.css";
 import QuestionPreview from "./QuestionPreview";
+import {useState} from "react";
 
 function ListEntryDefault(props) {
   return (
@@ -140,6 +141,54 @@ function ListEntrySuggestion(props) {
   );
 }
 
+function ListEntrySimulationResult (props) {
+    return (
+        <Container>
+            <Accordion defaultActiveKey="1">
+                <Accordion.Item eventKey="0">
+                    <Row>
+                        <Col>
+                            <Accordion.Header>
+                                <Col className="col-md-2">
+                                    { props.row.isCorrect? <Image width={"18px"} src={process.env.PUBLIC_URL + "/icons/CHECKMARK.svg"}/>:<Image width={"18px"} src={process.env.PUBLIC_URL + "/icons/x.svg"}/> }
+                                </Col>
+                                <Col>
+                                    <h6>Question {props.row.quizNum}</h6>
+                                </Col>
+                                <Col>
+                                    { props.row.isCorrect? <h6>Score: {props.row.score}</h6>:<h6>Score: {props.row.penalty}</h6> }
+                                </Col>
+                            </Accordion.Header>
+                        </Col>
+                    </Row>
+                    <Accordion.Body>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                            est laborum.
+                        </p>
+                        {
+                            <Row>
+                                <Col>
+                                    <h5>Your Answer: {props.row.ans}</h5>
+                                </Col>
+                                <Col>
+                                    <h5>Correct Answer: {"C"}</h5>
+                                    {/*props.row.correctAns*/}
+                                </Col>
+                            </Row>
+                        }
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
+        </Container>
+    )
+}
+
 function ListEntry(props) {
   return (
     <>
@@ -149,6 +198,7 @@ function ListEntry(props) {
       {props.scope === "answers" && <ListEntryAnswers row={props.row} />}
       {props.scope === "test" && <ListEntryTest row={props.row} />}
       {props.scope === "suggestion" && <ListEntrySuggestion row={props.row} />}
+      {props.scope === "simulationResult" && <ListEntrySimulationResult row={props.row}/>}
     </>
   );
 }

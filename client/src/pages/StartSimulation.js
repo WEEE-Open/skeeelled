@@ -71,7 +71,7 @@ export default function StartSimulation() {
                               </h6>
                               <InputGroup>
                                 <InputGroup.Text>
-                                  Number of Questions (Maximum: {maxNumOfQuestion})
+                                  Number of Questions
                                 </InputGroup.Text>
                                 <FormControl
                                   aria-label={numQuestions}
@@ -139,7 +139,7 @@ export default function StartSimulation() {
                                 state={{
                                   type: type,
                                   title: locationState.title,
-                                  courseId: locationState.course,
+                                  courseId: locationState.courseId,
                                   num: numQuestions,
                                   penalty: penaltyScore,
                                   max: maxScore,
