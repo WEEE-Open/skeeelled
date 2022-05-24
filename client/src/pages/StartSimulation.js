@@ -54,7 +54,19 @@ export default function StartSimulation() {
                     </div>
                   </Row>
                   {userInput || userInput === 0 ? (
-                    <></>
+                          (maxNumOfQuestion > 100)? (
+                            <Alert variant="danger">
+                              Maximum Number of question: {maxNumOfQuestion}
+                            </Alert>
+                      ):(
+                          (numQuestions <= 0|| maxScore <= 0)? (
+                              <Alert variant="danger">
+                                Number of Question, Maximum Score, and Duration Must Not Be Zero
+                              </Alert>
+                          ):(
+                              <></>
+                          )
+                      )
                   ) : (
                     <Alert variant="danger">
                       Only Number Inputs Are Allowed
