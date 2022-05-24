@@ -1,4 +1,4 @@
-import { Row, Col, Container, Image, Card } from "react-bootstrap";
+import { Row, Col, Container, Image, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -112,7 +112,7 @@ function ListEntryAnswers(props) {
           </Link>
         </td>
         <td>
-          <Link to="/discussion/1" className="reply-link">Reply</Link>
+          <Link to="/discussion/1"><Button className="reply-link">{props.row.replies>0 && "("+props.row.replies+") "}Reply</Button></Link>
         </td>
       </tr>
     </>

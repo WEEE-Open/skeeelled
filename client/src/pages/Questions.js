@@ -106,6 +106,19 @@ const Questions = () => {
               <Card body>
                 <Row lg={12} className="header">
                   <Col>
+                    <h3 className="listQuestionsTitle">
+                      Physics I
+                      <Link to="/simulation"><Button className="right-button">Start simulation</Button></Link>
+                      <Button className="right-button" onClick={() => {}}>
+                        <Image className="add-icon" src={process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"} width="13px"/>
+                        {" Add course"}
+                      </Button>
+                    </h3>
+                    <Row>
+                      <Col className="listQuestionsTitle">
+                        <SearchBar />
+                      </Col>
+                    </Row>
                     <List
                       scope="questions"
                       title="Physics I"

@@ -53,19 +53,6 @@ function ListDefault({ props }) {
 function ListQuestions({ props }) {
   return (
     <>
-      <h3 className="listQuestionsTitle">
-        Physics I
-        <Link to="/simulation"><Button className="right-button">Start simulation</Button></Link>
-        <Button className="right-button" onClick={() => {}}>
-          <Image className="add-icon" src={process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"} width="13px"/>
-          {" Add course"}
-        </Button>
-      </h3>
-      <Row>
-        <Col className="listQuestionsTitle">
-          <SearchBar />
-        </Col>
-      </Row>
       {props.rows.map((r) => (
         <ListEntry scope={props.scope} row={r} />
       ))}
