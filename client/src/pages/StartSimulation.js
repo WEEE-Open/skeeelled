@@ -59,7 +59,7 @@ export default function StartSimulation() {
                               Maximum Number of question: {maxNumOfQuestion}
                             </Alert>
                       ):(
-                          (numQuestions <= 0|| maxScore <= 0)? (
+                          (numQuestions <= 0 || maxScore <= 0 || duration <=0)? (
                               <Alert variant="danger">
                                 Number of Question, Maximum Score, and Duration Must Not Be Zero
                               </Alert>
