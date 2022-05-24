@@ -112,7 +112,11 @@ function ListEntryAnswers(props) {
           </Link>
         </td>
         <td>
-          <Link to="/discussion/1"><Button className="reply-link">{props.row.replies>0 && "("+props.row.replies+") "}Reply</Button></Link>
+          <Link to="/discussion/1"><Button className="reply-link">Reply</Button></Link>
+          {props.row.replies>0 && <h5 className="reply-link mx-3">
+            {props.row.replies+" "}
+            <Image src={process.env.PUBLIC_URL + "/icons/DISCUSSION.svg"} width="28px"/>
+          </h5>}
         </td>
       </tr>
     </>
