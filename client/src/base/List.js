@@ -1,7 +1,7 @@
-import {Button, Col, Container, Row, Table} from "react-bootstrap";
+import { Accordion, Button, Col, Container, Row, Table } from "react-bootstrap";
 import { ListEntry } from "./";
 import "./List.css";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 function HeaderColspan(scope) {
   switch (scope) {
@@ -88,22 +88,23 @@ function ListSuggestion({ props }) {
   );
 }
 
-
-function ListSimulationResult ({props}) {
-  const [accordionActive, setAccordionActive] = useState(1)
+function ListSimulationResult({ props }) {
+  const [areAllAccordionItemsOpen, setAreAllAccordionItemsOpen] =
+    useState(false);
   return (
     <>
       <Container className="list-simulation-result">
         <Row>
           <Col className="col-md-2">
-            <Button className="btn-outline-success-simulation-result"
-                    variant="outline-success"
-                    value="Show/Close"
-            onClick={ () =>{
-              setAccordionActive( accordionActive?0:1)
-            }
-            }>
-              {accordionActive?"SHOW" : "CLOSE" }
+            <Button
+              className="btn-outline-success-simulation-result"
+              variant="outline-success"
+              value="Show/Close"
+              onClick={() => {
+                setAreAllAccordionItemsOpen(!areAllAccordionItemsOpen);
+              }}
+            >
+              {areAllAccordionItemsOpen ? "Close All" : "Show All"}
             </Button>
           </Col>
           <Col>
@@ -111,11 +112,21 @@ function ListSimulationResult ({props}) {
           </Col>
         </Row>
         <Row>
-          <div className='listSimulationResults'>
-            {props.rows.map((r) => (
-                <ListEntry scope={props.scope} row={r} accordionKey={accordionActive} />
+          <Accordion
+            className="listSimulationResults"
+            defaultActiveKey={[]}
+            activeKey={
+              areAllAccordionItemsOpen
+                ? props.rows.map((row, index) => index)
+                : []
+            }
+            alwaysOpen
+          >
+            {props.rows.map((row, index) => (
+              // TODO: fix these do not expand singularly -- also tested with Accordion.Item directly, doesn't work
+              <ListEntry scope={props.scope} row={row} accordionKey={index} />
             ))}
-          </div>
+          </Accordion>
         </Row>
       </Container>
     </>
@@ -125,7 +136,8 @@ function List(props) {
   if (props.scope === "questions") return <ListQuestions props={props} />;
   if (props.scope === "answers") return <ListAnswers props={props} />;
   if (props.scope === "suggestion") return <ListSuggestion props={props} />;
-  if(props.scope === "simulationResult") return <ListSimulationResult props={props}/>;
+  if (props.scope === "simulationResult")
+    return <ListSimulationResult props={props} />;
   return <ListDefault props={props} />;
 }
 
