@@ -56,3 +56,9 @@
 .listSuggestion-questions {
   padding: 5px;
 }
+
+.btn-outline-success-simulation-result {
+  height: 30px;
+  min-width: 60px;
+  font-size: 12px;
+}

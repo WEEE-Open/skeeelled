@@ -142,6 +142,9 @@ function ListEntrySuggestion(props) {
 }
 
 function ListEntrySimulationResult (props) {
+
+
+
     return (
         <Container>
             <Accordion defaultActiveKey="1">

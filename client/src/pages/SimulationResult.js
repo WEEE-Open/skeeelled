@@ -4,7 +4,30 @@ import "./SimulationResult.css";
 import { useState } from "react";
 import {List} from "../base";
 
-
+const timeUsedStr = (left,tot) => {
+  let h,m,s;
+  if (left.length !== tot.length) { return "" }
+  for(let i = 0; i < left.length; i++) {
+    if (i === 0) {
+      h = tot[0] - left[0];
+    }
+    if(i === 1) {
+      m = tot[1] - left[1]
+      if (m < 0) {
+        h -= 1;
+        m = m + 60;
+      }
+    }
+    if(i === 2) {
+      s = tot[2] - left[2];
+      if (s < 0) {
+        m -= 1;
+        s = s + 60;
+      }
+    }
+  }
+  return h.toString().padStart(2,'0') + ":" + m.toString().padStart(2,'0') + ":" + s.toString().padStart(2,'0');
+}
 
 export default function SimulationResult() {
 
@@ -49,14 +72,21 @@ export default function SimulationResult() {
   }
 
 
+  const examDuration = (locationState.duration).split(":").map(n=> {return Number(n)})
+  const timeElapsed = (locationState.timeElapsed).split(":").map(n=> {return Number(n)})
+
+
+
   const [useAns, setUserAns] = useState(mockUserAns)
   const [correctAns,setCorrectAns] = useState(mockCorrectAns)
+  const [timeUsed, setTimeUsed]  = useState(timeUsedStr(timeElapsed, examDuration))
+
 
   return (
     <>
       <Container>
         <h3>Simulation Result of {locationState.title}</h3>
-        <h3>Time Used: {locationState.duration} / {locationState.timeElapsed} </h3>
+        <h3>Time Used: {timeUsed} / {locationState.duration} </h3>
         <Card className="result-table-card">
           <h1>
             {numCorrect * pointPerCorrect -
@@ -95,6 +125,7 @@ export default function SimulationResult() {
           </Table>
           <List scope={"simulationResult"}
                 rows={useAns}
+
           />
         </Card>
       </Container>

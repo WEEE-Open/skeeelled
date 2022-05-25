@@ -1,6 +1,7 @@
-import { Col, Container, Row, Table } from "react-bootstrap";
+import {Button, Col, Container, Row, Table} from "react-bootstrap";
 import { ListEntry } from "./";
 import "./List.css";
+import {useState} from "react";
 
 function HeaderColspan(scope) {
   switch (scope) {
@@ -88,15 +89,29 @@ function ListSuggestion({ props }) {
 }
 
 function ListSimulationResult ({props}) {
+  const [accordionActive, setAccordionActive] = useState()
   return (
     <>
-      <Container>
-        <h4 className="listSimulationResultTitle">Your Answers</h4>
-        <div className='listSimulationResults'>
-          {props.rows.map((r) => (
-              <ListEntry scope={props.scope} row={r}/>
-          ))}
-        </div>
+      <Container className="list-simulation-result">
+        <Row>
+          <Col className="col-md-2">
+            <Button className="btn-outline-success-simulation-result"
+                    variant="outline-success"
+                    value="Show All Answers">
+              SHOW ALL
+            </Button>
+          </Col>
+          <Col>
+            <h4 className="listSimulationResultTitle">Your Answers</h4>
+          </Col>
+        </Row>
+        <Row>
+          <div className='listSimulationResults'>
+            {props.rows.map((r) => (
+                <ListEntry scope={props.scope} row={r} />
+            ))}
+          </div>
+        </Row>
       </Container>
     </>
   );

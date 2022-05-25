@@ -30,10 +30,6 @@ export default function StartSimulation() {
 
   const locationState = useLocation().state;
 
-  useEffect(() => {
-    userInput ? console.log(userInput) : console.log(undefined);
-  }, [userInput]);
-
   return (
     <>
       <Container>
