@@ -1,5 +1,6 @@
-import { Col, Container, Row, Table } from "react-bootstrap";
-import { ListEntry } from "./";
+import { Col, Container, Row, Table, Form, FloatingLabel, Button, Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { ListEntry, SearchBar } from "./";
 import "./List.css";
 
 function HeaderColspan(scope) {
@@ -27,12 +28,12 @@ function ListDefault({ props }) {
           </thead>
           <tbody>
             {props.rows.map((r) => (
-              <ListEntry scope={props.scope} row={r} />
+              <ListEntry row={r} scope={props.scope} dotted={props.dotted} />
             ))}
           </tbody>
         </table>
       ) : (
-        <Table striped bordered borderless className="list">
+        <Table striped borderless className="list">
           <thead className="listTitle">
             <tr>
               <th colSpan={HeaderColspan(props.scope)}>{props.title}</th>
@@ -52,7 +53,6 @@ function ListDefault({ props }) {
 function ListQuestions({ props }) {
   return (
     <>
-      <h3 className="listQuestionsTitle">{props.title}</h3>
       {props.rows.map((r) => (
         <ListEntry scope={props.scope} row={r} />
       ))}
@@ -72,6 +72,18 @@ function ListAnswers({ props }) {
   );
 }
 
+function ListReplies({ props }) {
+  return (
+    <>
+      <h4>{props.title}</h4>
+      <hr/>
+      {props.rows.map((r) => (
+        <ListEntry scope={props.scope} row={r} />
+      ))}
+    </>
+  );
+}
+
 function ListSuggestion({ props }) {
   return (
     <>
@@ -87,10 +99,24 @@ function ListSuggestion({ props }) {
   );
 }
 
+function ListSelection({ props }) {
+  return (
+    <FloatingLabel label={props.title}>
+      <Form.Select aria-label="Selection" className="my-4">
+        {props.rows.map((r,i) => (
+          <ListEntry scope={props.scope} row={r} key={i} />
+        ))}
+      </Form.Select>
+    </FloatingLabel>
+  );
+}
+
 function List(props) {
   if (props.scope === "questions") return <ListQuestions props={props} />;
   if (props.scope === "answers") return <ListAnswers props={props} />;
+  if (props.scope === "replies") return <ListReplies props={props} />;
   if (props.scope === "suggestion") return <ListSuggestion props={props} />;
+  if (props.scope === "selection") return <ListSelection props={props} />;
   return <ListDefault props={props} />;
 }
 

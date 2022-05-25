@@ -5,6 +5,7 @@ import { Container, Row, Col, Alert, Button } from "react-bootstrap";
 import { Routes, Route, Navigate as Redirect, Link } from "react-router-dom";
 import { NavigationBar, Footer, DebugPaths, TextInput } from "./base/";
 import {
+  AddQuestion,
   Answers,
   CoursesList,
   Exam,
@@ -13,6 +14,7 @@ import {
   MyQuestions,
   Profile,
   Questions,
+  Replies,
   UserSettings,
   ListFullPage,
   Bookmarks,
@@ -123,13 +125,13 @@ function App() {
               />
               <Route
                 path="/discussion/:questionid"
-                element={<p>Work in progress</p>}
+                element={<Replies />}
               />
               <Route
                 path="/simulation/:simulationType"
                 element={<Simulation />}
               />
-              <Route path="/addquestion" element={<TextInput />} />
+              <Route path="/addquestion" element={<AddQuestion/>} />
               <Route path="/todel" element={<Exam />} />
               <Route
                 path="/listfullpage/:listName"

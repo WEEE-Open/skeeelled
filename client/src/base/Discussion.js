@@ -11,6 +11,7 @@ const fakeAnswers = [
     createdat: "15:20 12/01/2021",
     like: 5,
     dislike: 2,
+    replies: 3
   },
   {
     id: 2,
@@ -19,6 +20,7 @@ const fakeAnswers = [
     createdat: "17:30 13/02/2021",
     like: 5,
     dislike: 7,
+    replies: 0
   },
   {
     id: 3,
@@ -27,6 +29,7 @@ const fakeAnswers = [
     createdat: "19:40 14/03/2021",
     like: 9,
     dislike: 1,
+    replies: 1
   },
 ];
 

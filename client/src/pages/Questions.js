@@ -1,4 +1,3 @@
-import { List, Recent } from "../base";
 import {
   Button,
   Container,
@@ -6,12 +5,13 @@ import {
   Col,
   Pagination,
   Card,
+  Image,
   Stack,
 } from "react-bootstrap";
 
 import { useEffect, useState } from "react";
 import "./Questions.css";
-import Suggestion from "../base/Suggestion";
+import { List, Recent, SearchBar, Suggestion } from "../base/";
 import { Link, useLocation } from "react-router-dom";
 
 function PaginationRow(props) {
@@ -41,7 +41,6 @@ function PaginationRow(props) {
 }
 
 const Questions = () => {
-  /** Mock courses **/
   const fakeQuestions = [
     {
       id: 1,
@@ -103,93 +102,51 @@ const Questions = () => {
       <Container>
         <Stack gap={4}>
           <Row>
-            <Link
-              to={{ pathname: "/startsimulation/" + locationState.courseId }}
-              state={{
-                courseId: locationState.courseId,
-                title: locationState.title,
-              }}
-            >
-              <Button className="flex-md" variant="outline-success">
-                Start Simulation
-              </Button>
-            </Link>
-          </Row>
-          {isDesktop ? (
-            <Row>
-              <Col>
-                <Card body>
-                  <Container className="container">
-                    <Card body>
-                      <Row lg={12} className="header">
-                        <Col>
-                          <List
-                            scope="questions"
-                            title={locationState.title}
-                            rows={questions}
-                          />
-                        </Col>
-                        <Col className="pagination" lg="12" sm="12" md="12">
-                          <PaginationRow />
-                        </Col>
-                      </Row>
-                    </Card>
-                  </Container>
-                </Card>
-              </Col>
-              <Col className="d-sm-inline-block col-md-4">
-                <Stack gap={4}>
-                  {suggestionType.map((type) => {
-                    return (
-                      <Row>
-                        <Suggestion
-                          scope={"suggestion"}
-                          title={type + " Questions"}
-                          rows={suggestions}
-                        />
-                      </Row>
-                    );
-                  })}
-                </Stack>
-              </Col>
-            </Row>
-          ) : (
-            <Stack gap={4}>
-              <Row>
-                <Card body>
-                  <Container className="container">
-                    <Card body>
-                      <Row lg={12} className="header">
-                        <Col>
-                          <List
-                            scope="questions"
-                            title="Physics I"
-                            rows={questions}
-                          />
-                        </Col>
-                        <Col className="pagination" lg="12" sm="12" md="12">
-                          <PaginationRow />
-                        </Col>
-                      </Row>
-                    </Card>
-                  </Container>
-                </Card>
-              </Row>
-              <Row md={2} sm={2}>
+            <Col>
+              <Card body>
+                <Row lg={12} className="header">
+                  <Col>
+                    <h3 className="listQuestionsTitle">
+                      Physics I
+                      <Link to="/simulation"><Button className="right-button">Start simulation</Button></Link>
+                      <Button className="right-button" onClick={() => {}}>
+                        <Image className="add-icon" src={process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"} width="13px"/>
+                        {" Add course"}
+                      </Button>
+                    </h3>
+                    <Row>
+                      <Col className="listQuestionsTitle">
+                        <SearchBar />
+                      </Col>
+                    </Row>
+                    <List
+                      scope="questions"
+                      title="Physics I"
+                      rows={questions}
+                    />
+                  </Col>
+                    <Col className="pagination" lg="12" sm="12" md="12">
+                      <PaginationRow />
+                    </Col>
+                </Row>
+              </Card>
+            </Col>
+            <Col className="d-sm-inline-block col-md-4">
+              <Stack gap={4}>
                 {suggestionType.map((type) => {
                   return (
-                    <Col className="col-md-6">
+                    <Row>
                       <Suggestion
                         scope={"suggestion"}
                         title={type + " Questions"}
                         rows={suggestions}
                       />
-                    </Col>
+                    </Row>
                   );
                 })}
-              </Row>
-            </Stack>
-          )}
+              </Stack>
+            </Col>
+          </Row>
         </Stack>
       </Container>
     </>
