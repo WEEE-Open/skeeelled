@@ -8,7 +8,8 @@ import rehypeHighlight from "rehype-highlight";
 
 import "./ListEntry.css";
 import QuestionPreview from "./QuestionPreview";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {UserSettings} from "../pages";
 
 function ListEntryDefault(props) {
   return (
@@ -143,8 +144,7 @@ function ListEntrySuggestion(props) {
 
 function ListEntrySimulationResult (props) {
 
-
-
+    const [accordion,setAccordion] = useState(props.accordionKey)
     return (
         <Container>
             <Accordion defaultActiveKey="1">

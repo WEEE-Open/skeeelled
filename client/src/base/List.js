@@ -1,7 +1,7 @@
 import {Button, Col, Container, Row, Table} from "react-bootstrap";
 import { ListEntry } from "./";
 import "./List.css";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function HeaderColspan(scope) {
   switch (scope) {
@@ -88,8 +88,9 @@ function ListSuggestion({ props }) {
   );
 }
 
+
 function ListSimulationResult ({props}) {
-  const [accordionActive, setAccordionActive] = useState()
+  const [accordionActive, setAccordionActive] = useState(1)
   return (
     <>
       <Container className="list-simulation-result">
@@ -97,8 +98,12 @@ function ListSimulationResult ({props}) {
           <Col className="col-md-2">
             <Button className="btn-outline-success-simulation-result"
                     variant="outline-success"
-                    value="Show All Answers">
-              SHOW ALL
+                    value="Show/Close"
+            onClick={ () =>{
+              setAccordionActive( accordionActive?0:1)
+            }
+            }>
+              {accordionActive?"SHOW" : "CLOSE" }
             </Button>
           </Col>
           <Col>
@@ -108,7 +113,7 @@ function ListSimulationResult ({props}) {
         <Row>
           <div className='listSimulationResults'>
             {props.rows.map((r) => (
-                <ListEntry scope={props.scope} row={r} />
+                <ListEntry scope={props.scope} row={r} accordionKey={accordionActive} />
             ))}
           </div>
         </Row>
