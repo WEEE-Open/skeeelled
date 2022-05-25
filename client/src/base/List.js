@@ -1,4 +1,13 @@
-import { Col, Container, Row, Table, Form, FloatingLabel, Button, Image } from "react-bootstrap";
+import {
+  Col,
+  Container,
+  Row,
+  Table,
+  Form,
+  FloatingLabel,
+  Button,
+  Image,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ListEntry, SearchBar } from "./";
 import "./List.css";
@@ -76,7 +85,7 @@ function ListReplies({ props }) {
   return (
     <>
       <h4>{props.title}</h4>
-      <hr/>
+      <hr />
       {props.rows.map((r) => (
         <ListEntry scope={props.scope} row={r} />
       ))}
@@ -103,7 +112,7 @@ function ListSelection({ props }) {
   return (
     <FloatingLabel label={props.title}>
       <Form.Select aria-label="Selection" className="my-4">
-        {props.rows.map((r,i) => (
+        {props.rows.map((r, i) => (
           <ListEntry scope={props.scope} row={r} key={i} />
         ))}
       </Form.Select>

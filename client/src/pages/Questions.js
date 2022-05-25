@@ -108,9 +108,17 @@ const Questions = () => {
                   <Col>
                     <h3 className="listQuestionsTitle">
                       Physics I
-                      <Link to="/simulation"><Button className="right-button">Start simulation</Button></Link>
+                      <Link to="/simulation">
+                        <Button className="right-button">
+                          Start simulation
+                        </Button>
+                      </Link>
                       <Button className="right-button" onClick={() => {}}>
-                        <Image className="add-icon" src={process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"} width="13px"/>
+                        <Image
+                          className="add-icon"
+                          src={process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"}
+                          width="13px"
+                        />
                         {" Add course"}
                       </Button>
                     </h3>
@@ -125,9 +133,9 @@ const Questions = () => {
                       rows={questions}
                     />
                   </Col>
-                    <Col className="pagination" lg="12" sm="12" md="12">
-                      <PaginationRow />
-                    </Col>
+                  <Col className="pagination" lg="12" sm="12" md="12">
+                    <PaginationRow />
+                  </Col>
                 </Row>
               </Card>
             </Col>

@@ -56,7 +56,7 @@ function Home() {
           <h3>Hi, Name Surname!</h3>
         </Col>
       </Row>
-      <ListGroup lists={tests} cols={2} tiled rounded dotted/>
+      <ListGroup lists={tests} cols={2} tiled rounded dotted />
     </Card>
   );
 }
