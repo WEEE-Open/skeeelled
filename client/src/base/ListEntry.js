@@ -75,6 +75,15 @@ function ListEntryAnswers(props) {
       <tr>
         <td colSpan="2">
           {props.row.author}, {props.row.createdat}
+          {props.row.replies > 0 && (
+            <span className="reply-link mx-3">
+              {props.row.replies + " "}
+              <Image
+                src={process.env.PUBLIC_URL + "/icons/DISCUSSION.svg"}
+                width="28px"
+              />
+            </span>
+          )}
         </td>
       </tr>
       <tr>
@@ -112,11 +121,9 @@ function ListEntryAnswers(props) {
           </Link>
         </td>
         <td>
-          <Link to="/discussion/1"><Button className="reply-link">Reply</Button></Link>
-          {props.row.replies>0 && <h5 className="reply-link mx-3">
-            {props.row.replies+" "}
-            <Image src={process.env.PUBLIC_URL + "/icons/DISCUSSION.svg"} width="28px"/>
-          </h5>}
+          <Link to="/discussion/1">
+            <Button className="reply-link">Reply</Button>
+          </Link>
         </td>
       </tr>
     </>
@@ -127,9 +134,7 @@ function ListEntryReplies(props) {
   return (
     <div className="questionEntry">
       <Row>
-        <Col>
-          {props.row.reply}
-        </Col>
+        <Col>{props.row.reply}</Col>
       </Row>
       <Row className="tags">
         <Col>from {props.row.author}</Col>
@@ -169,15 +174,15 @@ function ListEntrySuggestion(props) {
 }
 
 function ListEntrySelection(props) {
-  return (
-    <option value={props.key+1}>{props.row}</option>
-  );
+  return <option value={props.key + 1}>{props.row}</option>;
 }
 
 function ListEntry(props) {
   return (
     <>
-      {props.scope === "default" && <ListEntryDefault row={props.row} dotted={props.dotted}/>}
+      {props.scope === "default" && (
+        <ListEntryDefault row={props.row} dotted={props.dotted} />
+      )}
       {props.scope === "courses" && <ListEntryCourses row={props.row} />}
       {props.scope === "questions" && <ListEntryQuestions row={props.row} />}
       {props.scope === "answers" && <ListEntryAnswers row={props.row} />}
