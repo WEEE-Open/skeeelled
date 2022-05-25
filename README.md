@@ -18,7 +18,7 @@ You can run the whole package in one command:
 ```bash
 docker compose up -d
 ```
-after having installed [Docker Desktop](https://www.docker.com/products/docker-desktop/) on your macOS or Windows machine, or the `docker.io` package on your Linux machine.  
+after having installed [Docker Desktop](https://www.docker.com/products/docker-desktop/) on your macOS or Windows machine, or the `docker.io` package on your Linux machine. (Update: Docker Desktop is now also available on Linux.)  
 This command will bring up all the necessary Docker containers that are needed to run the project in development mode, plus some bonuses, exposed to you as follows:
 
 | Service                                             | Address                                |

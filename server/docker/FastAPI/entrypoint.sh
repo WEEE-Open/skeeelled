@@ -6,4 +6,4 @@
 python generate_test_data.py
 
 # starting wsgi
-uvicorn main:app --reload
+uvicorn main:app --host=0.0.0.0 --reload

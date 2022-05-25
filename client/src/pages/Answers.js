@@ -17,12 +17,12 @@ const fakeQuestion = {
 function Answers(props) {
   const [question, setQuestion] = useState(fakeQuestion);
 
-  console.log(props);
-
   return (
     <Container className="container">
       <Row lg={12} className="header">
-        <Col>{<QuestionPreview question={question} />}</Col>
+        <Col>
+          <QuestionPreview question={question} />
+        </Col>
       </Row>
 
       <Row className="header">

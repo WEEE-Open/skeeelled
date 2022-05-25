@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:13.12.0-alpine
+FROM node:16-alpine
 
 # set working directory
 WORKDIR /app
@@ -8,7 +8,9 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
 # install app dependencies
-RUN npm install
+COPY package.json package-lock.json ./
+# skips checks for discrepancy between the lock file and the package.json
+RUN npm ci
 
 # start app (already in docker-compose.yml)
 #CMD ["npm", "start"]
