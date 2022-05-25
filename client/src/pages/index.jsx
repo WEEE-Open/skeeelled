@@ -27,5 +27,5 @@ export {
   Bookmarks,
   StartSimulation,
   Simulation,
-  SimulationResult
+  SimulationResult,
 };

@@ -2,23 +2,25 @@ import { useLocation } from "react-router-dom";
 import { Card, Container, Table, Stack } from "react-bootstrap";
 import "./SimulationResult.css";
 import { useState } from "react";
-import {List} from "../base";
+import { List } from "../base";
 
-const timeUsedStr = (left,tot) => {
-  let h,m,s;
-  if (left.length !== tot.length) { return "" }
-  for(let i = 0; i < left.length; i++) {
+const timeUsedStr = (left, tot) => {
+  let h, m, s;
+  if (left.length !== tot.length) {
+    return "";
+  }
+  for (let i = 0; i < left.length; i++) {
     if (i === 0) {
       h = tot[0] - left[0];
     }
-    if(i === 1) {
-      m = tot[1] - left[1]
+    if (i === 1) {
+      m = tot[1] - left[1];
       if (m < 0) {
         h -= 1;
         m = m + 60;
       }
     }
-    if(i === 2) {
+    if (i === 2) {
       s = tot[2] - left[2];
       if (s < 0) {
         m -= 1;
@@ -26,11 +28,16 @@ const timeUsedStr = (left,tot) => {
       }
     }
   }
-  return h.toString().padStart(2,'0') + ":" + m.toString().padStart(2,'0') + ":" + s.toString().padStart(2,'0');
-}
+  return (
+    h.toString().padStart(2, "0") +
+    ":" +
+    m.toString().padStart(2, "0") +
+    ":" +
+    s.toString().padStart(2, "0")
+  );
+};
 
 export default function SimulationResult() {
-
   const locationState = useLocation().state;
 
   const [numCorrect, setNumCorrect] = useState(locationState.num);
@@ -42,51 +49,53 @@ export default function SimulationResult() {
   const pointPerWrong = locationState.penalty;
   const pointPerCorrect = locationState.pointPerCorrectAns;
 
-  const mockCorrectAns = []
-  for(let i = 0; i < numQuiz; i++) {
-    mockCorrectAns.push(
-        {
-          id: locationState.courseId,
-          quizNum:i+1,
-          ans:"C",
-          score: pointPerCorrect,
-          penalty: pointPerWrong,
-          isCorrect:false,
-        })
+  const mockCorrectAns = [];
+  for (let i = 0; i < numQuiz; i++) {
+    mockCorrectAns.push({
+      id: locationState.courseId,
+      quizNum: i + 1,
+      ans: "C",
+      score: pointPerCorrect,
+      penalty: pointPerWrong,
+      isCorrect: false,
+    });
   }
 
-  const mockUserAns = []
-  for(let i = 0; i < numQuiz; i++) {
-    const randomAns = ['A','B','C','D']
-    const random = Math.floor(Math.random()*randomAns.length)
-    mockUserAns.push(
-        {
-          id: locationState.courseId,
-          quizNum:i+1,
-          ans: randomAns[random],
-          score: pointPerCorrect,
-          penalty: pointPerWrong,
-          isCorrect: false
-        })
-    mockUserAns[i].isCorrect = mockUserAns[i].ans === mockCorrectAns[i].ans
+  const mockUserAns = [];
+  for (let i = 0; i < numQuiz; i++) {
+    const randomAns = ["A", "B", "C", "D"];
+    const random = Math.floor(Math.random() * randomAns.length);
+    mockUserAns.push({
+      id: locationState.courseId,
+      quizNum: i + 1,
+      ans: randomAns[random],
+      score: pointPerCorrect,
+      penalty: pointPerWrong,
+      isCorrect: false,
+    });
+    mockUserAns[i].isCorrect = mockUserAns[i].ans === mockCorrectAns[i].ans;
   }
 
+  const examDuration = locationState.duration.split(":").map((n) => {
+    return Number(n);
+  });
+  const timeElapsed = locationState.timeElapsed.split(":").map((n) => {
+    return Number(n);
+  });
 
-  const examDuration = (locationState.duration).split(":").map(n=> {return Number(n)})
-  const timeElapsed = (locationState.timeElapsed).split(":").map(n=> {return Number(n)})
-
-
-
-  const [useAns, setUserAns] = useState(mockUserAns)
-  const [correctAns,setCorrectAns] = useState(mockCorrectAns)
-  const [timeUsed, setTimeUsed]  = useState(timeUsedStr(timeElapsed, examDuration))
-
+  const [useAns, setUserAns] = useState(mockUserAns);
+  const [correctAns, setCorrectAns] = useState(mockCorrectAns);
+  const [timeUsed, setTimeUsed] = useState(
+    timeUsedStr(timeElapsed, examDuration)
+  );
 
   return (
     <>
       <Container>
         <h3>Simulation Result of {locationState.title}</h3>
-        <h3>Time Used: {timeUsed} / {locationState.duration} </h3>
+        <h3>
+          Time Used: {timeUsed} / {locationState.duration}{" "}
+        </h3>
         <Card className="result-table-card">
           <h1>
             {numCorrect * pointPerCorrect -
@@ -123,10 +132,7 @@ export default function SimulationResult() {
               </tr>
             </tbody>
           </Table>
-          <List scope={"simulationResult"}
-                rows={useAns}
-
-          />
+          <List scope={"simulationResult"} rows={useAns} />
         </Card>
       </Container>
     </>

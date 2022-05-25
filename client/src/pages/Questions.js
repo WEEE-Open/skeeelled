@@ -118,22 +118,22 @@ const Questions = () => {
           {isDesktop ? (
             <Row>
               <Col>
-                  <Container className="container">
-                    <Card body>
-                      <Row lg={12} className="header">
-                        <Col>
-                          <List
-                            scope="questions"
-                            title={locationState.title}
-                            rows={questions}
-                          />
-                        </Col>
-                        <Col className="pagination" lg="12" sm="12" md="12">
-                          <PaginationRow />
-                        </Col>
-                      </Row>
-                    </Card>
-                  </Container>
+                <Container className="container">
+                  <Card body>
+                    <Row lg={12} className="header">
+                      <Col>
+                        <List
+                          scope="questions"
+                          title={locationState.title}
+                          rows={questions}
+                        />
+                      </Col>
+                      <Col className="pagination" lg="12" sm="12" md="12">
+                        <PaginationRow />
+                      </Col>
+                    </Row>
+                  </Card>
+                </Container>
               </Col>
               <Col className="d-sm-inline-block col-md-4">
                 <Stack gap={4}>

@@ -18,7 +18,7 @@ import {
   Bookmarks,
   StartSimulation,
   Simulation,
-  SimulationResult
+  SimulationResult,
 } from "./pages/";
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'
