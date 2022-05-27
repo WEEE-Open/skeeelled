@@ -7,3 +7,4 @@ class DbName(Enum):
 	QUESTION = "questions"
 	EXAM_SIM = "ExamSimulation"
 	QUIZ = "quizzes"
+	ANSWER = "answers"
