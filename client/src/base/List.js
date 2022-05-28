@@ -91,6 +91,21 @@ function ListSuggestion({ props }) {
 function ListSimulationResult({ props }) {
   const [areAllAccordionItemsOpen, setAreAllAccordionItemsOpen] =
     useState(false);
+  const [activeKeys, setActiveKeys] = useState([]);
+
+  // when the boolean changes, either add all available activeKeys or remove them all
+  useEffect(() => {
+    if (areAllAccordionItemsOpen) {
+      setActiveKeys(props.rows.map((row, index) => index));
+    } else {
+      setActiveKeys([]);
+    }
+  }, [areAllAccordionItemsOpen, props.rows]);
+
+  const updateActiveKeys = (eventKeys) => {
+    setActiveKeys(eventKeys);
+  };
+
   return (
     <>
       <Container className="list-simulation-result">
@@ -115,15 +130,11 @@ function ListSimulationResult({ props }) {
           <Accordion
             className="listSimulationResults"
             defaultActiveKey={[]}
-            activeKey={
-              areAllAccordionItemsOpen
-                ? props.rows.map((row, index) => index)
-                : []
-            }
+            activeKey={activeKeys}
+            onSelect={updateActiveKeys}
             alwaysOpen
           >
             {props.rows.map((row, index) => (
-              // TODO: fix these do not expand singularly -- also tested with Accordion.Item directly, doesn't work
               <ListEntry scope={props.scope} row={row} accordionKey={index} />
             ))}
           </Accordion>
