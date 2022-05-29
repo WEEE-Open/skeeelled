@@ -116,7 +116,7 @@ const Questions = () => {
             </Link>
           </Row>
           {isDesktop ? (
-            <Row>
+            <Row key={isDesktop}>
               <Col>
                 <Container className="container">
                   <Card body>
@@ -129,7 +129,7 @@ const Questions = () => {
                         />
                       </Col>
                       <Col className="pagination" lg="12" sm="12" md="12">
-                        <PaginationRow />
+                        <PaginationRow/>
                       </Col>
                     </Row>
                   </Card>
@@ -137,9 +137,9 @@ const Questions = () => {
               </Col>
               <Col className="d-sm-inline-block col-md-4">
                 <Stack gap={4}>
-                  {suggestionType.map((type) => {
+                  {suggestionType.map((type,i) => {
                     return (
-                      <Row>
+                      <Row key={i}>
                         <Suggestion
                           scope={"suggestion"}
                           title={type + " Questions"}
@@ -152,7 +152,7 @@ const Questions = () => {
               </Col>
             </Row>
           ) : (
-            <Stack gap={4}>
+            <Stack gap={4} key={isDesktop}>
               <Row>
                 <Card body>
                   <Container className="container">
@@ -166,7 +166,7 @@ const Questions = () => {
                           />
                         </Col>
                         <Col className="pagination" lg="12" sm="12" md="12">
-                          <PaginationRow />
+                          <PaginationRow/>
                         </Col>
                       </Row>
                     </Card>
@@ -174,9 +174,9 @@ const Questions = () => {
                 </Card>
               </Row>
               <Row md={2} sm={2}>
-                {suggestionType.map((type) => {
+                {suggestionType.map((type,i) => {
                   return (
-                    <Col className="col-md-6">
+                    <Col key={i} className="col-md-6">
                       <Suggestion
                         scope={"suggestion"}
                         title={type + " Questions"}

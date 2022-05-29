@@ -14,8 +14,8 @@ import { UserSettings } from "../pages";
 function ListEntryDefault(props) {
   return (
     <tr>
-      {props.row.map((cell) => (
-        <td>
+      {props.row.map((cell,i) => (
+        <td key={i}>
           {props.row.length === 1 && <span className="greenDot">●</span>}
           {cell}
         </td>
@@ -58,8 +58,8 @@ function ListEntryQuestions(props) {
       </Row>
       <Row>
         <Col>
-          {props.row.tags.map((t) => (
-            <Link to="" className="tags">
+          {props.row.tags.map((t,i) => (
+            <Link key={i} to="" className="tags">
               #{t}
             </Link>
           ))}

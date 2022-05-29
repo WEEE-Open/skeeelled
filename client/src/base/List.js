@@ -27,8 +27,8 @@ function ListDefault({ props }) {
             </tr>
           </thead>
           <tbody>
-            {props.rows.map((r) => (
-              <ListEntry scope={props.scope} row={r} />
+            {props.rows.map((r,i) => (
+              <ListEntry key={i} scope={props.scope} row={r} />
             ))}
           </tbody>
         </table>
@@ -40,8 +40,8 @@ function ListDefault({ props }) {
             </tr>
           </thead>
           <tbody>
-            {props.rows.map((r) => (
-              <ListEntry scope={props.scope} row={r} />
+            {props.rows.map((r,i) => (
+              <ListEntry key={i} scope={props.scope} row={r} />
             ))}
           </tbody>
         </Table>
@@ -54,8 +54,8 @@ function ListQuestions({ props }) {
   return (
     <>
       <h3 className="listQuestionsTitle">{props.title}</h3>
-      {props.rows.map((r) => (
-        <ListEntry scope={props.scope} row={r} />
+      {props.rows.map((r,i) => (
+        <ListEntry key={i} scope={props.scope} row={r} />
       ))}
     </>
   );
@@ -65,8 +65,8 @@ function ListAnswers({ props }) {
   return (
     <Table borderless className="list listAnswers">
       <tbody>
-        {props.rows.map((r) => (
-          <ListEntry scope={props.scope} row={r} />
+        {props.rows.map((r,i) => (
+          <ListEntry key={i} scope={props.scope} row={r} />
         ))}
       </tbody>
     </Table>
@@ -79,8 +79,8 @@ function ListSuggestion({ props }) {
       <Container>
         <h3 className="listSuggestionTitle">{props.title}</h3>
         <div className="listSuggestion-questions">
-          {props.rows.map((r) => (
-            <ListEntry scope={props.scope} row={r} />
+          {props.rows.map((r,i) => (
+            <ListEntry key={i} scope={props.scope} row={r} />
           ))}
         </div>
       </Container>
@@ -135,7 +135,7 @@ function ListSimulationResult({ props }) {
             alwaysOpen
           >
             {props.rows.map((row, index) => (
-              <ListEntry scope={props.scope} row={row} accordionKey={index} />
+              <ListEntry  key={index} scope={props.scope} row={row} accordionKey={index} />
             ))}
           </Accordion>
         </Row>

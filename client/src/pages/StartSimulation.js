@@ -71,7 +71,7 @@ export default function StartSimulation() {
                   )}
                   <Stack gap={4}>
                     {isMulti ? (
-                      <Row>
+                      <Row key={isMulti}>
                         <Card>
                           <Card.Body>
                             <Stack gap={2}>
@@ -79,7 +79,7 @@ export default function StartSimulation() {
                                 ( Number of Question, Maximum Score, and
                                 Duration Must Not Be Zero )
                               </h6>
-                              <InputGroup>
+                              <InputGroup key={isMulti}>
                                 <InputGroup.Text>
                                   Number of Questions
                                 </InputGroup.Text>
@@ -114,7 +114,7 @@ export default function StartSimulation() {
                                   }}
                                 />
                               </InputGroup>
-                              <InputGroup>
+                              <InputGroup >
                                 <InputGroup.Text>
                                   Duration (Minutes)
                                 </InputGroup.Text>
@@ -140,10 +140,10 @@ export default function StartSimulation() {
                       !isNaN(penaltyScore) &&
                       duration &&
                       numQuestions <= maxNumOfQuestion ? (
-                        simulationTypes.map((type) => {
+                        simulationTypes.map((type,i) => {
                           return (
-                            <Col>
-                              <Link
+                            <Col key={i}>
+                              <Link key={i}
                                 to={{
                                   pathname:
                                     "/simulation/" + locationState.courseId,
@@ -160,6 +160,7 @@ export default function StartSimulation() {
                                 }}
                               >
                                 <Button
+                                  key={i}
                                   className="btn-outline-success"
                                   variant="outline-success"
                                 >

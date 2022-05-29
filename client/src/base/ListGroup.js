@@ -9,11 +9,11 @@ function ListGroup(props) {
       {props.lists
         .filter((useless, i) => i % props.cols === 0)
         .map((useless, i) => (
-          <Row>
+          <Row key={i}>
             {props.lists
               .slice(i * props.cols, (i + 1) * props.cols)
-              .map((l) => (
-                <Col>
+              .map((l,j) => (
+                <Col key={j}>
                   <Link
                     className="list-attributes"
                     to={{
@@ -24,6 +24,7 @@ function ListGroup(props) {
                     state={{ scope: l.scope, title: l.title, rows: l.rows }}
                   >
                     <List
+                      key={i + l.scope + l.title + "listComp"}
                       scope={l.scope}
                       title={l.title}
                       rows={l.rows}
