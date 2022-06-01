@@ -1,10 +1,12 @@
+import json
+
 import bson.errors
 from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse, HTMLResponse
 import motor.motor_asyncio
 from question import Question, multiple_insertion
 from quiz import Quiz
-from bson import ObjectId
+from bson import ObjectId, DBRef
 from table_names import DbName
 
 app = FastAPI()
@@ -62,10 +64,10 @@ async def get_course(id: str):
 async def get_question(id: str):
     if not check_valid_id(id):
         return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id is not a valid format")
-    a = await db[DbName.QUESTION.value].find_one(ObjectId(id), {'quiz_ref': 0})
+    a = await db[DbName.QUESTION.value].find_one(ObjectId(id))
     if a:
         # ObjectId is not JSON serializable, so i convert the value in string
-        a['_id'] = str(a['_id'])
+        a = json.loads(json.dumps(a, cls=JSONEncoder))
         return JSONResponse(status_code=status.HTTP_200_OK, content=a)
     else:
         return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
@@ -112,14 +114,15 @@ async def get_user_myQuestion(user_id: str, npages: int, itemsPerPage: int = -1)
 
 @app.get("/v1/searchCourses")
 async def search_courses(query: str, limit: int = 10):
-    result = db[DbName.COURSE.value].find({"name": {'$regex': f'(?i){query}'}}, {'_id': 0})
+    result = db[DbName.COURSE.value].find({"name": {'$regex': f'(?i){query}'}})
     result = await result.to_list(limit)
     if result:
+        result = json.loads(json.dumps(result, cls=JSONEncoder))
         return JSONResponse(status_code=status.HTTP_200_OK, content=result)
-    result = db[DbName.QUESTION.value].find({"content.name.text": {'$regex': f'(?i){query}'}},
-                                            {'_id': 0, 'quiz_ref': 0})
+    result = db[DbName.QUESTION.value].find({"content.name.text": {'$regex': f'(?i){query}'}})
     result = await result.to_list(limit)
     if result:
+        result = json.loads(json.dumps(result, cls=JSONEncoder))
         return JSONResponse(status_code=status.HTTP_200_OK, content=result)
     return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
                         content=f"No course found")
@@ -128,22 +131,48 @@ async def search_courses(query: str, limit: int = 10):
 @app.get("/v1/searchQuestion")
 async def search_question(query: str, course_id: str, limit: int = 10):
     result = db[DbName.QUESTION.value].find(
-        {"content.name.text": {'$regex': f'(?i){query}'}, "course.id": course_id}, {'_id': 0, 'quiz_ref': 0})
+        {"content.name.text": {'$regex': f'(?i){query}'}, "course.id": course_id})
     result = await result.to_list(limit)
     if result:
+        result = json.loads(json.dumps(result, cls=JSONEncoder))
         return JSONResponse(status_code=status.HTTP_200_OK, content=result)
 
     result = db[DbName.QUESTION.value].find(
-        {"tags": {'$regex': f'(?i){query}'}, "course.id": course_id}, {'_id': 0, 'quiz_ref': 0})
+        {"tags": {'$regex': f'(?i){query}'}, "course.id": course_id})
     result = await result.to_list(limit)
     if result:
+        result = json.loads(json.dumps(result, cls=JSONEncoder))
         return JSONResponse(status_code=status.HTTP_200_OK, content=result)
 
     result = db[DbName.QUESTION.value].find(
-        {"content.questiontext.text": {'$regex': f'(?i){query}'}, "course.id": course_id}, {'_id': 0, 'quiz_ref': 0})
+        {"content.questiontext.text": {'$regex': f'(?i){query}'}, "course.id": course_id})
     result = await result.to_list(limit)
     if result:
+        result = json.loads(json.dumps(result, cls=JSONEncoder))
         return JSONResponse(status_code=status.HTTP_200_OK, content=result)
 
     return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
                         content=f"No question found")
+
+
+@app.get("/v1/searchDiscussion")
+async def search_discussion(query: str, question_id: str, limit: int = 10):
+    if not check_valid_id(question_id):
+        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id is not a valid format")
+    result = db[DbName.QUESTION.value].find(
+        {"$or": [{"answers.content": {'$regex': f'(?i){query}'}}, {"answers.replies": {'$regex': f'(?i){query}'}}],
+         "_id": ObjectId(question_id)})
+    result = await result.to_list(limit)
+    if result:
+        result = json.loads(json.dumps(result, cls=JSONEncoder))
+        return JSONResponse(status_code=status.HTTP_200_OK, content=result)
+
+    return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
+                        content=f"No question found")
+
+
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, (ObjectId, DBRef)):
+            return str(o)
+        return json.JSONEncoder.default(self, o)

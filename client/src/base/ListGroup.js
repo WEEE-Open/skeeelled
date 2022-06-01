@@ -29,6 +29,7 @@ function ListGroup(props) {
                       title={l.title}
                       rows={l.rows}
                       rounded={props.rounded}
+                      dotted={props.dotted}
                     />
                   </Link>
                 </Col>

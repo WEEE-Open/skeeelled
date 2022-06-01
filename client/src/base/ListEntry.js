@@ -1,4 +1,4 @@
-import { Row, Col, Container, Image, Card, Accordion } from "react-bootstrap";
+import { Row, Col, Container, Image, Card, Accordion, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MarkdownPreview from "./MarkdownPreview";
 import remarkGfm from "remark-gfm";
@@ -16,7 +16,7 @@ function ListEntryDefault(props) {
     <tr>
       {props.row.map((cell, i) => (
         <td key={i}>
-          {props.row.length === 1 && <span className="greenDot">●</span>}
+          {props.dotted && <span className="greenDot">●</span>}
           {cell}
         </td>
       ))}
@@ -78,6 +78,15 @@ function ListEntryAnswers(props) {
       <tr>
         <td colSpan="2">
           {props.row.author}, {props.row.createdat}
+          {props.row.replies > 0 && (
+            <span className="reply-link mx-3">
+              {props.row.replies + " "}
+              <Image
+                src={process.env.PUBLIC_URL + "/icons/DISCUSSION.svg"}
+                width="28px"
+              />
+            </span>
+          )}
         </td>
       </tr>
       <tr>
@@ -108,8 +117,27 @@ function ListEntryAnswers(props) {
             />
           </Link>
         </td>
+        <td>
+          <Link to="/discussion/1">
+            <Button className="reply-link">Reply</Button>
+          </Link>
+        </td>
       </tr>
     </>
+  );
+}
+
+function ListEntryReplies(props) {
+  return (
+    <div className="questionEntry">
+      <Row>
+        <Col>{props.row.reply}</Col>
+      </Row>
+      <Row className="tags">
+        <Col>from {props.row.author}</Col>
+        <Col>Created at: {props.row.createdat}</Col>
+      </Row>
+    </div>
   );
 }
 
@@ -198,15 +226,21 @@ function ListEntrySimulationResult(props) {
       </Accordion.Body>
     </Accordion.Item>
   );
+
+function ListEntrySelection(props) {
+  return <option value={props.key + 1}>{props.row}</option>;
 }
 
 function ListEntry(props) {
   return (
     <>
-      {props.scope === "default" && <ListEntryDefault row={props.row} />}
+      {props.scope === "default" && (
+        <ListEntryDefault row={props.row} dotted={props.dotted} />
+      )}
       {props.scope === "courses" && <ListEntryCourses row={props.row} />}
       {props.scope === "questions" && <ListEntryQuestions row={props.row} />}
       {props.scope === "answers" && <ListEntryAnswers row={props.row} />}
+      {props.scope === "replies" && <ListEntryReplies row={props.row} />}
       {props.scope === "test" && <ListEntryTest row={props.row} />}
       {props.scope === "suggestion" && <ListEntrySuggestion row={props.row} />}
       {props.scope === "simulationResult" && (
@@ -215,6 +249,7 @@ function ListEntry(props) {
           accordionKey={props.accordionKey}
         />
       )}
+      {props.scope === "selection" && <ListEntrySelection row={props.row} />}
     </>
   );
 }

@@ -62,3 +62,12 @@
   min-width: 60px;
   font-size: 12px;
 }
+  
+.right-button {
+  float: right;
+  margin-right: 5px;
+}
+
+.add-icon {
+  margin-top: -2px;
+}

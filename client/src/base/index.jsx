@@ -10,6 +10,7 @@ import QuestionPreview from "./QuestionPreview";
 import Discussion from "./Discussion";
 
 import SearchBar from "./SearchBar";
+import Suggestion from "./Suggestion";
 import DebugPaths from "./DebugPaths";
 
 export {
@@ -22,6 +23,7 @@ export {
   ListGroup,
   DebugPaths,
   SearchBar,
+  Suggestion,
   TextInput,
   QuestionPreview,
   Discussion,
