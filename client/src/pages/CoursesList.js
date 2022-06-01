@@ -125,7 +125,7 @@ function CoursesList() {
           <Row>
             <SearchBar />
           </Row>
-          {coursesType.map((type,i) => {
+          {coursesType.map((type, i) => {
             return (
               <Link
                 key={i}
@@ -145,7 +145,7 @@ function CoursesList() {
       </Col>
       <Col className="d-none d-md-inline-block col-md-4">
         <Stack gap={4}>
-          {suggestionType.map((type,i) => {
+          {suggestionType.map((type, i) => {
             return (
               <Row key={i}>
                 <Suggestion

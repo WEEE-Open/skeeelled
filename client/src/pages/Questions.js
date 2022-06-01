@@ -129,7 +129,7 @@ const Questions = () => {
                         />
                       </Col>
                       <Col className="pagination" lg="12" sm="12" md="12">
-                        <PaginationRow/>
+                        <PaginationRow />
                       </Col>
                     </Row>
                   </Card>
@@ -137,7 +137,7 @@ const Questions = () => {
               </Col>
               <Col className="d-sm-inline-block col-md-4">
                 <Stack gap={4}>
-                  {suggestionType.map((type,i) => {
+                  {suggestionType.map((type, i) => {
                     return (
                       <Row key={i}>
                         <Suggestion
@@ -166,7 +166,7 @@ const Questions = () => {
                           />
                         </Col>
                         <Col className="pagination" lg="12" sm="12" md="12">
-                          <PaginationRow/>
+                          <PaginationRow />
                         </Col>
                       </Row>
                     </Card>
@@ -174,7 +174,7 @@ const Questions = () => {
                 </Card>
               </Row>
               <Row md={2} sm={2}>
-                {suggestionType.map((type,i) => {
+                {suggestionType.map((type, i) => {
                   return (
                     <Col key={i} className="col-md-6">
                       <Suggestion

@@ -27,7 +27,7 @@ function ListDefault({ props }) {
             </tr>
           </thead>
           <tbody>
-            {props.rows.map((r,i) => (
+            {props.rows.map((r, i) => (
               <ListEntry key={i} scope={props.scope} row={r} />
             ))}
           </tbody>
@@ -40,7 +40,7 @@ function ListDefault({ props }) {
             </tr>
           </thead>
           <tbody>
-            {props.rows.map((r,i) => (
+            {props.rows.map((r, i) => (
               <ListEntry key={i} scope={props.scope} row={r} />
             ))}
           </tbody>
@@ -54,7 +54,7 @@ function ListQuestions({ props }) {
   return (
     <>
       <h3 className="listQuestionsTitle">{props.title}</h3>
-      {props.rows.map((r,i) => (
+      {props.rows.map((r, i) => (
         <ListEntry key={i} scope={props.scope} row={r} />
       ))}
     </>
@@ -65,7 +65,7 @@ function ListAnswers({ props }) {
   return (
     <Table borderless className="list listAnswers">
       <tbody>
-        {props.rows.map((r,i) => (
+        {props.rows.map((r, i) => (
           <ListEntry key={i} scope={props.scope} row={r} />
         ))}
       </tbody>
@@ -79,7 +79,7 @@ function ListSuggestion({ props }) {
       <Container>
         <h3 className="listSuggestionTitle">{props.title}</h3>
         <div className="listSuggestion-questions">
-          {props.rows.map((r,i) => (
+          {props.rows.map((r, i) => (
             <ListEntry key={i} scope={props.scope} row={r} />
           ))}
         </div>
@@ -135,7 +135,12 @@ function ListSimulationResult({ props }) {
             alwaysOpen
           >
             {props.rows.map((row, index) => (
-              <ListEntry  key={index} scope={props.scope} row={row} accordionKey={index} />
+              <ListEntry
+                key={index}
+                scope={props.scope}
+                row={row}
+                accordionKey={index}
+              />
             ))}
           </Accordion>
         </Row>

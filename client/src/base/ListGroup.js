@@ -12,7 +12,7 @@ function ListGroup(props) {
           <Row key={i}>
             {props.lists
               .slice(i * props.cols, (i + 1) * props.cols)
-              .map((l,j) => (
+              .map((l, j) => (
                 <Col key={j}>
                   <Link
                     className="list-attributes"

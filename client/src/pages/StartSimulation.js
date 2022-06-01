@@ -114,7 +114,7 @@ export default function StartSimulation() {
                                   }}
                                 />
                               </InputGroup>
-                              <InputGroup >
+                              <InputGroup>
                                 <InputGroup.Text>
                                   Duration (Minutes)
                                 </InputGroup.Text>
@@ -140,10 +140,11 @@ export default function StartSimulation() {
                       !isNaN(penaltyScore) &&
                       duration &&
                       numQuestions <= maxNumOfQuestion ? (
-                        simulationTypes.map((type,i) => {
+                        simulationTypes.map((type, i) => {
                           return (
                             <Col key={i}>
-                              <Link key={i}
+                              <Link
+                                key={i}
                                 to={{
                                   pathname:
                                     "/simulation/" + locationState.courseId,

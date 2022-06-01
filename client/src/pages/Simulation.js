@@ -226,7 +226,7 @@ export default function Simulation(props) {
             ) : (
               <Card className="simulation-question-answer-ratio-card">
                 <Stack gap={1}>
-                  {["A", "B", "C", "D"].map((e,i) => {
+                  {["A", "B", "C", "D"].map((e, i) => {
                     return <Form.Check key={i} type="checkbox" label={e} />;
                   })}
                 </Stack>
