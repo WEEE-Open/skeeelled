@@ -101,60 +101,158 @@ const Questions = () => {
     <>
       <Container>
         <Stack gap={4}>
-          <Row>
-            <Col>
-              <Card body>
-                <Row lg={12} className="header">
-                  <Col>
-                    <h3 className="listQuestionsTitle">
-                      Physics I
-                      <Link to="/simulation">
-                        <Button className="right-button">
-                          Start simulation
+          {isDesktop ? (
+            <Row key={isDesktop}>
+              <Col>
+                <Container className="container">
+                  <Card body>
+                    <Row lg={12} className="header">
+                      <Col>
+                        <Link
+                          className="right-button"
+                          to={{
+                            pathname:
+                              "/startsimulation/" + locationState.courseId,
+                          }}
+                          state={{
+                            courseId: locationState.courseId,
+                            title: locationState.title,
+                          }}
+                        >
+                          <Button>
+                            <Image
+                              className="add-icon"
+                              src={
+                                process.env.PUBLIC_URL +
+                                "/icons/SIMULATION RESULTS_WHITE.svg"
+                              }
+                              width="13px"
+                            />
+                            {" Start Simulation"}
+                          </Button>
+                        </Link>
+
+                        <Button className="right-button" onClick={() => {}}>
+                          <Image
+                            className="add-icon"
+                            src={
+                              process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"
+                            }
+                            width="13px"
+                          />
+                          {" Add course"}
                         </Button>
-                      </Link>
-                      <Button className="right-button" onClick={() => {}}>
-                        <Image
-                          className="add-icon"
-                          src={process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"}
-                          width="13px"
+
+                        <Row>
+                          <Col className="listQuestionsTitle">
+                            <SearchBar />
+                          </Col>
+                        </Row>
+                        <List
+                          scope="questions"
+                          title={locationState.title}
+                          rows={questions}
                         />
-                        {" Add course"}
-                      </Button>
-                    </h3>
-                    <Row>
-                      <Col className="listQuestionsTitle">
-                        <SearchBar />
+                      </Col>
+
+                      <Col className="pagination" lg="12" sm="12" md="12">
+                        <PaginationRow />
                       </Col>
                     </Row>
-                    <List
-                      scope="questions"
-                      title="Physics I"
-                      rows={questions}
-                    />
-                  </Col>
-                  <Col className="pagination" lg="12" sm="12" md="12">
-                    <PaginationRow />
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col className="d-sm-inline-block col-md-4">
-              <Stack gap={4}>
-                {suggestionType.map((type) => {
-                  return (
-                    <Row>
-                      <Suggestion
-                        scope={"suggestion"}
-                        title={type + " Questions"}
-                        rows={suggestions}
-                      />
+                  </Card>
+                </Container>
+              </Col>
+              <Col className="d-sm-inline-block col-md-4">
+                <Stack gap={4}>
+                  {suggestionType.map((type, i) => {
+                    return (
+                      <Row key={i}>
+                        <Suggestion
+                          scope={"suggestion"}
+                          title={type + " Questions"}
+                          rows={suggestions}
+                        />
+                      </Row>
+                    );
+                  })}
+                </Stack>
+              </Col>
+            </Row>
+          ) : (
+            <>
+              <Row>
+                <Container className="container">
+                  <Card body>
+                    <Row lg={12} className="header">
+                      <Col>
+                        <Link
+                          to={{
+                            pathname:
+                              "/startsimulation/" + locationState.courseId,
+                          }}
+                          state={{
+                            courseId: locationState.courseId,
+                            title: locationState.title,
+                          }}
+                        >
+                          <Button className="right-button" onClick={() => {}}>
+                            <Image
+                              className="add-icon"
+                              src={
+                                process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"
+                              }
+                              width="13px"
+                            />
+                            {" Start Simulation"}
+                          </Button>
+                        </Link>
+
+                        <Button className="right-button" onClick={() => {}}>
+                          <Image
+                            className="add-icon"
+                            src={
+                              process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"
+                            }
+                            width="13px"
+                          />
+                          {" Add course"}
+                        </Button>
+                        <Row>
+                          <Col className="listQuestionsTitle">
+                            <SearchBar />
+                          </Col>
+                        </Row>
+                        <List
+                          scope="questions"
+                          title={locationState.title}
+                          rows={questions}
+                        />
+                      </Col>
+
+                      <Col className="pagination" lg="12" sm="12" md="12">
+                        <PaginationRow />
+                      </Col>
                     </Row>
-                  );
-                })}
-              </Stack>
-            </Col>
-          </Row>
+                  </Card>
+                </Container>
+              </Row>
+              <Row>
+                <Stack gap={4}>
+                  {suggestionType.map((type, i) => {
+                    return (
+                      <Col key={i}>
+                        <Suggestion
+                          scope={"suggestion"}
+                          title={type + " Questions"}
+                          rows={suggestions}
+                        />
+                      </Col>
+                    );
+                  })}
+                </Stack>
+              </Row>
+            </>
+          )}
         </Stack>
       </Container>
     </>

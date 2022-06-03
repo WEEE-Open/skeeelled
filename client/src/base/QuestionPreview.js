@@ -16,9 +16,9 @@ function QuestionPreview({ question }) {
   return (
     <Card>
       <Card.Header>
-        <div class="d-flex justify-content-between">
-          <div class="p2">{`${question.course_code} ${question.course_name}`}</div>
-          <div class="p2">
+        <div className="d-flex justify-content-between">
+          <div className="p2">{`${question.course_code} ${question.course_name}`}</div>
+          <div className="p2">
             <small>
               Posted by {question.author} on&nbsp;
               {question.date.toLocaleDateString("it-IT", {

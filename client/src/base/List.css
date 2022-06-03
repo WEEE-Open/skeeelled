@@ -57,9 +57,10 @@
   padding: 5px;
 }
 
-.right-button {
-  float: right;
-  margin-right: 5px;
+.btn-outline-success-simulation-result {
+  height: 30px;
+  min-width: 60px;
+  font-size: 12px;
 }
 
 .add-icon {

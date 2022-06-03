@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { useCallback, useEffect, useState, Component } from "react";
+import { useCallback, useEffect, useState, Component, useRef } from "react";
 import {
   Card,
   Row,
@@ -14,61 +14,152 @@ import {
 import "./Simulation.css";
 import { List, ListEntry, TextInput } from "../base";
 
+const Duration = (props) => {
+  const [timeIn, setTimeIn] = useState({
+    h: Math.floor(parseInt(props.duration) / 60),
+    m: parseInt(props.duration) % 60,
+    s: 0,
+  });
+
+  useEffect(() => {
+    const myInterval = setInterval(() => {
+      setTimeIn((time) => {
+        const updateTime = { ...time };
+        if (time.s > 0) {
+          updateTime.s--;
+        }
+        if (time.s === 0) {
+          if (time.h === 0 && time.m === 0) {
+            clearInterval(myInterval);
+          } else if (time.m > 0) {
+            updateTime.m--;
+            updateTime.s = 59;
+          } else if (time.h > 0) {
+            updateTime.h--;
+            updateTime.m = 59;
+            updateTime.s = 59;
+          }
+        }
+        return updateTime;
+      });
+    }, 1000);
+    return () => clearInterval(myInterval);
+  }, [timeIn]);
+
+  return (
+    <>
+      <h3>
+        {timeIn.h.toString().padStart(2, "0")}:
+        {timeIn.m.toString().padStart(2, "0")}:
+        {timeIn.s.toString().padStart(2, "0")}
+      </h3>
+    </>
+  );
+};
+
+const FinishModal = (props) => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const timeIn =
+    Math.floor(parseInt(props.duration) / 60)
+      .toString()
+      .padStart(2, "0") +
+    ":" +
+    (parseInt(props.duration) % 60).toString().padStart(2, "0") +
+    ":" +
+    (0).toString().padStart(2, "0");
+
+  const [timeRecord, setTimeRecord] = useState({
+    h: Math.floor(parseInt(props.duration) / 60),
+    m: parseInt(props.duration) % 60,
+    s: 0,
+  });
+
+  useEffect(() => {
+    const myInterval = setInterval(() => {
+      setTimeRecord((time) => {
+        const updateTime = { ...time };
+        if (time.s > 0) {
+          updateTime.s--;
+        }
+        if (time.s === 0) {
+          if (time.h === 0 && time.m === 0) {
+            clearInterval(myInterval);
+          } else if (time.m > 0) {
+            updateTime.m--;
+            updateTime.s = 59;
+          } else if (time.h > 0) {
+            updateTime.h--;
+            updateTime.m = 59;
+            updateTime.s = 59;
+          }
+        }
+        return updateTime;
+      });
+    }, 1000);
+    return () => clearInterval(myInterval);
+  }, [timeRecord]);
+
+  return (
+    <>
+      <Button
+        className="btn-outline-success"
+        variant="outline-success"
+        onClick={handleShow}
+      >
+        Finish
+      </Button>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Submit Before the Time Limit?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Confirm your submission to see the result.</Modal.Body>
+        <Modal.Footer>
+          <Link
+            className="outline-secondary"
+            to={{
+              pathname: "/simulationresult/" + props.locationState.courseId,
+            }}
+            state={{
+              courseId: props.locationState.courseId,
+              title: props.locationState.title,
+              num: props.locationState.num,
+              penalty: props.locationState.penalty,
+              max: props.locationState.max,
+              isMulti: props.locationState.isMulti,
+              pointPerCorrectAns:
+                props.locationState.max / props.locationState.num,
+              duration: timeIn,
+              timeElapsed: `${timeRecord.h
+                .toString()
+                .padStart(2, "0")}:${timeRecord.m
+                .toString()
+                .padStart(2, "0")}:${timeRecord.s.toString().padStart(2, "0")}`,
+            }}
+          >
+            <Button className="btn-outline-success" variant="outline-success">
+              Confirm
+            </Button>
+          </Link>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
+
 export default function Simulation(props) {
+  const locationState = useLocation().state;
+
   const simulationRandomQuizType = ["open", "close"];
   const [pageNum, setPageNum] = useState(1);
-
   const randomizer =
     simulationRandomQuizType[
       Math.floor(Math.random() * simulationRandomQuizType.length)
     ];
   const [quizType, setQuizType] = useState(randomizer);
-
-  const locationState = useLocation().state;
-
-  const FinishModal = () => {
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    return (
-      <>
-        <Button
-          className="btn-outline-success"
-          variant="outline-success"
-          onClick={handleShow}
-        >
-          Finish
-        </Button>
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Submit Before the Time Limit?</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Confirm your submission to see the result.</Modal.Body>
-          <Modal.Footer>
-            <Link
-              className="outline-secondary"
-              to={{ pathname: "/simulationresult/" + locationState.courseId }}
-              state={{
-                courseId: locationState.courseId,
-                title: locationState.title,
-                num: locationState.num,
-                penalty: locationState.penalty,
-                max: locationState.max,
-                isMulti: locationState.isMulti,
-                pointPerCorrectAns: locationState.max / locationState.num,
-              }}
-            >
-              <Button className="btn-outline-success" variant="outline-success">
-                Confirm
-              </Button>
-            </Link>
-          </Modal.Footer>
-        </Modal>
-      </>
-    );
-  };
 
   const PaginationRow = (props) => {
     let items = [];
@@ -95,6 +186,7 @@ export default function Simulation(props) {
     );
   };
 
+  // mock question type
   useEffect(() => {
     locationState.isMulti ? setQuizType("close") : setQuizType(randomizer);
   }, [pageNum]);
@@ -102,12 +194,16 @@ export default function Simulation(props) {
   return (
     <Container>
       <h3>{locationState.type + " Questions of " + locationState.title}</h3>
+      <Duration duration={locationState.duration} />
       <Row className="pagination-finish">
         <Col>
           <PaginationRow numPage={locationState.num} />
         </Col>
         <Col>
-          <FinishModal />
+          <FinishModal
+            locationState={locationState}
+            duration={locationState.duration}
+          />
         </Col>
       </Row>
       <Card className="simulation-question-card">
@@ -130,8 +226,8 @@ export default function Simulation(props) {
             ) : (
               <Card className="simulation-question-answer-ratio-card">
                 <Stack gap={1}>
-                  {["A", "B", "C", "D"].map((e) => {
-                    return <Form.Check type="checkbox" label={e} />;
+                  {["A", "B", "C", "D"].map((e, i) => {
+                    return <Form.Check key={i} type="checkbox" label={e} />;
                   })}
                 </Stack>
               </Card>
