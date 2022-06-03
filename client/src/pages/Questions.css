@@ -6,7 +6,8 @@
   justify-content: center;
 }
 
-
-.right-botton {
+.right-button {
+  float: right;
+  margin-left: 5px;
   margin-bottom: 10px;
 }
