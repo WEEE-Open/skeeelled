@@ -101,40 +101,32 @@ const Questions = () => {
     <>
       <Container>
         <Stack gap={4}>
-          <Row>
-            <Link
-              to={{ pathname: "/startsimulation/" + locationState.courseId }}
-              state={{
-                courseId: locationState.courseId,
-                title: locationState.title,
-              }}
-            >
-              <Button className="flex-md" variant="outline-success">
-                Start Simulation
-              </Button>
-            </Link>
-          </Row>
           {isDesktop ? (
             <Row key={isDesktop}>
               <Col>
                 <Container className="container">
                   <Card body>
-
                     <Row lg={12} className="header">
                       <Col>
-
                         <Link
-                            to={{ pathname: "/startsimulation/" + locationState.courseId }}
-                            state={{
-                              courseId: locationState.courseId,
-                              title: locationState.title,
-                            }}
+                          className="right-button"
+                          to={{
+                            pathname:
+                              "/startsimulation/" + locationState.courseId,
+                          }}
+                          state={{
+                            courseId: locationState.courseId,
+                            title: locationState.title,
+                          }}
                         >
-                          <Button className="right-button" onClick={() => {}}>
+                          <Button>
                             <Image
-                                className="add-icon"
-                                src={process.env.PUBLIC_URL + "/icons/SIMULATION RESULTS_WHITE.svg"}
-                                width="13px"
+                              className="add-icon"
+                              src={
+                                process.env.PUBLIC_URL +
+                                "/icons/SIMULATION RESULTS_WHITE.svg"
+                              }
+                              width="13px"
                             />
                             {" Start Simulation"}
                           </Button>
@@ -142,9 +134,11 @@ const Questions = () => {
 
                         <Button className="right-button" onClick={() => {}}>
                           <Image
-                              className="add-icon"
-                              src={process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"}
-                              width="13px"
+                            className="add-icon"
+                            src={
+                              process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"
+                            }
+                            width="13px"
                           />
                           {" Add course"}
                         </Button>
@@ -155,9 +149,9 @@ const Questions = () => {
                           </Col>
                         </Row>
                         <List
-                            scope="questions"
-                            title={locationState.title}
-                            rows={questions}
+                          scope="questions"
+                          title={locationState.title}
+                          rows={questions}
                         />
                       </Col>
 
@@ -165,7 +159,6 @@ const Questions = () => {
                         <PaginationRow />
                       </Col>
                     </Row>
-
                   </Card>
                 </Container>
               </Col>
@@ -191,7 +184,6 @@ const Questions = () => {
                   <Container className="container">
                     <Card body>
 
-
                       <Row lg={12} className="header">
                         <Col>
 
@@ -212,52 +204,54 @@ const Questions = () => {
                             </Button>
                           </Link>
 
-                          <Button className="right-button" onClick={() => {}}>
-                            <Image
-                                className="add-icon"
-                                src={process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"}
-                                width="13px"
-                            />
-                            {" Add course"}
-                          </Button>
-                          <Row>
-                            <Col className="listQuestionsTitle">
-                              <SearchBar />
-                            </Col>
-                          </Row>
-                          <List
-                              scope="questions"
-                              title={locationState.title}
-                              rows={questions}
+
+                        <Button className="right-button" onClick={() => {}}>
+                          <Image
+                            className="add-icon"
+                            src={
+                              process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"
+                            }
+                            width="13px"
                           />
-                        </Col>
+                          {" Add course"}
+                        </Button>
 
-                        <Col className="pagination" lg="12" sm="12" md="12">
-                          <PaginationRow />
-                        </Col>
-                      </Row>
-
-                    </Card>
-                  </Container>
-                </Row>
-                <Row>
-                  <Stack gap={4}>
-                    {suggestionType.map((type, i) => {
-                      return (
-                          <Col key={i}>
-                            <Suggestion
-                                scope={"suggestion"}
-                                title={type + " Questions"}
-                                rows={suggestions}
-                            />
+                        <Row>
+                          <Col className="listQuestionsTitle">
+                            <SearchBar />
                           </Col>
-                      );
-                    })}
-                  </Stack>
-                </Row>
-              </>
-              )
-          }
+                        </Row>
+                        <List
+                          scope="questions"
+                          title={locationState.title}
+                          rows={questions}
+                        />
+                      </Col>
+
+                      <Col className="pagination" lg="12" sm="12" md="12">
+                        <PaginationRow />
+                      </Col>
+                    </Row>
+                  </Card>
+                </Container>
+              </Row>
+              <Row>
+                <Stack gap={4}>
+                  {suggestionType.map((type, i) => {
+                    return (
+                      <Col key={i}>
+                        <Suggestion
+                          scope={"suggestion"}
+                          title={type + " Questions"}
+                          rows={suggestions}
+                        />
+                      </Col>
+                    );
+                  })}
+                </Stack>
+              </Row>
+            </>
+          )}
         </Stack>
       </Container>
     </>

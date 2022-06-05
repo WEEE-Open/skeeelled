@@ -39,7 +39,12 @@ function ListDefault({ props }) {
           </thead>
           <tbody>
             {props.rows.map((r, i) => (
-              <ListEntry key={i} row={r} scope={props.scope} dotted={props.dotted} />
+              <ListEntry
+                key={i}
+                row={r}
+                scope={props.scope}
+                dotted={props.dotted}
+              />
             ))}
           </tbody>
         </table>
@@ -124,6 +129,16 @@ function ListSimulationResult({ props }) {
       setActiveKeys([]);
     }
   }, [areAllAccordionItemsOpen, props.rows]);
+
+  // handle cases when user manually opens / closes all accordion items
+  useEffect(() => {
+    if (activeKeys.length === 0) {
+      setAreAllAccordionItemsOpen(false);
+    }
+    if (activeKeys.length === props.rows.length) {
+      setAreAllAccordionItemsOpen(true);
+    }
+  }, [activeKeys.length, props.rows.length]);
 
   const updateActiveKeys = (eventKeys) => {
     setActiveKeys(eventKeys);

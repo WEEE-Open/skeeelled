@@ -27,7 +27,7 @@ import {
 // import API from './api/API'
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true); // TODO: reset to false, true used for debugging purposes
   const [showHints, setShowHints] = useState(false);
   const [showDiscussion, setShowDiscussion] = useState(false);
   const [admin, setAdmin] = useState(false);
