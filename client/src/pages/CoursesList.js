@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { useState /* , useEffect */ } from "react";
 import { Recent, List, SearchBar } from "../base/";
+import { searchCourses } from "../api/API";
 import Suggestion from "../base/Suggestion";
 // import API from "../api/API";
 
