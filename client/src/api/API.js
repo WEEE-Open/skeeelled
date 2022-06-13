@@ -62,9 +62,9 @@ const getCourses = async () => {
   });
 };
 
-const searchCourses = async () => {
+const searchCourses = async (query) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/searchCourses")
+    fetch(prefix + "/searchCourses?query=" + query)
       .then((res) => {
         if (res.status === 404) {
           resolve([]);

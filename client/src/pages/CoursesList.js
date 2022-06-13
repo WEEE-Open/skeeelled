@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { useState /* , useEffect */ } from "react";
 import { Recent, List, SearchBar } from "../base/";
-import { searchCourses } from "../api/API";
+import API from "../api/API";
 import Suggestion from "../base/Suggestion";
 // import API from "../api/API";
 
@@ -124,7 +124,7 @@ function CoursesList() {
             <h3>Courses</h3>
           </Row>
           <Row>
-            <SearchBar />
+            <SearchBar apiCall={API.searchCourses}/>
           </Row>
           {coursesType.map((type) => {
             return (
