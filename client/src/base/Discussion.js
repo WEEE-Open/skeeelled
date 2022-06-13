@@ -35,10 +35,8 @@ const fakeAnswers = [
 
 const no_pages = 5;
 
-function Discussion(props) {
-  const [showDiscussion, setShowDiscussion] = useState(
-    props.showdiscussion || false
-  );
+function Discussion({ showdiscussion }) {
+  const [showDiscussion, setShowDiscussion] = useState(showdiscussion || false);
   const [answers, setAnswers] = useState(fakeAnswers);
   const [currentPage, setCurrentPage] = useState(1);
 

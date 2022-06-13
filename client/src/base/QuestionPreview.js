@@ -10,8 +10,8 @@ import { Card, Button } from "react-bootstrap";
 import "katex/dist/katex.min.css";
 import "highlight.js/styles/github.css";
 
-function QuestionPreview({ question }) {
-  const [showAdvice, setShowAdvice] = useState(false);
+function QuestionPreview({ question, showhints }) {
+  const [showAdvice, setShowAdvice] = useState(showhints || false);
 
   return (
     <Card>

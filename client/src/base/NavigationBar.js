@@ -101,6 +101,7 @@ function NavigationBar(props) {
                 title: "Bookmarked Questions",
                 rows: questions,
               }}
+              className="dropdown-link"
             >
               <NavDropdown.Item href="#action/3.2">Bookmarks</NavDropdown.Item>
             </Link>
