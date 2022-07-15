@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Container, Card, Row, Col, Button, Image, Stack, ListGroup,Accordion} from "react-bootstrap";
+import {Container, Card, Row, Col, Button, Image, Stack, ListGroup,Accordion, DropdownButton, Dropdown} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import "./SimulationAccess.css";
 
@@ -36,7 +36,6 @@ export default function SimulationAccess() {
             course: "Analysis I",
             cfu: 10,
             professor: "Mario Rossi",
-            selected: true,
             enrolled: true
         },
         {
@@ -44,7 +43,6 @@ export default function SimulationAccess() {
             course: "Physics I",
             cfu: 10,
             professor: "Stefano Bianchi",
-            selected:true,
             enrolled: true
         },
         {
@@ -52,129 +50,110 @@ export default function SimulationAccess() {
             course: "Geometry",
             cfu: 10,
             professor: "Giuseppe Verdi",
-            selected: false,
             enrolled: true
         },
     ];
 
-    const [coursesEnrolled, setCoursesEnrolled] = useState(fakeCourses)
+    const [coursesEnrolled, setCoursesEnrolled] = useState(fakeCourses);
     const [simulationResult, setSimulationResult] = useState(fakeSimulationResult);
-
+    const [courseSelected, setCourseSelected] = useState({});
+    const [courseSelectedTitle, setCourseSelectedTitle] = useState("Select Course of Simulation")
     return(
         <>
-            <Container className="simulation-access-container">
+            <Container className="">
                 <h3>Simulation</h3>
                 <Card>
                     <Card.Body>
-                        <Accordion>
-                            <Accordion.Item eventKey="0">
-                                <Accordion.Header>Courses Selected</Accordion.Header>
-                                <Accordion.Body>
-                                    <Stack gap={3}>
-                                        <ListGroup varient="flush">
-                                            {coursesEnrolled.map((e,i) => {
-                                                if (e.selected) {
-                                                    return (
-                                                        <>
-                                                            <ListGroup.Item varient="flush">
-                                                                <Row key={i}>
-                                                                    <Col className="col-3">
-                                                                        <Link
-                                                                            to={{
-                                                                                pathname: "/course/" + e.id,
-                                                                            }}
-                                                                            state={{
-                                                                                courseId: e.id,
-                                                                                title: e.course,
-                                                                            }}>
-                                                                            <h5>{e.course}</h5>
-                                                                        </Link>
-                                                                    </Col>
-                                                                    <Col className="col-3">
-                                                                        <Link
-                                                                            to={{ pathname: "/startsimulation/" + e.id }}
-                                                                            state={{
-                                                                                courseId: e.id,
-                                                                                title: e.course,
-                                                                            }}
-                                                                        >
-                                                                            <Button className="right-button">
-                                                                                <Image
-                                                                                    className="add-icon"
-                                                                                    src={process.env.PUBLIC_URL + "/icons/SIMULATION RESULTS_WHITE.svg"}
-                                                                                    width="13px"
-                                                                                />
-                                                                                {" Start Simulation"}
-                                                                            </Button>
-                                                                        </Link>
-                                                                    </Col>
-                                                                </Row>
-                                                            </ListGroup.Item>
-                                                        </>
-                                                    )
-                                                }
-                                            })}
-                                        </ListGroup>
-                                    </Stack>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                        </Accordion>
-                        <Accordion>
-                            <Accordion.Item eventKey="1">
-                                <Accordion.Header>Courses Enrolled</Accordion.Header>
-                                <Accordion.Body>
-                                    <Stack gap={3}>
-                                        <ListGroup varient="flush">
-                                            {coursesEnrolled.map((e,i) => {
-                                                if (!e.selected && e.enrolled) {
-                                                    return (
-                                                        <>
-                                                            <ListGroup.Item varient="flush" key={i}>
-                                                                <Row>
-                                                                    <Col className="col-3">
-                                                                        <Link
-                                                                            to={{
-                                                                                pathname: "/course/" + e.id,
-                                                                            }}
-                                                                            state={{
-                                                                                courseId: e.id,
-                                                                                title: e.course,
-                                                                            }}>
-                                                                            <h5>{e.course}</h5>
-                                                                        </Link>
-                                                                    </Col>
-                                                                </Row>
-                                                            </ListGroup.Item>
-                                                        </>
-                                                    )
-                                                }
-                                            })}
-                                        </ListGroup>
-                                    </Stack>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                        </Accordion>
-                        <ListGroup className="simulation-access-result">
-                            <h6>Simulation Results</h6>
-                            {simulationResult.map((e,i)=> {
-                                return (
-                                    <>
-                                        <ListGroup.Item varient="flush" key={i}>
-                                            {
-                                                <Row>
-                                                    <Col>{e.course}</Col>
-                                                    <Col>{e.score}</Col>
-                                                    <Col>{e.date}</Col>
-                                                </Row>
+                        <Row className="col-xxl-12">
+                            <Col>
+                                {
+                                    courseSelected.course? (
+                                        <Link
+                                            className="simulation-button"
+                                            to={{
+                                                pathname:
+                                                    "/startsimulation/" + courseSelected.code,
+                                            }}
+                                            state={{
+                                                courseId: courseSelected.code,
+                                                title: courseSelected.course,
+                                            }}
+                                        >
+                                            <Button>
+                                                <Image
+                                                    className="add-icon"
+                                                    src={
+                                                        process.env.PUBLIC_URL +
+                                                        "/icons/SIMULATION RESULTS_WHITE.svg"
+                                                    }
+                                                    width="13px"
+                                                />
+                                                {" Start Simulation"}
+                                            </Button>
+                                        </Link>
+                                    ) : (
+                                        <>
+                                        </>
+                                    )
+                                }
+                                {/*<Link*/}
+                                {/*    to={{ pathname: "/startsimulation/" + e.id }}*/}
+                                {/*    state={{*/}
+                                {/*        courseId: e.id,*/}
+                                {/*        title: e.course,*/}
+                                {/*    }}*/}
+                                {/*>*/}
+                                {/*    <Button className="right-button">*/}
+                                {/*        <Image*/}
+                                {/*            className="add-icon"*/}
+                                {/*            src={process.env.PUBLIC_URL + "/icons/SIMULATION RESULTS_WHITE.svg"}*/}
+                                {/*            width="13px"*/}
+                                {/*        />*/}
+                                {/*        {" Start Simulation"}*/}
+                                {/*    </Button>*/}
+                                {/*</Link>*/}
+                            </Col>
+                            <Col>
+                                <DropdownButton id="dropdown-basic-button" title={courseSelectedTitle}>
+                                    {
+                                        coursesEnrolled.map((e,i) => {
+                                            if(e.enrolled) {
+                                                return (
+                                                    <>
+                                                        <Dropdown.Item key={i} as="button" onClick={()=> {
+                                                            setCourseSelectedTitle(e.course);
+                                                            setCourseSelected(e);
+                                                        }}>{e.course}</Dropdown.Item>
+                                                    </>
+                                                )
                                             }
-                                        </ListGroup.Item>
-                                    </>
-                                )
-                            })}
-                        </ListGroup>
+                                        })
+                                    }
+                                </DropdownButton>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <ListGroup className="simulation-access-result">
+                                <h6>Simulation Results</h6>
+                                {simulationResult.map((e,i)=> {
+                                    return (
+                                        <>
+                                            <ListGroup.Item varient="flush">
+                                                {
+                                                    <Row key={i}>
+                                                        <Col>{e.course}</Col>
+                                                        <Col>{e.score}</Col>
+                                                        <Col>{e.date}</Col>
+                                                    </Row>
+                                                }
+                                            </ListGroup.Item>
+                                        </>
+                                    )
+                                })}
+                            </ListGroup>
+                        </Row>
                     </Card.Body>
                 </Card>
-
             </Container>
         </>
     )
