@@ -8,8 +8,15 @@
   justify-content: center;
 }
 
-.simulation-question-card,
-.simulation-question-text-card,
+.simulation-question-card {
+  border: none;
+}
+.simulation-question-text-card {
+  padding: 10pt;
+  border-radius: 20px;
+  border-color: #C4C4C449;
+  background-color: #C4C4C449;
+}
 .simulation-question-answer-ratio-card {
   padding: 10pt;
   border-radius: 20px;
@@ -18,3 +25,59 @@
   border-radius: 20px;
   padding: 0;
 }
+
+.simulation-container .page-link {
+  border-color: #E08330 ;
+  background-color: #E08330 ;
+  color: white;
+}
+.simulation-container .page-link:hover {
+  color: #E08330 ;
+  background-color: white;
+}
+
+.simulation-container .page-item.active .page-link {
+  color: black ;
+  background-color: white ;
+  border-color: #E08330;
+}
+
+
+
+.simulation-container .btn-outline-success {
+  border-color: #E08330 ;
+  color: black ;
+  background-color: white ;
+}
+.simulation-container .btn-outline-success:hover {
+  border-color: #E08330 ;
+  background-color: #E08330 ;
+  color: white;
+}
+
+.simulation-modal .btn-outline-success {
+  border-color: #E08330 ;
+  color: black ;
+  background-color: white ;
+}
+.simulation-modal .btn-outline-success:hover {
+  border-color: #E08330 ;
+  background-color: #E08330 ;
+  color: white;
+}
+
+.simulation-answer-checkbox .form-check-input  {
+  border-radius: 50px;
+  border-color: #E08330;
+}
+
+.simulation-answer-checkbox .form-check-input:checked {
+  background-color: #E08330;
+}
+
+
+
+
+/*
+  #EDC295 (BUTTON), #E08330 (PAGINATION)
+*/

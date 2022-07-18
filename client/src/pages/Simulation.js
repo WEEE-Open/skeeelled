@@ -112,7 +112,7 @@ const FinishModal = (props) => {
       >
         Finish
       </Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className="simulation-modal">
         <Modal.Header closeButton>
           <Modal.Title>Submit Before the Time Limit?</Modal.Title>
         </Modal.Header>
@@ -178,7 +178,7 @@ export default function Simulation(props) {
     }
 
     return (
-      <Pagination>
+      <Pagination id="simulation-page">
         <Pagination.First />
         {items}
         <Pagination.Last />
@@ -192,7 +192,7 @@ export default function Simulation(props) {
   }, [pageNum]);
 
   return (
-    <Container>
+    <Container className="simulation-container">
       <h3>{locationState.type + " Questions of " + locationState.title}</h3>
       <Duration duration={locationState.duration} />
       <Row className="pagination-finish">
@@ -227,7 +227,7 @@ export default function Simulation(props) {
               <Card className="simulation-question-answer-ratio-card">
                 <Stack gap={1}>
                   {["A", "B", "C", "D"].map((e, i) => {
-                    return <Form.Check key={i} type="checkbox" label={e} />;
+                    return <Form.Check key={i} type="checkbox" label={e} className="simulation-answer-checkbox" />;
                   })}
                 </Stack>
               </Card>
