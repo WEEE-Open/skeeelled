@@ -1,23 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap');
+
+.simulation-result-container .simulation-result-title-text {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+}
+
 .simulation-result-container .result-table-card {
   padding: 20px;
   border: none;
 }
-/*.simulation-result-container .result-table-card .simulation-result-table {*/
-/*  border-width: 150pt;*/
-/*  border-color: #41413f;*/
-/*  border-radius: 20px;*/
-/*}*/
+
+
 
 .simulation-result-container .simulation-title {
+  font-weight: 600; /*Nunito semiBold*/
   color: #E08330;
-}
-
-.simulation-result-container .result-table-card .simulation-result-score {
+  font-style: italic;
+  font-family: "Nunito", sans-serif;
   display: flex;
 }
 
-.simulation-result-container .result-table-card .simulation-result-user-score {
-  color: #00983a;
+.simulation-result-score {
+  padding: 0;
+  display: flex;
+}
+
+.simulation-result-container .simulation-result-score .simulation-result-max-score {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 50px; /*change from pt to px*/
+  display: flex;
+}
+
+.simulation-result-container .simulation-result-score .simulation-result-user-score {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 50px; /*change from pt to px*/
+  color: #00DE09;
 }
 
 .simulation-result-container .simulation-result-start-button .start-button {

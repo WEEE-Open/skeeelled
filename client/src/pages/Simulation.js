@@ -244,7 +244,7 @@ export default function Simulation(props) {
       <Card className="simulation-question-card">
         <Stack gap={3}>
           <Card className="simulation-question-text-card">
-            <h3>{"Question " + pageNum}</h3>
+            <h3 className="simulation-question-title-number">{"Question " + pageNum}</h3>
             <Card.Text>
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
