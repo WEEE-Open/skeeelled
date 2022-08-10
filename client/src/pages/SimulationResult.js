@@ -1,5 +1,5 @@
-import { useLocation } from "react-router-dom";
-import { Card, Container, Table, Stack } from "react-bootstrap";
+import {Link, useLocation} from "react-router-dom";
+import {Card, Container, Table, Stack, Button, Image, Row, Col} from "react-bootstrap";
 import "./SimulationResult.css";
 import { useState } from "react";
 import { List } from "../base";
@@ -91,18 +91,41 @@ export default function SimulationResult() {
 
   return (
     <>
-      <Container>
-        <h3>Simulation Result of {locationState.title}</h3>
+      <Container className="simulation-result-container">
+        <h2>Simulation Result</h2>
+        <Row className="col-sm-8">
+          <Col><h3 className="simulation-title">{locationState.title}</h3></Col>
+          <Col>
+            <Link className="simulation-result-start-button"
+                  to={{
+                    pathname:
+                        "/startsimulation/" + locationState.courseId,
+                  }}
+                  state={{
+                    courseId: locationState.courseId,
+                    title: locationState.title,
+                  }}
+            >
+              <Button className="start-button">
+                <p>Start Another Simulation</p>
+              </Button>
+            </Link>
+          </Col>
+        </Row>
         <h3>
           Time Used: {timeUsed} / {locationState.duration}{" "}
         </h3>
         <Card className="result-table-card">
-          <h1>
-            {numCorrect * pointPerCorrect -
+          <div className="simulation-result-score">
+            <h2 className="simulation-result-user-score">
+              {numCorrect * pointPerCorrect -
               numPenalty * Math.abs(pointPerWrong)}
-            /{maxScore}
-          </h1>
-          <Table striped bordered hover size="lg">
+            </h2>
+            <h2>
+              /{maxScore}
+            </h2>
+          </div>
+          <Table striped bordered hover size="lg" className="simulation-result-table">
             <thead>
               <tr>
                 <th>Result</th>

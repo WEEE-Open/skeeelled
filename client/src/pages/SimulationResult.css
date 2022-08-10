@@ -1,3 +1,40 @@
-.result-table-card {
+.simulation-result-container .result-table-card {
   padding: 20px;
+  border: none;
+}
+/*.simulation-result-container .result-table-card .simulation-result-table {*/
+/*  border-width: 150pt;*/
+/*  border-color: #41413f;*/
+/*  border-radius: 20px;*/
+/*}*/
+
+.simulation-result-container .simulation-title {
+  color: #E08330;
+}
+
+.simulation-result-container .result-table-card .simulation-result-score {
+  display: flex;
+}
+
+.simulation-result-container .result-table-card .simulation-result-user-score {
+  color: #00983a;
+}
+
+.simulation-result-container .simulation-result-start-button .start-button {
+  max-width: 130px;
+  text-align: center;
+  position: relative;
+  font-size: 13px;
+}
+.simulation-result-container .simulation-result-start-button .btn-primary{
+  border-color: #E28111 ;
+  color: black ;
+  background-color: white ;
+  left: 25vw;
+}
+
+.simulation-result-container .simulation-result-start-button .btn-primary:hover{
+  border-color: #E28111  ;
+  background-color: #E28111  ;
+  color: white;
 }

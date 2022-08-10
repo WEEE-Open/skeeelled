@@ -1,4 +1,4 @@
-.outline-secondary {
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Nunito&family=Rubik:wght@700&display=swap');.outline-secondary {
   font-size: 20px;
 }
 .pagination-finish {
@@ -8,14 +8,53 @@
   justify-content: center;
 }
 
+.simulation-container .simulation-title {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700; /*Nunito Bold*/
+  font-size: 41px; /*change from pt to px*/
+}
+
+.simulation-container .simulation-duration {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700; /*Nunito Bold*/
+  font-size: 35px; /*change from pt to px*/
+  color: #9F9F9F;
+}
+
+div.pagination-finish.row > div:nth-child(1) > ul {
+  width: 430px;
+  height: 45px;
+  font-family:  'Nunito', sans-serif;
+  border-radius: 9pt;
+  font-size: 20px ;
+}
+.simulation-container .page-link {
+  border-color: #EA9B57 ;
+  background-color: #EA9B57 ;
+  color: white;
+}
+.simulation-container .page-link:hover {
+  font-weight: 700; /*Nunito Bold*/
+  border-color: #EA9B57 ;
+  background-color: #EA9B57 ;
+  color: white;
+}
+.simulation-container .page-item.active .page-link {
+  font-weight: 900; /*Nunito Black*/
+  border-color: #EA9B57 ;
+  background-color: #EA9B57 ;
+  color: white;
+}
+
 .simulation-question-card {
   border: none;
 }
 .simulation-question-text-card {
+  color: black;
   padding: 10pt;
-  border-radius: 20px;
-  border-color: #C4C4C449;
-  background-color: #C4C4C449;
+  border-radius: 16pt;
+  border-color: #F9F9F9;
+  background-color: #F9F9F9;
 }
 .simulation-question-answer-ratio-card {
   padding: 10pt;
@@ -26,32 +65,17 @@
   padding: 0;
 }
 
-.simulation-container .page-link {
-  border-color: #E08330 ;
-  background-color: #E08330 ;
-  color: white;
-}
-.simulation-container .page-link:hover {
-  color: #E08330 ;
-  background-color: white;
-}
-
-.simulation-container .page-item.active .page-link {
-  color: black ;
-  background-color: white ;
-  border-color: #E08330;
-}
 
 
 
 .simulation-container .btn-outline-success {
-  border-color: #E08330 ;
+  border-color: #EA9B57 ;
   color: black ;
   background-color: white ;
 }
 .simulation-container .btn-outline-success:hover {
-  border-color: #E08330 ;
-  background-color: #E08330 ;
+  border-color: #EA9B57 ;
+  background-color: #EA9B57 ;
   color: white;
 }
 
