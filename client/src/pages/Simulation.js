@@ -133,7 +133,7 @@ const FinishModal = (props) => {
                   }}
               >
                 <Button className="btn-outline-success" variant="outline-success">
-                  Simulation Result
+                  See Result
                 </Button>
               </Link>
             </Modal.Footer>
