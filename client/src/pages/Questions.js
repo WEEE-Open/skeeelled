@@ -179,31 +179,34 @@ const Questions = () => {
               </Col>
             </Row>
           ) : (
-              <>
-                <Row>
-                  <Container className="container">
-                    <Card body>
-
-                      <Row lg={12} className="header">
-                        <Col>
-
-                          <Link
-                              to={{ pathname: "/startsimulation/" + locationState.courseId }}
-                              state={{
-                                courseId: locationState.courseId,
-                                title: locationState.title,
-                              }}
-                          >
-                            <Button className="right-button" onClick={() => {}}>
-                              <Image
-                                  className="add-icon"
-                                  src={process.env.PUBLIC_URL + "/icons/SIMULATION RESULTS_WHITE.svg"}
-                                  width="13px"
-                              />
-                              {" Start Simulation"}
-                            </Button>
-                          </Link>
-
+            <>
+              <Row>
+                <Container className="container">
+                  <Card body>
+                    <Row lg={12} className="header">
+                      <Col>
+                        <Link
+                          to={{
+                            pathname:
+                              "/startsimulation/" + locationState.courseId,
+                          }}
+                          state={{
+                            courseId: locationState.courseId,
+                            title: locationState.title,
+                          }}
+                        >
+                          <Button className="right-button" onClick={() => {}}>
+                            <Image
+                              className="add-icon"
+                              src={
+                                process.env.PUBLIC_URL +
+                                "/icons/SIMULATION RESULTS_WHITE.svg"
+                              }
+                              width="13px"
+                            />
+                            {" Start Simulation"}
+                          </Button>
+                        </Link>
 
                         <Button className="right-button" onClick={() => {}}>
                           <Image

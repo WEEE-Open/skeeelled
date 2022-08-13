@@ -61,13 +61,13 @@
   height: 30px;
   min-width: 60px;
   font-size: 12px;
-  border-color: #E08330 ;
-  color: black ;
-  background-color: white ;
+  border-color: #e08330;
+  color: black;
+  background-color: white;
 }
 .list-simulation-result .btn-outline-success-simulation-result:hover {
-  border-color: #E08330 ;
-  background-color: #E08330 ;
+  border-color: #e08330;
+  background-color: #e08330;
   color: white;
 }
 
