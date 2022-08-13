@@ -148,20 +148,20 @@ function ListSimulationResult({ props }) {
     <>
       <Container className="list-simulation-result">
         <Row>
+          <Col>
+            <h4 className="listSimulationResultTitle">Your Answers</h4>
+          </Col>
           <Col className="col-md-2">
             <Button
-              className="btn-outline-success-simulation-result"
-              variant="outline-success"
-              value="Show/Close"
-              onClick={() => {
-                setAreAllAccordionItemsOpen(!areAllAccordionItemsOpen);
-              }}
+                className="btn-outline-success-simulation-result"
+                variant="outline-success"
+                value="Show/Close"
+                onClick={() => {
+                  setAreAllAccordionItemsOpen(!areAllAccordionItemsOpen);
+                }}
             >
               {areAllAccordionItemsOpen ? "Close All" : "Show All"}
             </Button>
-          </Col>
-          <Col>
-            <h4 className="listSimulationResultTitle">Your Answers</h4>
           </Col>
         </Row>
         <Row>

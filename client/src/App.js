@@ -21,6 +21,7 @@ import {
   StartSimulation,
   Simulation,
   SimulationResult,
+  SimulationAccess
 } from "./pages/";
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'
@@ -111,7 +112,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/settings" element={<UserSettings />} />
               <Route path="/courses" element={<CoursesList />} />
-              <Route path="/course/:coursecode" element={<Questions />} />
+              <Route path="/course/:courseid" element={<Questions />} />
               <Route
                 path="/question/:questionid"
                 element={
@@ -143,7 +144,10 @@ function App() {
                 path="/simulationresult/:courseName"
                 element={<SimulationResult />}
               />
-              {/* <MyQuestions /> */}
+              <Route
+                  path="/simulationview"
+                  element={<SimulationAccess/>}
+              />
             </Routes>
           ) : (
             <Routes>

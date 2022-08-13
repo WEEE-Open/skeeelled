@@ -48,7 +48,7 @@ const Duration = (props) => {
 
   return (
     <>
-      <h3>
+      <h3 className="simulation-duration">
         {timeIn.h.toString().padStart(2, "0")}:
         {timeIn.m.toString().padStart(2, "0")}:
         {timeIn.s.toString().padStart(2, "0")}
@@ -104,49 +104,84 @@ const FinishModal = (props) => {
   }, [timeRecord]);
 
   return (
-    <>
-      <Button
-        className="btn-outline-success"
-        variant="outline-success"
-        onClick={handleShow}
-      >
-        Finish
-      </Button>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Submit Before the Time Limit?</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Confirm your submission to see the result.</Modal.Body>
-        <Modal.Footer>
-          <Link
-            className="outline-secondary"
-            to={{
-              pathname: "/simulationresult/" + props.locationState.courseId,
-            }}
-            state={{
-              courseId: props.locationState.courseId,
-              title: props.locationState.title,
-              num: props.locationState.num,
-              penalty: props.locationState.penalty,
-              max: props.locationState.max,
-              isMulti: props.locationState.isMulti,
-              pointPerCorrectAns:
-                props.locationState.max / props.locationState.num,
-              duration: timeIn,
-              timeElapsed: `${timeRecord.h
-                .toString()
-                .padStart(2, "0")}:${timeRecord.m
-                .toString()
-                .padStart(2, "0")}:${timeRecord.s.toString().padStart(2, "0")}`,
-            }}
-          >
-            <Button className="btn-outline-success" variant="outline-success">
-              Confirm
+      (timeRecord.h === 0 && timeRecord.m === 0 && timeRecord.s === 0)?
+          <Modal show={true} className="simulation-modal">
+            <Modal.Header>
+              <Modal.Title>Time Is Up!</Modal.Title>
+            </Modal.Header>
+            <Modal.Footer>
+              <Link
+                  className="outline-secondary"
+                  to={{
+                    pathname: "/simulationresult/" + props.locationState.courseId,
+                  }}
+                  state={{
+                    courseId: props.locationState.courseId,
+                    title: props.locationState.title,
+                    num: props.locationState.num,
+                    penalty: props.locationState.penalty,
+                    max: props.locationState.max,
+                    isMulti: props.locationState.isMulti,
+                    pointPerCorrectAns:
+                        props.locationState.max / props.locationState.num,
+                    duration: timeIn,
+                    timeElapsed: `${timeRecord.h
+                        .toString()
+                        .padStart(2, "0")}:${timeRecord.m
+                        .toString()
+                        .padStart(2, "0")}:${timeRecord.s.toString().padStart(2, "0")}`,
+                  }}
+              >
+                <Button className="btn-outline-success" variant="outline-success">
+                  See Result
+                </Button>
+              </Link>
+            </Modal.Footer>
+          </Modal>
+          :
+          <>
+            <Button
+                className="btn-outline-success"
+                variant="outline-success"
+                onClick={handleShow}
+            >
+              Finish
             </Button>
-          </Link>
-        </Modal.Footer>
-      </Modal>
-    </>
+            <Modal show={show} onHide={handleClose} className="simulation-modal">
+              <Modal.Header closeButton>
+                <Modal.Title>Submit Before the Time Limit?</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Confirm your submission to see the result.</Modal.Body>
+              <Modal.Footer>
+                <Link
+                    className="outline-secondary"
+                    to={{
+                      pathname: "/simulationresult/" + props.locationState.courseId,
+                    }}
+                    state={{
+                      courseId: props.locationState.courseId,
+                      title: props.locationState.title,
+                      num: props.locationState.num,
+                      penalty: props.locationState.penalty,
+                      max: props.locationState.max,
+                      isMulti: props.locationState.isMulti,
+                      pointPerCorrectAns:
+                          props.locationState.max / props.locationState.num,
+                      duration: timeIn,
+                      timeElapsed: `${timeRecord.h
+                          .toString()
+                          .padStart(2, "0")}:${timeRecord.m
+                          .toString()
+                          .padStart(2, "0")}:${timeRecord.s.toString().padStart(2, "0")}`,
+                    }}
+                >
+                  <Button className="btn-outline-success" variant="outline-success">
+                    Confirm
+                  </Button>
+                </Link>
+              </Modal.Footer>
+            </Modal>
+          </>
   );
 };
 
@@ -192,8 +227,8 @@ export default function Simulation(props) {
   }, [pageNum]);
 
   return (
-    <Container>
-      <h3>{locationState.type + " Questions of " + locationState.title}</h3>
+    <Container className="simulation-container">
+      <h3 className="simulation-title">{locationState.type + " Questions of " + locationState.title}</h3>
       <Duration duration={locationState.duration} />
       <Row className="pagination-finish">
         <Col>
@@ -209,7 +244,7 @@ export default function Simulation(props) {
       <Card className="simulation-question-card">
         <Stack gap={3}>
           <Card className="simulation-question-text-card">
-            <h3>{"Question " + pageNum}</h3>
+            <h3 className="simulation-question-title-number">{"Question " + pageNum}</h3>
             <Card.Text>
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -227,7 +262,7 @@ export default function Simulation(props) {
               <Card className="simulation-question-answer-ratio-card">
                 <Stack gap={1}>
                   {["A", "B", "C", "D"].map((e, i) => {
-                    return <Form.Check key={i} type="checkbox" label={e} />;
+                    return <Form.Check key={i} type="checkbox" label={e} className="simulation-answer-checkbox" />;
                   })}
                 </Stack>
               </Card>

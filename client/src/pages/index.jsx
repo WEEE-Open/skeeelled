@@ -14,6 +14,7 @@ import Bookmarks from "./Bookmarks";
 import StartSimulation from "./StartSimulation";
 import Simulation from "./Simulation";
 import SimulationResult from "./SimulationResult";
+import SimulationAccess from "./SimulationAccess";
 
 export {
   AddQuestion,
@@ -32,4 +33,5 @@ export {
   StartSimulation,
   Simulation,
   SimulationResult,
+  SimulationAccess
 };
