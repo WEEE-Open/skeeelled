@@ -23,6 +23,7 @@ import {
   SimulationResult,
   SimulationAccess,
 } from "./pages/";
+import PythonEditor from "./base/PythonEditor";
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'
 
@@ -145,6 +146,7 @@ function App() {
                 element={<SimulationResult />}
               />
               <Route path="/simulationview" element={<SimulationAccess />} />
+              <Route path="/python-editor" element={<PythonEditor />} /> { /* For debugging purposes */ }  
             </Routes>
           ) : (
             <Routes>

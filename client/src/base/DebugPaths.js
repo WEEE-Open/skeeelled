@@ -43,6 +43,9 @@ function DebugPaths() {
       <Link style={style} to="/todel">
         Exam
       </Link>
+      <Link style={style} to="/python-editor">
+        Python Editor
+      </Link>
     </Alert>
   );
 }
