@@ -9,6 +9,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 import { insertTex, saveImage } from "./textInput/commands";
+import PythonEditor from "react-python-editor";
 
 import "@sahircansurmeli/react-mde/lib/styles/css/react-mde-all.css";
 import "./textInput/textInput.css";
@@ -16,10 +17,11 @@ import "katex/dist/katex.min.css";
 import "highlight.js/styles/github.css";
 import "./MarkdownPreview.css";
 
-function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
+function TextInput({ value, onChange, selectedTab, onTabChange, childProps, pythonQuestion, dark }) {
   const [val, setVal] = useState("");
   const [selTab, setSelTab] = useState("write");
   const [base64Imgs, setBase64Imgs] = useState({});
+  const [editorHeight, setEditorHeight] = useState("100px");
 
   const uploadImage = async function* (data, file) {
     setBase64Imgs((prev) => {
@@ -89,6 +91,22 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
           multiple: true,
         }}
       />
+      {pythonQuestion && (
+        <PythonEditor 
+          editorHeight={editorHeight}
+          outputHeight="100px"
+          dark={dark}
+          onCopy={(file) => console.log(file)}
+          onFullScreen={(fs) => {
+            if (fs) {
+              setEditorHeight("500px");
+            }
+            else {
+              setEditorHeight("100px");
+            }
+          }}
+        />
+      )}
     </Container>
   );
 }

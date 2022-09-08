@@ -8,7 +8,6 @@ import ListGroup from "./ListGroup";
 import TextInput from "./TextInput";
 import QuestionPreview from "./QuestionPreview";
 import Discussion from "./Discussion";
-import PythonEditor from "./PythonEditor";
 
 import SearchBar from "./SearchBar";
 import Suggestion from "./Suggestion";
@@ -28,5 +27,4 @@ export {
   TextInput,
   QuestionPreview,
   Discussion,
-  PythonEditor,
 };
