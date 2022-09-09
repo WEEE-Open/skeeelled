@@ -17,6 +17,33 @@ import "katex/dist/katex.min.css";
 import "highlight.js/styles/github.css";
 import "./MarkdownPreview.css";
 
+const entryFile = [
+  {
+    fullName: "main.py",
+    shortName: "main.py",
+    originalContent: `import micropip
+
+# to install other libraries, simply copy the next line and replace numpy with the name of the library you want to install
+await micropip.install("numpy")
+
+# set up your imports here, below the libraries installation steps
+import numpy as np
+
+# at this point, you can run any standard Python code and the code from the libraries you have installed
+print("Hello World")`,
+    content: `import micropip
+
+# to install other libraries, simply copy the next line and replace numpy with the name of the library you want to install
+await micropip.install("numpy")
+
+# set up your imports here, below the libraries installation steps
+import numpy as np
+
+# at this point, you can run any standard Python code and the code from the libraries you have installed
+print("Hello World")`,
+  },
+];
+
 function TextInput({ value, onChange, selectedTab, onTabChange, childProps, pythonQuestion, dark }) {
   const [val, setVal] = useState("");
   const [selTab, setSelTab] = useState("write");
@@ -63,6 +90,23 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps, pyth
     });
   };
 
+  const handleCopy = (file) => {
+    const newText = (value || val) + `
+\`\`\`py
+# ${file.shortName}
+
+${file.content}
+\`\`\`      
+`;
+
+    if (onChange) {
+      onChange(newText);
+    }
+    else {
+      setVal(newText);
+    }
+  }
+
   return (
     <Container>
       <ReactMde
@@ -92,11 +136,13 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps, pyth
         }}
       />
       {pythonQuestion && (
-        <PythonEditor 
+        <PythonEditor
           editorHeight={editorHeight}
           outputHeight="100px"
           dark={dark}
-          onCopy={(file) => console.log(file)}
+          onCopy={handleCopy}
+          projectFiles={entryFile}
+          backgroundColor={dark ? "#212529" : "#ffffff"}
           onFullScreen={(fs) => {
             if (fs) {
               setEditorHeight("500px");
