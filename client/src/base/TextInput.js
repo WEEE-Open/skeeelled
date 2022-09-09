@@ -17,7 +17,7 @@ import "katex/dist/katex.min.css";
 import "highlight.js/styles/github.css";
 import "./MarkdownPreview.css";
 
-const entryFile = [
+const entryFiles = [
   {
     fullName: "main.py",
     shortName: "main.py",
@@ -91,13 +91,32 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps, pyth
   };
 
   const handleCopy = (file) => {
-    const newText = (value || val) + `
+    const re = new RegExp("\n?```py\n# " + file.shortName + ".*```\n?", "gs");
+    const prev = value || val;
+    let newText;
+
+    // DO NOT MODIFY
+    const code = file.shortName.endsWith(".py") ? `
 \`\`\`py
 # ${file.shortName}
 
 ${file.content}
-\`\`\`      
+\`\`\`
+` : `
+\`\`\`
+${file.content}
+\`\`\`
 `;
+
+    const match = re.exec(prev);
+
+    if (match) {
+      newText = prev.substr(0, match.index) + code + prev.substr(re.lastIndex, prev.length);
+      console.log(match.index, re.lastIndex);
+    }
+    else {
+      newText = prev + code;
+    }
 
     if (onChange) {
       onChange(newText);
@@ -141,7 +160,7 @@ ${file.content}
           outputHeight="100px"
           dark={dark}
           onCopy={handleCopy}
-          projectFiles={entryFile}
+          projectFiles={entryFiles}
           backgroundColor={dark ? "#212529" : "#ffffff"}
           onFullScreen={(fs) => {
             if (fs) {
