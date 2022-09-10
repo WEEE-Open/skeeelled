@@ -11,7 +11,8 @@ import {
   Stack,
   Modal,
 } from "react-bootstrap";
-import "./Simulation.css";
+// import "./Simulation.css";
+import "./stylesheet/Simulation.css"
 import { List, ListEntry, TextInput } from "../base";
 
 const Duration = (props) => {
