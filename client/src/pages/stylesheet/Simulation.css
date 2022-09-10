@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+
 .outline-secondary {
   font-size: 20px;
 }
@@ -63,10 +63,6 @@ div.pagination-finish.row > div:nth-child(1) > ul {
   color: white;
 }
 
-.simulation-question-card {
-  border: none;
-}
-
 .simulation-question-text-card {
   font-family: "Nunito", sans-serif;
   font-weight: 400;
@@ -117,9 +113,9 @@ div.pagination-finish.row > div:nth-child(1) > ul {
 }
 
 .simulation-modal .btn-outline-success:hover {
-  color: black;
+  color: white;
   background-color: #EA9B57;
-  border-color: black;
+  border-color: #EA9B57;
   border-radius: 7pt;
   border-width: 2pt;
 }
