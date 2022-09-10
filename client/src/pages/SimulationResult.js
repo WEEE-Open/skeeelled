@@ -1,6 +1,10 @@
+
 import {Link, useLocation} from "react-router-dom";
 import {Card, Container, Table, Stack, Button, Image, Row, Col} from "react-bootstrap";
 import "./stylesheet/SimulationResult.css";
+
+//import "./SimulationResult.css";
+
 import { useState } from "react";
 import { List } from "../base";
 
@@ -94,17 +98,19 @@ export default function SimulationResult() {
       <Container className="simulation-result-container">
         <Row className="simulation-result-title"><h2 className="simulation-result-title-text">Simulation Result</h2></Row>
         <Row className="col-sm-8">
-          <Col><h3 className="simulation-title">{locationState.title}</h3></Col>
           <Col>
-            <Link className="simulation-result-start-button"
-                  to={{
-                    pathname:
-                        "/startsimulation/" + locationState.courseId,
-                  }}
-                  state={{
-                    courseId: locationState.courseId,
-                    title: locationState.title,
-                  }}
+            <h3 className="simulation-title">{locationState.title}</h3>
+          </Col>
+          <Col>
+            <Link
+              className="simulation-result-start-button"
+              to={{
+                pathname: "/startsimulation/" + locationState.courseId,
+              }}
+              state={{
+                courseId: locationState.courseId,
+                title: locationState.title,
+              }}
             >
               <Button className="start-button">
                 <p>Start New Simulation</p>

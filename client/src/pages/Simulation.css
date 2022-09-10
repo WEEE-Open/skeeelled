@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
 
 .outline-secondary {
   font-size: 20px;
@@ -11,40 +11,40 @@
 }
 
 .simulation-container .simulation-title {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: bold;
   font-size: 41px; /*change from pt to px*/
 }
 
 .simulation-container .simulation-duration {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: bold;
   font-size: 35px; /*change from pt to px*/
-  color: #9F9F9F;
+  color: #9f9f9f;
 }
 
 div.pagination-finish.row > div:nth-child(1) > ul {
   width: 430px;
   height: 45px;
-  font-family:  'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   border-radius: 9pt;
-  font-size: 20px ;
+  font-size: 20px;
 }
 .simulation-container .page-link {
-  border-color: #EA9B57 ;
-  background-color: #EA9B57 ;
+  border-color: #ea9b57;
+  background-color: #ea9b57;
   color: white;
 }
 .simulation-container .page-link:hover {
   font-weight: bold;
-  border-color: #EA9B57 ;
-  background-color: #EA9B57 ;
+  border-color: #ea9b57;
+  background-color: #ea9b57;
   color: white;
 }
 .simulation-container .page-item.active .page-link {
   font-weight: 900; /*Nunito Black*/
-  border-color: #EA9B57 ;
-  background-color: #EA9B57 ;
+  border-color: #ea9b57;
+  background-color: #ea9b57;
   color: white;
 }
 
@@ -53,18 +53,17 @@ div.pagination-finish.row > div:nth-child(1) > ul {
 }
 .simulation-question-text-card {
   font-size: 20px; /*change from pt to px*/
-  font-family:  'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   color: black;
   padding: 10pt;
   border-radius: 16pt;
-  border-color: #F9F9F9;
-  background-color: #F9F9F9;
+  border-color: #f9f9f9;
+  background-color: #f9f9f9;
 }
-.simulation-question-title-number{
+.simulation-question-title-number {
   font-weight: bold;
   font-size: 25px;
 }
-
 
 .simulation-container .btn-outline-success {
   font-size: 17px; /*change from pt to px*/
@@ -72,13 +71,13 @@ div.pagination-finish.row > div:nth-child(1) > ul {
   height: 40px;
   border-width: 2pt;
   border-radius: 7pt;
-  border-color: #EA9B57;
-  color: black ;
-  background-color: white ;
+  border-color: #ea9b57;
+  color: black;
+  background-color: white;
 }
 .simulation-container .btn-outline-success:hover {
-  border-color: #EA9B57 ;
-  background-color: #EA9B57 ;
+  border-color: #ea9b57;
+  background-color: #ea9b57;
   color: white;
 }
 
@@ -87,37 +86,37 @@ div.pagination-finish.row > div:nth-child(1) > ul {
   width: 139px;
   height: 40px;
   border-radius: 7pt;
-  border-color: #EA9B57;
+  border-color: #ea9b57;
   border-width: 2pt;
-  color: black ;
-  background-color: white ;
+  color: black;
+  background-color: white;
 }
 .simulation-modal .btn-outline-success:hover {
   border-radius: 7pt;
-  border-color: #EA9B57 ;
-  background-color: #EA9B57 ;
+  border-color: #ea9b57;
+  background-color: #ea9b57;
   color: white;
 }
 
 .simulation-question-answer-ratio-card {
   padding: 20pt;
   border-radius: 20px;
-  font-family:  'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 22px; /*change from pt to px*/
 }
 .simulation-question-answer {
   padding: 0;
 }
 
-.simulation-answer-checkbox .form-check-input  {
+.simulation-answer-checkbox .form-check-input {
   height: 13px; /*change from pt to px*/
-  width:13px; /*change from pt to px*/
+  width: 13px; /*change from pt to px*/
   border-radius: 50px;
-  border-color: #EA9B57;
+  border-color: #ea9b57;
   border-width: 1pt;
 }
 
 .simulation-answer-checkbox .form-check-input:checked {
-  background-color: #EA9B57;
+  background-color: #ea9b57;
   border-width: 1pt;
 }

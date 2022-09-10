@@ -21,7 +21,7 @@ import {
   StartSimulation,
   Simulation,
   SimulationResult,
-  SimulationAccess
+  SimulationAccess,
 } from "./pages/";
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'
@@ -144,10 +144,7 @@ function App() {
                 path="/simulationresult/:courseName"
                 element={<SimulationResult />}
               />
-              <Route
-                  path="/simulationview"
-                  element={<SimulationAccess/>}
-              />
+              <Route path="/simulationview" element={<SimulationAccess />} />
             </Routes>
           ) : (
             <Routes>
