@@ -9,6 +9,8 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 import { insertTex, saveImage } from "./textInput/commands";
+import { Buffer } from "buffer";
+import Jimp from "jimp";
 
 import "@sahircansurmeli/react-mde/lib/styles/css/react-mde-all.css";
 import "./textInput/textInput.css";
@@ -23,10 +25,19 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
 
   const uploadImage = async function* (data, file) {
     const filename = file.name.replace(/!|\[|\]|\(|\)/g, "");
+    const [mime, b64] = data.split(";base64,");
+    const buffer = Buffer(b64, "base64");
+
+    const image = await Jimp.read(buffer);
+    const processedBuffer = await image.scaleToFit(1024, 1024).getBufferAsync(mime.split("data:").pop());
+
+    const processedData = mime + ";base64," + processedBuffer.toString("base64");
+
+    // const processedImg = await sharp(data).resize(1024, 1024).toBuffer();
     setBase64Imgs((prev) => {
       return {
         ...prev,
-        [filename]: data,
+        [filename]: processedData, // processedImg.toString("base64"),
       };
     });
     yield filename;
