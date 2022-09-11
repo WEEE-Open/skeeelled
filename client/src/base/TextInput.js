@@ -37,11 +37,10 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
 
     const processedData = mime + ";base64," + processedBuffer.toString("base64");
 
-    // const processedImg = await sharp(data).resize(1024, 1024).toBuffer();
     setBase64Imgs((prev) => {
       return {
         ...prev,
-        [filename]: processedData, // processedImg.toString("base64"),
+        [filename]: processedData,
       };
     });
     yield filename;
