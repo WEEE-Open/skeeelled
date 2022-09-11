@@ -22,13 +22,14 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
   const [base64Imgs, setBase64Imgs] = useState({});
 
   const uploadImage = async function* (data, file) {
+    const filename = file.name.replace(/!|\[|\]|\(|\)/g, "");
     setBase64Imgs((prev) => {
       return {
         ...prev,
-        [file.name]: data,
+        [filename]: data,
       };
     });
-    yield file.name;
+    yield filename;
   };
 
   const generatePreviewMarkdown = async (markdown) => {
