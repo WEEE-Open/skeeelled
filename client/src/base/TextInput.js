@@ -24,7 +24,7 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
   const [base64Imgs, setBase64Imgs] = useState({});
 
   const uploadImage = async function* (data, file) {
-    const filename = file.name.replace(/!|\[|\]|\(|\)/g, "");
+    const filename = file.name.replace(/\[|\]|\(|\)/g, "");
     const [mime, b64] = data.split(";base64,");
     const buffer = Buffer(b64, "base64");
 
@@ -55,7 +55,7 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
 
     const re = new RegExp(
       Object.keys(base64Imgs)
-        .map((fn) => `!\\[.*\\]\\(${fn}\\)`)
+        .map((fn) => `!\\[.*\\]\\(${fn.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)`)
         .join("|"),
       "gi"
     );
