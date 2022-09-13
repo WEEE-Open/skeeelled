@@ -153,12 +153,12 @@ function ListSimulationResult({ props }) {
           </Col>
           <Col className="col-md-2">
             <Button
-                className="btn-outline-success-simulation-result"
-                variant="outline-success"
-                value="Show/Close"
-                onClick={() => {
-                  setAreAllAccordionItemsOpen(!areAllAccordionItemsOpen);
-                }}
+              className="btn-outline-success-simulation-result"
+              variant="outline-success"
+              value="Show/Close"
+              onClick={() => {
+                setAreAllAccordionItemsOpen(!areAllAccordionItemsOpen);
+              }}
             >
               {areAllAccordionItemsOpen ? "Close All" : "Show All"}
             </Button>
