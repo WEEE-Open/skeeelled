@@ -9,6 +9,8 @@ from quiz import Quiz
 from bson import ObjectId, DBRef
 from table_names import DbName
 
+from typing import List
+
 app = FastAPI()
 
 db = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongodb:27017/").test_db
@@ -95,21 +97,24 @@ def check_valid_id(id: str):
     return True
 
 
+def paginate_list(result: List, page: int, itemsPerPage: int = -1):
+    if itemsPerPage == -1:
+        return result
+    return result[(page - 1) * itemsPerPage:page * itemsPerPage]
+
+
 @app.get("/v1/myQuestions")
-async def get_user_myQuestion(user_id: str, npages: int, itemsPerPage: int = -1):
+async def get_user_myQuestions(user_id: str, page: int, itemsPerPage: int = -1):
     user_questions = await db[DbName.USER.value].find_one({"_id": user_id}, {"my_Questions": 1})
-    if itemsPerPage != -1:
-        q_list = user_questions["my_Questions"]
-        pages = {}
-        for i in range(0, npages):
-            if len(q_list) < i * itemsPerPage:
-                pages[f"page_#{i}"] = []
-            elif len(q_list) < itemsPerPage + (i * itemsPerPage):
-                pages[f"page_#{i}"] = q_list[i * itemsPerPage:len(q_list) - 1]
-            else:
-                pages[f"page_#{i}"] = q_list[i * itemsPerPage:itemsPerPage + (i * itemsPerPage)]
-        user_questions["my_Questions"] = pages
+    user_questions["my_Questions"] = paginate_list(user_questions["my_Questions"], page, itemsPerPage)
     return JSONResponse(user_questions)
+
+
+@app.get("/v1/myAnswers")
+async def get_user_myAnswers(user_id: str, page: int, itemsPerPage: int = -1):
+    user_answers = await db[DbName.USER.value].find_one({"_id": user_id}, {"my_Answers": 1})
+    user_answers["my_Answers"] = paginate_list(user_answers["my_Answers"], page, itemsPerPage)
+    return JSONResponse(user_answers)
 
 
 @app.get("/v1/searchCourses")

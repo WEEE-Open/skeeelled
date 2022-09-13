@@ -9,6 +9,7 @@ class UserInfo(BaseModel):
 
 
 from course import CourseInfo
+from question import QuestionInfo
 
 
 class User(BaseModel):
@@ -21,8 +22,8 @@ class User(BaseModel):
     is_active: bool = False
     is_professor: bool = False
     is_admin: bool = False
-    related_courses: List = [CourseInfo]
-    my_Questions: List = []
+    related_courses: List[CourseInfo] = []
+    my_Questions: List[QuestionInfo] = []
     # it is a list of Answer id
     my_Answers: List[str] = []
     last_session: float
