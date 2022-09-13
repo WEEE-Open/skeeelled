@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
 .outline-secondary {
   font-size: 20px;
 }
@@ -24,11 +24,6 @@
 }
 
 div.pagination-finish.row {
-  margin: 0;
-  padding: 0;
-}
-
-div.col {
   margin: 0;
   padding: 0;
 }
