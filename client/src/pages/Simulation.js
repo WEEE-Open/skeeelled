@@ -242,7 +242,7 @@ export default function Simulation(props) {
           />
         </Col>
       </Row>
-      <Card className="simulation-question-card">
+      <div className="simulation-question">
         <Stack gap={3}>
           <Card className="simulation-question-text-card">
             <h3 className="simulation-question-title-number">{"Question " + pageNum}</h3>
@@ -270,7 +270,7 @@ export default function Simulation(props) {
             )}
           </Card.Body>
         </Stack>
-      </Card>
+      </div>
     </Container>
   );
 }
