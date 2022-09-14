@@ -22,8 +22,8 @@ const saveImage = {
     for (const index in filteredItems) {
       const blob = items[index];
       
-      if (blob.size >= 10000000) {
-        window.alert(`Error uploading ${blob.name}\nFile size cannot exceed 10 MB`);
+      if (blob.size >= 9437184) {
+        window.alert(`Error uploading ${blob.name}\nFile size cannot exceed 9 MB`);
         continue;
       }
 
