@@ -29,13 +29,16 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
     const buffer = Buffer(b64, "base64");
 
     const image = await Jimp.read(buffer);
-    
-    const processedBuffer = image.getWidth() > 1024 || image.getHeight() > 1024
-      ? await image.scaleToFit(1024, 1024).getBufferAsync(mime.split("data:").pop())
-      : b64;
-    
 
-    const processedData = mime + ";base64," + processedBuffer.toString("base64");
+    const processedBuffer =
+      image.getWidth() > 1024 || image.getHeight() > 1024
+        ? await image
+            .scaleToFit(1024, 1024)
+            .getBufferAsync(mime.split("data:").pop())
+        : b64;
+
+    const processedData =
+      mime + ";base64," + processedBuffer.toString("base64");
 
     setBase64Imgs((prev) => {
       return {
@@ -55,7 +58,9 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
 
     const re = new RegExp(
       Object.keys(base64Imgs)
-        .map((fn) => `!\\[.*\\]\\(${fn.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)`)
+        .map(
+          (fn) => `!\\[.*\\]\\(${fn.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\)`
+        )
         .join("|"),
       "gi"
     );
