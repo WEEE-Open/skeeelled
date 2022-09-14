@@ -20,6 +20,13 @@ const saveImage = {
     const filteredItems = filterItems(items, { multiple, accept });
 
     for (const index in filteredItems) {
+      const blob = items[index];
+      
+      if (blob.size >= 9437184) {
+        window.alert(`Error uploading ${blob.name}\nFile size cannot exceed 9 MB`);
+        continue;
+      }
+
       const initialState = textApi.getState();
       const breaksBeforeCount = MarkdownUtil.getBreaksNeededForEmptyLineBefore(
         initialState.text,
@@ -31,7 +38,6 @@ const saveImage = {
 
       textApi.replaceSelection(placeHolder);
 
-      const blob = items[index];
       const blobContents = await readFileAsync(blob);
       const savingImage = saveImage(blobContents, blob);
       const imageUrl = (await savingImage.next()).value;
