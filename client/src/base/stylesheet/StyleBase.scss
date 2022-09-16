@@ -27,13 +27,10 @@
   width: $w;
 }
 
-@mixin header-component($border-width: 3pt,$border-color:#797979, $height: 80px, $border-radius:16pt) {
+@mixin header-component($border-width: 3pt, $border-color:#797979, $border-radius:16px) {
   border-width: $border-width;
   border-color: $border-color;
-  border-radius: $border-radius;
-  height: $height;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
 }
 
-//@mixin table-list-title ($name, $border-color: black) {
-//  border-color: $border-color;
-//}
