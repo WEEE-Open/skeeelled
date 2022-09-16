@@ -1,10 +1,8 @@
 
 import {Link, useLocation} from "react-router-dom";
 import {Card, Container, Table, Stack, Button, Image, Row, Col} from "react-bootstrap";
-import "./stylesheet/SimulationResult.css";
-
+import "./stylesheet/SimulationResult.css"; // scss file access
 //import "./SimulationResult.css";
-
 import { useState } from "react";
 import { List } from "../base";
 

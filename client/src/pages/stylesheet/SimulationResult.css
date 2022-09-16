@@ -68,7 +68,6 @@
 
 .simulation-result-container table {
   color: #797979;
-  border-radius: 16pt;
   background-color: rgba(121, 121, 121, 0.05);
 }
 
@@ -77,7 +76,7 @@
   border-width: 3pt;
   border-color: #797979;
   border-radius: 16pt;
-  height: 80px;
+  height: 75px;
 }
 
 /*# sourceMappingURL=SimulationResult.css.map */

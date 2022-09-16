@@ -1,6 +1,7 @@
 import { Row, Col, Card, Image } from "react-bootstrap";
 import { useState } from "react";
-import "./Profile.css";
+// import "./Profile.css";
+import "./stylesheet/Profile.css"; // scss file access
 import { ListGroup, SearchBar } from "../base/";
 
 function Profile() {
@@ -44,11 +45,11 @@ function Profile() {
     <Card body>
       <Row lg={12} className="py-0 header">
         <Col xs={2}>
-          <Image src={process.env.PUBLIC_URL + "/icons/PERSON.svg"} />
+          <Image src={process.env.PUBLIC_URL + "/icons/PERSON.svg"}  className="user-profile-image"/>
         </Col>
-        <Col>
-          <h3>Name Surname</h3>
-          <h4>@Nickname</h4>
+        <Col className="user-name-nickname">
+          <h3 className="user-name-surname">Name Surname</h3>
+          <h4 className="user-nickname">@nickname</h4>
         </Col>
       </Row>
       <ListGroup lists={tests} cols={2} rounded dotted />

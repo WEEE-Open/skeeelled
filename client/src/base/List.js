@@ -11,7 +11,8 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ListEntry, SearchBar } from "./";
-import "./List.css";
+// import "./List.css";
+import"./stylesheet/List.css" // scss file access
 import { useEffect, useState } from "react";
 
 function HeaderColspan(scope) {

@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.list {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.listTitle {
+  padding: 12px;
+  background-color: white;
+  color: black;
+  border-width: 3px;
+}
+
+.listQuestionsTitle {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.listAnswers tr:nth-child(4n+1) {
+  background-color: #eee;
+}
+
+.roundedList {
+  border-spacing: 0;
+  border-collapse: separate;
+  width: 100%;
+}
+
+.roundedList th {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 25; /*change from pt to px*/
+}
+
+.roundedList td {
+  padding: 0.5rem;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 21; /*change from pt to px*/
+}
+
+.roundedList tr:nth-child(odd) {
+  background-color: #eee;
+}
+
+.roundedList tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+.roundedList tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+.listSuggestionTitle {
+  padding: 5px;
+}
+
+.suggestion {
+  padding: 5px;
+}
+
+.listSuggestion-questions {
+  padding: 5px;
+}
+
+.list-simulation-result .btn-outline-success-simulation-result {
+  height: 30px;
+  min-width: 60px;
+  font-size: 12px;
+  border-color: #e08330;
+  color: black;
+  background-color: white;
+}
+
+.list-simulation-result .btn-outline-success-simulation-result:hover {
+  border-color: #e08330;
+  background-color: #e08330;
+  color: white;
+}
+
+.add-icon {
+  margin-top: -2px;
+}
+
+/*# sourceMappingURL=List.css.map */

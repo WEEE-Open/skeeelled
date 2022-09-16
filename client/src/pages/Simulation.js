@@ -12,7 +12,7 @@ import {
   Modal,
 } from "react-bootstrap";
 // import "./Simulation.css";
-import "./stylesheet/Simulation.css"
+import "./stylesheet/Simulation.css" // scss file access
 import { List, ListEntry, TextInput } from "../base";
 
 const Duration = (props) => {

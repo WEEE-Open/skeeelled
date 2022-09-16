@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap');
+@import "./StyleBase";
+
+.header {
+  padding-bottom: 40px;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+h3 {
+  @include font-Nunito($size:41px,$weight:bold);
+}
+
+h4 {
+  @include font-Nunito($size:28px);
+}
+
+
+.innerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background-color: #00983a;
+  color: white;
+  margin-top: 40px;
+  border-radius: 5px;
+}
+
+
+
+.user-name-nickname > img {
+  height: 150px;
+  width: 160px
+}

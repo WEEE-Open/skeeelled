@@ -48,17 +48,12 @@
   @include button-color-radius($border-color:#E28111, $background-color: #E28111, $color: white);
 }
 
-
 .simulation-result-container table{
   color:#797979;
-  border-radius: 16pt;
   background-color: rgba(121, 121, 121, 0.05);
 }
 
 .simulation-result-container table > thead {
   vertical-align: middle;
-  @include header-component()
+  @include header-component($height:75px);
 }
-
-
-
