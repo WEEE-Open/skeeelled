@@ -34,3 +34,30 @@ h4 {
   height: 150px;
   width: 160px
 }
+
+.user-profile .default-table-my-questions .listTitle {
+  border-color: #4D86C1;
+  color:#4D86C1;
+}
+
+.user-profile .default-table-my-questions .list-body > tr > td > .table-dot {
+  @include table-dot-margin-color($color:#4D86C1)
+}
+
+.user-profile .default-table-my-answers .listTitle {
+  border-color: #EBACE7;
+  color:#EBACE7;
+}
+
+.user-profile .default-table-my-answers .list-body > tr > td > .table-dot {
+  @include table-dot-margin-color($color:#EBACE7)
+}
+
+.user-profile .default-table-my-simulation-results .listTitle {
+  border-color: #E28111;
+  color:#E28111;
+}
+
+.user-profile .default-table-my-simulation-results .list-body > tr > td > .table-dot {
+  @include table-dot-margin-color($color:#E28111)
+}

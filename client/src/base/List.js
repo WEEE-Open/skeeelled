@@ -30,7 +30,7 @@ function ListDefault({ props }) {
   return (
     <>
       {props.rounded ? (
-          <div className={"default-table-" + ((props.title).toLowerCase()).replace(/\s/g, "-")}>
+          <div className={"default-table-" + ((props.title).toLowerCase().replace(/\s/g, "-"))}>
             <table className="list roundedList">
               <thead>
                 <tr>

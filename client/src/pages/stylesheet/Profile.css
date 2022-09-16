@@ -35,4 +35,43 @@ h4 {
   width: 160px;
 }
 
+.user-profile .default-table-my-questions .listTitle {
+  border-color: #4D86C1;
+  color: #4D86C1;
+}
+
+.user-profile .default-table-my-questions .list-body > tr > td > .table-dot {
+  color: #4D86C1;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+.user-profile .default-table-my-answers .listTitle {
+  border-color: #EBACE7;
+  color: #EBACE7;
+}
+
+.user-profile .default-table-my-answers .list-body > tr > td > .table-dot {
+  color: #EBACE7;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+.user-profile .default-table-my-simulation-results .listTitle {
+  border-color: #E28111;
+  color: #E28111;
+}
+
+.user-profile .default-table-my-simulation-results .list-body > tr > td > .table-dot {
+  color: #E28111;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
 /*# sourceMappingURL=Profile.css.map */

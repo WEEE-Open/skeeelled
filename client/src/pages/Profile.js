@@ -52,7 +52,9 @@ function Profile() {
           <h4 className="user-nickname">@nickname</h4>
         </Col>
       </Row>
-      <ListGroup lists={tests} cols={2} rounded dotted />
+      <div className="user-profile">
+        <ListGroup lists={tests} cols={2} rounded dotted />
+      </div>
     </Card>
   );
 }
