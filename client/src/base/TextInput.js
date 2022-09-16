@@ -9,6 +9,8 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 import { insertTex, saveImage } from "./textInput/commands";
+import { Buffer } from "buffer";
+import Jimp from "jimp";
 
 import "@sahircansurmeli/react-mde/lib/styles/css/react-mde-all.css";
 import "./textInput/textInput.css";
@@ -22,13 +24,29 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
   const [base64Imgs, setBase64Imgs] = useState({});
 
   const uploadImage = async function* (data, file) {
+    const filename = file.name.replace(/\[|\]|\(|\)/g, "");
+    const [mime, b64] = data.split(";base64,");
+    const buffer = Buffer(b64, "base64");
+
+    const image = await Jimp.read(buffer);
+
+    const processedBuffer =
+      image.getWidth() > 1024 || image.getHeight() > 1024
+        ? await image
+            .scaleToFit(1024, 1024)
+            .getBufferAsync(mime.split("data:").pop())
+        : b64;
+
+    const processedData =
+      mime + ";base64," + processedBuffer.toString("base64");
+
     setBase64Imgs((prev) => {
       return {
         ...prev,
-        [file.name]: data,
+        [filename]: processedData,
       };
     });
-    yield file.name;
+    yield filename;
   };
 
   const generatePreviewMarkdown = async (markdown) => {
@@ -40,7 +58,9 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
 
     const re = new RegExp(
       Object.keys(base64Imgs)
-        .map((fn) => `!\\[.*\\]\\(${fn}\\)`)
+        .map(
+          (fn) => `!\\[.*\\]\\(${fn.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\)`
+        )
         .join("|"),
       "gi"
     );
