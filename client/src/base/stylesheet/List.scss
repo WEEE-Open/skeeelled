@@ -1,0 +1,86 @@
+@import "StyleBase.scss";
+
+// !important! //
+.list {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.listTitle {
+  padding: 12px;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  @include header-component();
+}
+
+.listQuestionsTitle {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.listAnswers tr:nth-child(4n + 1) {
+  background-color: #eee;
+}
+
+.roundedList {
+  border-spacing: 0;
+  border-collapse: separate;
+  width: 100%;
+}
+
+.roundedList th {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  @include font-Quicksand($size:25px, $weight:bold);
+}
+
+
+.roundedList td {
+  padding: 0.5rem;
+  @include font-Nunito($size: 21px);
+}
+
+.roundedList tr:nth-child(odd) {
+  background-color: #eee;
+}
+
+.roundedList tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+.roundedList tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+// !important! //
+
+.listSuggestionTitle {
+  padding: 5px;
+}
+
+.suggestion {
+  padding: 5px;
+}
+
+.listSuggestion-questions {
+  padding: 5px;
+}
+
+.list-simulation-result .btn-outline-success-simulation-result {
+  height: 30px;
+  min-width: 60px;
+  font-size: 12px;
+  border-color: #e08330;
+  color: black;
+  background-color: white;
+}
+.list-simulation-result .btn-outline-success-simulation-result:hover {
+  border-color: #e08330;
+  background-color: #e08330;
+  color: white;
+}
+
+.add-icon {
+  margin-top: -2px;
+}
+

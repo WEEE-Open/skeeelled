@@ -11,7 +11,8 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ListEntry, SearchBar } from "./";
-import "./List.css";
+// import "./List.css";
+import"./stylesheet/List.css" // scss file access
 import { useEffect, useState } from "react";
 
 function HeaderColspan(scope) {
@@ -29,38 +30,42 @@ function ListDefault({ props }) {
   return (
     <>
       {props.rounded ? (
-        <table className="list roundedList">
-          <thead>
-            <tr>
-              <th className="listTitle" colSpan={HeaderColspan(props.scope)}>
-                {props.title}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.rows.map((r, i) => (
-              <ListEntry
-                key={i}
-                row={r}
-                scope={props.scope}
-                dotted={props.dotted}
-              />
-            ))}
-          </tbody>
-        </table>
+          <div className={"default-table-" + ((props.title).toLowerCase().replace(/\s/g, "-"))}>
+            <table className="list roundedList">
+              <thead>
+                <tr>
+                  <th className="listTitle" colSpan={HeaderColspan(props.scope)}>
+                    {props.title}
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="list-body">
+                {props.rows.map((r, i) => (
+                  <ListEntry
+                    key={i}
+                    row={r}
+                    scope={props.scope}
+                    dotted={props.dotted}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
       ) : (
-        <Table striped borderless className="list">
-          <thead className="listTitle">
-            <tr>
-              <th colSpan={HeaderColspan(props.scope)}>{props.title}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.rows.map((r, i) => (
-              <ListEntry key={i} scope={props.scope} row={r} />
-            ))}
-          </tbody>
-        </Table>
+          <div className={"default-table-" + (props.title).toLowerCase() }>
+            <Table striped borderless className="list">
+              <thead className="listTitle">
+                <tr>
+                  <th colSpan={HeaderColspan(props.scope)}>{props.title}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {props.rows.map((r, i) => (
+                  <ListEntry key={i} scope={props.scope} row={r} />
+                ))}
+              </tbody>
+            </Table>
+          </div>
       )}
     </>
   );
@@ -105,7 +110,7 @@ function ListSuggestion({ props }) {
   return (
     <>
       <Container>
-        <h3 className="listSuggestionTitle">{props.title}</h3>
+        <h3 className="list-suggestion-title">{props.title}</h3>
         <div className="listSuggestion-questions">
           {props.rows.map((r, i) => (
             <ListEntry key={i} scope={props.scope} row={r} />
