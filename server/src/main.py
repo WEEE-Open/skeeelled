@@ -97,16 +97,19 @@ def check_valid_id(id: str):
     return True
 
 
-def paginate_list(result: List, page: int, itemsPerPage: int = -1):
+def paginate_list(result: List, page: int, itemsPerPage: int = -1, sort_key: str = None, sort_desc: bool = False):
+    if sort_key:
+        print("sort")
+        result.sort(key=lambda x: x[sort_key], reverse=sort_desc)
     if itemsPerPage == -1:
         return result
     return result[(page - 1) * itemsPerPage:page * itemsPerPage]
 
 
 @app.get("/v1/myQuestions")
-async def get_user_myQuestions(user_id: str, page: int, itemsPerPage: int = -1):
+async def get_user_myQuestions(user_id: str, page: int = 1, itemsPerPage: int = -1):
     user_questions = await db[DbName.USER.value].find_one({"_id": user_id}, {"my_Questions": 1})
-    user_questions["my_Questions"] = paginate_list(user_questions["my_Questions"], page, itemsPerPage)
+    user_questions["my_Questions"] = paginate_list(user_questions["my_Questions"], page, itemsPerPage, "timestamp", True)
     return JSONResponse(user_questions)
 
 

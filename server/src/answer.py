@@ -10,6 +10,7 @@ class AnswerInfo(BaseModel):
     text: str
     upvotes: int
     downvotes: int
+    timestamp: float
 
 
 class Answer(BaseModel):
