@@ -19,7 +19,7 @@
   font-family: "Nunito", sans-serif;
   font-weight: bold;
   font-size: 35px; /*change from pt to px*/
-  color: #9F9F9F;
+  color: #9f9f9f;
 }
 
 div.pagination-finish.row {
@@ -38,22 +38,22 @@ div.pagination-finish.row > div:nth-child(1) > ul {
 }
 
 .simulation-container .page-link {
-  border-color: #EA9B57;
-  background-color: #EA9B57;
+  border-color: #ea9b57;
+  background-color: #ea9b57;
   color: white;
 }
 
 .simulation-container .page-link:hover {
   font-weight: 900; /* black */
-  border-color: #EA9B57;
-  background-color: #EA9B57;
+  border-color: #ea9b57;
+  background-color: #ea9b57;
   color: white;
 }
 
 .simulation-container .page-item.active .page-link {
   font-weight: 900; /* black */
-  border-color: #EA9B57;
-  background-color: #EA9B57;
+  border-color: #ea9b57;
+  background-color: #ea9b57;
   color: white;
 }
 
@@ -64,7 +64,7 @@ div.pagination-finish.row > div:nth-child(1) > ul {
   color: black;
   padding: 10pt;
   border-radius: 16pt;
-  border-color: #F9F9F9;
+  border-color: #f9f9f9;
   background-color: rgba(112, 112, 112, 0.24); /* #707070 with opacity*/
 }
 
@@ -82,15 +82,15 @@ div.pagination-finish.row > div:nth-child(1) > ul {
   height: 40px;
   color: black;
   background-color: white;
-  border-color: #EA9B57;
+  border-color: #ea9b57;
   border-radius: 7pt;
   border-width: 2pt;
 }
 
 .simulation-container .btn-outline-success:hover {
   color: white;
-  background-color: #EA9B57;
-  border-color: #EA9B57;
+  background-color: #ea9b57;
+  border-color: #ea9b57;
   border-radius: 7pt;
   border-width: 2pt;
 }
@@ -101,15 +101,15 @@ div.pagination-finish.row > div:nth-child(1) > ul {
   height: 40px;
   color: black;
   background-color: white;
-  border-color: #EA9B57;
+  border-color: #ea9b57;
   border-radius: 7pt;
   border-width: 2pt;
 }
 
 .simulation-modal .btn-outline-success:hover {
   color: white;
-  background-color: #EA9B57;
-  border-color: #EA9B57;
+  background-color: #ea9b57;
+  border-color: #ea9b57;
   border-radius: 7pt;
   border-width: 2pt;
 }
@@ -129,12 +129,12 @@ div.pagination-finish.row > div:nth-child(1) > ul {
   height: 13px; /*change from pt to px*/
   width: 13px; /*change from pt to px*/
   border-radius: 50px;
-  border-color: #EA9B57;
+  border-color: #ea9b57;
   border-width: 1pt;
 }
 
 .simulation-answer-checkbox .form-check-input:checked {
-  background-color: #EA9B57;
+  background-color: #ea9b57;
   border-width: 1pt;
 }
 

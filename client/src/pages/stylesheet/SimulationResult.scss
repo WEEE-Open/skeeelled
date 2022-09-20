@@ -5,15 +5,14 @@
 }
 
 .simulation-result-container .simulation-result-title-text {
-  padding:0;
-  @include font-Nunito($weight:bold, $size: 41px);
+  padding: 0;
+  @include font-Nunito($weight: bold, $size: 41px);
 }
 
-
 .simulation-result-container .simulation-title {
-  color: #E08330;
+  color: #e08330;
   font-style: italic;
-  @include font-Nunito($weight:bold, $size: 41px);
+  @include font-Nunito($weight: bold, $size: 41px);
   display: flex;
 }
 
@@ -22,13 +21,17 @@
   display: flex;
 }
 
-.simulation-result-container .simulation-result-score .simulation-result-max-score {
-  @include font-Nunito($weight:bold, $size: 50px);
+.simulation-result-container
+  .simulation-result-score
+  .simulation-result-max-score {
+  @include font-Nunito($weight: bold, $size: 50px);
 }
 
-.simulation-result-container .simulation-result-score .simulation-result-user-score {
-  @include font-Nunito($weight:bold, $size:50px);
-  color: #00DE09;
+.simulation-result-container
+  .simulation-result-score
+  .simulation-result-user-score {
+  @include font-Nunito($weight: bold, $size: 50px);
+  color: #00de09;
 }
 
 .simulation-result-container .simulation-result-start-button .start-button {
@@ -37,27 +40,32 @@
   position: relative;
   padding: 1pt;
 }
-.simulation-result-container .simulation-result-start-button .btn-primary{
-  @include button-dimensions($h:55px);
-  @include button-color-radius($border-color:#E28111, $border-width:2px );
+.simulation-result-container .simulation-result-start-button .btn-primary {
+  @include button-dimensions($h: 55px);
+  @include button-color-radius($border-color: #e28111, $border-width: 2px);
   @include font-Quicksand($size: 17px);
 }
 
-.simulation-result-container .simulation-result-start-button .btn-primary:hover{
-  @include button-color-radius($border-color:#E28111, $background-color: #E28111, $color: white);
+.simulation-result-container
+  .simulation-result-start-button
+  .btn-primary:hover {
+  @include button-color-radius(
+    $border-color: #e28111,
+    $background-color: #e28111,
+    $color: white
+  );
 }
 
-.simulation-result-container table{
-  color:#797979;
+.simulation-result-container table {
+  color: #797979;
   background-color: rgba(121, 121, 121, 0.05);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  @include font-Nunito($size:25px, $weight:400);
+  @include font-Nunito($size: 25px, $weight: 400);
 }
 
 .simulation-result-container table > thead {
   vertical-align: middle;
-  @include header-component($height:75px);
-  @include font-Quicksand($size:25px, $weight:400);
+  @include header-component($height: 75px);
+  @include font-Quicksand($size: 25px, $weight: 400);
 }
-

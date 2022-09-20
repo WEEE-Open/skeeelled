@@ -9,13 +9,12 @@
 }
 
 h3 {
-  @include font-Nunito($size:41px,$weight:bold);
+  @include font-Nunito($size: 41px, $weight: bold);
 }
 
 h4 {
-  @include font-Nunito($size:28px);
+  @include font-Nunito($size: 28px);
 }
-
 
 .innerHeader {
   display: flex;
@@ -28,35 +27,39 @@ h4 {
   border-radius: 5px;
 }
 
-
 .user-name-nickname > img {
   height: 150px;
-  width: 160px
+  width: 160px;
 }
 
 .user-profile .default-table-my-questions .listTitle {
-  border-color: #4D86C1;
-  color:#4D86C1;
+  border-color: #4d86c1;
+  color: #4d86c1;
 }
 
 .user-profile .default-table-my-questions .list-body > tr > td > .table-dot {
-  @include table-dot-margin-color($color:#4D86C1)
+  @include table-dot-margin-color($color: #4d86c1);
 }
 
 .user-profile .default-table-my-answers .listTitle {
-  border-color: #EBACE7;
-  color:#EBACE7;
+  border-color: #ebace7;
+  color: #ebace7;
 }
 
 .user-profile .default-table-my-answers .list-body > tr > td > .table-dot {
-  @include table-dot-margin-color($color:#EBACE7)
+  @include table-dot-margin-color($color: #ebace7);
 }
 
 .user-profile .default-table-my-simulation-results .listTitle {
-  border-color: #E28111;
-  color:#E28111;
+  border-color: #e28111;
+  color: #e28111;
 }
 
-.user-profile .default-table-my-simulation-results .list-body > tr > td > .table-dot {
-  @include table-dot-margin-color($color:#E28111)
+.user-profile
+  .default-table-my-simulation-results
+  .list-body
+  > tr
+  > td
+  > .table-dot {
+  @include table-dot-margin-color($color: #e28111);
 }
