@@ -1,6 +1,6 @@
 @import "StyleBase.scss";
 
-
+// !important! //
 .list {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -52,6 +52,7 @@
 .roundedList tr:last-child td:last-child {
   border-bottom-right-radius: 10px;
 }
+// !important! //
 
 .listSuggestionTitle {
   padding: 5px;
@@ -82,3 +83,4 @@
 .add-icon {
   margin-top: -2px;
 }
+

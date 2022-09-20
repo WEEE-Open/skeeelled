@@ -68,6 +68,11 @@
 .simulation-result-container table {
   color: #797979;
   background-color: rgba(121, 121, 121, 0.05);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 25px; /*change from pt to px*/
 }
 
 .simulation-result-container table > thead {
@@ -76,6 +81,9 @@
   border-color: #797979;
   border-radius: 16pt;
   height: 75px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 25px; /*change from pt to px*/
 }
 
 /*# sourceMappingURL=SimulationResult.css.map */
