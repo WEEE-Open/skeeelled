@@ -26,6 +26,7 @@ class User(BaseModel):
     related_courses: List[CourseInfo] = []
     my_Questions: List[QuestionInfo] = []
     my_Answers: List[AnswerInfo] = []
+    my_BookmarkedQuestions: List[QuestionInfo] = []
     last_session: float
     credibility_rate: float = -1.0
     simulation_result: List[float] = []
