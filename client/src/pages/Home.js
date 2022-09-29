@@ -1,6 +1,6 @@
 import { Row, Col, Card } from "react-bootstrap";
 import { useState } from "react";
-import "./stylesheet/Home.css"
+import "./stylesheet/Home.css";
 import { ListGroup, SearchBar } from "../base/";
 
 function Home() {

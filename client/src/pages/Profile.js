@@ -45,7 +45,10 @@ function Profile() {
     <Card body>
       <Row lg={12} className="py-0 header">
         <Col xs={2}>
-          <Image src={process.env.PUBLIC_URL + "/icons/PERSON.svg"}  className="user-profile-image"/>
+          <Image
+            src={process.env.PUBLIC_URL + "/icons/PERSON.svg"}
+            className="user-profile-image"
+          />
         </Col>
         <Col className="user-name-nickname">
           <h3 className="user-name-surname">Name Surname</h3>
