@@ -5,6 +5,6 @@ class DbName(Enum):
 	COURSE = "courses"
 	USER = "users"
 	QUESTION = "questions"
-	EXAM_SIM = "ExamSimulation"
+	EXAM_SIM = "ExamSimulations"
 	QUIZ = "quizzes"
 	ANSWER = "answers"
