@@ -145,6 +145,7 @@ function App() {
                 element={<SimulationResult />}
               />
               <Route path="/simulationview" element={<SimulationAccess />} />
+              <Route path="/python-editor" element={<TextInput dark={dark} pythonQuestion/>} /> { /* For debugging purposes */ }  
             </Routes>
           ) : (
             <Routes>
