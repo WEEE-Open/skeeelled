@@ -7,7 +7,7 @@ import {
   Form,
   FloatingLabel,
   Button,
-  Image,
+  Image, Stack,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ListEntry, SearchBar } from "./";
@@ -75,6 +75,7 @@ function ListQuestions({ props }) {
   return (
     <>
       <h3 className="listQuestionsTitle">{props.title}</h3>
+      <SearchBar/>
       {props.rows.map((r, i) => (
         <ListEntry key={i} scope={props.scope} row={r} />
       ))}
@@ -112,9 +113,11 @@ function ListSuggestion({ props }) {
       <Container>
         <h3 className="list-suggestion-title">{props.title}</h3>
         <div className="listSuggestion-questions">
-          {props.rows.map((r, i) => (
-            <ListEntry key={i} scope={props.scope} row={r} />
-          ))}
+          <Stack gap={3}>
+            {props.rows.map((r, i) => (
+                <ListEntry key={i} scope={props.scope} row={r} />
+            ))}
+          </Stack>
         </div>
       </Container>
     </>

@@ -61,11 +61,11 @@ div.pagination-finish.row > div:nth-child(1) > ul {
   font-family: "Nunito", sans-serif;
   font-weight: 400;
   font-size: 20px; /*change from pt to px*/
-  color: black;
+  color: #707070;
   padding: 10pt;
   border-radius: 16pt;
   border-color: #F9F9F9;
-  background-color: rgba(112, 112, 112, 0.24); /* #707070 with opacity*/
+  background-color: #F9F9F9; /* #707070 with opacity*/
 }
 
 .simulation-question-title-number {

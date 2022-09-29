@@ -51,11 +51,11 @@ div.pagination-finish.row > div:nth-child(1) > ul {
 
 .simulation-question-text-card {
   @include font-Nunito($size: 20px);
-  color: black;
+  color: #707070;
   padding: 10pt;
   border-radius: 16pt;
   border-color: #F9F9F9;
-  background-color: rgba(112, 112, 112, 0.24); /* #707070 with opacity*/
+  background-color: #F9F9F9; /* #707070 with opacity*/
 }
 .simulation-question-title-number{
   @include font-Nunito($size: 25px, $weight: bold);
@@ -105,3 +105,4 @@ div.pagination-finish.row > div:nth-child(1) > ul {
   background-color: #EA9B57;
   border-width: 1pt;
 }
+

@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.suggestion-container {
+  font-size: 12px;
+}
+
+.suggestion-card {
+  border-radius: 16px;
+  height: 357px;
+  width: 335px;
+  background-color: rgba(77, 134, 193, 0.1);
+  border: none;
+}
+
+@media screen and (max-width: 900px) {
+  #suggestion-container {
+    font-size: 10px;
+  }
+}
+.suggestion-card .list-suggestion-title {
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 25px; /*change from pt to px*/
+}
+
+.suggestion-card .listSuggestion-questions .suggestion-question {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 20px; /*change from pt to px*/
+}
+
+.suggestion-card .listSuggestion-questions .suggestion-created-by {
+  font-style: italic;
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 14px; /*change from pt to px*/
+}
+
+.suggestion-card .listSuggestion-questions .suggestion-created-at {
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 14px; /*change from pt to px*/
+}
+
+/*# sourceMappingURL=Suggestion.css.map */

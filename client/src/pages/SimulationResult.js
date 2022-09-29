@@ -131,7 +131,7 @@ export default function SimulationResult() {
             </div>
           </Row>
         {/*<Card className="result-table-card">*/}
-          <Table striped bordered hover size="lg" className="simulation-result-table">
+          <Table striped bordered hover className="simulation-result-table">
             <thead>
               <tr>
                 <th>Result</th>
