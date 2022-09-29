@@ -6,12 +6,12 @@ import {
   Form,
   Button,
   Stack,
-    Container
+  Container,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState /* , useEffect */ } from "react";
 import { Recent, List, SearchBar } from "../base/";
-import "./stylesheet/CoursesList.css"
+import "./stylesheet/CoursesList.css";
 import Suggestion from "../base/Suggestion";
 // import API from "../api/API";
 
@@ -118,32 +118,38 @@ function CoursesList() {
   // },[]);
 
   return (
-      <Container >
-        <Row lg={12} className="py-0 header">
-          <h3 className="courses-title">Courses</h3>
-        </Row>
-        <Row>
-          <SearchBar />
-        </Row>
-        <Row className="courses-body">
-          {coursesType.map((type, i) => {
-            return (
-                <Link
-                    key={i}
-                    className="list-attributes"
-                    to={{
-                      pathname:
-                          "/listfullpage/" + type.replace(/\s/g, "").toLowerCase(),
-                    }}
-                    state={{ scope: "courses", title: type, rows: courses }}
-                >
-                  <List key={i} scope="courses" title={type} rows={courses} rounded/>
-                </Link>
-            );
-          })}
-        </Row>
-        <PaginationRow />
-      </Container>
+    <Container>
+      <Row lg={12} className="py-0 header">
+        <h3 className="courses-title">Courses</h3>
+      </Row>
+      <Row>
+        <SearchBar />
+      </Row>
+      <Row className="courses-body">
+        {coursesType.map((type, i) => {
+          return (
+            <Link
+              key={i}
+              className="list-attributes"
+              to={{
+                pathname:
+                  "/listfullpage/" + type.replace(/\s/g, "").toLowerCase(),
+              }}
+              state={{ scope: "courses", title: type, rows: courses }}
+            >
+              <List
+                key={i}
+                scope="courses"
+                title={type}
+                rows={courses}
+                rounded
+              />
+            </Link>
+          );
+        })}
+      </Row>
+      <PaginationRow />
+    </Container>
   );
 }
 

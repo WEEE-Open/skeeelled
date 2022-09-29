@@ -3,8 +3,8 @@ import { InputGroup, Button } from "react-bootstrap";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 
 // import styles from "./searchBar/searchBar.module.scss";
-import styles from "./stylesheet/SearchBar.scss"
-import "./stylesheet/SearchBar.css"
+import styles from "./stylesheet/SearchBar.scss";
+import "./stylesheet/SearchBar.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import "react-bootstrap-typeahead/css/Typeahead.bs5.css";
 

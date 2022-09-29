@@ -7,7 +7,8 @@ import {
   Form,
   FloatingLabel,
   Button,
-  Image, Stack,
+  Image,
+  Stack,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ListEntry, SearchBar } from "./";
@@ -79,7 +80,7 @@ function ListQuestions({ props }) {
   return (
     <>
       <h3 className="listQuestionsTitle">{props.title}</h3>
-      <SearchBar/>
+      <SearchBar />
       {props.rows.map((r, i) => (
         <ListEntry key={i} scope={props.scope} row={r} />
       ))}
@@ -119,7 +120,7 @@ function ListSuggestion({ props }) {
         <div className="listSuggestion-questions">
           <Stack gap={3}>
             {props.rows.map((r, i) => (
-                <ListEntry key={i} scope={props.scope} row={r} />
+              <ListEntry key={i} scope={props.scope} row={r} />
             ))}
           </Stack>
         </div>
