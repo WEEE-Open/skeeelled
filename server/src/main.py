@@ -168,7 +168,21 @@ async def search_discussion(query: str, question_id: str, limit: int = 10):
         return JSONResponse(status_code=status.HTTP_200_OK, content=result)
 
     return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
-                        content=f"No question found")
+                        content="No question found")
+
+
+@app.get("/v1/simulation")
+async def get_simulation(user_id: str, simulation_id: str):
+    if not check_valid_id(simulation_id):
+        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            content="The simulation id is not a valid format")
+    simulation = await db[DbName.EXAM_SIM.value].find_one({"_id": ObjectId(simulation_id), "created_by.id": user_id})
+    if simulation:
+        result = json.loads(json.dumps(simulation, cls=JSONEncoder))
+        return JSONResponse(status_code=status.HTTP_200_OK, content=result)
+
+    return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
+                        content="No simulation found")
 
 
 class JSONEncoder(json.JSONEncoder):
