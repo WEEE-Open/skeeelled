@@ -9,7 +9,8 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import "./SimulationResult.css";
+import "./stylesheet/SimulationResult.css"; // scss file access
+//import "./SimulationResult.css";
 import { useState } from "react";
 import { List } from "../base";
 
@@ -101,7 +102,9 @@ export default function SimulationResult() {
   return (
     <>
       <Container className="simulation-result-container">
-        <h2 className="simulation-result-title-text">Simulation Result</h2>
+        <Row className="simulation-result-title">
+          <h2 className="simulation-result-title-text">Simulation Result</h2>
+        </Row>
         <Row className="col-sm-8">
           <Col>
             <h3 className="simulation-title">{locationState.title}</h3>
@@ -118,7 +121,7 @@ export default function SimulationResult() {
               }}
             >
               <Button className="start-button">
-                <p>Start Another Simulation</p>
+                <p>Start New Simulation</p>
               </Button>
             </Link>
           </Col>
@@ -126,52 +129,53 @@ export default function SimulationResult() {
         {/*<h3>*/}
         {/*  Time Used: {timeUsed} / {locationState.duration}{" "}*/}
         {/*</h3>*/}
-        <div className="simulation-result-score">
-          <h2 className="simulation-result-user-score">
-            {numCorrect * pointPerCorrect -
-              numPenalty * Math.abs(pointPerWrong)}
-          </h2>
-          <h2 className="simulation-result-max-score">/{maxScore}</h2>
-        </div>
-        <Card className="result-table-card">
-          <Table
-            striped
-            bordered
-            hover
-            size="lg"
-            className="simulation-result-table"
-          >
-            <thead>
-              <tr>
-                <th>Result</th>
-                <th>Number</th>
-                <th>Points Each</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Correct Answer</td>
-                <td>{numCorrect}</td>
-                <td>{pointPerCorrect}</td>
-                <td>{numCorrect * pointPerCorrect}</td>
-              </tr>
-              <tr>
-                <td>Not Given</td>
-                <td>{numNotGiven}</td>
-                <td>0</td>
-                <td>{numNotGiven * 0}</td>
-              </tr>
-              <tr>
-                <td>Wrong Answer</td>
-                <td>{numPenalty}</td>
-                <td>{pointPerWrong}</td>
-                <td>{numPenalty * pointPerWrong}</td>
-              </tr>
-            </tbody>
-          </Table>
-          <List scope={"simulationResult"} rows={useAns} />
-        </Card>
+        <Row>
+          <div className="simulation-result-score">
+            <h2 className="simulation-result-user-score">
+              {numCorrect * pointPerCorrect -
+                numPenalty * Math.abs(pointPerWrong)}
+            </h2>
+            <h2 className="simulation-result-max-score">/{maxScore}</h2>
+          </div>
+        </Row>
+        {/*<Card className="result-table-card">*/}
+        <Table
+          striped
+          bordered
+          hover
+          size="lg"
+          className="simulation-result-table"
+        >
+          <thead>
+            <tr>
+              <th>Result</th>
+              <th>Number</th>
+              <th>Points Each</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Correct Answer</td>
+              <td>{numCorrect}</td>
+              <td>{pointPerCorrect}</td>
+              <td>{numCorrect * pointPerCorrect}</td>
+            </tr>
+            <tr>
+              <td>Not Given</td>
+              <td>{numNotGiven}</td>
+              <td>0</td>
+              <td>{numNotGiven * 0}</td>
+            </tr>
+            <tr>
+              <td>Wrong Answer</td>
+              <td>{numPenalty}</td>
+              <td>{pointPerWrong}</td>
+              <td>{numPenalty * pointPerWrong}</td>
+            </tr>
+          </tbody>
+        </Table>
+        <List scope={"simulationResult"} rows={useAns} />
       </Container>
     </>
   );

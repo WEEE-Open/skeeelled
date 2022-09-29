@@ -1,13 +1,13 @@
 import { Row, Col, Card } from "react-bootstrap";
 import { useState } from "react";
-import "./Home.css";
+import "./stylesheet/Home.css";
 import { ListGroup, SearchBar } from "../base/";
 
 function Home() {
   const fake = [
     {
       scope: "default",
-      title: "New questions in courses I'm enrolled in",
+      title: "New questions in courses enrolled",
       rows: [
         ["Cras justo odio"],
         ["Dapibus ac facilisis in"],
@@ -28,21 +28,25 @@ function Home() {
       ],
     },
     {
-      scope: "test",
+      scope: "default",
       title: "My questions",
       rows: [
-        { a: "aaa", b: "bbb", c: "ccc" },
-        { a: "aaa", b: "bbb", c: "ccc" },
-        { a: "aaa", b: "bbb", c: "ccc" },
+        ["Cras justo odio"],
+        ["Dapibus ac facilisis in"],
+        ["Morbi leo risus"],
+        ["Porta ac consectetur ac"],
+        ["Vestibulum at eros"],
       ],
     },
     {
-      scope: "test",
+      scope: "default",
       title: "My answers",
       rows: [
-        { a: "aaa", b: "bbb", c: "ccc" },
-        { a: "aaa", b: "bbb", c: "ccc" },
-        { a: "aaa", b: "bbb", c: "ccc" },
+        ["Cras justo odio"],
+        ["Dapibus ac facilisis in"],
+        ["Morbi leo risus"],
+        ["Porta ac consectetur ac"],
+        ["Vestibulum at eros"],
       ],
     },
   ];
@@ -56,7 +60,9 @@ function Home() {
           <h3>Hi, Name Surname!</h3>
         </Col>
       </Row>
-      <ListGroup lists={tests} cols={2} tiled rounded dotted />
+      <div className="home-page-table">
+        <ListGroup lists={tests} cols={2} tiled rounded dotted />
+      </div>
     </Card>
   );
 }

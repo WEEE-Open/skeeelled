@@ -1,0 +1,111 @@
+@import "./StyleBase";
+
+.outline-secondary {
+  font-size: 20px;
+}
+.pagination-finish {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.simulation-container .simulation-title {
+  @include font-Nunito($size: 41px, $weight: bold);
+}
+
+.simulation-container .simulation-duration {
+  @include font-Nunito($size: 35px, $weight: bold);
+  color: #9f9f9f;
+}
+
+div.pagination-finish.row {
+  margin: 0;
+  padding: 0;
+}
+
+div.pagination-finish.row > div:nth-child(1) > ul {
+  width: 430px;
+  height: 45px;
+  @include font-Nunito($size: 35); /* regular */
+  border-radius: 9pt;
+}
+.simulation-container .page-link {
+  border-color: #ea9b57;
+  background-color: #ea9b57;
+  color: white;
+}
+.simulation-container .page-link:hover {
+  font-weight: 900; /* black */
+  border-color: #ea9b57;
+  background-color: #ea9b57;
+  color: white;
+}
+.simulation-container .page-item.active .page-link {
+  font-weight: 900; /* black */
+  border-color: #ea9b57;
+  background-color: #ea9b57;
+  color: white;
+}
+
+.simulation-question-text-card {
+  @include font-Nunito($size: 20px);
+  color: black;
+  padding: 10pt;
+  border-radius: 16pt;
+  border-color: #f9f9f9;
+  background-color: rgba(112, 112, 112, 0.24); /* #707070 with opacity*/
+}
+.simulation-question-title-number {
+  @include font-Nunito($size: 25px, $weight: bold);
+}
+
+.simulation-container .btn-outline-success {
+  @include font-Quicksand($size: 17px);
+  width: 139px;
+  height: 40px;
+  @include button-color-radius($border-color: #ea9b57);
+}
+.simulation-container .btn-outline-success:hover {
+  @include button-color-radius(
+    $border-color: #ea9b57,
+    $background-color: #ea9b57,
+    $color: white
+  );
+}
+
+.simulation-modal .btn-outline-success {
+  font-size: 17px; /*change from pt to px*/
+  width: 139px;
+  height: 40px;
+  @include button-color-radius($border-color: #ea9b57);
+}
+.simulation-modal .btn-outline-success:hover {
+  @include button-color-radius(
+    $background-color: #ea9b57,
+    $border-color: #ea9b57,
+    $color: white
+  );
+}
+
+.simulation-question-answer-ratio-card {
+  padding: 20pt;
+  border-radius: 20px;
+  font-family: "Nunito", sans-serif;
+  font-size: 22px; /*change from pt to px*/
+}
+.simulation-question-answer {
+  padding: 0;
+}
+
+.simulation-answer-checkbox .form-check-input {
+  height: 13px; /*change from pt to px*/
+  width: 13px; /*change from pt to px*/
+  border-radius: 50px;
+  border-color: #ea9b57;
+  border-width: 1pt;
+}
+
+.simulation-answer-checkbox .form-check-input:checked {
+  background-color: #ea9b57;
+  border-width: 1pt;
+}

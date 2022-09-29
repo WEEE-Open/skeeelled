@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.header {
+  padding-bottom: 40px;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+h3 {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 41px; /*change from pt to px*/
+}
+
+h4 {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 28px; /*change from pt to px*/
+}
+
+.innerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background-color: #00983a;
+  color: white;
+  margin-top: 40px;
+  border-radius: 5px;
+}
+
+.user-name-nickname > img {
+  height: 150px;
+  width: 160px;
+}
+
+.user-profile .default-table-my-questions .listTitle {
+  border-color: #4d86c1;
+  color: #4d86c1;
+}
+
+.user-profile .default-table-my-questions .list-body > tr > td > .table-dot {
+  color: #4d86c1;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+.user-profile .default-table-my-answers .listTitle {
+  border-color: #ebace7;
+  color: #ebace7;
+}
+
+.user-profile .default-table-my-answers .list-body > tr > td > .table-dot {
+  color: #ebace7;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+.user-profile .default-table-my-simulation-results .listTitle {
+  border-color: #e28111;
+  color: #e28111;
+}
+
+.user-profile
+  .default-table-my-simulation-results
+  .list-body
+  > tr
+  > td
+  > .table-dot {
+  color: #e28111;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+/*# sourceMappingURL=Profile.css.map */
