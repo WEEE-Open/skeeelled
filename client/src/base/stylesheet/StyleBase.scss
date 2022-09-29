@@ -42,3 +42,9 @@
   border-top-left-radius: $border-radius;
   border-top-right-radius: $border-radius;
 }
+
+@mixin suggestion-card {
+  border-radius: 16px;
+  height: 357px;
+  width:335px ;
+}

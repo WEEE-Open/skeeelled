@@ -14,7 +14,8 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 
-import "./ListEntry.css";
+// import "./ListEntry.css";
+import "./stylesheet/ListEntry.css"
 import QuestionPreview from "./QuestionPreview";
 import { useEffect, useState } from "react";
 import { UserSettings } from "../pages";
@@ -40,6 +41,7 @@ function ListEntryCourses(props) {
         <Link
           to={"/course/" + props.row.code}
           state={{ courseId: props.row.code, title: props.row.course }}
+          className="course-entry"
         >
           {props.row.course}
         </Link>
@@ -55,23 +57,25 @@ function ListEntryQuestions(props) {
     <div className="questionEntry">
       <Row>
         <Col>
-          <Link to={"/question/" + props.row.id} className="question">
-            {props.row.question}
-          </Link>
+            <Row>
+                <Link to={"/question/" + props.row.id} className="question">
+                    {props.row.question}
+                </Link>
+            </Row>
+            <Row>
+                <Col>
+                    {props.row.tags.map((t, i) => (
+                        <Link key={i} to="" className="tags">
+                            #{t}
+                        </Link>
+                    ))}
+                </Col>
+            </Row>
         </Col>
-      </Row>
-      <Row>
-        <Col>from {props.row.author}</Col>
-        <Col>Created at: {props.row.createdat}</Col>
-      </Row>
-      <Row>
-        <Col>
-          {props.row.tags.map((t, i) => (
-            <Link key={i} to="" className="tags">
-              #{t}
-            </Link>
-          ))}
-        </Col>
+          <Col>
+              <Row className="created-at">Created at: {props.row.createdat}</Row>
+              <Row className="created-from">from {props.row.author}</Row>
+          </Col>
       </Row>
       <Row>
         <Col>{props.row.excerpt}</Col>
@@ -171,8 +175,8 @@ function ListEntrySuggestion(props) {
             {props.row.question}
           </Link>
         </Col>
-        <Col>from {props.row.author}</Col>
-        <Col>Created at: {props.row.createdat}</Col>
+        <Col className="suggestion-created-by">from {props.row.author}</Col>
+        <Col className="suggestion-created-at">Created at: {props.row.createdat}</Col>
       </Col>
     </Container>
   );

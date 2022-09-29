@@ -1,0 +1,33 @@
+@import "StyleBase";
+
+.suggestion-container {
+  font-size: 12px;
+}
+.suggestion-card {
+  @include suggestion-card;
+  background-color: rgba(77, 134, 193, 0.1);
+  border: none;
+}
+
+@media screen and (max-width: 900px) {
+  #suggestion-container {
+    font-size: 10px;
+  }
+}
+
+.suggestion-card .list-suggestion-title {
+  @include font-Quicksand($size:25px, $weight:bold);
+}
+
+.suggestion-card .listSuggestion-questions .suggestion-question {
+  @include font-Nunito($size:20px);
+}
+
+.suggestion-card .listSuggestion-questions .suggestion-created-by {
+  font-style: italic;
+  @include font-Nunito($size:14px, $weight: light)
+}
+
+.suggestion-card .listSuggestion-questions .suggestion-created-at {
+  @include font-Nunito($size:14px, $weight: light);
+}

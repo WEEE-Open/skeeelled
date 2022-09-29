@@ -10,7 +10,8 @@ import {
 } from "react-bootstrap";
 
 import { useEffect, useState } from "react";
-import "./Questions.css";
+// import "./Questions.css";
+import "./stylesheet/Questions.css"
 import { List, Recent, SearchBar, Suggestion } from "../base/";
 import { Link, useLocation } from "react-router-dom";
 
@@ -105,49 +106,46 @@ const Questions = () => {
             <Row key={isDesktop}>
               <Col>
                 <Container className="container">
-                  <Card body>
                     <Row lg={12} className="header">
                       <Col>
-                        <Link
-                          className="right-button"
-                          to={{
-                            pathname:
-                              "/startsimulation/" + locationState.courseId,
-                          }}
-                          state={{
-                            courseId: locationState.courseId,
-                            title: locationState.title,
-                          }}
-                        >
-                          <Button>
-                            <Image
-                              className="add-icon"
-                              src={
-                                process.env.PUBLIC_URL +
-                                "/icons/SIMULATION RESULTS_WHITE.svg"
-                              }
-                              width="13px"
-                            />
-                            {" Start Simulation"}
+                        <div className="right-button">
+
+                          <Button className="add-question-button" onClick={() => {}}>
+                            {/*<Image*/}
+                            {/*    className="add-icon"*/}
+                            {/*    src={*/}
+                            {/*      process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"*/}
+                            {/*    }*/}
+                            {/*    width="13px"*/}
+                            {/*/>*/}
+                            {" Enroll in course"}
                           </Button>
-                        </Link>
 
-                        <Button className="right-button" onClick={() => {}}>
-                          <Image
-                            className="add-icon"
-                            src={
-                              process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"
-                            }
-                            width="13px"
-                          />
-                          {" Add course"}
-                        </Button>
+                          <Link
+                              to={{
+                                pathname:
+                                    "/startsimulation/" + locationState.courseId,
+                              }}
+                              state={{
+                                courseId: locationState.courseId,
+                                title: locationState.title,
+                              }}
+                          >
+                            <Button className="start-simulation-button">
+                              {/*<Image*/}
+                              {/*    className="add-icon"*/}
+                              {/*    src={*/}
+                              {/*      process.env.PUBLIC_URL +*/}
+                              {/*      "/icons/SIMULATION RESULTS_WHITE.svg"*/}
+                              {/*    }*/}
+                              {/*    width="13px"*/}
+                              {/*/>*/}
+                              {" Start Simulation"}
+                            </Button>
+                          </Link>
 
-                        <Row>
-                          <Col className="listQuestionsTitle">
-                            <SearchBar />
-                          </Col>
-                        </Row>
+                        </div>
+
                         <List
                           scope="questions"
                           title={locationState.title}
@@ -159,7 +157,6 @@ const Questions = () => {
                         <PaginationRow />
                       </Col>
                     </Row>
-                  </Card>
                 </Container>
               </Col>
               <Col className="d-sm-inline-block col-md-4">
@@ -179,51 +176,49 @@ const Questions = () => {
               </Col>
             </Row>
           ) : (
+              // mobile configuration
             <>
               <Row>
                 <Container className="container">
-                  <Card body>
                     <Row lg={12} className="header">
                       <Col>
-                        <Link
-                          to={{
-                            pathname:
-                              "/startsimulation/" + locationState.courseId,
-                          }}
-                          state={{
-                            courseId: locationState.courseId,
-                            title: locationState.title,
-                          }}
-                        >
-                          <Button className="right-button" onClick={() => {}}>
-                            <Image
-                              className="add-icon"
-                              src={
-                                process.env.PUBLIC_URL +
-                                "/icons/SIMULATION RESULTS_WHITE.svg"
-                              }
-                              width="13px"
-                            />
-                            {" Start Simulation"}
+                        <div className="right-button">
+
+                          <Button className="add-question-button" onClick={() => {}}>
+                            {/*<Image*/}
+                            {/*    className="add-icon"*/}
+                            {/*    src={*/}
+                            {/*      process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"*/}
+                            {/*    }*/}
+                            {/*    width="13px"*/}
+                            {/*/>*/}
+                            {" Enroll in course"}
                           </Button>
-                        </Link>
 
-                        <Button className="right-button" onClick={() => {}}>
-                          <Image
-                            className="add-icon"
-                            src={
-                              process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"
-                            }
-                            width="13px"
-                          />
-                          {" Add course"}
-                        </Button>
+                          <Link
+                              to={{
+                                pathname:
+                                    "/startsimulation/" + locationState.courseId,
+                              }}
+                              state={{
+                                courseId: locationState.courseId,
+                                title: locationState.title,
+                              }}
+                          >
+                            <Button className="start-simulation-button">
+                              {/*<Image*/}
+                              {/*    className="add-icon"*/}
+                              {/*    src={*/}
+                              {/*      process.env.PUBLIC_URL +*/}
+                              {/*      "/icons/SIMULATION RESULTS_WHITE.svg"*/}
+                              {/*    }*/}
+                              {/*    width="13px"*/}
+                              {/*/>*/}
+                              {" Start Simulation"}
+                            </Button>
+                          </Link>
 
-                        <Row>
-                          <Col className="listQuestionsTitle">
-                            <SearchBar />
-                          </Col>
-                        </Row>
+                        </div>
                         <List
                           scope="questions"
                           title={locationState.title}
@@ -235,7 +230,6 @@ const Questions = () => {
                         <PaginationRow />
                       </Col>
                     </Row>
-                  </Card>
                 </Container>
               </Row>
               <Row>

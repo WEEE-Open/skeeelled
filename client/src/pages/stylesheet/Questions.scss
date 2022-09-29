@@ -1,0 +1,35 @@
+@import "StyleBase";
+
+.header {
+  padding-bottom: 40px;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.right-button {
+  float: right;
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+
+.right-button .start-simulation-button {
+  @include button-color-radius;
+  @include font-Quicksand($size:17px);
+  height:43px;
+  width:150px;
+  padding:0;
+  border-color: #8AD5D8;
+}
+
+.right-button .add-question-button {
+  @include button-color-radius;
+  @include font-Quicksand($size:17px);
+  height:43px;
+  width:140px;
+  padding:0;
+  margin-right: 10px;
+  border-color: #8AD5D8;
+}
+

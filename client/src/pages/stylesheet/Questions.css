@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.header {
+  padding-bottom: 40px;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.right-button {
+  float: right;
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+
+.right-button .start-simulation-button {
+  color: black;
+  background-color: white;
+  border-color: black;
+  border-radius: 7pt;
+  border-width: 2pt;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 17px; /*change from pt to px*/
+  height: 43px;
+  width: 150px;
+  padding: 0;
+  border-color: #8AD5D8;
+}
+
+.right-button .add-question-button {
+  color: black;
+  background-color: white;
+  border-color: black;
+  border-radius: 7pt;
+  border-width: 2pt;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 17px; /*change from pt to px*/
+  height: 43px;
+  width: 140px;
+  padding: 0;
+  margin-right: 10px;
+  border-color: #8AD5D8;
+}
+
+/*# sourceMappingURL=Questions.css.map */

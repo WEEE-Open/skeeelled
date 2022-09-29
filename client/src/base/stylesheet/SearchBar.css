@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.clearButton:active {
+  background-color: #fff !important;
+}
+
+.clearButton:hover {
+  background-color: #fff;
+}
+
+.clearButton:focus {
+  background-color: #fff !important;
+}
+
+.textInput:focus {
+  box-shadow: 0 0;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  border-radius: 9pt;
+  width: 100%;
+  height: 58px;
+}
+
+.async-type-head {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 22px; /*change from pt to px*/
+}
+
+/*# sourceMappingURL=SearchBar.css.map */

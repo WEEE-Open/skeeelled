@@ -72,24 +72,35 @@
 }
 
 .simulation-result-container table {
+  width: 100%;
   color: #797979;
   background-color: rgba(121, 121, 121, 0.05);
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
   font-family: "Nunito", sans-serif;
   font-weight: 400;
   font-size: 25px; /*change from pt to px*/
+  border: 1px solid black;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-collapse: separate;
 }
 
-.simulation-result-container table > thead {
-  vertical-align: middle;
-  border-width: 3pt;
-  border-color: #797979;
-  border-radius: 16pt;
-  height: 75px;
+.simulation-result-container table thead {
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 25px; /*change from pt to px*/
+  border: 1px solid black;
+}
+
+.simulation-result-container table th:first-child {
+  border-left: none;
+}
+
+.simulation-result-container table th:last-child {
+  border-right: none;
+}
+
+.simulation-result-container table tbody td:first-child {
+  border-top: none;
 }
 
 /*# sourceMappingURL=SimulationResult.css.map */
