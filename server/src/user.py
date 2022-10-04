@@ -11,6 +11,7 @@ class UserInfo(BaseModel):
 from course import CourseInfo
 from question import QuestionInfo
 from answer import AnswerInfo
+from simulation import ExamSimulation
 
 
 class User(BaseModel):
@@ -29,4 +30,4 @@ class User(BaseModel):
     my_BookmarkedQuestions: List[QuestionInfo] = []
     last_session: float
     credibility_rate: float = -1.0
-    simulation_result: List[float] = []
+    simulation_results: List[ExamSimulation] = []
