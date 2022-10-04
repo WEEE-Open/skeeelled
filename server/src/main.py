@@ -134,6 +134,14 @@ async def get_user_mySimulationResults(user_id: str, page: int = 1, itemsPerPage
     return JSONResponse(user_simulations)
 
 
+@app.get("/v1/courses")
+async def get_courses(page: int = 1, itemsPerPage: int = -1):
+    cursor = db[DbName.COURSE.value].find().sort("code", 1).skip(((page - 1) * itemsPerPage) if itemsPerPage > 0 else 0)
+    docs = await cursor.to_list(itemsPerPage if itemsPerPage > 0 else None)
+    result = json.loads(json.dumps(docs, cls=JSONEncoder))
+    return JSONResponse(result)
+
+
 @app.get("/v1/searchCourses")
 async def search_courses(query: str, limit: int = 10):
     result = db[DbName.COURSE.value].find({"name": {'$regex': f'(?i){query}'}})
