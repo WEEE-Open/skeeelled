@@ -148,8 +148,18 @@ async def get_questions(courseId: str, page: int = 1, itemsPerPage: int = -1):
         questions["questions"] = paginate_list(questions["questions"], page, itemsPerPage, "timestamp", True)
         questions = json.loads(json.dumps(questions, cls=JSONEncoder))
         return JSONResponse(questions)
-    return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content=f"Invalid course ID")
-    
+    return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content="Invalid course ID")
+
+
+@app.get("/v1/discussion")
+async def get_discussion(questionId: str, page: int = 1, itemsPerPage: int = -1):
+    discussion = await db[DbName.QUESTION.value].find_one({"_id": ObjectId(questionId)}, {"answers": 1})
+    if discussion:
+        discussion["answers"] = paginate_list(discussion["answers"], page, itemsPerPage, "timestamp", True)
+        discussion = json.loads(json.dumps(discussion, cls=JSONEncoder))
+        return JSONResponse(discussion)
+    return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content="Invalid question ID")
+
 
 
 @app.get("/v1/searchCourses")
