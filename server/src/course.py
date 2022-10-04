@@ -8,6 +8,7 @@ class CourseInfo(BaseModel):
 
 
 from user import UserInfo
+from question import QuestionInfo
 
 
 class Course(BaseModel):
@@ -15,4 +16,4 @@ class Course(BaseModel):
     code: str
     years_active: list[int]
     professors: list[UserInfo]
-    questions: list
+    questions: list[QuestionInfo]

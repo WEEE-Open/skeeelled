@@ -99,7 +99,6 @@ def check_valid_id(id: str):
 
 def paginate_list(result: List, page: int, itemsPerPage: int = -1, sort_key: str = None, sort_desc: bool = False):
     if sort_key:
-        print("sort")
         result.sort(key=lambda x: x[sort_key], reverse=sort_desc)
     if itemsPerPage == -1:
         return result
@@ -140,6 +139,17 @@ async def get_courses(page: int = 1, itemsPerPage: int = -1):
     docs = await cursor.to_list(itemsPerPage if itemsPerPage > 0 else None)
     result = json.loads(json.dumps(docs, cls=JSONEncoder))
     return JSONResponse(result)
+
+
+@app.get("/v1/questions")
+async def get_questions(courseId: str, page: int = 1, itemsPerPage: int = -1):
+    questions = await db[DbName.COURSE.value].find_one({"_id": ObjectId(courseId)}, {"questions": 1})
+    if questions:
+        questions["questions"] = paginate_list(questions["questions"], page, itemsPerPage, "timestamp", True)
+        questions = json.loads(json.dumps(questions, cls=JSONEncoder))
+        return JSONResponse(questions)
+    return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content=f"Invalid course ID")
+    
 
 
 @app.get("/v1/searchCourses")
