@@ -72,9 +72,7 @@
   font-family: "Nunito", sans-serif;
   font-weight: 400;
   font-size: 25px; /*change from pt to px*/
-  border: 1px solid black;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  overflow: hidden;
   border-collapse: separate;
 }
 
@@ -82,19 +80,37 @@
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 25px; /*change from pt to px*/
-  border: 1px solid black;
+}
+
+.simulation-result-container table thead th {
+  padding: 1rem;
 }
 
 .simulation-result-container table th:first-child {
-  border-left: none;
+  border-collapse: collapse;
+  border-top-left-radius: 16pt;
+  border: 3px solid #797979;
+}
+
+.simulation-result-container table th:nth-child(2), .simulation-result-container table th:nth-child(3) {
+  border: 3px solid #797979;
 }
 
 .simulation-result-container table th:last-child {
-  border-right: none;
+  border-collapse: collapse;
+  border-top-right-radius: 16pt;
+  border: 3px solid #797979;
+}
+
+.simulation-result-container table tbody td {
+  border-left: 0.1px solid #797979;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 25px; /*change from pt to px*/
 }
 
 .simulation-result-container table tbody td:first-child {
-  border-top: none;
+  border: none;
 }
 
 /*# sourceMappingURL=SimulationResult.css.map */
