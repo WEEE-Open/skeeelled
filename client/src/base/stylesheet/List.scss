@@ -84,3 +84,29 @@
   margin-top: -2px;
 }
 
+.accordion {
+  border-collapse: separate;
+  border-radius: 16pt;
+  box-sizing: border-box;
+}
+
+.list-simulation-result .listSimulationResultTitle {
+  @include font-Nunito($size: 41px, $weight: bold)
+}
+
+.accordion-item .accordion-header {
+  border: 3px solid #797979;
+  //outline: 3px solid #797979;
+}
+
+.accordion-item .accordion-header:first-child {
+}
+
+.accordion-item .accordion-collapse {
+  margin: 0;
+}
+
+.accordion-item .accordion-body {
+  border-right: 0.1px solid #797979;
+  border-left: 0.1px solid #797979;
+}
