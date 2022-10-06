@@ -1,6 +1,14 @@
-
-import {Link, useLocation} from "react-router-dom";
-import {Card, Container, Table, Stack, Button, Image, Row, Col} from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
+import {
+  Card,
+  Container,
+  Table,
+  Stack,
+  Button,
+  Image,
+  Row,
+  Col,
+} from "react-bootstrap";
 import "./stylesheet/SimulationResult.css"; // scss file access
 //import "./SimulationResult.css";
 import { useState } from "react";
@@ -94,7 +102,9 @@ export default function SimulationResult() {
   return (
     <>
       <Container className="simulation-result-container">
-        <Row className="simulation-result-title"><h2 className="simulation-result-title-text">Simulation Result</h2></Row>
+        <Row className="simulation-result-title">
+          <h2 className="simulation-result-title-text">Simulation Result</h2>
+        </Row>
         <Row className="col-sm-8">
           <Col>
             <h3 className="simulation-title">{locationState.title}</h3>
@@ -119,17 +129,15 @@ export default function SimulationResult() {
         {/*<h3>*/}
         {/*  Time Used: {timeUsed} / {locationState.duration}{" "}*/}
         {/*</h3>*/}
-          <Row>
-            <div className="simulation-result-score">
-              <h2 className="simulation-result-user-score">
-                {numCorrect * pointPerCorrect -
+        <Row>
+          <div className="simulation-result-score">
+            <h2 className="simulation-result-user-score">
+              {numCorrect * pointPerCorrect -
                 numPenalty * Math.abs(pointPerWrong)}
-              </h2>
-              <h2 className="simulation-result-max-score">
-                /{maxScore}
-              </h2>
-            </div>
-          </Row>
+            </h2>
+            <h2 className="simulation-result-max-score">/{maxScore}</h2>
+          </div>
+        </Row>
         {/*<Card className="result-table-card">*/}
           <Table responsive="lg" striped hover className="simulation-result-table">
             <thead b>

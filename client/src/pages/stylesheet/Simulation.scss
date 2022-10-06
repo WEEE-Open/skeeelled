@@ -15,15 +15,13 @@
 
 .simulation-container .simulation-duration {
   @include font-Nunito($size: 35px, $weight: bold);
-  color: #9F9F9F;
+  color: #9f9f9f;
 }
 
 div.pagination-finish.row {
   margin: 0;
   padding: 0;
 }
-
-
 
 div.pagination-finish.row > div:nth-child(1) > ul {
   width: 430px;
@@ -32,20 +30,20 @@ div.pagination-finish.row > div:nth-child(1) > ul {
   border-radius: 9pt;
 }
 .simulation-container .page-link {
-  border-color: #EA9B57 ;
-  background-color: #EA9B57 ;
+  border-color: #ea9b57;
+  background-color: #ea9b57;
   color: white;
 }
 .simulation-container .page-link:hover {
   font-weight: 900; /* black */
-  border-color: #EA9B57 ;
-  background-color: #EA9B57 ;
+  border-color: #ea9b57;
+  background-color: #ea9b57;
   color: white;
 }
 .simulation-container .page-item.active .page-link {
   font-weight: 900; /* black */
-  border-color: #EA9B57 ;
-  background-color: #EA9B57 ;
+  border-color: #ea9b57;
+  background-color: #ea9b57;
   color: white;
 }
 
@@ -57,52 +55,58 @@ div.pagination-finish.row > div:nth-child(1) > ul {
   border-color: #F9F9F9;
   background-color: #F9F9F9; /* #707070 with opacity*/
 }
-.simulation-question-title-number{
+.simulation-question-title-number {
   @include font-Nunito($size: 25px, $weight: bold);
 }
-
 
 .simulation-container .btn-outline-success {
   @include font-Quicksand($size: 17px);
   width: 139px;
   height: 40px;
-  @include button-color-radius($border-color:#EA9B57)
+  @include button-color-radius($border-color: #ea9b57);
 }
 .simulation-container .btn-outline-success:hover {
-  @include button-color-radius($border-color:#EA9B57, $background-color:#EA9B57, $color: white);
+  @include button-color-radius(
+    $border-color: #ea9b57,
+    $background-color: #ea9b57,
+    $color: white
+  );
 }
 
 .simulation-modal .btn-outline-success {
   font-size: 17px; /*change from pt to px*/
   width: 139px;
   height: 40px;
-  @include button-color-radius($border-color: #EA9B57)
-
+  @include button-color-radius($border-color: #ea9b57);
 }
 .simulation-modal .btn-outline-success:hover {
-  @include button-color-radius($background-color: #EA9B57, $border-color:#EA9B57, $color: white);
+  @include button-color-radius(
+    $background-color: #ea9b57,
+    $border-color: #ea9b57,
+    $color: white
+  );
 }
 
 .simulation-question-answer-ratio-card {
   padding: 20pt;
   border-radius: 20px;
-  font-family:  'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 22px; /*change from pt to px*/
 }
 .simulation-question-answer {
   padding: 0;
 }
 
-.simulation-answer-checkbox .form-check-input  {
+.simulation-answer-checkbox .form-check-input {
   height: 13px; /*change from pt to px*/
-  width:13px; /*change from pt to px*/
+  width: 13px; /*change from pt to px*/
   border-radius: 50px;
-  border-color: #EA9B57;
+  border-color: #ea9b57;
   border-width: 1pt;
 }
 
 .simulation-answer-checkbox .form-check-input:checked {
-  background-color: #EA9B57;
+  background-color: #ea9b57;
   border-width: 1pt;
 }
 

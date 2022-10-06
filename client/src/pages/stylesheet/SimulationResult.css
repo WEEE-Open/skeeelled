@@ -11,7 +11,7 @@
 }
 
 .simulation-result-container .simulation-title {
-  color: #E08330;
+  color: #e08330;
   font-style: italic;
   font-family: "Nunito", sans-serif;
   font-weight: bold;
@@ -34,7 +34,7 @@
   font-family: "Nunito", sans-serif;
   font-weight: bold;
   font-size: 50px; /*change from pt to px*/
-  color: #00DE09;
+  color: #00de09;
 }
 
 .simulation-result-container .simulation-result-start-button .start-button {
@@ -49,7 +49,7 @@
   width: 140px;
   color: black;
   background-color: white;
-  border-color: #E28111;
+  border-color: #e28111;
   border-radius: 7pt;
   border-width: 2px;
   font-family: "Quicksand", sans-serif;
@@ -59,8 +59,8 @@
 
 .simulation-result-container .simulation-result-start-button .btn-primary:hover {
   color: white;
-  background-color: #E28111;
-  border-color: #E28111;
+  background-color: #e28111;
+  border-color: #e28111;
   border-radius: 7pt;
   border-width: 2pt;
 }

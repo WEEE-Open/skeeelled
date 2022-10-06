@@ -32,9 +32,8 @@
 .roundedList th {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  @include font-Quicksand($size:25px, $weight:bold);
+  @include font-Quicksand($size: 25px, $weight: bold);
 }
-
 
 .roundedList td {
   padding: 0.5rem;
@@ -83,7 +82,6 @@
 .add-icon {
   margin-top: -2px;
 }
-
 .accordion {
   border-collapse: separate;
   border-radius: 16pt;

@@ -9,6 +9,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 import { insertTex, saveImage } from "./textInput/commands";
+import PythonEditor from "react-python-editor";
 import { Buffer } from "buffer";
 import Jimp from "jimp";
 
@@ -18,10 +19,46 @@ import "katex/dist/katex.min.css";
 import "highlight.js/styles/github.css";
 import "./MarkdownPreview.css";
 
-function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
+const entryFiles = [
+  {
+    fullName: "main.py",
+    shortName: "main.py",
+    originalContent: `import micropip
+
+# to install other libraries, simply copy the next line and replace numpy with the name of the library you want to install
+await micropip.install("numpy")
+
+# set up your imports here, below the libraries installation steps
+import numpy as np
+
+# at this point, you can run any standard Python code and the code from the libraries you have installed
+print("Hello World")`,
+    content: `import micropip
+
+# to install other libraries, simply copy the next line and replace numpy with the name of the library you want to install
+await micropip.install("numpy")
+
+# set up your imports here, below the libraries installation steps
+import numpy as np
+
+# at this point, you can run any standard Python code and the code from the libraries you have installed
+print("Hello World")`,
+  },
+];
+
+function TextInput({
+  value,
+  onChange,
+  selectedTab,
+  onTabChange,
+  childProps,
+  pythonQuestion,
+  dark,
+}) {
   const [val, setVal] = useState("");
   const [selTab, setSelTab] = useState("write");
   const [base64Imgs, setBase64Imgs] = useState({});
+  const [editorHeight, setEditorHeight] = useState("100px");
 
   const uploadImage = async function* (data, file) {
     const filename = file.name.replace(/\[|\]|\(|\)/g, "");
@@ -81,6 +118,45 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
     });
   };
 
+  const handleCopy = (file) => {
+    const re = new RegExp("\n?```py\n# " + file.shortName + ".*```\n?", "gs");
+    const prev = value || val;
+    let newText;
+
+    // DO NOT MODIFY
+    const code = file.shortName.endsWith(".py")
+      ? `
+\`\`\`py
+# ${file.shortName}
+
+${file.content}
+\`\`\`
+`
+      : `
+\`\`\`
+${file.content}
+\`\`\`
+`;
+
+    const match = re.exec(prev);
+
+    if (match) {
+      newText =
+        prev.substr(0, match.index) +
+        code +
+        prev.substr(re.lastIndex, prev.length);
+      console.log(match.index, re.lastIndex);
+    } else {
+      newText = prev + code;
+    }
+
+    if (onChange) {
+      onChange(newText);
+    } else {
+      setVal(newText);
+    }
+  };
+
   return (
     <Container>
       <ReactMde
@@ -109,6 +185,23 @@ function TextInput({ value, onChange, selectedTab, onTabChange, childProps }) {
           multiple: true,
         }}
       />
+      {pythonQuestion && (
+        <PythonEditor
+          editorHeight={editorHeight}
+          outputHeight="100px"
+          dark={dark}
+          onCopy={handleCopy}
+          projectFiles={entryFiles}
+          backgroundColor={dark ? "#212529" : "#ffffff"}
+          onFullScreen={(fs) => {
+            if (fs) {
+              setEditorHeight("500px");
+            } else {
+              setEditorHeight("100px");
+            }
+          }}
+        />
+      )}
     </Container>
   );
 }
