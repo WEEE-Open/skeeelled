@@ -31,8 +31,8 @@
 }
 
 .roundedList th {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   font-family: "Quicksand", sans-serif;
   font-weight: bold;
   font-size: 25px; /*change from pt to px*/
@@ -90,7 +90,7 @@
 
 .accordion {
   border-collapse: separate;
-  border-radius: 16pt;
+  border-radius: 16px;
   box-sizing: border-box;
 }
 

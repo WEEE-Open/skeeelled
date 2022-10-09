@@ -42,12 +42,12 @@ h4 {
 }
 
 .user-profile .default-table-my-answers .listTitle {
-  border-color: #ebace7;
-  color: #ebace7;
+  border-color: #f40883;
+  color: #f40883;
 }
 
 .user-profile .default-table-my-answers .list-body > tr > td > .table-dot {
-  @include table-dot-margin-color($color: #ebace7);
+  @include table-dot-margin-color($color: #f40883);
 }
 
 .user-profile .default-table-my-simulation-results .listTitle {

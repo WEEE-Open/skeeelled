@@ -56,8 +56,8 @@ function ListDefault({ props }) {
           </table>
         </div>
       ) : (
-        <div className={"default-table-" + props.title.toLowerCase()}>
-          <Table striped borderless className="list">
+        <div className={"default-table-" + props.title.toLowerCase().replace(/\s/g, "-")}>
+          <Table striped borderless hover className="list">
             <thead className="listTitle">
               <tr>
                 <th colSpan={HeaderColspan(props.scope)}>{props.title}</th>

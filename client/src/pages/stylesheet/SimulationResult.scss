@@ -67,8 +67,8 @@
 .simulation-result-container table thead {
   @include font-Quicksand($size:25px, $weight:400);
   outline: 3px solid #797979;
-  border-top-left-radius: 16pt;
-  border-top-right-radius: 16pt;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
 
 .simulation-result-container table thead tr {
