@@ -143,6 +143,11 @@
   padding: 3vh 1.25rem 0.5rem 1.25rem;
 }
 
+.accordion-button:not(.collapsed) {
+  color: #E28111;
+  border: 3px solid #E28111;
+}
+
 .list-simulation-result .accordion-footer-card {
   font-family: "Nunito", sans-serif;
   font-weight: bold;
