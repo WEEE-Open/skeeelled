@@ -22,10 +22,10 @@ client.get_io_loop = asyncio.get_running_loop
 db = client["test_db"]
 
 """frequently used data for test generation"""
-with open(os.path.join("test_data_base", "asd_but_in_b64")) as test_pic:
+with open(os.path.join("../test_data_base", "asd_but_in_b64")) as test_pic:
     profile_picture = test_pic.read().strip()
 
-with open(os.path.join("test_data_base", "questions")) as jsonfile:
+with open(os.path.join("../test_data_base", "questions")) as jsonfile:
     qlist = json.load(jsonfile)
 for q in qlist:
     matricola = f"d{randint(11111, 99999)}"
