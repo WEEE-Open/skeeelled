@@ -17,11 +17,14 @@
   font-weight: bold;
   font-size: 41px; /*change from pt to px*/
   display: flex;
+  margin: 0;
+  padding: 0;
 }
 
 .simulation-result-score {
   padding: 0;
   display: flex;
+  margin: 3% 0 3% 0;
 }
 
 .simulation-result-container .simulation-result-score .simulation-result-max-score {

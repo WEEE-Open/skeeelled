@@ -106,8 +106,8 @@ export default function SimulationResult() {
           <h2 className="simulation-result-title-text">Simulation Result</h2>
         </Row>
         <Row className="col-sm-8">
-          <Col>
-            <h3 className="simulation-title">{locationState.title}</h3>
+          <Col className="simulation-title">
+            <h3>{locationState.title}</h3>
           </Col>
           <Col>
             <Link

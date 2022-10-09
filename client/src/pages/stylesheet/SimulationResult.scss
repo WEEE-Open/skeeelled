@@ -14,11 +14,14 @@
   font-style: italic;
   @include font-Nunito($weight: bold, $size: 41px);
   display: flex;
+  margin: 0;
+  padding: 0;
 }
 
 .simulation-result-score {
   padding: 0;
   display: flex;
+  margin: 3% 0 3% 0;
 }
 
 .simulation-result-container
