@@ -22,6 +22,10 @@
   padding:0;
   border-color: #8AD5D8;
 }
+.right-button .start-simulation-button:hover {
+  background-color: #8AD5D8;
+  color: white;
+}
 
 .right-button .add-question-button {
   @include button-color-radius;
@@ -33,3 +37,7 @@
   border-color: #8AD5D8;
 }
 
+.right-button .add-question-button:hover {
+  background-color: #8AD5D8;
+  color: white;
+}

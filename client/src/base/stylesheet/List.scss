@@ -132,11 +132,12 @@
 .accordion-button:not(.collapsed) {
   color: #E28111;
   border: 3px solid #E28111;
+  outline: none;
 }
 
 .list-simulation-result .accordion-footer-card {
   @include font-Nunito($size: 41px, $weight: bold);
-  padding: 5vh;
+  padding: 1.8rem;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   border-left: 3px solid #797979;

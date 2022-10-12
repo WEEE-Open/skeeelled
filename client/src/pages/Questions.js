@@ -145,34 +145,30 @@ const Questions = () => {
                           </Link>
 
                         </div>
-
                         <List
                           scope="questions"
                           title={locationState.title}
                           rows={questions}
                         />
-                      </Col>
-
-                      <Col className="pagination" lg="12" sm="12" md="12">
                         <PaginationRow />
+                      </Col>
+                      <Col className="d-sm-inline-block col-md-4">
+                        <Stack gap={4}>
+                          {suggestionType.map((type, i) => {
+                            return (
+                                <Row key={i}>
+                                  <Suggestion
+                                      scope={"suggestion"}
+                                      title={type + " Questions"}
+                                      rows={suggestions}
+                                  />
+                                </Row>
+                            );
+                          })}
+                        </Stack>
                       </Col>
                     </Row>
                 </Container>
-              </Col>
-              <Col className="d-sm-inline-block col-md-4">
-                <Stack gap={4}>
-                  {suggestionType.map((type, i) => {
-                    return (
-                      <Row key={i}>
-                        <Suggestion
-                          scope={"suggestion"}
-                          title={type + " Questions"}
-                          rows={suggestions}
-                        />
-                      </Row>
-                    );
-                  })}
-                </Stack>
               </Col>
             </Row>
           ) : (
