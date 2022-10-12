@@ -11,7 +11,7 @@ import {
 
 import { useEffect, useState } from "react";
 // import "./Questions.css";
-import "./stylesheet/Questions.css"
+import "./stylesheet/Questions.css";
 import { List, Recent, SearchBar, Suggestion } from "../base/";
 import { Link, useLocation } from "react-router-dom";
 
@@ -172,60 +172,61 @@ const Questions = () => {
               </Col>
             </Row>
           ) : (
-              // mobile configuration
+            // mobile configuration
             <>
               <Row>
                 <Container className="container">
-                    <Row lg={12} className="header">
-                      <Col>
-                        <div className="right-button">
+                  <Row lg={12} className="header">
+                    <Col>
+                      <div className="right-button">
+                        <Button
+                          className="add-question-button"
+                          onClick={() => {}}
+                        >
+                          {/*<Image*/}
+                          {/*    className="add-icon"*/}
+                          {/*    src={*/}
+                          {/*      process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"*/}
+                          {/*    }*/}
+                          {/*    width="13px"*/}
+                          {/*/>*/}
+                          {" Enroll in course"}
+                        </Button>
 
-                          <Button className="add-question-button" onClick={() => {}}>
+                        <Link
+                          to={{
+                            pathname:
+                              "/startsimulation/" + locationState.courseId,
+                          }}
+                          state={{
+                            courseId: locationState.courseId,
+                            title: locationState.title,
+                          }}
+                        >
+                          <Button className="start-simulation-button">
                             {/*<Image*/}
                             {/*    className="add-icon"*/}
                             {/*    src={*/}
-                            {/*      process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"*/}
+                            {/*      process.env.PUBLIC_URL +*/}
+                            {/*      "/icons/SIMULATION RESULTS_WHITE.svg"*/}
                             {/*    }*/}
                             {/*    width="13px"*/}
                             {/*/>*/}
-                            {" Enroll in course"}
+                            {" Start Simulation"}
                           </Button>
+                        </Link>
+                      </div>
+                      <List
+                        scope="questions"
+                        title={locationState.title}
+                        rows={questions}
+                      />
+                    </Col>
 
-                          <Link
-                              to={{
-                                pathname:
-                                    "/startsimulation/" + locationState.courseId,
-                              }}
-                              state={{
-                                courseId: locationState.courseId,
-                                title: locationState.title,
-                              }}
-                          >
-                            <Button className="start-simulation-button">
-                              {/*<Image*/}
-                              {/*    className="add-icon"*/}
-                              {/*    src={*/}
-                              {/*      process.env.PUBLIC_URL +*/}
-                              {/*      "/icons/SIMULATION RESULTS_WHITE.svg"*/}
-                              {/*    }*/}
-                              {/*    width="13px"*/}
-                              {/*/>*/}
-                              {" Start Simulation"}
-                            </Button>
-                          </Link>
-
-                        </div>
-                        <List
-                          scope="questions"
-                          title={locationState.title}
-                          rows={questions}
-                        />
-                      </Col>
-
-                      <Col className="pagination" lg="12" sm="12" md="12">
-                        <PaginationRow />
-                      </Col>
-                    </Row>
+                    <Col className="pagination" lg="12" sm="12" md="12">
+                      <PaginationRow />
+                    </Col>
+                  </Row>
                 </Container>
               </Row>
               <Row>

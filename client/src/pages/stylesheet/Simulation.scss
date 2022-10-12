@@ -52,8 +52,8 @@ div.pagination-finish.row > div:nth-child(1) > ul {
   color: #707070;
   padding: 10pt;
   border-radius: 16pt;
-  border-color: #F9F9F9;
-  background-color: #F9F9F9; /* #707070 with opacity*/
+  border-color: #f9f9f9;
+  background-color: #f9f9f9; /* #707070 with opacity*/
 }
 .simulation-question-title-number {
   @include font-Nunito($size: 25px, $weight: bold);
@@ -109,4 +109,3 @@ div.pagination-finish.row > div:nth-child(1) > ul {
   background-color: #ea9b57;
   border-width: 1pt;
 }
-

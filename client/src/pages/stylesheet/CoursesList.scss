@@ -1,35 +1,35 @@
 @import "StyleBase";
 
 .py-0.header.row.row-cols-lg-12 .courses-title {
-  @include font-Nunito($size:41px, $weight: bold);
+  @include font-Nunito($size: 41px, $weight: bold);
 }
 
 .courses-body .default-table-my-courses .listTitle {
-  border-color: #8AD5D8;
-  color: #8AD5D8;
-  @include font-Quicksand($size:22px, $weight:bold)
+  border-color: #8ad5d8;
+  color: #8ad5d8;
+  @include font-Quicksand($size: 22px, $weight: bold);
 }
 
 .courses-body .default-table-my-courses .course-entry {
-  color: #8AD5D8;
+  color: #8ad5d8;
   text-decoration: none;
-  @include font-Nunito($size: 22px, $weight: bold)
+  @include font-Nunito($size: 22px, $weight: bold);
 }
 
 .courses-body .default-table-all-courses .listTitle {
-  border-color: #8AD5D8;
-  color: #8AD5D8;
-  @include font-Quicksand($size:22px, $weight:bold)
+  border-color: #8ad5d8;
+  color: #8ad5d8;
+  @include font-Quicksand($size: 22px, $weight: bold);
 }
 
 .courses-body .default-table-all-courses .course-entry {
-  color: #8AD5D8;
+  color: #8ad5d8;
   text-decoration: none;
-  @include font-Nunito($size: 22px, $weight: bold)
+  @include font-Nunito($size: 22px, $weight: bold);
 }
 
 .suggestion-card .list-suggestion-title {
-  color:#4D86C1;
+  color: #4d86c1;
 }
 
 .suggestion-card .listSuggestion-questions .suggestion-question {
@@ -37,5 +37,5 @@
 }
 
 .suggestion-card .listSuggestion-questions .suggestion-created-at {
-  color:#4D86C1;
+  color: #4d86c1;
 }
