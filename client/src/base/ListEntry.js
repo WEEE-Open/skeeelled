@@ -24,7 +24,7 @@ function ListEntryDefault(props) {
     <tr>
       {props.row.map((cell, i) => (
         <td key={i}>
-          {props.dotted && <span className="greenDot">●</span>}
+          {props.dotted && <span className="table-dot">●</span>}
           {cell}
         </td>
       ))}

@@ -11,7 +11,8 @@ import {
   Stack,
   Modal,
 } from "react-bootstrap";
-import "./Simulation.css";
+// import "./Simulation.css";
+import "./stylesheet/Simulation.css"; // scss file access
 import { List, ListEntry, TextInput } from "../base";
 
 const Duration = (props) => {
@@ -242,7 +243,7 @@ export default function Simulation(props) {
           />
         </Col>
       </Row>
-      <Card className="simulation-question-card">
+      <div className="simulation-question">
         <Stack gap={3}>
           <Card className="simulation-question-text-card">
             <h3 className="simulation-question-title-number">
@@ -279,7 +280,7 @@ export default function Simulation(props) {
             )}
           </Card.Body>
         </Stack>
-      </Card>
+      </div>
     </Container>
   );
 }

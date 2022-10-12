@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+
+// font-stack: Nunito, default size: 20px, regular 400
+@mixin font-Nunito($size: 20px, $weight: 400) {
+  font-family: "Nunito", sans-serif;
+  font-weight: $weight;
+  font-size: $size; /*change from pt to px*/
+}
+
+@mixin font-Quicksand($size: 20px, $weight: 400) {
+  font-family: "Quicksand", sans-serif;
+  font-weight: $weight;
+  font-size: $size; /*change from pt to px*/
+}
+
+@mixin button-color-radius(
+  $color: black,
+  $background-color: white,
+  $border-color: black,
+  $border-radius: 7pt,
+  $border-width: 2pt
+) {
+  color: $color;
+  background-color: $background-color;
+  border-color: $border-color;
+  border-radius: $border-radius;
+  border-width: $border-width;
+}
+
+@mixin button-dimensions($w: 140px, $h: 40px) {
+  height: $h;
+  width: $w;
+}
+
+@mixin header-component(
+  $border-width: 3pt,
+  $border-color: #797979,
+  $border-radius: 16px
+) {
+  border-width: $border-width;
+  border-color: $border-color;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+}
