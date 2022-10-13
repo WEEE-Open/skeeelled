@@ -70,7 +70,15 @@ function NavigationBar(props) {
 
       <Nav.Link
         as={Link}
-        id={props.dark ? "course-link-dark" : "course-link"}
+        className={props.dark ? "home-link-dark" : "home-link"}
+        to="/"
+      >
+        Home
+      </Nav.Link>
+
+      <Nav.Link
+        as={Link}
+        className={props.dark ? "course-link-dark" : "course-link"}
         to="/courses"
       >
         Courses
@@ -78,7 +86,15 @@ function NavigationBar(props) {
 
       <Nav.Link
         as={Link}
-        id={props.dark ? "add-question-link-dark" : "add-question-link"}
+        className={props.dark ? "simulation-link-dark" : "simulation-link"}
+        to="/simulationview"
+      >
+        Simulation
+      </Nav.Link>
+
+      <Nav.Link
+        as={Link}
+        className={props.dark ? "add-question-link-dark" : "add-question-link"}
         to="/addquestion"
       >
         Add question
@@ -95,6 +111,7 @@ function NavigationBar(props) {
               <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
             </Link>
             <Link
+              className="dropdown-link"
               to={{ pathname: "/bookmarks" }}
               state={{
                 scope: "questions",

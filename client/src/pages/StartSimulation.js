@@ -23,13 +23,14 @@ export default function StartSimulation() {
   const [numQuestions, setNumQuestions] = useState(10);
   const [penaltyScore, setPenaltyScore] = useState(-0.5);
   const [maxScore, setMaxScore] = useState(30);
+  const [duration, setDuration] = useState(60); /* unit: minute */
   const [userInput, setUserInput] = useState(1);
+  const totNumOfQuestion = undefined;
+  const [maxNumOfQuestion, setMaxNumOfQuestion] = useState(
+    totNumOfQuestion ? totNumOfQuestion : 100
+  );
 
   const locationState = useLocation().state;
-
-  useEffect(() => {
-    userInput ? console.log(userInput) : console.log("x");
-  }, [userInput]);
 
   return (
     <>
@@ -51,7 +52,18 @@ export default function StartSimulation() {
                     </div>
                   </Row>
                   {userInput || userInput === 0 ? (
-                    <></>
+                    maxNumOfQuestion > 100 ? (
+                      <Alert variant="danger">
+                        Maximum Number of question: {maxNumOfQuestion}
+                      </Alert>
+                    ) : numQuestions <= 0 || maxScore <= 0 || duration <= 0 ? (
+                      <Alert variant="danger">
+                        Number of Question, Maximum Score, and Duration Must Not
+                        Be Zero
+                      </Alert>
+                    ) : (
+                      <></>
+                    )
                   ) : (
                     <Alert variant="danger">
                       Only Number Inputs Are Allowed
@@ -59,17 +71,17 @@ export default function StartSimulation() {
                   )}
                   <Stack gap={4}>
                     {isMulti ? (
-                      <Row>
+                      <Row key={isMulti}>
                         <Card>
                           <Card.Body>
                             <Stack gap={2}>
                               <h6>
-                                ( Number of Question and Maximum Score Must Not
-                                Be Zero )
+                                ( Number of Question, Maximum Score, and
+                                Duration Must Not Be Zero )
                               </h6>
-                              <InputGroup>
+                              <InputGroup key={isMulti}>
                                 <InputGroup.Text>
-                                  Number of Questions{" "}
+                                  Number of Questions
                                 </InputGroup.Text>
                                 <FormControl
                                   aria-label={numQuestions}
@@ -92,15 +104,26 @@ export default function StartSimulation() {
                                 />
                               </InputGroup>
                               <InputGroup>
-                                <InputGroup.Text>
-                                  Maximum Score{" "}
-                                </InputGroup.Text>
+                                <InputGroup.Text>Maximum Score</InputGroup.Text>
                                 <FormControl
                                   aria-label={maxScore}
                                   placeholder={maxScore}
                                   onChange={(e) => {
                                     setUserInput(Number(e.target.value));
                                     setMaxScore(Number(e.target.value));
+                                  }}
+                                />
+                              </InputGroup>
+                              <InputGroup>
+                                <InputGroup.Text>
+                                  Duration (Minutes)
+                                </InputGroup.Text>
+                                <FormControl
+                                  aria-label={duration}
+                                  placeholder={duration}
+                                  onChange={(e) => {
+                                    setUserInput(Number(e.target.value));
+                                    setDuration(Number(e.target.value));
                                   }}
                                 />
                               </InputGroup>
@@ -112,11 +135,16 @@ export default function StartSimulation() {
                       <></>
                     )}
                     <Row className="bottom-group">
-                      {numQuestions && maxScore && !isNaN(penaltyScore) ? (
-                        simulationTypes.map((type) => {
+                      {numQuestions &&
+                      maxScore &&
+                      !isNaN(penaltyScore) &&
+                      duration &&
+                      numQuestions <= maxNumOfQuestion ? (
+                        simulationTypes.map((type, i) => {
                           return (
-                            <Col>
+                            <Col key={i}>
                               <Link
+                                key={i}
                                 to={{
                                   pathname:
                                     "/simulation/" + locationState.courseId,
@@ -124,14 +152,16 @@ export default function StartSimulation() {
                                 state={{
                                   type: type,
                                   title: locationState.title,
-                                  courseId: locationState.course,
+                                  courseId: locationState.courseId,
                                   num: numQuestions,
                                   penalty: penaltyScore,
                                   max: maxScore,
                                   isMulti: isMulti,
+                                  duration: duration,
                                 }}
                               >
                                 <Button
+                                  key={i}
                                   className="btn-outline-success"
                                   variant="outline-success"
                                 >

@@ -1,3 +1,63 @@
-.result-table-card {
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+
+.simulation-result-container .simulation-result-title-text {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+}
+
+.simulation-result-container .result-table-card {
   padding: 20px;
+  border: none;
+}
+
+.simulation-result-container .simulation-title {
+  font-weight: 600; /*Nunito semiBold*/
+  color: #e08330;
+  font-style: italic;
+  font-family: "Nunito", sans-serif;
+  display: flex;
+}
+
+.simulation-result-score {
+  padding: 0;
+  display: flex;
+}
+
+.simulation-result-container
+  .simulation-result-score
+  .simulation-result-max-score {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 50px; /*change from pt to px*/
+  display: flex;
+}
+
+.simulation-result-container
+  .simulation-result-score
+  .simulation-result-user-score {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 50px; /*change from pt to px*/
+  color: #00de09;
+}
+
+.simulation-result-container .simulation-result-start-button .start-button {
+  max-width: 130px;
+  text-align: center;
+  position: relative;
+  font-size: 13px;
+}
+.simulation-result-container .simulation-result-start-button .btn-primary {
+  border-color: #e28111;
+  color: black;
+  background-color: white;
+  left: 25vw;
+}
+
+.simulation-result-container
+  .simulation-result-start-button
+  .btn-primary:hover {
+  border-color: #e28111;
+  background-color: #e28111;
+  color: white;
 }

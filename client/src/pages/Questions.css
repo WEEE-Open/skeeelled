@@ -6,7 +6,8 @@
   justify-content: center;
 }
 
-.bookmark-svg {
-  max-height: 3vh;
-  margin: 10px;
+.right-button {
+  float: right;
+  margin-left: 5px;
+  margin-bottom: 10px;
 }

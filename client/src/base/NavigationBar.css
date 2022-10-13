@@ -24,35 +24,39 @@
   vertical-align: baseline;
 }
 
-#course-link {
+.course-link,
+.home-link,
+.simulation-link {
   color: #41413f;
   font-size: 20px;
 }
 
-#course-link-dark {
+.course-link-dark,
+.home-link-dark {
   color: white;
   font-size: 20px;
 }
 
-#course-link:hover,
-#course-link-dark:hover {
-  color: #00983a;
-}
-
-#add-question-link {
+.add-question-link {
   margin-left: auto;
   color: #41413f;
   font-size: 20px;
 }
 
-#add-question-link-dark {
+.add-question-link-dark {
   margin-left: auto;
   color: white;
   font-size: 20px;
 }
 
-#add-question-link:hover,
-#add-question-link-dark:hover {
+.course-link:hover,
+.course-link-dark:hover,
+.home-link:hover,
+.home-link-dark:hover,
+.add-question-link:hover,
+.add-question-link-dark:hover,
+.simulation-link:hover,
+.simulation-link-dark:hover {
   color: #00983a;
 }
 
