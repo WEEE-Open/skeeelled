@@ -2,6 +2,7 @@ import { List } from "../base";
 import { Card, Container, Pagination } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import "./stylesheet/ListFullPage.css"
 
 function PaginationRow() {
   let [active, setActive] = useState(1);
@@ -34,15 +35,17 @@ export default function ListFullPage() {
   return (
     <>
       <Container>
-        <Card body>
-          <h2>{location.state.title}</h2>
+        <div className="list-full-page">
           <List
             scope={location.state.scope}
-            title={""}
+            title={location.state.title}
             rows={location.state.rows}
+            rounded
+            tiled
+            dotted
           />
           {location.state.title === "My courses" ? <></> : <PaginationRow />}
-        </Card>
+        </div>
       </Container>
     </>
   );

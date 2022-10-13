@@ -28,6 +28,11 @@
   border-color: #8ad5d8;
 }
 
+.right-button .start-simulation-button:hover {
+  background-color: #8AD5D8;
+  color: white;
+}
+
 .right-button .add-question-button {
   color: black;
   background-color: white;
@@ -42,6 +47,11 @@
   padding: 0;
   margin-right: 10px;
   border-color: #8ad5d8;
+}
+
+.right-button .add-question-button:hover {
+  background-color: #8AD5D8;
+  color: white;
 }
 
 /*# sourceMappingURL=Questions.css.map */

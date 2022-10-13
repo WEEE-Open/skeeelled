@@ -2,21 +2,21 @@
 @import "StyleBase.scss";
 
 .home-page-table .default-table-replies .listTitle {
+  border-color: #EBD000;
+  color: #EBD000;
+}
+
+.home-page-table .default-table-replies .list-body > tr > td > .table-dot {
+  @include table-dot-margin-color($color: #EBD000);
+}
+
+.home-page-table .default-table-my-answers .listTitle {
   border-color: #f40883;
   color: #f40883;
 }
 
-.home-page-table .default-table-replies .list-body > tr > td > .table-dot {
-  @include table-dot-margin-color($color: #f40883);
-}
-
-.home-page-table .default-table-my-answers .listTitle {
-  border-color: #ebd000;
-  color: #ebd000;
-}
-
 .home-page-table .default-table-my-answers .list-body > tr > td > .table-dot {
-  @include table-dot-margin-color($color: #ebd000);
+  @include table-dot-margin-color($color: #f40883);
 }
 
 .home-page-table .default-table-new-questions-in-courses-enrolled .listTitle {

@@ -7,8 +7,7 @@ import {
   Form,
   FloatingLabel,
   Button,
-  Image,
-  Stack,
+  Image, Stack, Card
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ListEntry, SearchBar } from "./";
@@ -57,8 +56,8 @@ function ListDefault({ props }) {
           </table>
         </div>
       ) : (
-        <div className={"default-table-" + props.title.toLowerCase()}>
-          <Table striped borderless className="list">
+        <div className={"default-table-" + props.title.toLowerCase().replace(/\s/g, "-")}>
+          <Table striped borderless hover className="list">
             <thead className="listTitle">
               <tr>
                 <th colSpan={HeaderColspan(props.scope)}>{props.title}</th>
@@ -160,23 +159,25 @@ function ListSimulationResult({ props }) {
   return (
     <>
       <Container className="list-simulation-result">
-        <Row>
-          <Col>
-            <h4 className="listSimulationResultTitle">Your Answers</h4>
-          </Col>
-          <Col className="col-md-2">
-            <Button
-              className="btn-outline-success-simulation-result"
-              variant="outline-success"
-              value="Show/Close"
-              onClick={() => {
-                setAreAllAccordionItemsOpen(!areAllAccordionItemsOpen);
-              }}
-            >
-              {areAllAccordionItemsOpen ? "Close All" : "Show All"}
-            </Button>
-          </Col>
-        </Row>
+        <Card className="accordion-header-card">
+          <Card.Header>
+            <Row>
+              <Col><h4 className="listSimulationResultTitle">Your Answers</h4></Col>
+              <Col className="col-md-2">
+                <Button
+                    className="btn-outline-success-simulation-result"
+                    variant="outline-success"
+                    value="Show/Close"
+                    onClick={() => {
+                      setAreAllAccordionItemsOpen(!areAllAccordionItemsOpen);
+                    }}
+                >
+                  {areAllAccordionItemsOpen ? "Close All" : "Show All"}
+                </Button>
+              </Col>
+            </Row>
+          </Card.Header>
+        </Card>
         <Row>
           <Accordion
             className="listSimulationResults"
@@ -195,6 +196,7 @@ function ListSimulationResult({ props }) {
             ))}
           </Accordion>
         </Row>
+        <Card className="accordion-footer-card"/>
       </Container>
     </>
   );

@@ -1,12 +1,12 @@
 /* dev: className of the table wrapper in List.js, follows syntax - ((props.title).toLowerCase()).replace(/\s/g, "-") */
 @import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
 .home-page-table .default-table-replies .listTitle {
-  border-color: #f40883;
-  color: #f40883;
+  border-color: #EBD000;
+  color: #EBD000;
 }
 
 .home-page-table .default-table-replies .list-body > tr > td > .table-dot {
-  color: #f40883;
+  color: #EBD000;
   height: 8px;
   width: 8px;
   margin-left: 2px;
@@ -14,12 +14,12 @@
 }
 
 .home-page-table .default-table-my-answers .listTitle {
-  border-color: #ebd000;
-  color: #ebd000;
+  border-color: #f40883;
+  color: #f40883;
 }
 
 .home-page-table .default-table-my-answers .list-body > tr > td > .table-dot {
-  color: #ebd000;
+  color: #f40883;
   height: 8px;
   width: 8px;
   margin-left: 2px;
@@ -31,12 +31,7 @@
   color: #00983a;
 }
 
-.home-page-table
-  .default-table-new-questions-in-courses-enrolled
-  .list-body
-  > tr
-  > td
-  > .table-dot {
+.home-page-table .default-table-new-questions-in-courses-enrolled .list-body > tr > td > .table-dot {
   color: #00983a;
   height: 8px;
   width: 8px;
