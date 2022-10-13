@@ -10,7 +10,7 @@ class UserInfo(BaseModel):
 
 from course import CourseInfo
 from question import QuestionInfo
-from answer import AnswerInfo
+from comment import CommentInfo
 
 
 class User(BaseModel):
@@ -25,7 +25,7 @@ class User(BaseModel):
     is_admin: bool = False
     related_courses: List[CourseInfo] = []
     my_Questions: List[QuestionInfo] = []
-    my_Answers: List[AnswerInfo] = []
+    my_Comments: List[CommentInfo] = []
     last_session: float
     credibility_rate: float = -1.0
     simulation_result: List[float] = []

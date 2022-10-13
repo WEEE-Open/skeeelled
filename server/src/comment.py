@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 # Answer preview
-class AnswerInfo(BaseModel):
+class CommentInfo(BaseModel):
     answer_id: str
     author_id: str
     text: str
@@ -13,7 +13,7 @@ class AnswerInfo(BaseModel):
     timestamp: float
 
 
-class Answer(BaseModel):
+class Comment(BaseModel):
     author: Any
     info: Any
     # replies may be just be a list to answers to an answer
