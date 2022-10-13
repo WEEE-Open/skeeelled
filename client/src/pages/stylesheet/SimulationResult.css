@@ -27,13 +27,17 @@
   margin: 3% 0 3% 0;
 }
 
-.simulation-result-container .simulation-result-score .simulation-result-max-score {
+.simulation-result-container
+  .simulation-result-score
+  .simulation-result-max-score {
   font-family: "Nunito", sans-serif;
   font-weight: bold;
   font-size: 50px; /*change from pt to px*/
 }
 
-.simulation-result-container .simulation-result-score .simulation-result-user-score {
+.simulation-result-container
+  .simulation-result-score
+  .simulation-result-user-score {
   font-family: "Nunito", sans-serif;
   font-weight: bold;
   font-size: 50px; /*change from pt to px*/
@@ -60,7 +64,9 @@
   font-size: 17px; /*change from pt to px*/
 }
 
-.simulation-result-container .simulation-result-start-button .btn-primary:hover {
+.simulation-result-container
+  .simulation-result-start-button
+  .btn-primary:hover {
   color: white;
   background-color: #e28111;
   border-color: #e28111;
@@ -91,7 +97,9 @@
   padding: 1rem;
 }
 
-.simulation-result-container table th:nth-child(2), .simulation-result-container table th:nth-child(3), .simulation-result-container table th:last-child {
+.simulation-result-container table th:nth-child(2),
+.simulation-result-container table th:nth-child(3),
+.simulation-result-container table th:last-child {
   border-left: 3px solid #797979;
 }
 
