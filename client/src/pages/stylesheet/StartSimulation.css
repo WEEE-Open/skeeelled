@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.bottom-group {
+  text-align: center;
+}
+
+.simulation-card {
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.start-simulation-button {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 17px; /*change from pt to px*/
+  width: 139pt;
+  height: 40px;
+  color: black;
+  background-color: white;
+  border-color: #ea9b57;
+  border-radius: 7pt;
+  border-width: 2pt;
+}
+
+.start-simulation-button:hover {
+  color: white;
+  background-color: #ea9b57;
+  border-color: #ea9b57;
+  border-radius: 7pt;
+  border-width: 2pt;
+}
+
+.form-check-input:checked {
+  background-color: #ea9b57 !important;
+}
+
+/*# sourceMappingURL=StartSimulation.css.map */

@@ -1,0 +1,27 @@
+@import "./StyleBase";
+
+.bottom-group {
+  text-align: center;
+}
+.simulation-card {
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.start-simulation-button {
+  @include font-Quicksand($size: 17px);
+  width: 139pt;
+  height: 40px;
+  @include button-color-radius($border-color: #ea9b57);
+}
+.start-simulation-button:hover {
+  @include button-color-radius(
+          $border-color: #ea9b57,
+          $background-color: #ea9b57,
+          $color: white
+  );
+}
+
+.form-check-input:checked {
+  background-color: #ea9b57 !important;
+}

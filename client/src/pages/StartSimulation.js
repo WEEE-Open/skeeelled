@@ -13,7 +13,8 @@ import {
 } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "./StartSimulation.css";
+// import "./StartSimulation.css";
+import "./stylesheet/StartSimulation.css"
 
 export default function StartSimulation() {
   const simulationTypes = ["Random", "Exam"];
@@ -162,7 +163,7 @@ export default function StartSimulation() {
                               >
                                 <Button
                                   key={i}
-                                  className="btn-outline-success"
+                                  className="start-simulation-button"
                                   variant="outline-success"
                                 >
                                   {type + " Question"}
