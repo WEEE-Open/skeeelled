@@ -191,20 +191,20 @@ function ListEntrySimulationResult(props) {
             <Col className="col-md-2">
               {props.row.isCorrect ? (
                 <Image
-                  width={"18px"}
-                  src={process.env.PUBLIC_URL + "/icons/CHECKMARK.svg"}
+                  width={"35px"}
+                  src={process.env.PUBLIC_URL + "/icons/RIGHT.svg"}
                 />
               ) : (
                 <Image
-                  width={"18px"}
-                  src={process.env.PUBLIC_URL + "/icons/x.svg"}
+                  width={"35px"}
+                  src={process.env.PUBLIC_URL + "/icons/WRONG.svg"}
                 />
               )}
             </Col>
-            <Col>
+            <Col className="simulation-result-accordion-question-number">
               <h6>Question {props.row.quizNum}</h6>
             </Col>
-            <Col>
+            <Col className="simulation-result-accordion-score">
               {props.row.isCorrect ? (
                 <h6>Score: {props.row.score}</h6>
               ) : (

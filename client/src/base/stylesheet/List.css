@@ -70,9 +70,6 @@
 }
 
 .container .list-simulation-result {
-  font-family: "Nunito", sans-serif;
-  font-weight: light;
-  font-size: 17px; /*change from pt to px*/
   margin-top: 5%;
 }
 
@@ -109,9 +106,6 @@
 }
 
 .accordion-item .accordion-header {
-  font-family: "Nunito", sans-serif;
-  font-weight: bold;
-  font-size: 41px; /*change from pt to px*/
   border-left: 3px solid #797979;
   border-right: 3px solid #797979;
   border-bottom: 3px solid #797979;
@@ -128,18 +122,12 @@
 }
 
 .list-simulation-result .accordion-header-card {
-  font-family: "Nunito", sans-serif;
-  font-weight: bold;
-  font-size: 41px; /*change from pt to px*/
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   border: 3px solid #797979;
 }
 
 .list-simulation-result .accordion-header-card .card-header {
-  font-family: "Nunito", sans-serif;
-  font-weight: bold;
-  font-size: 41px; /*change from pt to px*/
   padding: 3vh 1.25rem 0.5rem 1.25rem;
 }
 
@@ -150,9 +138,6 @@
 }
 
 .list-simulation-result .accordion-footer-card {
-  font-family: "Nunito", sans-serif;
-  font-weight: bold;
-  font-size: 41px; /*change from pt to px*/
   padding: 1.8rem;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
