@@ -9,7 +9,7 @@ from course import CourseInfo, Course
 from user import UserInfo, User
 from simulation import ExamSimulation
 from question import QuestionInfo
-from answer import Answer, AnswerInfo
+from comment import Comment, CommentInfo
 from random import choice, randint, sample
 import motor.motor_asyncio
 from datetime import datetime as time
@@ -22,10 +22,10 @@ client.get_io_loop = asyncio.get_running_loop
 db = client["test_db"]
 
 """frequently used data for test generation"""
-with open(os.path.join("test_data_base", "asd_but_in_b64")) as test_pic:
+with open(os.path.join("../test_data_base", "asd_but_in_b64")) as test_pic:
     profile_picture = test_pic.read().strip()
 
-with open(os.path.join("test_data_base", "questions")) as jsonfile:
+with open(os.path.join("../test_data_base", "questions")) as jsonfile:
     qlist = json.load(jsonfile)
 for q in qlist:
     matricola = f"d{randint(11111, 99999)}"
@@ -58,10 +58,10 @@ async def generate_courses():
 
 async def generate_questions():
     await db[DbName.QUESTION.value].drop()
-    answers = db[DbName.ANSWER.value].find()
-    answers = await answers.to_list(50)
+    comments = db[DbName.COMMENT.value].find()
+    comments = await comments.to_list(50)
     for q in qlist:
-        q['answers'] = sample(answers, randint(0, 4))
+        q[DbName.COMMENT.value] = sample(comments, randint(0, 4))
     await db[DbName.QUESTION.value].insert_many(qlist)
 
 
@@ -89,18 +89,18 @@ async def generate_simulations():
     await db[DbName.EXAM_SIM.value].insert_many(sim_list)
 
 
-async def generate_answers():
-    await db[DbName.ANSWER.value].drop()
-    answers_list = []
+async def generate_comments():
+    await db[DbName.COMMENT.value].drop()
+    comments_list = []
     for i in range(50):
-        answ = Answer(content=''.join(random.choices(string.ascii_letters, k=50)),
-                      upvotes=randint(0, 100),
-                      downvotes=randint(0, 100),
-                      replies=[''.join(random.choices(string.ascii_letters, k=50)) for _ in range(randint(0, 4))],
-                      has_verified_upvotes=choice((True, False))
-                      )
-        answers_list.append(answ.dict(by_alias=True))
-    await db[DbName.ANSWER.value].insert_many(answers_list)
+        comments = Comment(content=''.join(random.choices(string.ascii_letters, k=50)),
+                           upvotes=randint(0, 100),
+                           downvotes=randint(0, 100),
+                           replies=[''.join(random.choices(string.ascii_letters, k=50)) for _ in range(randint(0, 4))],
+                           has_verified_upvotes=choice((True, False))
+                           )
+        comments_list.append(comments.dict(by_alias=True))
+    await db[DbName.COMMENT.value].insert_many(comments_list)
 
 
 async def generate_users():
