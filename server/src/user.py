@@ -22,10 +22,10 @@ class User(BaseModel):
     is_active: bool = False
     is_professor: bool = False
     is_admin: bool = False
-    related_courses: List[str] = []
-    my_Questions: List[ObjectId] = []
-    my_Answers: List[ObjectId] = []
-    my_Replies: List[ObjectId] = []
+    related_courses: List[str] = []     # Course ids
+    my_Questions: List[ObjectId] = []   # Question ids
+    my_Answers: List[ObjectId] = []     # Answer ids
+    my_Replies: List[ObjectId] = []     # Reply ids
     last_session: float
     credibility_rate: float = -1.0
     simulation_result: List[ExamSimulation] = []
