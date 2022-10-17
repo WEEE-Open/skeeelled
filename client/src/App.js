@@ -101,7 +101,7 @@ function App() {
       </Row>
       <DebugPaths />
       <Row className="my-4">
-        <Col xs={10} md={8} className="mx-auto">
+        <Col sm={11} md={10} className="mx-auto">
           {/*
 					<Exam question={parsedQuestions.quiz.question} />
 					*/}

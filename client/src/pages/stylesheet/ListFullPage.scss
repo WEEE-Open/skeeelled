@@ -1,0 +1,111 @@
+@import "StyleBase";
+
+.list-full-page .default-table-replies .listTitle {
+  color: #ebd000;
+  border: none;
+  @include font-Quicksand($size: 25px, $weight: bold);
+  outline: 3px solid #ebd000;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+.list-full-page .default-table-replies .list-body > tr > td > .table-dot {
+  @include table-dot-margin-color($color: #ebd000);
+}
+.list-full-page .default-table-replies .listTitle th {
+  padding: 12px;
+}
+
+.list-full-page .default-table-new-questions-in-courses-enrolled .listTitle {
+  color: #00983a;
+  border: none;
+  @include font-Quicksand($size: 25px, $weight: bold);
+  outline: 3px solid #00983a;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 12px;
+}
+.list-full-page
+  .default-table-new-questions-in-courses-enrolled
+  .list-body
+  > tr
+  > td
+  > .table-dot {
+  @include table-dot-margin-color($color: #00983a);
+}
+.list-full-page .default-table-new-questions-in-courses-enrolled .listTitle th {
+  padding: 12px;
+}
+
+.list-full-page .default-table-my-questions .listTitle {
+  color: #4d86c1;
+  border: none;
+  @include font-Quicksand($size: 25px, $weight: bold);
+  outline: 3px solid #4d86c1;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 12px;
+}
+.list-full-page .default-table-my-questions .list-body > tr > td > .table-dot {
+  @include table-dot-margin-color($color: #4d86c1);
+}
+.list-full-page .default-table-my-questions .listTitle th {
+  padding: 12px;
+}
+
+.list-full-page .default-table-my-answers .listTitle {
+  color: #f40883;
+  border: none;
+  @include font-Quicksand($size: 25px, $weight: bold);
+  outline: 3px solid #f40883;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 12px;
+}
+.list-full-page .default-table-my-answers .list-body > tr > td > .table-dot {
+  @include table-dot-margin-color($color: #f40883);
+}
+.list-full-page .default-table-my-answers .listTitle th {
+  padding: 12px;
+}
+
+.list-full-page .default-table-my-simulation-results .listTitle {
+  color: #e28111;
+  border: none;
+  @include font-Quicksand($size: 25px, $weight: bold);
+  outline: 3px solid #e28111;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 12px;
+}
+.list-full-page
+  .default-table-my-simulation-results
+  .list-body
+  > tr
+  > td
+  > .table-dot {
+  @include table-dot-margin-color($color: #e28111);
+}
+.list-full-page .default-table-my-simulation-results .listTitle th {
+  padding: 12px;
+}
+
+.list-full-page .default-table-all-courses .listTitle,
+.list-full-page .default-table-my-courses .listTitle {
+  color: #8ad5d8;
+  border: none;
+  @include font-Quicksand($size: 25px, $weight: bold);
+  outline: 3px solid #8ad5d8;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 12px;
+}
+.list-full-page .default-table-all-courses .course-entry,
+.list-full-page .default-table-my-courses .course-entry {
+  color: #8ad5d8;
+  text-decoration: none;
+  @include font-Nunito($size: 22px, $weight: bold);
+}
+.list-full-page .default-table-all-courses .listTitle th,
+.list-full-page .default-table-my-courses .listTitle th {
+  padding: 12px;
+}

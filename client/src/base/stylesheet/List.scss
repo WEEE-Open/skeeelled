@@ -30,8 +30,8 @@
 }
 
 .roundedList th {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   @include font-Quicksand($size: 25px, $weight: bold);
 }
 
@@ -65,6 +65,11 @@
   padding: 5px;
 }
 
+.container .list-simulation-result {
+  @include font-Nunito($size: 17px, $weight: light);
+  margin-top: 5%;
+}
+
 .list-simulation-result .btn-outline-success-simulation-result {
   height: 30px;
   min-width: 60px;
@@ -72,6 +77,7 @@
   border-color: #e08330;
   color: black;
   background-color: white;
+  margin: auto;
 }
 .list-simulation-result .btn-outline-success-simulation-result:hover {
   border-color: #e08330;
@@ -81,4 +87,58 @@
 
 .add-icon {
   margin-top: -2px;
+}
+.accordion {
+  border-collapse: separate;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+.list-simulation-result .listSimulationResultTitle {
+  @include font-Nunito($size: 41px, $weight: bold);
+}
+
+.accordion-item .accordion-header {
+  @include font-Nunito($size: 41px, $weight: bold);
+  border-left: 3px solid #797979;
+  border-right: 3px solid #797979;
+  border-bottom: 3px solid #797979;
+  //outline: 3px solid #797979;
+}
+
+.accordion-item .accordion-collapse {
+  margin: 0;
+}
+
+.accordion-item .accordion-body {
+  border-right: 0.1px solid #797979;
+  border-left: 0.1px solid #797979;
+  border-bottom: 1px solid #797979;
+}
+
+.list-simulation-result .accordion-header-card {
+  @include font-Nunito($size: 41px, $weight: bold);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  border: 3px solid #797979;
+}
+.list-simulation-result .accordion-header-card .card-header {
+  @include font-Nunito($size: 41px, $weight: bold);
+  padding: 3vh 1.25rem 0.5rem 1.25rem;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #e28111;
+  border: 3px solid #e28111;
+  outline: none;
+}
+
+.list-simulation-result .accordion-footer-card {
+  @include font-Nunito($size: 41px, $weight: bold);
+  padding: 1.8rem;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  border-left: 3px solid #797979;
+  border-right: 3px solid #797979;
+  border-bottom: 3px solid #797979;
 }
