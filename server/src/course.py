@@ -1,18 +1,13 @@
-from pydantic import BaseModel, validator
-
-
-# models definitions
-class CourseInfo(BaseModel):
-    id: str
-    name: str
-
-
-from user import UserInfo
+from pydantic import BaseModel, Field
+from typing import List
+from question import Question
+from quiz import Quiz
 
 
 class Course(BaseModel):
+    code: str = Field(alias="_id")
     name: str
-    code: str
-    years_active: list[int]
-    professors: list[UserInfo]
-    questions: list
+    years_active: List[int] = []
+    professors: List[str] = []
+    questions: List[Question] = []
+    quizzes: List[Quiz] = []

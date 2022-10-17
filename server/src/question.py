@@ -10,8 +10,8 @@ class QuestionInfo(BaseModel):
     timestamp: float
 
 
-from answer import Answer
 from course import CourseInfo
+from comment import Comment
 
 
 class Question(BaseModel):
@@ -25,7 +25,7 @@ class Question(BaseModel):
     tags: List[str] = []
     timestamp: float = datetime.now().timestamp()
     # mandatory limit parameter
-    answers: List = [Answer]
+    comments: List[Comment] = []
 
     # constraint check on question values
     @validator('content')
