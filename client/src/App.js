@@ -20,13 +20,14 @@ import {
   Bookmarks,
   StartSimulation,
   Simulation,
+  SimulationResult,
+  SimulationAccess,
 } from "./pages/";
-import SimulationResult from "./pages/SimulationResult";
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true); // TODO: reset to false, true used for debugging purposes
   const [showHints, setShowHints] = useState(false);
   const [showDiscussion, setShowDiscussion] = useState(false);
   const [admin, setAdmin] = useState(false);
@@ -111,7 +112,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/settings" element={<UserSettings />} />
               <Route path="/courses" element={<CoursesList />} />
-              <Route path="/course/:coursecode" element={<Questions />} />
+              <Route path="/course/:courseid" element={<Questions />} />
               <Route
                 path="/question/:questionid"
                 element={
@@ -141,7 +142,12 @@ function App() {
                 path="/simulationresult/:courseName"
                 element={<SimulationResult />}
               />
-              {/* <MyQuestions /> */}
+              <Route path="/simulationview" element={<SimulationAccess />} />
+              <Route
+                path="/python-editor"
+                element={<TextInput dark={dark} pythonQuestion />}
+              />{" "}
+              {/* For debugging purposes */}
             </Routes>
           ) : (
             <Routes>

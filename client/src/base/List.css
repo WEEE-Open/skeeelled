@@ -57,9 +57,18 @@
   padding: 5px;
 }
 
-.right-button {
-  float: right;
-  margin-right: 5px;
+.list-simulation-result .btn-outline-success-simulation-result {
+  height: 30px;
+  min-width: 60px;
+  font-size: 12px;
+  border-color: #e08330;
+  color: black;
+  background-color: white;
+}
+.list-simulation-result .btn-outline-success-simulation-result:hover {
+  border-color: #e08330;
+  background-color: #e08330;
+  color: white;
 }
 
 .add-icon {

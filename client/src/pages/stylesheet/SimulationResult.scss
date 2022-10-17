@@ -1,0 +1,83 @@
+@import "./StyleBase";
+
+.simulation-result-container {
+  border-width: 3pt;
+}
+
+.simulation-result-container .simulation-result-title-text {
+  padding: 0;
+  @include font-Nunito($weight: bold, $size: 41px);
+}
+
+.simulation-result-container .simulation-title {
+  color: #e08330;
+  font-style: italic;
+  @include font-Nunito($weight: bold, $size: 41px);
+  display: flex;
+}
+
+.simulation-result-score {
+  padding: 0;
+  display: flex;
+}
+
+.simulation-result-container
+  .simulation-result-score
+  .simulation-result-max-score {
+  @include font-Nunito($weight: bold, $size: 50px);
+}
+
+.simulation-result-container
+  .simulation-result-score
+  .simulation-result-user-score {
+  @include font-Nunito($weight: bold, $size: 50px);
+  color: #00de09;
+}
+
+.simulation-result-container .simulation-result-start-button .start-button {
+  left: 25vw;
+  text-align: center;
+  position: relative;
+  padding: 1pt;
+}
+.simulation-result-container .simulation-result-start-button .btn-primary {
+  @include button-dimensions($h: 55px);
+  @include button-color-radius($border-color: #e28111, $border-width: 2px);
+  @include font-Quicksand($size: 17px);
+}
+
+.simulation-result-container
+  .simulation-result-start-button
+  .btn-primary:hover {
+  @include button-color-radius(
+    $border-color: #e28111,
+    $background-color: #e28111,
+    $color: white
+  );
+}
+
+.simulation-result-container table {
+  width: 100%;
+  color: #797979;
+  background-color: rgba(121, 121, 121, 0.05);
+  @include font-Nunito($size: 25px, $weight: 400);
+  border: 1px solid black;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-collapse: separate;
+}
+.simulation-result-container table thead {
+  @include font-Quicksand($size: 25px, $weight: 400);
+  border: 1px solid black;
+}
+
+.simulation-result-container table th:first-child {
+  border-left: none;
+}
+.simulation-result-container table th:last-child {
+  border-right: none;
+}
+
+.simulation-result-container table tbody td:first-child {
+  border-top: none;
+}

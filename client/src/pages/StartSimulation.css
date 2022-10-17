@@ -5,16 +5,16 @@
   padding: 20px;
   border-radius: 20px;
 }
-.btn-outline-success {
-  color: #00983a !important;
-  border-color: #00983a !important;
-}
-.btn-outline-success:hover {
-  color: white !important;
-  background-color: #00983a !important;
-}
-.form-check-input:checked {
-  color: white !important;
-  background-color: #00983a !important;
-  border-color: #00983a !important;
-}
+/*.btn-outline-success {*/
+/*  color: #00983a !important;*/
+/*  border-color: #00983a !important;*/
+/*}*/
+/*.btn-outline-success:hover {*/
+/*  color: white !important;*/
+/*  background-color: #00983a !important;*/
+/*}*/
+/*.form-check-input:checked {*/
+/*  color: white !important;*/
+/*  background-color: #00983a !important;*/
+/*  border-color: #00983a !important;*/
+/*}*/

@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.simulation-result-container {
+  border-width: 3pt;
+}
+
+.simulation-result-container .simulation-result-title-text {
+  padding: 0;
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 41px; /*change from pt to px*/
+}
+
+.simulation-result-container .simulation-title {
+  color: #e08330;
+  font-style: italic;
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 41px; /*change from pt to px*/
+  display: flex;
+}
+
+.simulation-result-score {
+  padding: 0;
+  display: flex;
+}
+
+.simulation-result-container
+  .simulation-result-score
+  .simulation-result-max-score {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 50px; /*change from pt to px*/
+}
+
+.simulation-result-container
+  .simulation-result-score
+  .simulation-result-user-score {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 50px; /*change from pt to px*/
+  color: #00de09;
+}
+
+.simulation-result-container .simulation-result-start-button .start-button {
+  left: 25vw;
+  text-align: center;
+  position: relative;
+  padding: 1pt;
+}
+
+.simulation-result-container .simulation-result-start-button .btn-primary {
+  height: 55px;
+  width: 140px;
+  color: black;
+  background-color: white;
+  border-color: #e28111;
+  border-radius: 7pt;
+  border-width: 2px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 17px; /*change from pt to px*/
+}
+
+.simulation-result-container
+  .simulation-result-start-button
+  .btn-primary:hover {
+  color: white;
+  background-color: #e28111;
+  border-color: #e28111;
+  border-radius: 7pt;
+  border-width: 2pt;
+}
+
+.simulation-result-container table {
+  width: 100%;
+  color: #797979;
+  background-color: rgba(121, 121, 121, 0.05);
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 25px; /*change from pt to px*/
+  border: 1px solid black;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-collapse: separate;
+}
+
+.simulation-result-container table thead {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 25px; /*change from pt to px*/
+  border: 1px solid black;
+}
+
+.simulation-result-container table th:first-child {
+  border-left: none;
+}
+
+.simulation-result-container table th:last-child {
+  border-right: none;
+}
+
+.simulation-result-container table tbody td:first-child {
+  border-top: none;
+}
+
+/*# sourceMappingURL=SimulationResult.css.map */

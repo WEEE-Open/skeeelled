@@ -10,7 +10,8 @@ import {
 } from "react-bootstrap";
 
 import { useEffect, useState } from "react";
-import "./Questions.css";
+// import "./Questions.css";
+import "./stylesheet/Questions.css";
 import { List, Recent, SearchBar, Suggestion } from "../base/";
 import { Link, useLocation } from "react-router-dom";
 
@@ -101,60 +102,155 @@ const Questions = () => {
     <>
       <Container>
         <Stack gap={4}>
-          <Row>
-            <Col>
-              <Card body>
-                <Row lg={12} className="header">
-                  <Col>
-                    <h3 className="listQuestionsTitle">
-                      Physics I
-                      <Link to="/simulation">
-                        <Button className="right-button">
-                          Start simulation
+          {isDesktop ? (
+            <Row key={isDesktop}>
+              <Col>
+                <Container className="container">
+                  <Row lg={12} className="header">
+                    <Col>
+                      <div className="right-button">
+                        <Button
+                          className="add-question-button"
+                          onClick={() => {}}
+                        >
+                          {/*<Image*/}
+                          {/*    className="add-icon"*/}
+                          {/*    src={*/}
+                          {/*      process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"*/}
+                          {/*    }*/}
+                          {/*    width="13px"*/}
+                          {/*/>*/}
+                          {" Enroll in course"}
                         </Button>
-                      </Link>
-                      <Button className="right-button" onClick={() => {}}>
-                        <Image
-                          className="add-icon"
-                          src={process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"}
-                          width="13px"
-                        />
-                        {" Add course"}
-                      </Button>
-                    </h3>
-                    <Row>
-                      <Col className="listQuestionsTitle">
-                        <SearchBar />
-                      </Col>
-                    </Row>
-                    <List
-                      scope="questions"
-                      title="Physics I"
-                      rows={questions}
-                    />
-                  </Col>
-                  <Col className="pagination" lg="12" sm="12" md="12">
-                    <PaginationRow />
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col className="d-sm-inline-block col-md-4">
-              <Stack gap={4}>
-                {suggestionType.map((type) => {
-                  return (
-                    <Row>
-                      <Suggestion
-                        scope={"suggestion"}
-                        title={type + " Questions"}
-                        rows={suggestions}
+
+                        <Link
+                          to={{
+                            pathname:
+                              "/startsimulation/" + locationState.courseId,
+                          }}
+                          state={{
+                            courseId: locationState.courseId,
+                            title: locationState.title,
+                          }}
+                        >
+                          <Button className="start-simulation-button">
+                            {/*<Image*/}
+                            {/*    className="add-icon"*/}
+                            {/*    src={*/}
+                            {/*      process.env.PUBLIC_URL +*/}
+                            {/*      "/icons/SIMULATION RESULTS_WHITE.svg"*/}
+                            {/*    }*/}
+                            {/*    width="13px"*/}
+                            {/*/>*/}
+                            {" Start Simulation"}
+                          </Button>
+                        </Link>
+                      </div>
+
+                      <List
+                        scope="questions"
+                        title={locationState.title}
+                        rows={questions}
                       />
-                    </Row>
-                  );
-                })}
-              </Stack>
-            </Col>
-          </Row>
+                    </Col>
+
+                    <Col className="pagination" lg="12" sm="12" md="12">
+                      <PaginationRow />
+                    </Col>
+                  </Row>
+                </Container>
+              </Col>
+              <Col className="d-sm-inline-block col-md-4">
+                <Stack gap={4}>
+                  {suggestionType.map((type, i) => {
+                    return (
+                      <Row key={i}>
+                        <Suggestion
+                          scope={"suggestion"}
+                          title={type + " Questions"}
+                          rows={suggestions}
+                        />
+                      </Row>
+                    );
+                  })}
+                </Stack>
+              </Col>
+            </Row>
+          ) : (
+            // mobile configuration
+            <>
+              <Row>
+                <Container className="container">
+                  <Row lg={12} className="header">
+                    <Col>
+                      <div className="right-button">
+                        <Button
+                          className="add-question-button"
+                          onClick={() => {}}
+                        >
+                          {/*<Image*/}
+                          {/*    className="add-icon"*/}
+                          {/*    src={*/}
+                          {/*      process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"*/}
+                          {/*    }*/}
+                          {/*    width="13px"*/}
+                          {/*/>*/}
+                          {" Enroll in course"}
+                        </Button>
+
+                        <Link
+                          to={{
+                            pathname:
+                              "/startsimulation/" + locationState.courseId,
+                          }}
+                          state={{
+                            courseId: locationState.courseId,
+                            title: locationState.title,
+                          }}
+                        >
+                          <Button className="start-simulation-button">
+                            {/*<Image*/}
+                            {/*    className="add-icon"*/}
+                            {/*    src={*/}
+                            {/*      process.env.PUBLIC_URL +*/}
+                            {/*      "/icons/SIMULATION RESULTS_WHITE.svg"*/}
+                            {/*    }*/}
+                            {/*    width="13px"*/}
+                            {/*/>*/}
+                            {" Start Simulation"}
+                          </Button>
+                        </Link>
+                      </div>
+                      <List
+                        scope="questions"
+                        title={locationState.title}
+                        rows={questions}
+                      />
+                    </Col>
+
+                    <Col className="pagination" lg="12" sm="12" md="12">
+                      <PaginationRow />
+                    </Col>
+                  </Row>
+                </Container>
+              </Row>
+              <Row>
+                <Stack gap={4}>
+                  {suggestionType.map((type, i) => {
+                    return (
+                      <Col key={i}>
+                        <Suggestion
+                          scope={"suggestion"}
+                          title={type + " Questions"}
+                          rows={suggestions}
+                        />
+                      </Col>
+                    );
+                  })}
+                </Stack>
+              </Row>
+            </>
+          )}
         </Stack>
       </Container>
     </>

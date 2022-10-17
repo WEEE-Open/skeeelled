@@ -1,0 +1,43 @@
+/* dev: className of the table wrapper in List.js, follows syntax - ((props.title).toLowerCase()).replace(/\s/g, "-") */
+@import "StyleBase.scss";
+
+.home-page-table .default-table-replies .listTitle {
+  border-color: #f40883;
+  color: #f40883;
+}
+
+.home-page-table .default-table-replies .list-body > tr > td > .table-dot {
+  @include table-dot-margin-color($color: #f40883);
+}
+
+.home-page-table .default-table-my-answers .listTitle {
+  border-color: #ebd000;
+  color: #ebd000;
+}
+
+.home-page-table .default-table-my-answers .list-body > tr > td > .table-dot {
+  @include table-dot-margin-color($color: #ebd000);
+}
+
+.home-page-table .default-table-new-questions-in-courses-enrolled .listTitle {
+  border-color: #00983a;
+  color: #00983a;
+}
+
+.home-page-table
+  .default-table-new-questions-in-courses-enrolled
+  .list-body
+  > tr
+  > td
+  > .table-dot {
+  @include table-dot-margin-color($color: #00983a);
+}
+
+.home-page-table .default-table-my-questions .listTitle {
+  border-color: #4d86c1;
+  color: #4d86c1;
+}
+
+.home-page-table .default-table-my-questions .list-body > tr > td > .table-dot {
+  @include table-dot-margin-color($color: #4d86c1);
+}

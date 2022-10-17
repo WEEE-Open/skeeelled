@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.questionEntry {
+  padding: 1.5rem;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  background-color: rgba(138, 213, 216, 0.25);
+}
+
+.answerEntry {
+  width: 0;
+}
+
+.question {
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
+.tags {
+  font-size: 0.8em;
+  padding-right: 5px;
+}
+
+.suggestion-question {
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.reply-link {
+  float: right;
+}
+
+.questionEntry .question {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 20px; /*change from pt to px*/
+  color: black;
+}
+
+.questionEntry .tags {
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 14px; /*change from pt to px*/
+  text-decoration: none;
+}
+
+.questionEntry .created-at {
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 14px; /*change from pt to px*/
+  color: #707070;
+}
+
+.questionEntry .created-from {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 14px; /*change from pt to px*/
+  font-style: italic;
+  color: #707070;
+}
+
+/*# sourceMappingURL=ListEntry.css.map */

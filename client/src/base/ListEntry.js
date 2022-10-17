@@ -1,4 +1,12 @@
-import { Row, Col, Container, Image, Button } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Container,
+  Image,
+  Card,
+  Accordion,
+  Button,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MarkdownPreview from "./MarkdownPreview";
 import remarkGfm from "remark-gfm";
@@ -6,15 +14,18 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 
-import "./ListEntry.css";
+// import "./ListEntry.css";
+import "./stylesheet/ListEntry.css";
 import QuestionPreview from "./QuestionPreview";
+import { useEffect, useState } from "react";
+import { UserSettings } from "../pages";
 
 function ListEntryDefault(props) {
   return (
     <tr>
-      {props.row.map((cell) => (
-        <td>
-          {props.dotted && <span className="greenDot">●</span>}
+      {props.row.map((cell, i) => (
+        <td key={i}>
+          {props.dotted && <span className="table-dot">●</span>}
           {cell}
         </td>
       ))}
@@ -30,6 +41,7 @@ function ListEntryCourses(props) {
         <Link
           to={"/course/" + props.row.code}
           state={{ courseId: props.row.code, title: props.row.course }}
+          className="course-entry"
         >
           {props.row.course}
         </Link>
@@ -45,22 +57,24 @@ function ListEntryQuestions(props) {
     <div className="questionEntry">
       <Row>
         <Col>
-          <Link to={"/question/" + props.row.id} className="question">
-            {props.row.question}
-          </Link>
-        </Col>
-      </Row>
-      <Row>
-        <Col>from {props.row.author}</Col>
-        <Col>Created at: {props.row.createdat}</Col>
-      </Row>
-      <Row>
-        <Col>
-          {props.row.tags.map((t) => (
-            <Link to="" className="tags">
-              #{t}
+          <Row>
+            <Link to={"/question/" + props.row.id} className="question">
+              {props.row.question}
             </Link>
-          ))}
+          </Row>
+          <Row>
+            <Col>
+              {props.row.tags.map((t, i) => (
+                <Link key={i} to="" className="tags">
+                  #{t}
+                </Link>
+              ))}
+            </Col>
+          </Row>
+        </Col>
+        <Col>
+          <Row className="created-at">Created at: {props.row.createdat}</Row>
+          <Row className="created-from">from {props.row.author}</Row>
         </Col>
       </Row>
       <Row>
@@ -161,13 +175,72 @@ function ListEntrySuggestion(props) {
             {props.row.question}
           </Link>
         </Col>
-        <Col>from {props.row.author}</Col>
-        <Col>Created at: {props.row.createdat}</Col>
+        <Col className="suggestion-created-by">from {props.row.author}</Col>
+        <Col className="suggestion-created-at">
+          Created at: {props.row.createdat}
+        </Col>
       </Col>
     </Container>
   );
 }
 
+function ListEntrySimulationResult(props) {
+  return (
+    <Accordion.Item eventKey={props.accordionKey} key={props.accordionKey}>
+      <Row>
+        <Col>
+          <Accordion.Header>
+            <Col className="col-md-2">
+              {props.row.isCorrect ? (
+                <Image
+                  width={"18px"}
+                  src={process.env.PUBLIC_URL + "/icons/CHECKMARK.svg"}
+                />
+              ) : (
+                <Image
+                  width={"18px"}
+                  src={process.env.PUBLIC_URL + "/icons/x.svg"}
+                />
+              )}
+            </Col>
+            <Col>
+              <h6>Question {props.row.quizNum}</h6>
+            </Col>
+            <Col>
+              {props.row.isCorrect ? (
+                <h6>Score: {props.row.score}</h6>
+              ) : (
+                <h6>Score: {props.row.penalty}</h6>
+              )}
+            </Col>
+          </Accordion.Header>
+        </Col>
+      </Row>
+      <Accordion.Body>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        {
+          <Row>
+            <Col>
+              <h5>Your Answer: {props.row.ans}</h5>
+            </Col>
+            <Col>
+              <h5>Correct Answer: {"C"}</h5>
+              {/*props.row.correctAns*/}
+            </Col>
+          </Row>
+        }
+      </Accordion.Body>
+    </Accordion.Item>
+  );
+}
 function ListEntrySelection(props) {
   return <option value={props.key + 1}>{props.row}</option>;
 }
@@ -184,6 +257,12 @@ function ListEntry(props) {
       {props.scope === "replies" && <ListEntryReplies row={props.row} />}
       {props.scope === "test" && <ListEntryTest row={props.row} />}
       {props.scope === "suggestion" && <ListEntrySuggestion row={props.row} />}
+      {props.scope === "simulationResult" && (
+        <ListEntrySimulationResult
+          row={props.row}
+          accordionKey={props.accordionKey}
+        />
+      )}
       {props.scope === "selection" && <ListEntrySelection row={props.row} />}
     </>
   );
