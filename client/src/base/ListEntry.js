@@ -88,50 +88,42 @@ function ListEntryAnswers(props) {
   return (
     <>
       <tr>
-        <td colSpan="2">
+        <td>
           {props.row.author}, {props.row.createdat}
-          {props.row.replies > 0 && (
-            <span className="reply-link mx-3">
-              {props.row.replies + " "}
-              <Image
-                src={process.env.PUBLIC_URL + "/icons/DISCUSSION.svg"}
-                width="28px"
-              />
-            </span>
-          )}
+          <span className="reply-link mx-3">
+            {props.row.replies + " "}
+            <Image
+              src={process.env.PUBLIC_URL + "/icons/DISCUSSION.svg"}
+              width="28px"
+            />
+          </span>
         </td>
       </tr>
       <tr>
-        <td className="answerEntry">
-          <Link to="">
+        <MarkdownPreview markdown={props.row.answer} />
+      </tr>
+      <tr>
+        <td className="reply-link">
+          <Link className="mx-2" to="">
             <Image
               src={process.env.PUBLIC_URL + "/icons/UP ARROW.svg"}
               width="18px"
               onClick={() => {}}
             />
           </Link>
-        </td>
-        <MarkdownPreview rowspan="3" markdown={props.row.answer} />
-      </tr>
-      <tr>
-        <td className="answerEntry">
-          {props.row.like - props.row.dislike > 0 && "+"}
-          {props.row.like - props.row.dislike}
-        </td>
-      </tr>
-      <tr>
-        <td className="answerEntry">
-          <Link to="">
+          <span className="mx-2">
+            {props.row.like - props.row.dislike > 0 && "+"}
+            {props.row.like - props.row.dislike}
+          </span>
+          <Link className="mx-2" to="">
             <Image
               src={process.env.PUBLIC_URL + "/icons/DOWN ARROW.svg"}
               width="18px"
               onClick={() => {}}
             />
           </Link>
-        </td>
-        <td>
-          <Link to="/discussion/1">
-            <Button className="reply-link">Reply</Button>
+          <Link className="mx-4" to="/discussion/1">
+            <Button>Reply</Button>
           </Link>
         </td>
       </tr>
