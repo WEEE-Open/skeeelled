@@ -9,7 +9,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 import { insertTex, saveImage } from "./textInput/commands";
-// import PythonEditor from "react-python-editor";
+import PythonEditor from "react-python-editor";
 import { Buffer } from "buffer";
 import Jimp from "jimp";
 
@@ -189,7 +189,7 @@ ${file.content}
           }}
         />
       )}
-      {/* {pythonQuestion && (
+      {pythonQuestion && (
         <PythonEditor
           editorHeight={editorHeight}
           outputHeight={"5vh"}
@@ -206,7 +206,7 @@ ${file.content}
             }
           }}
         />
-      )} */}
+      )}
     </Container>
   );
 }
