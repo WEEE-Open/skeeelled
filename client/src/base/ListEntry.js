@@ -15,7 +15,7 @@ import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 
 // import "./ListEntry.css";
-import "./stylesheet/ListEntry.css"
+import "./stylesheet/ListEntry.css";
 import QuestionPreview from "./QuestionPreview";
 import { useEffect, useState } from "react";
 import { UserSettings } from "../pages";
@@ -57,25 +57,25 @@ function ListEntryQuestions(props) {
     <div className="questionEntry">
       <Row>
         <Col>
-            <Row>
-                <Link to={"/question/" + props.row.id} className="question">
-                    {props.row.question}
+          <Row>
+            <Link to={"/question/" + props.row.id} className="question">
+              {props.row.question}
+            </Link>
+          </Row>
+          <Row>
+            <Col>
+              {props.row.tags.map((t, i) => (
+                <Link key={i} to="" className="tags">
+                  #{t}
                 </Link>
-            </Row>
-            <Row>
-                <Col>
-                    {props.row.tags.map((t, i) => (
-                        <Link key={i} to="" className="tags">
-                            #{t}
-                        </Link>
-                    ))}
-                </Col>
-            </Row>
+              ))}
+            </Col>
+          </Row>
         </Col>
-          <Col>
-              <Row className="created-at">Created at: {props.row.createdat}</Row>
-              <Row className="created-from">from {props.row.author}</Row>
-          </Col>
+        <Col>
+          <Row className="created-at">Created at: {props.row.createdat}</Row>
+          <Row className="created-from">from {props.row.author}</Row>
+        </Col>
       </Row>
       <Row>
         <Col>{props.row.excerpt}</Col>
@@ -176,7 +176,9 @@ function ListEntrySuggestion(props) {
           </Link>
         </Col>
         <Col className="suggestion-created-by">from {props.row.author}</Col>
-        <Col className="suggestion-created-at">Created at: {props.row.createdat}</Col>
+        <Col className="suggestion-created-at">
+          Created at: {props.row.createdat}
+        </Col>
       </Col>
     </Container>
   );

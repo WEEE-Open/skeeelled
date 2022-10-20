@@ -30,23 +30,23 @@
   float: right;
 }
 
-.questionEntry .question{
+.questionEntry .question {
   @include font-Nunito($size: 20px);
   color: black;
 }
 
 .questionEntry .tags {
-  @include font-Nunito($size: 14px, $weight:light);
+  @include font-Nunito($size: 14px, $weight: light);
   text-decoration: none;
 }
 
 .questionEntry .created-at {
-  @include font-Nunito($weight:light, $size: 14px);
+  @include font-Nunito($weight: light, $size: 14px);
   color: #707070;
 }
 
 .questionEntry .created-from {
-  @include font-Nunito( $size: 14px);
+  @include font-Nunito($size: 14px);
   font-style: italic;
   color: #707070;
 }

@@ -59,9 +59,9 @@
   );
 }
 
-.simulation-result-container table{
+.simulation-result-container table {
   width: 100%;
-  color:#797979;
+  color: #797979;
   background-color: rgba(121, 121, 121, 0.05);
   @include font-Nunito($size:25px, $weight:400);
   border-collapse: collapse;
@@ -89,6 +89,10 @@
 .simulation-result-container table tbody td {
   border-left: 0.1px solid #797979;
   @include font-Nunito($size:25px, $weight:400);
+
+.simulation-result-container table tbody td:first-child {
+  border-top: none;
+
 }
 
 .simulation-result-container table tbody td:first-child {

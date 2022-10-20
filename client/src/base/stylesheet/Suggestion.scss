@@ -16,18 +16,18 @@
 }
 
 .suggestion-card .list-suggestion-title {
-  @include font-Quicksand($size:25px, $weight:bold);
+  @include font-Quicksand($size: 25px, $weight: bold);
 }
 
 .suggestion-card .listSuggestion-questions .suggestion-question {
-  @include font-Nunito($size:20px);
+  @include font-Nunito($size: 20px);
 }
 
 .suggestion-card .listSuggestion-questions .suggestion-created-by {
   font-style: italic;
-  @include font-Nunito($size:14px, $weight: light)
+  @include font-Nunito($size: 14px, $weight: light);
 }
 
 .suggestion-card .listSuggestion-questions .suggestion-created-at {
-  @include font-Nunito($size:14px, $weight: light);
+  @include font-Nunito($size: 14px, $weight: light);
 }
