@@ -5,30 +5,48 @@ import {useLocation} from "react-router-dom";
 
 export default function BreadCrumb (props) {
 
-    const location = useLocation()
-
-
     const breadcrumbRecord = [
         {
             path: "/",
+            title: "Home",
+            children: [
+                {
+                    path: "/",
+                    title: "Home"
+                }
+            ]
         },
         {
-            path: "/courses"
+            path: "/courses",
+            title: "Courses"
         },
         {
-            path:"/simulationview"
+            path:"/simulationview",
+            title: "Simulation Preview"
         },
         {
-            path: "/settings"
+            path: "/settings",
+            title: "Setting"
         }
     ];
 
 
     return (
         <>
-            <Breadcrumb>
-                <Breadcrumb.Item href="/">hi</Breadcrumb.Item>
-            </Breadcrumb>
+            {
+                breadcrumbRecord.map((e) => {
+                    let pathArrParse = e.path.split('/');
+                    if (e.path === props.pathname) {
+                        return (
+                            <>
+                                <Breadcrumb>
+                                    <Breadcrumb.Item href={e.path}>{e.title}</Breadcrumb.Item>
+                                </Breadcrumb>
+                            </>
+                        )
+                    }
+                })
+            }
         </>
     )
 }

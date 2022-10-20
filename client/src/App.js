@@ -93,7 +93,7 @@ function App() {
         </Col>
       </Row>
       <Row>
-        <BreadCrumb props={location.pathname}/>
+        <BreadCrumb pathname={location.pathname}/>
       </Row>
       <Row className="my-4">
         <Col xs={6} className="mx-auto">
