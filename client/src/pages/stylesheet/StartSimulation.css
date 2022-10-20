@@ -8,7 +8,7 @@
   border-radius: 20px;
 }
 
-.start-simulation-button {
+.simulation-card .start-simulation-button {
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 17px; /*change from pt to px*/
@@ -21,7 +21,7 @@
   border-width: 2pt;
 }
 
-.start-simulation-button:hover {
+.simulation-card .start-simulation-button:hover {
   color: white;
   background-color: #ea9b57;
   border-color: #ea9b57;
@@ -29,7 +29,7 @@
   border-width: 2pt;
 }
 
-.form-check-input:checked {
+.simulation-card .form-check-input:checked {
   background-color: #ea9b57 !important;
 }
 

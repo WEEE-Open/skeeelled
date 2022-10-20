@@ -8,13 +8,13 @@
   border-radius: 20px;
 }
 
-.start-simulation-button {
+.simulation-card .start-simulation-button {
   @include font-Quicksand($size: 17px);
   width: 139pt;
   height: 40px;
   @include button-color-radius($border-color: #ea9b57);
 }
-.start-simulation-button:hover {
+.simulation-card .start-simulation-button:hover {
   @include button-color-radius(
           $border-color: #ea9b57,
           $background-color: #ea9b57,
@@ -22,6 +22,6 @@
   );
 }
 
-.form-check-input:checked {
+.simulation-card .form-check-input:checked {
   background-color: #ea9b57 !important;
 }

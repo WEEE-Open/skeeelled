@@ -2,8 +2,8 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Alert, Button } from "react-bootstrap";
-import { Routes, Route, Navigate as Redirect, Link } from "react-router-dom";
-import { NavigationBar, Footer, DebugPaths, TextInput } from "./base/";
+import { Routes, Route, Navigate as Redirect, Link, useLocation } from "react-router-dom";
+import { NavigationBar, Footer, DebugPaths, TextInput, BreadCrumb } from "./base/";
 import {
   AddQuestion,
   Answers,
@@ -69,6 +69,12 @@ function App() {
     setAdmin(false);
   };
 
+  const location = useLocation()
+
+  useEffect(()=>{
+    console.log(location)
+  },[location])
+
   return (
     <Container fluid>
       <Row>
@@ -85,6 +91,9 @@ function App() {
             logout={doLogout}
           />
         </Col>
+      </Row>
+      <Row>
+        <BreadCrumb props={location.pathname}/>
       </Row>
       <Row className="my-4">
         <Col xs={6} className="mx-auto">

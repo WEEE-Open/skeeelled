@@ -73,8 +73,6 @@ export default function StartSimulation() {
                   <Stack gap={4}>
                     {isMulti ? (
                       <Row key={isMulti}>
-                        <Card>
-                          <Card.Body>
                             <Stack gap={2}>
                               <h6>
                                 ( Number of Question, Maximum Score, and
@@ -129,8 +127,6 @@ export default function StartSimulation() {
                                 />
                               </InputGroup>
                             </Stack>
-                          </Card.Body>
-                        </Card>
                       </Row>
                     ) : (
                       <></>
