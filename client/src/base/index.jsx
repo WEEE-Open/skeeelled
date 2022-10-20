@@ -28,5 +28,5 @@ export {
   TextInput,
   QuestionPreview,
   Discussion,
-  BreadCrumb
+  BreadCrumb,
 };
