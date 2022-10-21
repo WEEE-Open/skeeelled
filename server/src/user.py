@@ -1,6 +1,8 @@
 from pydantic import BaseModel, Field
 from typing import List
 from objectid import ObjectId
+from datetime import datetime
+from simulation import ExamSimulation
 
 
 class User(BaseModel):
@@ -15,11 +17,8 @@ class User(BaseModel):
     is_admin: bool = False
     related_courses: List[str] = []     # Course ids
     my_Questions: List[ObjectId] = []   # Question ids
-    my_Answers: List[ObjectId] = []     # Answer ids
+    my_Comments: List[ObjectId] = []     # Answer ids
     my_Replies: List[ObjectId] = []     # Reply ids
-    last_session: float
+    last_session: datetime
     credibility_rate: float = -1.0
     simulation_result: List[ExamSimulation] = []
-
-from simulation import ExamSimulation
-User.update_forward_refs()

@@ -7,6 +7,6 @@ class Course(BaseModel):
     code: str = Field(alias="_id")
     name: str
     years_active: List[int] = []
-    professors: List[str] = [] # professor ids
+    professors: List[str] = []  # professor ids
     questions: List[Question] = []
     quizzes: List[Quiz] = []

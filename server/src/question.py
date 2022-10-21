@@ -1,14 +1,15 @@
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, validator, Field
 from typing import List, Any
 from datetime import datetime
 from comment import Comment
+from objectid import ObjectId
 
 
 class Question(BaseModel):
-    owner: Any
+    id: ObjectId = Field(alias="_id")
+    owner: str  # professor id
     title: str
-    course: Any
-    quiz_ref: dict
+    quiz_ref: dict = None
     content: dict
     is_deleted: bool = False
     hint: str = ""

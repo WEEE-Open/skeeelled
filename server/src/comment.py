@@ -7,8 +7,8 @@ class _CommentBase(BaseModel):
     info: Any
     upvotes: int
     downvotes: int
-    has_verified_upvotes: bool  # Any professor of the same course has upvoted this answer
-    timestamp: float = datetime.now().timestamp()
+    has_verified_upvotes: bool = False  # Any professor of the same course has upvoted this answer
+    timestamp: datetime = datetime.now()
     content: str
 
 

@@ -1,4 +1,5 @@
-from bson import ObjectId as BsonObjectId
+from bson.objectid import ObjectId as BsonObjectId
+
 
 class ObjectId(BsonObjectId):
     @classmethod
