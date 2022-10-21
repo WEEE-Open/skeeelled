@@ -13,7 +13,8 @@ import {
 } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "./StartSimulation.css";
+// import "./StartSimulation.css";
+import "./stylesheet/StartSimulation.css";
 
 export default function StartSimulation() {
   const simulationTypes = ["Random", "Exam"];
@@ -72,64 +73,60 @@ export default function StartSimulation() {
                   <Stack gap={4}>
                     {isMulti ? (
                       <Row key={isMulti}>
-                        <Card>
-                          <Card.Body>
-                            <Stack gap={2}>
-                              <h6>
-                                ( Number of Question, Maximum Score, and
-                                Duration Must Not Be Zero )
-                              </h6>
-                              <InputGroup key={isMulti}>
-                                <InputGroup.Text>
-                                  Number of Questions
-                                </InputGroup.Text>
-                                <FormControl
-                                  aria-label={numQuestions}
-                                  placeholder={numQuestions}
-                                  onChange={(e) => {
-                                    setUserInput(Number(e.target.value));
-                                    setNumQuestions(Number(e.target.value));
-                                  }}
-                                />
-                              </InputGroup>
-                              <InputGroup>
-                                <InputGroup.Text>Penalty </InputGroup.Text>
-                                <FormControl
-                                  aria-label={penaltyScore}
-                                  placeholder={penaltyScore}
-                                  onChange={(e) => {
-                                    setUserInput(Number(e.target.value));
-                                    setPenaltyScore(Number(e.target.value));
-                                  }}
-                                />
-                              </InputGroup>
-                              <InputGroup>
-                                <InputGroup.Text>Maximum Score</InputGroup.Text>
-                                <FormControl
-                                  aria-label={maxScore}
-                                  placeholder={maxScore}
-                                  onChange={(e) => {
-                                    setUserInput(Number(e.target.value));
-                                    setMaxScore(Number(e.target.value));
-                                  }}
-                                />
-                              </InputGroup>
-                              <InputGroup>
-                                <InputGroup.Text>
-                                  Duration (Minutes)
-                                </InputGroup.Text>
-                                <FormControl
-                                  aria-label={duration}
-                                  placeholder={duration}
-                                  onChange={(e) => {
-                                    setUserInput(Number(e.target.value));
-                                    setDuration(Number(e.target.value));
-                                  }}
-                                />
-                              </InputGroup>
-                            </Stack>
-                          </Card.Body>
-                        </Card>
+                        <Stack gap={2}>
+                          <h6>
+                            ( Number of Question, Maximum Score, and Duration
+                            Must Not Be Zero )
+                          </h6>
+                          <InputGroup key={isMulti}>
+                            <InputGroup.Text>
+                              Number of Questions
+                            </InputGroup.Text>
+                            <FormControl
+                              aria-label={numQuestions}
+                              placeholder={numQuestions}
+                              onChange={(e) => {
+                                setUserInput(Number(e.target.value));
+                                setNumQuestions(Number(e.target.value));
+                              }}
+                            />
+                          </InputGroup>
+                          <InputGroup>
+                            <InputGroup.Text>Penalty </InputGroup.Text>
+                            <FormControl
+                              aria-label={penaltyScore}
+                              placeholder={penaltyScore}
+                              onChange={(e) => {
+                                setUserInput(Number(e.target.value));
+                                setPenaltyScore(Number(e.target.value));
+                              }}
+                            />
+                          </InputGroup>
+                          <InputGroup>
+                            <InputGroup.Text>Maximum Score</InputGroup.Text>
+                            <FormControl
+                              aria-label={maxScore}
+                              placeholder={maxScore}
+                              onChange={(e) => {
+                                setUserInput(Number(e.target.value));
+                                setMaxScore(Number(e.target.value));
+                              }}
+                            />
+                          </InputGroup>
+                          <InputGroup>
+                            <InputGroup.Text>
+                              Duration (Minutes)
+                            </InputGroup.Text>
+                            <FormControl
+                              aria-label={duration}
+                              placeholder={duration}
+                              onChange={(e) => {
+                                setUserInput(Number(e.target.value));
+                                setDuration(Number(e.target.value));
+                              }}
+                            />
+                          </InputGroup>
+                        </Stack>
                       </Row>
                     ) : (
                       <></>
@@ -162,7 +159,7 @@ export default function StartSimulation() {
                               >
                                 <Button
                                   key={i}
-                                  className="btn-outline-success"
+                                  className="start-simulation-button"
                                   variant="outline-success"
                                 >
                                   {type + " Question"}

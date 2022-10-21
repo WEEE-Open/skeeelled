@@ -58,4 +58,23 @@
   color: #707070;
 }
 
+.accordion-item .accordion-header h6 {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 22px; /*change from pt to px*/
+}
+
+.accordion-item .accordion-body p {
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 17px; /*change from pt to px*/
+  color: #797979;
+}
+
+.accordion-item .accordion-body h5 {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 22px; /*change from pt to px*/
+}
+
 /*# sourceMappingURL=ListEntry.css.map */

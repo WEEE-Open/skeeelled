@@ -42,7 +42,7 @@ export default function SimulationAccess() {
 
   const fakeCourses = [
     {
-      id: "A0B1C2",
+      code: "A0B1C2",
       course: "Analysis I",
       cfu: 10,
       professor: "Mario Rossi",
