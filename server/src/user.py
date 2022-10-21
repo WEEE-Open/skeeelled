@@ -1,14 +1,5 @@
 from pydantic import BaseModel, Field
 from typing import List
-
-
-class UserInfo(BaseModel):
-    id: str
-    username: str
-    profile_picture: str
-
-
-from simulation import ExamSimulation
 from objectid import ObjectId
 
 
@@ -29,3 +20,6 @@ class User(BaseModel):
     last_session: float
     credibility_rate: float = -1.0
     simulation_result: List[ExamSimulation] = []
+
+from simulation import ExamSimulation
+User.update_forward_refs()

@@ -1,23 +1,13 @@
 from pydantic import BaseModel, validator
 from typing import List, Any
 from datetime import datetime
-
-
-# models definitions
-class QuestionInfo(BaseModel):
-    id: str
-    text: str
-    timestamp: float
-
-
-from course import CourseInfo
 from comment import Comment
 
 
 class Question(BaseModel):
     owner: Any
     title: str
-    course: CourseInfo
+    course: Any
     quiz_ref: dict
     content: dict
     is_deleted: bool = False

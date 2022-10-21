@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from typing import List, Any
-
 from bson import ObjectId
 
 

@@ -3,7 +3,6 @@ from typing import List
 from question import Question
 from quiz import Quiz
 
-
 class Course(BaseModel):
     code: str = Field(alias="_id")
     name: str
