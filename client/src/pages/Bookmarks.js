@@ -36,7 +36,6 @@ export default function Bookmarks() {
       <Container>
         <Card body>
           <h2>{location.state.title}</h2>
-          <SearchBar />
           <List
             scope={location.state.scope}
             title={""}

@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.list {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.listTitle {
+  padding: 12px;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  border-width: 3pt;
+  border-color: #797979;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.listQuestionsTitle {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.listAnswers tr:nth-child(4n + 1) {
+  background-color: #eee;
+}
+
+.roundedList {
+  border-spacing: 0;
+  border-collapse: separate;
+  width: 100%;
+}
+
+.roundedList th {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 25px; /*change from pt to px*/
+}
+
+.roundedList td {
+  padding: 0.5rem;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 21px; /*change from pt to px*/
+}
+
+.roundedList tr:nth-child(odd) {
+  background-color: #eee;
+}
+
+.roundedList tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+.roundedList tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+.listSuggestionTitle {
+  padding: 5px;
+}
+
+.suggestion {
+  padding: 5px;
+}
+
+.listSuggestion-questions {
+  padding: 5px;
+}
+
+.container .list-simulation-result {
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 17px; /*change from pt to px*/
+  margin-top: 5%;
+}
+
+.list-simulation-result .btn-outline-success-simulation-result {
+  height: 30px;
+  min-width: 60px;
+  font-size: 12px;
+  border-color: #e08330;
+  color: black;
+  background-color: white;
+  margin: auto;
+}
+
+.list-simulation-result .btn-outline-success-simulation-result:hover {
+  border-color: #e08330;
+  background-color: #e08330;
+  color: white;
+}
+
+.add-icon {
+  margin-top: -2px;
+}
+
+.accordion {
+  border-collapse: separate;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+.list-simulation-result .listSimulationResultTitle {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 41px; /*change from pt to px*/
+}
+
+.accordion-item .accordion-header {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 41px; /*change from pt to px*/
+  border-left: 3px solid #797979;
+  border-right: 3px solid #797979;
+  border-bottom: 3px solid #797979;
+}
+
+.accordion-item .accordion-collapse {
+  margin: 0;
+}
+
+.accordion-item .accordion-body {
+  border-right: 0.1px solid #797979;
+  border-left: 0.1px solid #797979;
+  border-bottom: 1px solid #797979;
+}
+
+.list-simulation-result .accordion-header-card {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 41px; /*change from pt to px*/
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  border: 3px solid #797979;
+}
+
+.list-simulation-result .accordion-header-card .card-header {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 41px; /*change from pt to px*/
+  padding: 3vh 1.25rem 0.5rem 1.25rem;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #e28111;
+  border: 3px solid #e28111;
+  outline: none;
+}
+
+.list-simulation-result .accordion-footer-card {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 41px; /*change from pt to px*/
+  padding: 1.8rem;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  border-left: 3px solid #797979;
+  border-right: 3px solid #797979;
+  border-bottom: 3px solid #797979;
+}
+
+/*# sourceMappingURL=List.css.map */

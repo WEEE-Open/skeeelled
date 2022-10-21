@@ -1,0 +1,141 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.outline-secondary {
+  font-size: 20px;
+}
+
+.pagination-finish {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.simulation-container .simulation-title {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 41px; /*change from pt to px*/
+}
+
+.simulation-container .simulation-duration {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 35px; /*change from pt to px*/
+  color: #9f9f9f;
+}
+
+div.pagination-finish.row {
+  margin: 0;
+  padding: 0;
+}
+
+div.pagination-finish.row > div:nth-child(1) > ul {
+  width: 430px;
+  height: 45px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 35; /*change from pt to px*/
+  /* regular */
+  border-radius: 9pt;
+}
+
+.simulation-container .page-link {
+  border-color: #ea9b57;
+  background-color: #ea9b57;
+  color: white;
+}
+
+.simulation-container .page-link:hover {
+  font-weight: 900; /* black */
+  border-color: #ea9b57;
+  background-color: #ea9b57;
+  color: white;
+}
+
+.simulation-container .page-item.active .page-link {
+  font-weight: 900; /* black */
+  border-color: #ea9b57;
+  background-color: #ea9b57;
+  color: white;
+}
+
+.simulation-question-text-card {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 20px; /*change from pt to px*/
+  color: #707070;
+  padding: 10pt;
+  border-radius: 16pt;
+  border-color: #f9f9f9;
+  background-color: #f9f9f9; /* #707070 with opacity*/
+}
+
+.simulation-question-title-number {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 25px; /*change from pt to px*/
+}
+
+.simulation-container .btn-outline-success {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 17px; /*change from pt to px*/
+  width: 139px;
+  height: 40px;
+  color: black;
+  background-color: white;
+  border-color: #ea9b57;
+  border-radius: 7pt;
+  border-width: 2pt;
+}
+
+.simulation-container .btn-outline-success:hover {
+  color: white;
+  background-color: #ea9b57;
+  border-color: #ea9b57;
+  border-radius: 7pt;
+  border-width: 2pt;
+}
+
+.simulation-modal .btn-outline-success {
+  font-size: 17px; /*change from pt to px*/
+  width: 139px;
+  height: 40px;
+  color: black;
+  background-color: white;
+  border-color: #ea9b57;
+  border-radius: 7pt;
+  border-width: 2pt;
+}
+
+.simulation-modal .btn-outline-success:hover {
+  color: white;
+  background-color: #ea9b57;
+  border-color: #ea9b57;
+  border-radius: 7pt;
+  border-width: 2pt;
+}
+
+.simulation-question-answer-ratio-card {
+  padding: 20pt;
+  border-radius: 20px;
+  font-family: "Nunito", sans-serif;
+  font-size: 22px; /*change from pt to px*/
+}
+
+.simulation-question-answer {
+  padding: 0;
+}
+
+.simulation-answer-checkbox .form-check-input {
+  height: 13px; /*change from pt to px*/
+  width: 13px; /*change from pt to px*/
+  border-radius: 50px;
+  border-color: #ea9b57;
+  border-width: 1pt;
+}
+
+.simulation-answer-checkbox .form-check-input:checked {
+  background-color: #ea9b57;
+  border-width: 1pt;
+}
+
+/*# sourceMappingURL=Simulation.css.map */

@@ -10,7 +10,8 @@ import {
 } from "react-bootstrap";
 
 import { useEffect, useState } from "react";
-import "./Questions.css";
+// import "./Questions.css";
+import "./stylesheet/Questions.css";
 import { List, Recent, SearchBar, Suggestion } from "../base/";
 import { Link, useLocation } from "react-router-dom";
 
@@ -105,11 +106,24 @@ const Questions = () => {
             <Row key={isDesktop}>
               <Col>
                 <Container className="container">
-                  <Card body>
-                    <Row lg={12} className="header">
-                      <Col>
+                  <Row lg={12} className="header">
+                    <Col>
+                      <div className="right-button">
+                        <Button
+                          className="add-question-button"
+                          onClick={() => {}}
+                        >
+                          {/*<Image*/}
+                          {/*    className="add-icon"*/}
+                          {/*    src={*/}
+                          {/*      process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"*/}
+                          {/*    }*/}
+                          {/*    width="13px"*/}
+                          {/*/>*/}
+                          {" Enroll in course"}
+                        </Button>
+
                         <Link
-                          className="right-button"
                           to={{
                             pathname:
                               "/startsimulation/" + locationState.courseId,
@@ -119,72 +133,67 @@ const Questions = () => {
                             title: locationState.title,
                           }}
                         >
-                          <Button>
-                            <Image
-                              className="add-icon"
-                              src={
-                                process.env.PUBLIC_URL +
-                                "/icons/SIMULATION RESULTS_WHITE.svg"
-                              }
-                              width="13px"
-                            />
+                          <Button className="start-simulation-button">
+                            {/*<Image*/}
+                            {/*    className="add-icon"*/}
+                            {/*    src={*/}
+                            {/*      process.env.PUBLIC_URL +*/}
+                            {/*      "/icons/SIMULATION RESULTS_WHITE.svg"*/}
+                            {/*    }*/}
+                            {/*    width="13px"*/}
+                            {/*/>*/}
                             {" Start Simulation"}
                           </Button>
                         </Link>
-
-                        <Button className="right-button" onClick={() => {}}>
-                          <Image
-                            className="add-icon"
-                            src={
-                              process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"
-                            }
-                            width="13px"
-                          />
-                          {" Add course"}
-                        </Button>
-
-                        <Row>
-                          <Col className="listQuestionsTitle">
-                            <SearchBar />
-                          </Col>
-                        </Row>
-                        <List
-                          scope="questions"
-                          title={locationState.title}
-                          rows={questions}
-                        />
-                      </Col>
-
-                      <Col className="pagination" lg="12" sm="12" md="12">
-                        <PaginationRow />
-                      </Col>
-                    </Row>
-                  </Card>
+                      </div>
+                      <List
+                        scope="questions"
+                        title={locationState.title}
+                        rows={questions}
+                      />
+                      <PaginationRow />
+                    </Col>
+                    <Col className="d-sm-inline-block col-md-4">
+                      <Stack gap={4}>
+                        {suggestionType.map((type, i) => {
+                          return (
+                            <Row key={i}>
+                              <Suggestion
+                                scope={"suggestion"}
+                                title={type + " Questions"}
+                                rows={suggestions}
+                              />
+                            </Row>
+                          );
+                        })}
+                      </Stack>
+                    </Col>
+                  </Row>
                 </Container>
-              </Col>
-              <Col className="d-sm-inline-block col-md-4">
-                <Stack gap={4}>
-                  {suggestionType.map((type, i) => {
-                    return (
-                      <Row key={i}>
-                        <Suggestion
-                          scope={"suggestion"}
-                          title={type + " Questions"}
-                          rows={suggestions}
-                        />
-                      </Row>
-                    );
-                  })}
-                </Stack>
               </Col>
             </Row>
           ) : (
+            // mobile configuration
             <>
               <Row>
                 <Container className="container">
-                  <Card body>
-                    <Row lg={12} className="header">
-                      <Col>
+                  <Row lg={12} className="header">
+                    <Col>
+                      <div className="right-button">
+                        <Button
+                          className="add-question-button"
+                          onClick={() => {}}
+                        >
+                          {/*<Image*/}
+                          {/*    className="add-icon"*/}
+                          {/*    src={*/}
+                          {/*      process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"*/}
+                          {/*    }*/}
+                          {/*    width="13px"*/}
+                          {/*/>*/}
+                          {" Enroll in course"}
+                        </Button>
+
                         <Link
                           to={{
                             pathname:
@@ -195,47 +204,30 @@ const Questions = () => {
                             title: locationState.title,
                           }}
                         >
-                          <Button className="right-button" onClick={() => {}}>
-                            <Image
-                              className="add-icon"
-                              src={
-                                process.env.PUBLIC_URL +
-                                "/icons/SIMULATION RESULTS_WHITE.svg"
-                              }
-                              width="13px"
-                            />
+                          <Button className="start-simulation-button">
+                            {/*<Image*/}
+                            {/*    className="add-icon"*/}
+                            {/*    src={*/}
+                            {/*      process.env.PUBLIC_URL +*/}
+                            {/*      "/icons/SIMULATION RESULTS_WHITE.svg"*/}
+                            {/*    }*/}
+                            {/*    width="13px"*/}
+                            {/*/>*/}
                             {" Start Simulation"}
                           </Button>
                         </Link>
+                      </div>
+                      <List
+                        scope="questions"
+                        title={locationState.title}
+                        rows={questions}
+                      />
+                    </Col>
 
-                        <Button className="right-button" onClick={() => {}}>
-                          <Image
-                            className="add-icon"
-                            src={
-                              process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"
-                            }
-                            width="13px"
-                          />
-                          {" Add course"}
-                        </Button>
-
-                        <Row>
-                          <Col className="listQuestionsTitle">
-                            <SearchBar />
-                          </Col>
-                        </Row>
-                        <List
-                          scope="questions"
-                          title={locationState.title}
-                          rows={questions}
-                        />
-                      </Col>
-
-                      <Col className="pagination" lg="12" sm="12" md="12">
-                        <PaginationRow />
-                      </Col>
-                    </Row>
-                  </Card>
+                    <Col className="pagination" lg="12" sm="12" md="12">
+                      <PaginationRow />
+                    </Col>
+                  </Row>
                 </Container>
               </Row>
               <Row>

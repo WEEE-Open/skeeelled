@@ -1,31 +1,22 @@
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, validator, Field
 from typing import List, Any
 from datetime import datetime
-
-
-# models definitions
-class QuestionInfo(BaseModel):
-    id: str
-    text: str
-    timestamp: float
-
-
 from comment import Comment
-from course import CourseInfo
+from objectid import ObjectId
 
 
 class Question(BaseModel):
-    owner: Any
+    id: ObjectId = Field(alias="_id")
+    owner: str  # professor id
     title: str
-    course: CourseInfo
-    quiz_ref: dict
+    quiz_ref: dict = None
     content: dict
     is_deleted: bool = False
     hint: str = ""
     tags: List[str] = []
     timestamp: float = datetime.now().timestamp()
     # mandatory limit parameter
-    comments: List = [Comment]
+    comments: List[Comment] = []
 
     # constraint check on question values
     @validator('content')

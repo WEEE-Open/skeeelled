@@ -6,10 +6,12 @@ import {
   Form,
   Button,
   Stack,
+  Container,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState /* , useEffect */ } from "react";
 import { Recent, List, SearchBar } from "../base/";
+import "./stylesheet/CoursesList.css";
 import Suggestion from "../base/Suggestion";
 // import API from "../api/API";
 
@@ -116,49 +118,38 @@ function CoursesList() {
   // },[]);
 
   return (
-    <Row>
-      <Col>
-        <Card body>
-          <Row lg={12} className="py-0 header">
-            <h3>Courses</h3>
-          </Row>
-          <Row>
-            <SearchBar />
-          </Row>
-          {coursesType.map((type, i) => {
-            return (
-              <Link
+    <Container>
+      <Row lg={12} className="py-0 header">
+        <h3 className="courses-title">Courses</h3>
+      </Row>
+      <Row>
+        <SearchBar />
+      </Row>
+      <Row className="courses-body">
+        {coursesType.map((type, i) => {
+          return (
+            <Link
+              key={i}
+              className="list-attributes"
+              to={{
+                pathname:
+                  "/listfullpage/" + type.replace(/\s/g, "").toLowerCase(),
+              }}
+              state={{ scope: "courses", title: type, rows: courses }}
+            >
+              <List
                 key={i}
-                className="list-attributes"
-                to={{
-                  pathname:
-                    "/listfullpage/" + type.replace(/\s/g, "").toLowerCase(),
-                }}
-                state={{ scope: "courses", title: type, rows: courses }}
-              >
-                <List key={i} scope="courses" title={type} rows={courses} />
-              </Link>
-            );
-          })}
-          <PaginationRow />
-        </Card>
-      </Col>
-      <Col className="d-none d-md-inline-block col-md-4">
-        <Stack gap={4}>
-          {suggestionType.map((type, i) => {
-            return (
-              <Row key={i}>
-                <Suggestion
-                  scope={"suggestion"}
-                  title={type + " Questions"}
-                  rows={suggestions}
-                />
-              </Row>
-            );
-          })}
-        </Stack>
-      </Col>
-    </Row>
+                scope="courses"
+                title={type}
+                rows={courses}
+                rounded
+              />
+            </Link>
+          );
+        })}
+      </Row>
+      <PaginationRow />
+    </Container>
   );
 }
 

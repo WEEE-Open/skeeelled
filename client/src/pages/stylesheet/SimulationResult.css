@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.simulation-result-container {
+  border-width: 3pt;
+}
+
+.simulation-result-container .simulation-result-title-text {
+  padding: 0;
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 41px; /*change from pt to px*/
+}
+
+.simulation-result-container .simulation-title {
+  color: #e08330;
+  font-style: italic;
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 41px; /*change from pt to px*/
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.simulation-result-score {
+  padding: 0;
+  display: flex;
+  margin: 3% 0 3% 0;
+}
+
+.simulation-result-container
+  .simulation-result-score
+  .simulation-result-max-score {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 50px; /*change from pt to px*/
+}
+
+.simulation-result-container
+  .simulation-result-score
+  .simulation-result-user-score {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 50px; /*change from pt to px*/
+  color: #00de09;
+}
+
+.simulation-result-container .simulation-result-start-button .start-button {
+  left: 25vw;
+  text-align: center;
+  position: relative;
+  padding: 1pt;
+}
+
+.simulation-result-container .simulation-result-start-button .btn-primary {
+  height: 55px;
+  width: 140px;
+  color: black;
+  background-color: white;
+  border-color: #e28111;
+  border-radius: 7pt;
+  border-width: 2px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 17px; /*change from pt to px*/
+}
+
+.simulation-result-container
+  .simulation-result-start-button
+  .btn-primary:hover {
+  color: white;
+  background-color: #e28111;
+  border-color: #e28111;
+  border-radius: 7pt;
+  border-width: 2pt;
+}
+
+.simulation-result-container table {
+  width: 100%;
+  color: #797979;
+  background-color: rgba(121, 121, 121, 0.05);
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 25px; /*change from pt to px*/
+  border-collapse: collapse;
+}
+
+.simulation-result-container table thead {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 25px; /*change from pt to px*/
+  outline: 3px solid #797979;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.simulation-result-container table thead th {
+  padding: 1rem;
+}
+
+.simulation-result-container table th:nth-child(2),
+.simulation-result-container table th:nth-child(3),
+.simulation-result-container table th:last-child {
+  border-left: 3px solid #797979;
+}
+
+.simulation-result-container table th:last-child {
+  border-left: 3px solid #797979;
+}
+
+.simulation-result-container table tbody td {
+  border-left: 0.1px solid #797979;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 25px; /*change from pt to px*/
+}
+
+.simulation-result-container table tbody td:first-child {
+  border: none;
+}
+
+/*# sourceMappingURL=SimulationResult.css.map */

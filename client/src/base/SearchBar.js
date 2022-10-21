@@ -2,7 +2,9 @@ import React, { useRef, useState } from "react";
 import { InputGroup, Button } from "react-bootstrap";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 
-import styles from "./searchBar/searchBar.module.scss";
+// import styles from "./searchBar/searchBar.module.scss";
+import styles from "./stylesheet/SearchBar.scss";
+import "./stylesheet/SearchBar.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import "react-bootstrap-typeahead/css/Typeahead.bs5.css";
 
@@ -33,7 +35,7 @@ function SearchBar({ apiCall }) {
     <InputGroup>
       <AsyncTypeahead
         id="Search bar"
-        placeholder="Search courses"
+        placeholder="Search a course"
         isLoading={false}
         searchText=""
         emptyLabel=""
@@ -44,6 +46,7 @@ function SearchBar({ apiCall }) {
         ref={ref}
         onInputChange={onSearch}
         onSearch={() => {}}
+        className="async-type-head"
       />
       {value.length > 0 && (
         <Button

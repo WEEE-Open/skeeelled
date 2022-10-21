@@ -1,0 +1,60 @@
+/* dev: className of the table wrapper in List.js, follows syntax - ((props.title).toLowerCase()).replace(/\s/g, "-") */
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.home-page-table .default-table-replies .listTitle {
+  border-color: #ebd000;
+  color: #ebd000;
+}
+
+.home-page-table .default-table-replies .list-body > tr > td > .table-dot {
+  color: #ebd000;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+.home-page-table .default-table-my-answers .listTitle {
+  border-color: #f40883;
+  color: #f40883;
+}
+
+.home-page-table .default-table-my-answers .list-body > tr > td > .table-dot {
+  color: #f40883;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+.home-page-table .default-table-new-questions-in-courses-enrolled .listTitle {
+  border-color: #00983a;
+  color: #00983a;
+}
+
+.home-page-table
+  .default-table-new-questions-in-courses-enrolled
+  .list-body
+  > tr
+  > td
+  > .table-dot {
+  color: #00983a;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+.home-page-table .default-table-my-questions .listTitle {
+  border-color: #4d86c1;
+  color: #4d86c1;
+}
+
+.home-page-table .default-table-my-questions .list-body > tr > td > .table-dot {
+  color: #4d86c1;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+/*# sourceMappingURL=Home.css.map */

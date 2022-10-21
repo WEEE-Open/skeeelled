@@ -1,0 +1,1 @@
+{"version":3,"sourceRoot":"","sources":["StyleBase.scss","Suggestion.scss"],"names":[],"mappings":"AAAQ;ACER;EACE;;;AAEF;EDyCE;EACA;EACA;ECzCA;EACA;;;AAGF;EACE;IACE;;;AAIJ;EDPE;EACA,aCO4C;EDN5C,WCM8B,MDNZ;;;ACSpB;EDjBE;EACA,aAFuC;EAGvC,WCgB2B,MDhBT;;;ACmBpB;EACE;EDtBA;EACA,aCsB0C;EDrB1C,WCqB2B,MDrBT;;;ACwBpB;ED1BE;EACA,aC0B0C;EDzB1C,WCyB2B,MDzBT","file":"Suggestion.css"}

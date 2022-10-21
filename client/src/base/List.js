@@ -8,10 +8,13 @@ import {
   FloatingLabel,
   Button,
   Image,
+  Stack,
+  Card,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ListEntry, SearchBar } from "./";
-import "./List.css";
+// import "./List.css";
+import "./stylesheet/List.css"; // scss file access
 import { useEffect, useState } from "react";
 
 function HeaderColspan(scope) {
@@ -29,38 +32,50 @@ function ListDefault({ props }) {
   return (
     <>
       {props.rounded ? (
-        <table className="list roundedList">
-          <thead>
-            <tr>
-              <th className="listTitle" colSpan={HeaderColspan(props.scope)}>
-                {props.title}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.rows.map((r, i) => (
-              <ListEntry
-                key={i}
-                row={r}
-                scope={props.scope}
-                dotted={props.dotted}
-              />
-            ))}
-          </tbody>
-        </table>
+        <div
+          className={
+            "default-table-" + props.title.toLowerCase().replace(/\s/g, "-")
+          }
+        >
+          <table className="list roundedList">
+            <thead>
+              <tr>
+                <th className="listTitle" colSpan={HeaderColspan(props.scope)}>
+                  {props.title}
+                </th>
+              </tr>
+            </thead>
+            <tbody className="list-body">
+              {props.rows.map((r, i) => (
+                <ListEntry
+                  key={i}
+                  row={r}
+                  scope={props.scope}
+                  dotted={props.dotted}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
-        <Table striped borderless className="list">
-          <thead className="listTitle">
-            <tr>
-              <th colSpan={HeaderColspan(props.scope)}>{props.title}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.rows.map((r, i) => (
-              <ListEntry key={i} scope={props.scope} row={r} />
-            ))}
-          </tbody>
-        </Table>
+        <div
+          className={
+            "default-table-" + props.title.toLowerCase().replace(/\s/g, "-")
+          }
+        >
+          <Table striped borderless hover className="list">
+            <thead className="listTitle">
+              <tr>
+                <th colSpan={HeaderColspan(props.scope)}>{props.title}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {props.rows.map((r, i) => (
+                <ListEntry key={i} scope={props.scope} row={r} />
+              ))}
+            </tbody>
+          </Table>
+        </div>
       )}
     </>
   );
@@ -70,6 +85,7 @@ function ListQuestions({ props }) {
   return (
     <>
       <h3 className="listQuestionsTitle">{props.title}</h3>
+      <SearchBar />
       {props.rows.map((r, i) => (
         <ListEntry key={i} scope={props.scope} row={r} />
       ))}
@@ -105,11 +121,13 @@ function ListSuggestion({ props }) {
   return (
     <>
       <Container>
-        <h3 className="listSuggestionTitle">{props.title}</h3>
+        <h3 className="list-suggestion-title">{props.title}</h3>
         <div className="listSuggestion-questions">
-          {props.rows.map((r, i) => (
-            <ListEntry key={i} scope={props.scope} row={r} />
-          ))}
+          <Stack gap={3}>
+            {props.rows.map((r, i) => (
+              <ListEntry key={i} scope={props.scope} row={r} />
+            ))}
+          </Stack>
         </div>
       </Container>
     </>
@@ -147,23 +165,27 @@ function ListSimulationResult({ props }) {
   return (
     <>
       <Container className="list-simulation-result">
-        <Row>
-          <Col>
-            <h4 className="listSimulationResultTitle">Your Answers</h4>
-          </Col>
-          <Col className="col-md-2">
-            <Button
-              className="btn-outline-success-simulation-result"
-              variant="outline-success"
-              value="Show/Close"
-              onClick={() => {
-                setAreAllAccordionItemsOpen(!areAllAccordionItemsOpen);
-              }}
-            >
-              {areAllAccordionItemsOpen ? "Close All" : "Show All"}
-            </Button>
-          </Col>
-        </Row>
+        <Card className="accordion-header-card">
+          <Card.Header>
+            <Row>
+              <Col>
+                <h4 className="listSimulationResultTitle">Your Answers</h4>
+              </Col>
+              <Col className="col-md-2">
+                <Button
+                  className="btn-outline-success-simulation-result"
+                  variant="outline-success"
+                  value="Show/Close"
+                  onClick={() => {
+                    setAreAllAccordionItemsOpen(!areAllAccordionItemsOpen);
+                  }}
+                >
+                  {areAllAccordionItemsOpen ? "Close All" : "Show All"}
+                </Button>
+              </Col>
+            </Row>
+          </Card.Header>
+        </Card>
         <Row>
           <Accordion
             className="listSimulationResults"
@@ -182,6 +204,7 @@ function ListSimulationResult({ props }) {
             ))}
           </Accordion>
         </Row>
+        <Card className="accordion-footer-card" />
       </Container>
     </>
   );

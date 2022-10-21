@@ -1,16 +1,8 @@
 from pydantic import BaseModel, Field
 from typing import List
-
-
-class UserInfo(BaseModel):
-    id: str
-    username: str
-    profile_picture: str
-
-
-from course import CourseInfo
-from question import QuestionInfo
-from comment import CommentInfo
+from objectid import ObjectId
+from datetime import datetime
+from simulation import ExamSimulation
 
 
 class User(BaseModel):
@@ -23,9 +15,10 @@ class User(BaseModel):
     is_active: bool = False
     is_professor: bool = False
     is_admin: bool = False
-    related_courses: List[CourseInfo] = []
-    my_Questions: List[QuestionInfo] = []
-    my_Comments: List[CommentInfo] = []
-    last_session: float
+    related_courses: List[str] = []     # Course ids
+    my_Questions: List[ObjectId] = []   # Question ids
+    my_Comments: List[ObjectId] = []     # Answer ids
+    my_Replies: List[ObjectId] = []     # Reply ids
+    last_session: datetime
     credibility_rate: float = -1.0
-    simulation_results: List[ExamSimulation] = []
+    simulation_result: List[ExamSimulation] = []

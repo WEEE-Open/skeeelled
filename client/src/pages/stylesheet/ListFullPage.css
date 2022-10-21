@@ -1,0 +1,158 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.list-full-page .default-table-replies .listTitle {
+  color: #ebd000;
+  border: none;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 25px; /*change from pt to px*/
+  outline: 3px solid #ebd000;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.list-full-page .default-table-replies .list-body > tr > td > .table-dot {
+  color: #ebd000;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+.list-full-page .default-table-replies .listTitle th {
+  padding: 12px;
+}
+
+.list-full-page .default-table-new-questions-in-courses-enrolled .listTitle {
+  color: #00983a;
+  border: none;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 25px; /*change from pt to px*/
+  outline: 3px solid #00983a;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 12px;
+}
+
+.list-full-page
+  .default-table-new-questions-in-courses-enrolled
+  .list-body
+  > tr
+  > td
+  > .table-dot {
+  color: #00983a;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+.list-full-page .default-table-new-questions-in-courses-enrolled .listTitle th {
+  padding: 12px;
+}
+
+.list-full-page .default-table-my-questions .listTitle {
+  color: #4d86c1;
+  border: none;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 25px; /*change from pt to px*/
+  outline: 3px solid #4d86c1;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 12px;
+}
+
+.list-full-page .default-table-my-questions .list-body > tr > td > .table-dot {
+  color: #4d86c1;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+.list-full-page .default-table-my-questions .listTitle th {
+  padding: 12px;
+}
+
+.list-full-page .default-table-my-answers .listTitle {
+  color: #f40883;
+  border: none;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 25px; /*change from pt to px*/
+  outline: 3px solid #f40883;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 12px;
+}
+
+.list-full-page .default-table-my-answers .list-body > tr > td > .table-dot {
+  color: #f40883;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+.list-full-page .default-table-my-answers .listTitle th {
+  padding: 12px;
+}
+
+.list-full-page .default-table-my-simulation-results .listTitle {
+  color: #e28111;
+  border: none;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 25px; /*change from pt to px*/
+  outline: 3px solid #e28111;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 12px;
+}
+
+.list-full-page
+  .default-table-my-simulation-results
+  .list-body
+  > tr
+  > td
+  > .table-dot {
+  color: #e28111;
+  height: 8px;
+  width: 8px;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+.list-full-page .default-table-my-simulation-results .listTitle th {
+  padding: 12px;
+}
+
+.list-full-page .default-table-all-courses .listTitle,
+.list-full-page .default-table-my-courses .listTitle {
+  color: #8ad5d8;
+  border: none;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 25px; /*change from pt to px*/
+  outline: 3px solid #8ad5d8;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 12px;
+}
+
+.list-full-page .default-table-all-courses .course-entry,
+.list-full-page .default-table-my-courses .course-entry {
+  color: #8ad5d8;
+  text-decoration: none;
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 22px; /*change from pt to px*/
+}
+
+.list-full-page .default-table-all-courses .listTitle th,
+.list-full-page .default-table-my-courses .listTitle th {
+  padding: 12px;
+}
+
+/*# sourceMappingURL=ListFullPage.css.map */

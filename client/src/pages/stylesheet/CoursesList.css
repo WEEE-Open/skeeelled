@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.py-0.header.row.row-cols-lg-12 .courses-title {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 41px; /*change from pt to px*/
+}
+
+.courses-body .default-table-my-courses .listTitle {
+  border-color: #8ad5d8;
+  color: #8ad5d8;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 22px; /*change from pt to px*/
+}
+
+.courses-body .default-table-my-courses .course-entry {
+  color: #8ad5d8;
+  text-decoration: none;
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 22px; /*change from pt to px*/
+}
+
+.courses-body .default-table-all-courses .listTitle {
+  border-color: #8ad5d8;
+  color: #8ad5d8;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 22px; /*change from pt to px*/
+}
+
+.courses-body .default-table-all-courses .course-entry {
+  color: #8ad5d8;
+  text-decoration: none;
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 22px; /*change from pt to px*/
+}
+
+.suggestion-card .list-suggestion-title {
+  color: #4d86c1;
+}
+
+.suggestion-card .listSuggestion-questions .suggestion-question {
+  color: black;
+}
+
+.suggestion-card .listSuggestion-questions .suggestion-created-at {
+  color: #4d86c1;
+}
+
+/*# sourceMappingURL=CoursesList.css.map */
