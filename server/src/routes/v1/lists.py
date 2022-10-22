@@ -75,4 +75,4 @@ async def get_user_myQuestions(user_id: str, page: int = 1, itemsPerPage: int = 
             }
         ]
     user_questions = db[DbName.USER.value].aggregate(pipeline)
-    return JSONResponse(json.loads(json_util.dumps(await user_questions.to_list(10))))
+    return JSONResponse(json.loads(json_util.dumps(await user_questions.next())))
