@@ -96,13 +96,6 @@ def paginate_list(result: List, page: int, itemsPerPage: int = -1, sort_key: str
     return result[(page - 1) * itemsPerPage:page * itemsPerPage]
 
 
-@app.get("/v1/myAnswers")
-async def get_user_myAnswers(user_id: str, page: int = 1, itemsPerPage: int = -1):
-    user_answers = await db[DbName.USER.value].find_one({"_id": user_id}, {"my_Answers": 1})
-    user_answers["my_Answers"] = paginate_list(user_answers["my_Answers"], page, itemsPerPage, "timestamp", True)
-    return JSONResponse(user_answers)
-
-
 @app.get("/v1/myBookmarkedQuestions")
 async def get_user_myBookmarkedQuestions(user_id: str, page: int = 1, itemsPerPage: int = -1):
     user_questions = await db[DbName.USER.value].find_one({"_id": user_id}, {"my_BookmarkedQuestions": 1})
