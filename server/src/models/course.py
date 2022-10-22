@@ -1,7 +1,8 @@
 from pydantic import BaseModel, Field
 from typing import List
-from question import Question
-from quiz import Quiz
+from .question import Question
+from .quiz import Quiz
+
 
 class Course(BaseModel):
     code: str = Field(alias="_id")

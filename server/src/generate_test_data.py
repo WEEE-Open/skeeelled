@@ -9,11 +9,11 @@ from typing import List
 import random
 from bson.objectid import ObjectId
 
-from table_names import DbName
-from user import User
-from course import Course
-from question import Question
-from comment import Comment, Reply
+from db import DbName
+from models.user import User
+from models.course import Course
+from models.question import Question
+from models.comment import Comment, Reply
 
 client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongodb:27017/")
 client.get_io_loop = asyncio.get_running_loop

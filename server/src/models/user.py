@@ -1,8 +1,8 @@
 from pydantic import BaseModel, Field
 from typing import List
-from objectid import ObjectId
 from datetime import datetime
-from simulation import ExamSimulation
+from .objectid import ObjectId
+from .simulation import ExamSimulation
 
 
 class User(BaseModel):

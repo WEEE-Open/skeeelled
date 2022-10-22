@@ -1,8 +1,8 @@
 from pydantic import BaseModel, validator, Field
 from typing import List, Any
 from datetime import datetime
-from comment import Comment
-from objectid import ObjectId
+from .comment import Comment
+from .objectid import ObjectId
 
 
 class Question(BaseModel):

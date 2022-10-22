@@ -1,26 +1,17 @@
-import json
-
 from bson import json_util
 import bson.errors
 from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse, HTMLResponse
-import motor.motor_asyncio
-from question import Question, multiple_insertion
-from quiz import Quiz
 from bson import ObjectId, DBRef
-from table_names import DbName
-
 from typing import List
+from utils.json_encoder import JSONEncoder
+
+from db import db, DbName
+from routes import router as main_router
+from models.question import Question, multiple_insertion
+from models.quiz import Quiz
 
 app = FastAPI()
-
-db = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongodb:27017/").test_db
-
-
-@app.get("/v1")
-def index():
-    return {"msg": "You successfully reached API v1"}
-
 
 # read and upload the quiz on the database
 @app.post("/v1/uploadQuestionsFile")
@@ -294,9 +285,4 @@ async def get_simulation(user_id: str, simulation_id: str):
     return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
                         content="No simulation found")
 
-
-class JSONEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, (ObjectId, DBRef)):
-            return str(o)
-        return json.JSONEncoder.default(self, o)
+app.include_router(main_router)
