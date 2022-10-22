@@ -16,9 +16,9 @@ class User(BaseModel):
     is_professor: bool = False
     is_admin: bool = False
     related_courses: List[str] = []     # Course ids
-    my_Questions: List[ObjectId] = []   # Question ids
-    my_Comments: List[ObjectId] = []     # Answer ids
-    my_Replies: List[ObjectId] = []     # Reply ids
+    my_Questions: List[str] = []        # Question ids
+    my_Comments: List[str] = []         # Answer ids
+    my_Replies: List[str] = []          # Reply ids
     last_session: datetime
     credibility_rate: float = -1.0
     simulation_result: List[ExamSimulation] = []

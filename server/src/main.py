@@ -118,14 +118,6 @@ async def get_user_myQuestions(user_id: str, page: int = 1, itemsPerPage: int = 
             "$unwind": "$my_Questions"
         },
         {
-            "$project": {
-                "id": True,
-                "my_Questions": {
-                    "$toString": "$my_Questions"
-                }
-            }
-        },
-        {
             "$lookup": {
                 "from": DbName.COURSE.value,
                 "localField": "my_Questions",

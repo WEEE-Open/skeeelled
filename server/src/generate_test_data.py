@@ -55,12 +55,13 @@ def generate_replies(n: int, course_code: str, users_list: List[User]) -> List[R
         _id = ObjectId()
         author = random.choice(users_list)
         reply_list.append(Reply(
+            _id=_id,
             author=author.id,
             upvotes=random.randint(0, 100),
             downvotes=random.randint(0, 100),
             content=''.join(random.choices(string.ascii_letters, k=50)),
         ))
-        author.my_Replies.append(_id)
+        author.my_Replies.append(str(_id))
         if course_code not in author.related_courses:
             author.related_courses.append(course_code)
 
@@ -73,13 +74,14 @@ def generate_comments(n: int, course_code: str, users_list: List[User]) -> List[
         _id = ObjectId()
         author = random.choice(users_list)
         comment_list.append(Comment(
+            _id=_id,
             author=author.id,
             upvotes=random.randint(0, 100),
             downvotes=random.randint(0, 100),
             content=''.join(random.choices(string.ascii_letters, k=50)),
             replies=generate_replies(random.randint(0, 5), course_code, users_list),
         ))
-        author.my_Comments.append(_id)
+        author.my_Comments.append(str(_id))
         if course_code not in author.related_courses:
             author.related_courses.append(course_code)
 
@@ -99,7 +101,7 @@ def generate_questions(course_code: str, professors_list: List[User], students_l
             hint=q["content"]["generalfeedback"]["text"],
             comments=generate_comments(random.randint(0, 5), course_code, professors_list + students_list),
         ))
-        owner.my_Questions.append(_id)
+        owner.my_Questions.append(str(_id))
 
     return question_list
 

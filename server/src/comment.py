@@ -1,8 +1,10 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Any
 from datetime import datetime
+from objectid import ObjectId
 
 class _CommentBase(BaseModel):
+    id: ObjectId = Field(alias="_id")
     author: str
     info: Any
     upvotes: int
