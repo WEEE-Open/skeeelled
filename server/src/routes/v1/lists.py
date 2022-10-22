@@ -98,3 +98,34 @@ async def get_user_myReplies(user_id: str, page: int = 1, itemsPerPage: int = -1
         return JSONResponse(json.loads(json_util.dumps(user)))
     except StopAsyncIteration:
         raise HTTPException(status_code=404, detail="User not found")
+
+
+@router.get("/myBookmarkedQuestions")
+async def get_user_myBookmarkedQuestions(user_id: str, page: int = 1, itemsPerPage: int = -1):
+    pipeline = [
+        {"$match": {"id": user_id}},
+        {"$unwind": "$my_BookmarkedQuestions"},
+        {"$lookup": {
+            "from": DbName.COURSE.value,
+            "localField": "my_BookmarkedQuestions",
+            "foreignField": "questions.id",
+            "as": "myBookmarkedQuestions"}},
+        {"$unwind": "$myBookmarkedQuestions"},
+        {"$unwind": "$myBookmarkedQuestions.questions"},
+        {"$match": {"$expr": {"$eq": ["$my_BookmarkedQuestions", "$myBookmarkedQuestions.questions.id"]}}},
+        {"$project": {"myBookmarkedQuestions.questions.comments": False}},
+        {"$sort": {"myBookmarkedQuestions.questions.timestamp": -1, "myBookmarkedQuestions.questions.id": -1}},
+        {"$group": {"_id": "$id", "myBookmarkedQuestions": {"$push": "$myBookmarkedQuestions.questions"}}}
+    ]
+    if itemsPerPage > 0:
+        pipeline[-1:-1] = [
+            {"$skip": (page - 1) * itemsPerPage},
+            {"$limit": itemsPerPage}
+        ]
+    user_questions = db[DbName.USER.value].aggregate(pipeline)
+    try:
+        user = await user_questions.next()
+        return JSONResponse(json.loads(json_util.dumps(user)))
+    except StopAsyncIteration:
+        raise HTTPException(status_code=404, detail="User not found")
+
