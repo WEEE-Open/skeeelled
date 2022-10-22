@@ -22,4 +22,4 @@ class User(BaseModel):
     my_Replies: List[str] = []              # Reply ids
     last_session: datetime
     credibility_rate: float = -1.0
-    simulation_result: List[ExamSimulation] = []
+    simulation_results: List[ExamSimulation] = []

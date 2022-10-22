@@ -98,22 +98,6 @@ def paginate_list(result: List, page: int, itemsPerPage: int = -1, sort_key: str
     return result[(page - 1) * itemsPerPage:page * itemsPerPage]
 
 
-@app.get("/v1/mySimulationResults")
-async def get_user_mySimulationResults(user_id: str, page: int = 1, itemsPerPage: int = -1):
-    user_simulations = await db[DbName.USER.value].find_one({"_id": user_id}, {"simulation_results": 1})
-    user_simulations["simulation_results"] = paginate_list(user_simulations["simulation_results"], page, itemsPerPage,
-                                                           "timestamp", True)
-    return JSONResponse(user_simulations)
-
-
-@app.get("/v1/courses")
-async def get_courses(page: int = 1, itemsPerPage: int = -1):
-    cursor = db[DbName.COURSE.value].find().sort("code", 1).skip(((page - 1) * itemsPerPage) if itemsPerPage > 0 else 0)
-    docs = await cursor.to_list(itemsPerPage if itemsPerPage > 0 else None)
-    result = json.loads(json.dumps(docs, cls=JSONEncoder))
-    return JSONResponse(result)
-
-
 @app.get("/v1/questions")
 async def get_questions(courseId: str, page: int = 1, itemsPerPage: int = -1):
     questions = await db[DbName.COURSE.value].find_one({"_id": ObjectId(courseId)}, {"questions": 1})

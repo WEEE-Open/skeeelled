@@ -29,7 +29,6 @@ async def get_user_myQuestions(user_id: str, page: int = 1, itemsPerPage: int = 
             {"$skip": (page - 1) * itemsPerPage},
             {"$limit": itemsPerPage}
         ]
-        print(pipeline)
     user_questions = db[DbName.USER.value].aggregate(pipeline)
     try:
         user = await user_questions.next()
@@ -68,6 +67,7 @@ async def get_user_myComments(user_id: str, page: int = 1, itemsPerPage: int = -
     except StopAsyncIteration:
         raise HTTPException(status_code=404, detail="User not found")
 
+
 @router.get("/myReplies")
 async def get_user_myReplies(user_id: str, page: int = 1, itemsPerPage: int = -1):
     pipeline = [
@@ -83,7 +83,8 @@ async def get_user_myReplies(user_id: str, page: int = 1, itemsPerPage: int = -1
         {"$unwind": "$myReplies.questions.comments"},
         {"$unwind": "$myReplies.questions.comments.replies"},
         {"$match": {"$expr": {"$eq": ["$my_Replies", "$myReplies.questions.comments.replies.id"]}}},
-        {"$sort": {"myQuestions.questions.comments.replies.timestamp": -1, "myQuestions.questions.comments.replies.id": -1}},
+        {"$sort": {"myQuestions.questions.comments.replies.timestamp": -1,
+                   "myQuestions.questions.comments.replies.id": -1}},
         {"$group": {"_id": "$id", "myReplies": {"$push": "$myReplies.questions.comments.replies"}}}
     ]
     if itemsPerPage > 0:
@@ -91,7 +92,6 @@ async def get_user_myReplies(user_id: str, page: int = 1, itemsPerPage: int = -1
             {"$skip": (page - 1) * itemsPerPage},
             {"$limit": itemsPerPage}
         ]
-        print(pipeline)
     user_replies = db[DbName.USER.value].aggregate(pipeline)
     try:
         user = await user_replies.next()
@@ -129,3 +129,20 @@ async def get_user_myBookmarkedQuestions(user_id: str, page: int = 1, itemsPerPa
     except StopAsyncIteration:
         raise HTTPException(status_code=404, detail="User not found")
 
+
+@router.get("/mySimulationResults")
+async def get_user_mySimulationResults(user_id: str, page: int = 1, itemsPerPage: int = -1):
+    user_simulations = await db[DbName.USER.value].find_one({"id": user_id}, {
+        "id": True, "simulation_results": True if itemsPerPage < 1 else {
+            "$slice": [(page - 1) * itemsPerPage, itemsPerPage]}
+    })
+    if user_simulations is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return JSONResponse(json.loads(json_util.dumps(user_simulations)))
+
+
+@router.get("/courses")
+async def get_courses(page: int = 1, itemsPerPage: int = -1):
+    courses = db[DbName.COURSE.value].find({}, {"questions": False, "quizzes": False}).sort([("_id", -1)])
+    return JSONResponse(json.loads(json_util.dumps(
+        await courses.skip((page - 1) * itemsPerPage).to_list(itemsPerPage if itemsPerPage > 0 else None))))

@@ -3,4 +3,4 @@ from .v1 import router as v1router
 
 router = APIRouter()
 
-router.include_router(v1router, prefix="/v1")
+router.include_router(v1router, prefix="/v1", tags=["list"])
