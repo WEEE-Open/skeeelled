@@ -12,6 +12,8 @@ from models.quiz import Quiz
 
 app = FastAPI()
 
+app.include_router(main_router)
+
 # read and upload the quiz on the database
 @app.post("/v1/uploadQuestionsFile")
 async def create_quiz(q: Quiz):
@@ -221,5 +223,3 @@ async def get_simulation(user_id: str, simulation_id: str):
 
     return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
                         content="No simulation found")
-
-app.include_router(main_router)

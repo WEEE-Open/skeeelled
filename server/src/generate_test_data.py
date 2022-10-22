@@ -102,6 +102,7 @@ def generate_questions(course_code: str, professors_list: List[User], students_l
             comments=generate_comments(random.randint(0, 5), course_code, professors_list + students_list),
         ))
         owner.my_Questions.append(str(_id))
+        random.choice(professors_list + students_list).my_BookmarkedQuestions.append(str(_id))
 
     return question_list
 
