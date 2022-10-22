@@ -1,4 +1,3 @@
-from bson import json_util
 import bson.errors
 from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse, HTMLResponse
@@ -95,61 +94,6 @@ def paginate_list(result: List, page: int, itemsPerPage: int = -1, sort_key: str
     if itemsPerPage == -1:
         return result
     return result[(page - 1) * itemsPerPage:page * itemsPerPage]
-
-
-@app.get("/v1/myQuestions")
-async def get_user_myQuestions(user_id: str, page: int = 1, itemsPerPage: int = -1):
-    user_questions = db[DbName.USER.value].aggregate([
-        {
-            "$match": {
-                "id": user_id
-            }
-        },
-        {
-            "$unwind": "$my_Questions"
-        },
-        {
-            "$lookup": {
-                "from": DbName.COURSE.value,
-                "localField": "my_Questions",
-                "foreignField": "questions.id",
-                "as": "myQuestions"
-            }
-        },
-        {
-            "$unwind": "$myQuestions"
-        },
-        {
-            "$unwind": "$myQuestions.questions"
-        },
-        {
-            "$match": {
-                "$expr": {
-                    "$eq": ["$my_Questions", "$myQuestions.questions.id"]
-                }
-            }
-        },
-        {
-            "$project": {
-                "id": True,
-                "myQuestions.questions": True
-            }
-        },
-        {
-            "$project": {
-                "myQuestions.questions.comments": False
-            }
-        },
-        {
-            "$group": {
-                "_id": "$id",
-                "myQuestions": {
-                    "$push": "$myQuestions.questions"
-                }
-            }
-        }
-    ])
-    return JSONResponse(json.loads(json_util.dumps(await user_questions.to_list(10))))
 
 
 @app.get("/v1/myAnswers")
