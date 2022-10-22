@@ -10,7 +10,7 @@ class Question(BaseModel):
     owner: str  # professor id
     title: str
     quiz_ref: dict = None
-    content: dict
+    content: str
     is_deleted: bool = False
     hint: str = ""
     tags: List[str] = []
@@ -19,6 +19,7 @@ class Question(BaseModel):
     comments: List[Comment] = []
 
     # constraint check on question values
+    """
     @validator('content')
     def question_constraints(cls, v):
         if not isinstance(v, dict):
@@ -41,7 +42,7 @@ class Question(BaseModel):
 
     async def get_question(self, dbcoll):
         return await dbcoll.find_one({"content": self.content})
-
+    """
 
 async def multiple_insertion(collection, questions):
     for d in list(questions):

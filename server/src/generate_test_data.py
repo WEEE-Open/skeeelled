@@ -95,7 +95,7 @@ def generate_questions(course_code: str, professors_list: List[User], students_l
             _id=_id,
             owner=owner.id,
             title=q["content"]["name"]["text"],
-            content=q["content"],
+            content=q["content"]["questiontext"]["text"],
             hint=q["content"]["generalfeedback"]["text"],
             comments=generate_comments(random.randint(0, 5), course_code, professors_list + students_list),
         ))

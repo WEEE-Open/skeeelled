@@ -1,5 +1,6 @@
 import json
 
+from bson import json_util
 import bson.errors
 from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse, HTMLResponse
@@ -107,9 +108,65 @@ def paginate_list(result: List, page: int, itemsPerPage: int = -1, sort_key: str
 
 @app.get("/v1/myQuestions")
 async def get_user_myQuestions(user_id: str, page: int = 1, itemsPerPage: int = -1):
-    user_questions = await db[DbName.USER.value].find_one({"_id": user_id}, {"my_Questions": 1})
-    user_questions["my_Questions"] = paginate_list(user_questions["my_Questions"], page, itemsPerPage, "timestamp", True)
-    return JSONResponse(user_questions)
+    user_questions = db[DbName.USER.value].aggregate([
+        {
+            "$match": {
+                "id": user_id
+            }
+        },
+        {
+            "$unwind": "$my_Questions"
+        },
+        {
+            "$project": {
+                "id": True,
+                "my_Questions": {
+                    "$toString": "$my_Questions"
+                }
+            }
+        },
+        {
+            "$lookup": {
+                "from": DbName.COURSE.value,
+                "localField": "my_Questions",
+                "foreignField": "questions.id",
+                "as": "myQuestions"
+            }
+        },
+        {
+            "$unwind": "$myQuestions"
+        },
+        {
+            "$unwind": "$myQuestions.questions"
+        },
+        {
+            "$match": {
+                "$expr": {
+                    "$eq": ["$my_Questions", "$myQuestions.questions.id"]
+                }
+            }
+        },
+        {
+            "$project": {
+                "id": True,
+                "myQuestions.questions": True
+            }
+        },
+        {
+            "$project": {
+                "myQuestions.questions.comments": False
+            }
+        },
+        {
+            "$group": {
+                "_id": "$id",
+                "myQuestions": {
+                    "$push": "$myQuestions.questions"
+                }
+            }
+        }
+    ])
+    return JSONResponse(json.loads(json_util.dumps(await user_questions.to_list(10))))
 
 
 @app.get("/v1/myAnswers")
@@ -122,14 +179,16 @@ async def get_user_myAnswers(user_id: str, page: int = 1, itemsPerPage: int = -1
 @app.get("/v1/myBookmarkedQuestions")
 async def get_user_myBookmarkedQuestions(user_id: str, page: int = 1, itemsPerPage: int = -1):
     user_questions = await db[DbName.USER.value].find_one({"_id": user_id}, {"my_BookmarkedQuestions": 1})
-    user_questions["my_BookmarkedQuestions"] = paginate_list(user_questions["my_BookmarkedQuestions"], page, itemsPerPage, "timestamp", True)
+    user_questions["my_BookmarkedQuestions"] = paginate_list(user_questions["my_BookmarkedQuestions"], page,
+                                                             itemsPerPage, "timestamp", True)
     return JSONResponse(user_questions)
 
 
 @app.get("/v1/mySimulationResults")
 async def get_user_mySimulationResults(user_id: str, page: int = 1, itemsPerPage: int = -1):
     user_simulations = await db[DbName.USER.value].find_one({"_id": user_id}, {"simulation_results": 1})
-    user_simulations["simulation_results"] = paginate_list(user_simulations["simulation_results"], page, itemsPerPage, "timestamp", True)
+    user_simulations["simulation_results"] = paginate_list(user_simulations["simulation_results"], page, itemsPerPage,
+                                                           "timestamp", True)
     return JSONResponse(user_simulations)
 
 
@@ -169,7 +228,6 @@ async def get_replies(answerId: str, page: int = 1, itemsPerPage: int = -1):
         replies = json.loads(json.dumps(replies, cls=JSONEncoder))
         return JSONResponse(replies)
     return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content="Invalid answer ID")
-
 
 
 @app.get("/v1/searchCourses")
