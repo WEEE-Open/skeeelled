@@ -180,3 +180,21 @@ async def get_comments(question_id: str, page: int = 1, itemsPerPage: int = -1):
     except StopAsyncIteration:
         raise HTTPException(status_code=404, detail="Question not found")
 
+
+@router.get("/replies")
+async def get_replies(comment_id: str, page: int = 1, itemsPerPage: int = -1):
+    replies = db[DbName.COURSE.value].aggregate([
+        {"$match": {"questions.comments.id": comment_id}},
+        {"$unwind": "$questions"},
+        {"$unwind": "$questions.comments"},
+        {"$match": {"questions.comments.id": comment_id}},
+        {"$project": {"code": True, "questions.id": True, "questions.comments.id": True, "questions.comments.replies": True if itemsPerPage < 1 else {
+            "$slice": ["$questions.comments.replies", (page - 1) * itemsPerPage, itemsPerPage]
+        }}}
+    ])
+    try:
+        course = await replies.next()
+        return JSONResponse(json.loads(json_util.dumps(course)))
+    except StopAsyncIteration:
+        raise HTTPException(status_code=404, detail="Comment not found")
+
