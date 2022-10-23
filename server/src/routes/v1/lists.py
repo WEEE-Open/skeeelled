@@ -133,7 +133,7 @@ async def get_user_myBookmarkedQuestions(user_id: str, page: int = 1, itemsPerPa
 @router.get("/mySimulationResults")
 async def get_user_mySimulationResults(user_id: str, page: int = 1, itemsPerPage: int = -1):
     user_simulations = await db[DbName.USER.value].find_one({"id": user_id}, {
-        "id": True, "simulation_results": True if itemsPerPage < 1 else {
+        "id": True, "_id": False, "simulation_results": True if itemsPerPage < 1 else {
             "$slice": [(page - 1) * itemsPerPage, itemsPerPage]}
     })
     if user_simulations is None:
@@ -143,7 +143,7 @@ async def get_user_mySimulationResults(user_id: str, page: int = 1, itemsPerPage
 
 @router.get("/courses")
 async def get_courses(page: int = 1, itemsPerPage: int = -1):
-    courses = db[DbName.COURSE.value].find({}, {"questions": False, "quizzes": False}).sort([("_id", -1)])
+    courses = db[DbName.COURSE.value].find({}, {"questions": False, "quizzes": False, "_id": False}).sort([("_id", -1)])
     return JSONResponse(json.loads(json_util.dumps(
         await courses.skip((page - 1) * itemsPerPage).to_list(itemsPerPage if itemsPerPage > 0 else None))))
 
@@ -154,7 +154,7 @@ async def get_questions(course_id: str, page: int = 1, itemsPerPage: int = -1):
         {"$match": {"code": course_id}},
         {"$project": {"code": True, "questions": True if itemsPerPage < 1 else {
             "$slice": ["$questions", (page - 1) * itemsPerPage, itemsPerPage]}}},
-        {"$project": {"questions.comments": False}},
+        {"$project": {"questions.comments": False, "_id": False}},
     ])
     try:
         course = await questions.next()
@@ -188,13 +188,13 @@ async def get_replies(comment_id: str, page: int = 1, itemsPerPage: int = -1):
         {"$unwind": "$questions"},
         {"$unwind": "$questions.comments"},
         {"$match": {"questions.comments.id": comment_id}},
-        {"$project": {"code": True, "questions.id": True, "questions.comments.id": True, "questions.comments.replies": True if itemsPerPage < 1 else {
-            "$slice": ["$questions.comments.replies", (page - 1) * itemsPerPage, itemsPerPage]
-        }}}
+        {"$project": {"code": True, "_id": False, "questions.id": True, "questions.comments.id": True,
+                      "questions.comments.replies": True if itemsPerPage < 1 else {
+                          "$slice": ["$questions.comments.replies", (page - 1) * itemsPerPage, itemsPerPage]
+                      }}}
     ])
     try:
         course = await replies.next()
         return JSONResponse(json.loads(json_util.dumps(course)))
     except StopAsyncIteration:
         raise HTTPException(status_code=404, detail="Comment not found")
-
