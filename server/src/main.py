@@ -49,13 +49,6 @@ def check_valid_id(id: str):
     return True
 
 
-def paginate_list(result: List, page: int, itemsPerPage: int = -1, sort_key: str = None, sort_desc: bool = False):
-    if sort_key:
-        result.sort(key=lambda x: x[sort_key], reverse=sort_desc)
-    if itemsPerPage == -1:
-        return result
-    return result[(page - 1) * itemsPerPage:page * itemsPerPage]
-
 
 @app.get("/v1/searchCourses")
 async def search_courses(query: str, limit: int = 10):
