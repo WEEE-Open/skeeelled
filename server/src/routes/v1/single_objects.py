@@ -21,3 +21,19 @@ async def get_course(course_id: str):
         return JSONResponse(json.loads(json_util.dumps(course)))
     except StopAsyncIteration:
         raise HTTPException(status_code=404, detail="Course not found")
+
+
+@router.get("/question")
+async def get_questions(question_id: str):
+    question = db[DbName.COURSE.value].aggregate([
+        {"$match": {"questions.id": question_id}},
+        {"$unwind": "$questions"},
+        {"$match": {"questions.id": question_id}},
+        {"$project": {"question": "$questions", "_id": False}},
+        {"$project": {"question.comments": False}},
+    ])
+    try:
+        question = await question.next()
+        return JSONResponse(json.loads(json_util.dumps(question)))
+    except StopAsyncIteration:
+        raise HTTPException(status_code=404, detail="Course not found")
