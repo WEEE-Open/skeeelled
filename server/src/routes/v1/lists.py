@@ -52,7 +52,7 @@ async def get_user_myComments(user_id: str, page: int = 1, itemsPerPage: int = -
         {"$unwind": "$myComments.questions.comments"},
         {"$match": {"$expr": {"$eq": ["$my_Comments", "$myComments.questions.comments.id"]}}},
         {"$project": {"myComments.questions.comments.replies": False}},
-        {"$sort": {"myQuestions.questions.comments.timestamp": -1, "myQuestions.questions.comments.id": -1}},
+        {"$sort": {"myQuestions.questions.comments.timestamp": -1, "myComments.questions.comments.id": -1}},
         {"$group": {"_id": "$id", "myComments": {"$push": "$myComments.questions.comments"}}},
     ]
     if itemsPerPage > 0:
@@ -62,7 +62,7 @@ async def get_user_myComments(user_id: str, page: int = 1, itemsPerPage: int = -
         ]
     user_comments = db[DbName.USER.value].aggregate(pipeline)
     try:
-        user = await user_comments.next()
+        user = await user_comments.to_list(None)
         return JSONResponse(json.loads(json_util.dumps(user)))
     except StopAsyncIteration:
         raise HTTPException(status_code=404, detail="User not found")
@@ -83,8 +83,8 @@ async def get_user_myReplies(user_id: str, page: int = 1, itemsPerPage: int = -1
         {"$unwind": "$myReplies.questions.comments"},
         {"$unwind": "$myReplies.questions.comments.replies"},
         {"$match": {"$expr": {"$eq": ["$my_Replies", "$myReplies.questions.comments.replies.id"]}}},
-        {"$sort": {"myQuestions.questions.comments.replies.timestamp": -1,
-                   "myQuestions.questions.comments.replies.id": -1}},
+        {"$sort": {"myReplies.questions.comments.replies.timestamp": -1,
+                   "myReplies.questions.comments.replies.id": -1}},
         {"$group": {"_id": "$id", "myReplies": {"$push": "$myReplies.questions.comments.replies"}}}
     ]
     if itemsPerPage > 0:
@@ -146,3 +146,25 @@ async def get_courses(page: int = 1, itemsPerPage: int = -1):
     courses = db[DbName.COURSE.value].find({}, {"questions": False, "quizzes": False}).sort([("_id", -1)])
     return JSONResponse(json.loads(json_util.dumps(
         await courses.skip((page - 1) * itemsPerPage).to_list(itemsPerPage if itemsPerPage > 0 else None))))
+
+
+@router.get("/questions")
+async def get_questions(course_id: str, page: int = 1, itemsPerPage: int = -1):
+    questions = db[DbName.COURSE.value].aggregate([
+        {"$match": {"code": course_id}},
+        {"$project": {"code": True, "questions": True if itemsPerPage < 1 else {
+            "$slice": ["$questions", (page - 1) * itemsPerPage, itemsPerPage]}}},
+        {"$project": {"questions.comments": False}},
+    ])
+    try:
+        course = await questions.next()
+        return JSONResponse(json.loads(json_util.dumps(course)))
+    except StopAsyncIteration:
+        raise HTTPException(status_code=404, detail="Course not found")
+
+
+@router.get("/discussion")
+async def get_comments(question_id: str, page: int = 1, itemsPerPage: int = -1):
+    comments = await db[DbName.COURSE.value].find_one({"questions.id": question_id}, {"questions": True, "code": True})
+    return JSONResponse(json.loads(json_util.dumps(comments)))
+

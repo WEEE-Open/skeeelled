@@ -98,16 +98,6 @@ def paginate_list(result: List, page: int, itemsPerPage: int = -1, sort_key: str
     return result[(page - 1) * itemsPerPage:page * itemsPerPage]
 
 
-@app.get("/v1/questions")
-async def get_questions(courseId: str, page: int = 1, itemsPerPage: int = -1):
-    questions = await db[DbName.COURSE.value].find_one({"_id": ObjectId(courseId)}, {"questions": 1})
-    if questions:
-        questions["questions"] = paginate_list(questions["questions"], page, itemsPerPage, "timestamp", True)
-        questions = json.loads(json.dumps(questions, cls=JSONEncoder))
-        return JSONResponse(questions)
-    return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content="Invalid course ID")
-
-
 @app.get("/v1/discussion")
 async def get_discussion(questionId: str, page: int = 1, itemsPerPage: int = -1):
     discussion = await db[DbName.QUESTION.value].find_one({"_id": ObjectId(questionId)}, {"answers": 1})
