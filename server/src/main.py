@@ -41,33 +41,6 @@ async def create_quiz(q: Quiz):
                                     "Please check again your request body")
 
 
-@app.get("/v1/question")
-async def get_question(id: str):
-    if not check_valid_id(id):
-        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id is not a valid format")
-    a = await db[DbName.QUESTION.value].find_one(ObjectId(id))
-    if a:
-        # ObjectId is not JSON serializable, so i convert the value in string
-        a = json.loads(json.dumps(a, cls=JSONEncoder))
-        return JSONResponse(status_code=status.HTTP_200_OK, content=a)
-    else:
-        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
-                            content=f"No question found with id {id}")
-
-
-@app.get("/v1/user")
-async def get_user(id: str):
-    if id[0] not in ('s', 'd'):
-        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id must start with d or s")
-    a = await db[DbName.USER.value].find_one(id,
-                                             {'name': 1, 'surname': 1, 'username': 1, 'profile_picture': 1, '_id': 0})
-    if a:
-        return JSONResponse(status_code=status.HTTP_200_OK, content=a)
-    else:
-        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
-                            content=f"No user found with id {id}")
-
-
 def check_valid_id(id: str):
     try:
         ObjectId(id)

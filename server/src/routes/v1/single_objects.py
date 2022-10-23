@@ -37,3 +37,13 @@ async def get_questions(question_id: str):
         return JSONResponse(json.loads(json_util.dumps(question)))
     except StopAsyncIteration:
         raise HTTPException(status_code=404, detail="Course not found")
+
+
+@router.get("/user")
+async def get_user(user_id: str):
+    user = await db[DbName.USER.value].find_one({"id": user_id},
+                                                {"_id": False, "id": True, "email": True, "username": True,
+                                                 "name": True, "surname": True, "profile_picture": True})
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return JSONResponse(json.loads(json_util.dumps(user)))
