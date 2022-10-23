@@ -41,20 +41,6 @@ async def create_quiz(q: Quiz):
                                     "Please check again your request body")
 
 
-@app.get("/v1/course")
-async def get_course(id: str):
-    if not check_valid_id(id):
-        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id is not a valid format")
-    a = await db[DbName.COURSE.value].find_one(ObjectId(id))
-    if a:
-        # ObjectId is not JSON serializable, so i convert the value in string
-        a['_id'] = str(a['_id'])
-        return JSONResponse(status_code=status.HTTP_200_OK, content=a)
-    else:
-        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
-                            content=f"No course found with id {id}")
-
-
 @app.get("/v1/question")
 async def get_question(id: str):
     if not check_valid_id(id):
@@ -96,26 +82,6 @@ def paginate_list(result: List, page: int, itemsPerPage: int = -1, sort_key: str
     if itemsPerPage == -1:
         return result
     return result[(page - 1) * itemsPerPage:page * itemsPerPage]
-
-
-@app.get("/v1/discussion")
-async def get_discussion(questionId: str, page: int = 1, itemsPerPage: int = -1):
-    discussion = await db[DbName.QUESTION.value].find_one({"_id": ObjectId(questionId)}, {"answers": 1})
-    if discussion:
-        discussion["answers"] = paginate_list(discussion["answers"], page, itemsPerPage, "timestamp", True)
-        discussion = json.loads(json.dumps(discussion, cls=JSONEncoder))
-        return JSONResponse(discussion)
-    return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content="Invalid question ID")
-
-
-@app.get("/v1/replies")
-async def get_replies(answerId: str, page: int = 1, itemsPerPage: int = -1):
-    replies = await db[DbName.ANSWER.value].find_one({"_id": ObjectId(answerId)}, {"replies": 1})
-    if replies:
-        replies["replies"] = paginate_list(replies["replies"], page, itemsPerPage)
-        replies = json.loads(json.dumps(replies, cls=JSONEncoder))
-        return JSONResponse(replies)
-    return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content="Invalid answer ID")
 
 
 @app.get("/v1/searchCourses")
