@@ -165,6 +165,18 @@ async def get_questions(course_id: str, page: int = 1, itemsPerPage: int = -1):
 
 @router.get("/discussion")
 async def get_comments(question_id: str, page: int = 1, itemsPerPage: int = -1):
-    comments = await db[DbName.COURSE.value].find_one({"questions.id": question_id}, {"questions": True, "code": True})
-    return JSONResponse(json.loads(json_util.dumps(comments)))
+    comments = db[DbName.COURSE.value].aggregate([
+        {"$match": {"questions.id": question_id}},
+        {"$unwind": "$questions"},
+        {"$match": {"questions.id": question_id}},
+        {"$project": {"code": True, "questions.id": True, "questions.comments": True if itemsPerPage < 1 else {
+            "$slice": ["$questions.comments", (page - 1) * itemsPerPage, itemsPerPage]
+        }}},
+        {"$project": {"questions.comments.replies": False, "_id": False}}
+    ])
+    try:
+        course = await comments.next()
+        return JSONResponse(json.loads(json_util.dumps(course)))
+    except StopAsyncIteration:
+        raise HTTPException(status_code=404, detail="Question not found")
 
