@@ -193,6 +193,14 @@ async def get_simulation(user_id: str, simulation_id: str):
                         content="No simulation found")
 
 
+@app.post("/v1/userSettings")
+async def post_user_settings(profile_picture: str, nickname: str, public_profile: bool, enrolled_courses: List[int]):
+    value = await db[DbName.USER.value].insert_one({"profile_picture": profile_picture, "nickname": nickname})
+    print(value.inserted_id)
+    value = json.loads(json.dumps(value, cls=JSONEncoder))
+    return JSONResponse(status_code=status.HTTP_200_OK, content=value)
+
+
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, (ObjectId, DBRef)):
