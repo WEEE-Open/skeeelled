@@ -14,7 +14,6 @@ from random import choice, randint, sample
 import motor.motor_asyncio
 from datetime import datetime as time
 from bson import ObjectId
-from json import load
 from table_names import DbName
 
 client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongodb:27017/")
@@ -132,7 +131,7 @@ async def generate_users():
 
 if __name__ == "__main__":
     print("Beginning test data generation...")
-    asyncio.run(generate_answers())
+    asyncio.run(generate_comments())
     asyncio.run(generate_courses())
     asyncio.run(generate_users())
     asyncio.run(generate_questions())
