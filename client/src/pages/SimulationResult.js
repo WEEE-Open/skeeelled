@@ -139,36 +139,41 @@ export default function SimulationResult() {
           </div>
         </Row>
         {/*<Card className="result-table-card">*/}
-          <Table responsive="lg" striped hover className="simulation-result-table">
-            <thead b>
-              <tr>
-                <th>Result</th>
-                <th>Number</th>
-                <th>Points Each</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Correct Answer</td>
-                <td>{numCorrect}</td>
-                <td>{pointPerCorrect}</td>
-                <td>{numCorrect * pointPerCorrect}</td>
-              </tr>
-              <tr>
-                <td>Not Given</td>
-                <td>{numNotGiven}</td>
-                <td>0</td>
-                <td>{numNotGiven * 0}</td>
-              </tr>
-              <tr>
-                <td>Wrong Answer</td>
-                <td>{numPenalty}</td>
-                <td>{pointPerWrong}</td>
-                <td>{numPenalty * pointPerWrong}</td>
-              </tr>
-            </tbody>
-          </Table>
+        <Table
+          responsive="lg"
+          striped
+          hover
+          className="simulation-result-table"
+        >
+          <thead b>
+            <tr>
+              <th>Result</th>
+              <th>Number</th>
+              <th>Points Each</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Correct Answer</td>
+              <td>{numCorrect}</td>
+              <td>{pointPerCorrect}</td>
+              <td>{numCorrect * pointPerCorrect}</td>
+            </tr>
+            <tr>
+              <td>Not Given</td>
+              <td>{numNotGiven}</td>
+              <td>0</td>
+              <td>{numNotGiven * 0}</td>
+            </tr>
+            <tr>
+              <td>Wrong Answer</td>
+              <td>{numPenalty}</td>
+              <td>{pointPerWrong}</td>
+              <td>{numPenalty * pointPerWrong}</td>
+            </tr>
+          </tbody>
+        </Table>
         <List scope={"simulationResult"} rows={useAns} />
       </Container>
     </>

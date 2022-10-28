@@ -2,8 +2,20 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Alert, Button } from "react-bootstrap";
-import { Routes, Route, Navigate as Redirect, Link, useLocation } from "react-router-dom";
-import { NavigationBar, Footer, DebugPaths, TextInput, BreadCrumb } from "./base/";
+import {
+  Routes,
+  Route,
+  Navigate as Redirect,
+  Link,
+  useLocation,
+} from "react-router-dom";
+import {
+  NavigationBar,
+  Footer,
+  DebugPaths,
+  TextInput,
+  BreadCrumb,
+} from "./base/";
 import {
   AddQuestion,
   Answers,
@@ -69,6 +81,7 @@ function App() {
     setAdmin(false);
   };
 
+
   return (
     <Container fluid>
       <Row>
@@ -87,7 +100,7 @@ function App() {
         </Col>
       </Row>
       <Row>
-        {/*<BreadCrumb/>*/}
+        <BreadCrumb/>
       </Row>
       <Row className="my-4">
         <Col xs={6} className="mx-auto">
@@ -104,7 +117,7 @@ function App() {
       </Row>
       <DebugPaths />
       <Row className="my-4">
-        <Col xs={10} md={8} className="mx-auto">
+        <Col sm={11} md={10} className="mx-auto">
           {/*
 					<Exam question={parsedQuestions.quiz.question} />
 					*/}

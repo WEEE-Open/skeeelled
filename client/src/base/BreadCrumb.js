@@ -1,10 +1,11 @@
+
 import {Breadcrumb} from "react-bootstrap";
 import "./stylesheet/BreadCrumb.scss"
 import {matchPath, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 
-export default function BreadCrumb (props) {
+export default function BreadCrumb(props) {
 
     const fakeCourses = [
         { code: "A0B1C2", course: "Analysis 1", cfu: 10, professor: "Mario Rossi" },
@@ -157,3 +158,4 @@ export default function BreadCrumb (props) {
         </>
     )
 }
+

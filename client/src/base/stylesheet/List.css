@@ -132,8 +132,8 @@
 }
 
 .accordion-button:not(.collapsed) {
-  color: #E28111;
-  border: 3px solid #E28111;
+  color: #e28111;
+  border: 3px solid #e28111;
   outline: none;
 }
 

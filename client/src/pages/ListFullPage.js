@@ -2,7 +2,7 @@ import { List } from "../base";
 import { Card, Container, Pagination } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
-import "./stylesheet/ListFullPage.css"
+import "./stylesheet/ListFullPage.css";
 
 function PaginationRow() {
   let [active, setActive] = useState(1);

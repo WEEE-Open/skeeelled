@@ -16,9 +16,9 @@
 }
 .simulation-card .start-simulation-button:hover {
   @include button-color-radius(
-          $border-color: #ea9b57,
-          $background-color: #ea9b57,
-          $color: white
+    $border-color: #ea9b57,
+    $background-color: #ea9b57,
+    $color: white
   );
 }
 

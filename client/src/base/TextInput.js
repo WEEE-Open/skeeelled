@@ -59,6 +59,7 @@ function TextInput({
   const [selTab, setSelTab] = useState("write");
   const [base64Imgs, setBase64Imgs] = useState({});
   const [editorHeight, setEditorHeight] = useState("100px");
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   const uploadImage = async function* (data, file) {
     const filename = file.name.replace(/\[|\]|\(|\)/g, "");
@@ -158,46 +159,50 @@ ${file.content}
   };
 
   return (
-    <Container>
-      <ReactMde
-        loadingPreview="Loading preview..."
-        value={value || val}
-        onChange={onChange || setVal}
-        selectedTab={selectedTab || selTab}
-        onTabChange={onTabChange || setSelTab}
-        commands={{ "insert-tex": insertTex, "upload-img": saveImage }}
-        toolbarCommands={[...getDefaultToolbarCommands(), ["insert-tex"]]}
-        generateMarkdownPreview={async (markdown) => {
-          const previewMarkdown = await generatePreviewMarkdown(markdown);
-          return Promise.resolve(
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm, remarkMath]}
-              rehypePlugins={[rehypeKatex, rehypeHighlight]}
-            >
-              {previewMarkdown}
-            </ReactMarkdown>
-          );
-        }}
-        childProps={childProps}
-        paste={{
-          saveImage: uploadImage,
-          command: "upload-img",
-          multiple: true,
-        }}
-      />
+    <Container fluid>
+      {!isFullScreen && (
+        <ReactMde
+          className={"hidden"}
+          loadingPreview="Loading preview..."
+          value={value || val}
+          onChange={onChange || setVal}
+          selectedTab={selectedTab || selTab}
+          onTabChange={onTabChange || setSelTab}
+          commands={{ "insert-tex": insertTex, "upload-img": saveImage }}
+          toolbarCommands={[...getDefaultToolbarCommands(), ["insert-tex"]]}
+          generateMarkdownPreview={async (markdown) => {
+            const previewMarkdown = await generatePreviewMarkdown(markdown);
+            return Promise.resolve(
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm, remarkMath]}
+                rehypePlugins={[rehypeKatex, rehypeHighlight]}
+              >
+                {previewMarkdown}
+              </ReactMarkdown>
+            );
+          }}
+          childProps={childProps}
+          paste={{
+            saveImage: uploadImage,
+            command: "upload-img",
+            multiple: true,
+          }}
+        />
+      )}
       {pythonQuestion && (
         <PythonEditor
           editorHeight={editorHeight}
-          outputHeight="100px"
+          outputHeight={"5vh"}
           dark={dark}
           onCopy={handleCopy}
           projectFiles={entryFiles}
           backgroundColor={dark ? "#212529" : "#ffffff"}
           onFullScreen={(fs) => {
+            setIsFullScreen(fs);
             if (fs) {
-              setEditorHeight("500px");
+              setEditorHeight("55vh");
             } else {
-              setEditorHeight("100px");
+              setEditorHeight("5vh");
             }
           }}
         />

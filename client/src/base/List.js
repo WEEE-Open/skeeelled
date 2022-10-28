@@ -7,7 +7,9 @@ import {
   Form,
   FloatingLabel,
   Button,
-  Image, Stack, Card
+  Image,
+  Stack,
+  Card,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ListEntry, SearchBar } from "./";
@@ -56,7 +58,11 @@ function ListDefault({ props }) {
           </table>
         </div>
       ) : (
-        <div className={"default-table-" + props.title.toLowerCase().replace(/\s/g, "-")}>
+        <div
+          className={
+            "default-table-" + props.title.toLowerCase().replace(/\s/g, "-")
+          }
+        >
           <Table striped borderless hover className="list">
             <thead className="listTitle">
               <tr>
@@ -162,15 +168,17 @@ function ListSimulationResult({ props }) {
         <Card className="accordion-header-card">
           <Card.Header>
             <Row>
-              <Col><h4 className="listSimulationResultTitle">Your Answers</h4></Col>
+              <Col>
+                <h4 className="listSimulationResultTitle">Your Answers</h4>
+              </Col>
               <Col className="col-md-2">
                 <Button
-                    className="btn-outline-success-simulation-result"
-                    variant="outline-success"
-                    value="Show/Close"
-                    onClick={() => {
-                      setAreAllAccordionItemsOpen(!areAllAccordionItemsOpen);
-                    }}
+                  className="btn-outline-success-simulation-result"
+                  variant="outline-success"
+                  value="Show/Close"
+                  onClick={() => {
+                    setAreAllAccordionItemsOpen(!areAllAccordionItemsOpen);
+                  }}
                 >
                   {areAllAccordionItemsOpen ? "Close All" : "Show All"}
                 </Button>
@@ -196,7 +204,7 @@ function ListSimulationResult({ props }) {
             ))}
           </Accordion>
         </Row>
-        <Card className="accordion-footer-card"/>
+        <Card className="accordion-footer-card" />
       </Container>
     </>
   );
