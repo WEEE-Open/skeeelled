@@ -145,7 +145,7 @@ export default function BreadCrumb (props) {
 
     return (
         <>
-            <Breadcrumb>
+            <Breadcrumb className="breadcrumb">
                 {
                     crumbPathArr.map((e,index)=> {
                         return index === crumbPathArr.length -1?<Breadcrumb.Item active href={e.path}>{e.title}</Breadcrumb.Item>:<Breadcrumb.Item href={e.path}>{e.title}</Breadcrumb.Item>
