@@ -121,9 +121,11 @@ export default function BreadCrumb (props) {
             setCrumbPathArr(findChild(crumbPathArr,location.pathname))
         }
 
+
         console.log(crumbPathArr);
         console.log(`location: ${location.pathname}`)
-    },[location, ])
+    },[location])
+
 
     const findChild = (path, dest) => {
         let i;
@@ -147,8 +149,8 @@ export default function BreadCrumb (props) {
         <>
             <Breadcrumb className="breadcrumb">
                 {
-                    crumbPathArr.map((e,index)=> {
-                        return index === crumbPathArr.length -1?<Breadcrumb.Item active href={e.path}>{e.title}</Breadcrumb.Item>:<Breadcrumb.Item href={e.path}>{e.title}</Breadcrumb.Item>
+                    crumbPathArr?.map((e,index)=> {
+                        return index === crumbPathArr.length -1?<Breadcrumb.Item active href={e.path}>{e.title}</Breadcrumb.Item >:<Breadcrumb.Item href={e.path}>{e.title}</Breadcrumb.Item>
                     })
                 }
             </Breadcrumb>
