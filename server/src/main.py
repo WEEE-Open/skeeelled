@@ -1,25 +1,18 @@
-import json
-
 import bson.errors
 from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse, HTMLResponse
-import motor.motor_asyncio
-from question import Question, multiple_insertion
-from quiz import Quiz
 from bson import ObjectId, DBRef
-from table_names import DbName
-
 from typing import List
+from utils.json_encoder import JSONEncoder
+
+from db import db, DbName
+from routes import router as main_router
+from models.question import Question, multiple_insertion
+from models.quiz import Quiz
 
 app = FastAPI()
 
-db = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongodb:27017/").test_db
-
-
-@app.get("/v1")
-def index():
-    return {"msg": "You successfully reached API v1"}
-
+app.include_router(main_router)
 
 # read and upload the quiz on the database
 @app.post("/v1/uploadQuestionsFile")
@@ -48,47 +41,6 @@ async def create_quiz(q: Quiz):
                                     "Please check again your request body")
 
 
-@app.get("/v1/course")
-async def get_course(id: str):
-    if not check_valid_id(id):
-        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id is not a valid format")
-    a = await db[DbName.COURSE.value].find_one(ObjectId(id))
-    if a:
-        # ObjectId is not JSON serializable, so i convert the value in string
-        a['_id'] = str(a['_id'])
-        return JSONResponse(status_code=status.HTTP_200_OK, content=a)
-    else:
-        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
-                            content=f"No course found with id {id}")
-
-
-@app.get("/v1/question")
-async def get_question(id: str):
-    if not check_valid_id(id):
-        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id is not a valid format")
-    a = await db[DbName.QUESTION.value].find_one(ObjectId(id))
-    if a:
-        # ObjectId is not JSON serializable, so i convert the value in string
-        a = json.loads(json.dumps(a, cls=JSONEncoder))
-        return JSONResponse(status_code=status.HTTP_200_OK, content=a)
-    else:
-        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
-                            content=f"No question found with id {id}")
-
-
-@app.get("/v1/user")
-async def get_user(id: str):
-    if id[0] not in ('s', 'd'):
-        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id must start with d or s")
-    a = await db[DbName.USER.value].find_one(id,
-                                             {'name': 1, 'surname': 1, 'username': 1, 'profile_picture': 1, '_id': 0})
-    if a:
-        return JSONResponse(status_code=status.HTTP_200_OK, content=a)
-    else:
-        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
-                            content=f"No user found with id {id}")
-
-
 def check_valid_id(id: str):
     try:
         ObjectId(id)
@@ -96,28 +48,6 @@ def check_valid_id(id: str):
         return False
     return True
 
-
-def paginate_list(result: List, page: int, itemsPerPage: int = -1, sort_key: str = None, sort_desc: bool = False):
-    if sort_key:
-        print("sort")
-        result.sort(key=lambda x: x[sort_key], reverse=sort_desc)
-    if itemsPerPage == -1:
-        return result
-    return result[(page - 1) * itemsPerPage:page * itemsPerPage]
-
-
-@app.get("/v1/myQuestions")
-async def get_user_myQuestions(user_id: str, page: int = 1, itemsPerPage: int = -1):
-    user_questions = await db[DbName.USER.value].find_one({"_id": user_id}, {"my_Questions": 1})
-    user_questions["my_Questions"] = paginate_list(user_questions["my_Questions"], page, itemsPerPage, "timestamp", True)
-    return JSONResponse(user_questions)
-
-
-@app.get("/v1/myAnswers")
-async def get_user_myAnswers(user_id: str, page: int, itemsPerPage: int = -1):
-    user_answers = await db[DbName.USER.value].find_one({"_id": user_id}, {"my_Answers": 1})
-    user_answers["my_Answers"] = paginate_list(user_answers["my_Answers"], page, itemsPerPage)
-    return JSONResponse(user_answers)
 
 
 @app.get("/v1/searchCourses")
@@ -191,18 +121,3 @@ async def get_simulation(user_id: str, simulation_id: str):
 
     return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
                         content="No simulation found")
-
-
-@app.post("/v1/userSettings")
-async def post_user_settings(profile_picture: str, nickname: str, public_profile: bool, enrolled_courses: List[int]):
-    value = await db[DbName.USER.value].insert_one({"profile_picture": profile_picture, "nickname": nickname})
-    print(value.inserted_id)
-    value = json.loads(json.dumps(value, cls=JSONEncoder))
-    return JSONResponse(status_code=status.HTTP_200_OK, content=value)
-
-
-class JSONEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, (ObjectId, DBRef)):
-            return str(o)
-        return json.JSONEncoder.default(self, o)

@@ -2,12 +2,10 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel, validator
 import base64
 import xmltodict
-from user import UserInfo
 
 
 # model definition
 class Quiz(BaseModel):
-    owner: UserInfo
     is_simulation: bool = False
     file: dict = {}
 
