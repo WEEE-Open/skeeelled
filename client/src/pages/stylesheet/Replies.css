@@ -3,35 +3,60 @@
   float: right;
 }
 
-.discussion .questionEntry-discussion {
-  border-width: 3pt;
-  border-color: #797979;
+.discussion .questionEntry-discussion-answer {
   border-radius: 9px;
-  height: 80px;
   color: white;
   background-color: #EBACE7;
   padding: 20px;
   height: 110px;
 }
 
-.discussion .questionEntry-discussion h4 {
+.discussion .questionEntry-discussion-answer h4 {
   font-family: "Nunito", sans-serif;
   font-weight: bold;
   font-size: 25px; /*change from pt to px*/
 }
 
-.discussion .questionEntry-discussion .question-author {
+.discussion .questionEntry-discussion-answer .question-author {
   font-family: "Nunito", sans-serif;
   font-weight: light;
   font-size: 17px; /*change from pt to px*/
   font-style: italic;
 }
 
-.discussion .questionEntry-discussion .question-created-time {
+.discussion .questionEntry-discussion-answer .question-created-time {
   margin-left: 30rem;
   font-family: "Nunito", sans-serif;
   font-weight: light;
   font-size: 14px; /*change from pt to px*/
+}
+
+.discussion .questionEntry {
+  color: black;
+  background-color: white;
+  border: solid 2px #EBACE7;
+  border-radius: 9px;
+}
+
+.discussion .questionEntry .reply-title {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 20px; /*change from pt to px*/
+}
+
+.discussion .questionEntry .tags .author {
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 17px; /*change from pt to px*/
+  font-style: italic;
+}
+
+.discussion .questionEntry .created-time {
+  margin-left: 30rem;
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 14px; /*change from pt to px*/
+  color: #707070;
 }
 
 /*# sourceMappingURL=Replies.css.map */

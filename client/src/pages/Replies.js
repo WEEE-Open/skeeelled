@@ -6,7 +6,7 @@ import "./stylesheet/Replies.scss"
 
 function Answer(props) {
   return (
-    <div className="questionEntry-discussion">
+    <div className="questionEntry-discussion-answer">
       <Row>
         <Col>
           <h4>{props.ans.answer}</h4>

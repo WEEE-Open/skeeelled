@@ -4,23 +4,44 @@
   float: right;
 }
 
-.discussion .questionEntry-discussion {
-  @include header-component($border-radius:9px);
+.discussion .questionEntry-discussion-answer {
+  border-radius:9px;
   color: white;
   background-color: #EBACE7;
   padding: 20px;
   height:110px
 }
 
-.discussion .questionEntry-discussion h4 {
+.discussion .questionEntry-discussion-answer h4 {
   @include font-Nunito($size:25px, $weight:bold)
 }
 
-.discussion .questionEntry-discussion .question-author {
+.discussion .questionEntry-discussion-answer .question-author {
   @include font-Nunito($size:17px, $weight:light);
   font-style: italic;
 }
-.discussion .questionEntry-discussion .question-created-time {
+.discussion .questionEntry-discussion-answer .question-created-time {
   margin-left: 30rem;
   @include font-Nunito($size:14px, $weight:light);
+}
+
+.discussion .questionEntry {
+  color: black;
+  background-color: white;
+  border: solid 2px #EBACE7;
+  border-radius:9px;
+}
+
+.discussion .questionEntry .reply-title {
+  @include font-Nunito($size:20px);
+}
+
+.discussion .questionEntry .tags .author {
+  @include font-Nunito($size:17px, $weight:light);
+  font-style: italic;
+}
+.discussion .questionEntry .created-time {
+  margin-left: 30rem;
+  @include font-Nunito($size:14px, $weight:light);
+  color: #707070;
 }
