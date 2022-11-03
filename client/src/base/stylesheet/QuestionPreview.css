@@ -37,7 +37,7 @@
   font-family: "Nunito", sans-serif;
   font-weight: bold;
   font-size: 25px; /*change from pt to px*/
-  color: #797979;
+  color: #707070;
 }
 
 #root > div > div:nth-child(5) > div > div > div.header.row.row-cols-lg-12 > div > div > div.card-body > button {

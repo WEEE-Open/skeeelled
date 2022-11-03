@@ -74,4 +74,61 @@
   border: solid 1px #EBACE7;
 }
 
+.discussion .python-editor-container {
+  padding: 0;
+  border: none;
+  border-radius: 7px;
+  outline: solid 1px #EBACE7;
+}
+
+.discussion .python-editor-container .react-mde {
+  border: none;
+}
+
+.discussion .python-editor-container .react-mde .mde-header {
+  padding: 10px;
+  border: none;
+  height: 75px;
+}
+
+.discussion .python-editor-container .react-mde .mde-header div {
+  border: none;
+}
+
+.discussion .python-editor-container .react-mde .mde-header .mde-tabs {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 22px; /*change from pt to px*/
+}
+
+.discussion .python-editor-container .react-mde .mde-header .mde-tabs button.selected {
+  color: black;
+  background-color: white;
+  border-color: #D9D9D9;
+  border-radius: 7pt;
+  border-width: 2pt;
+}
+
+.discussion .python-editor-container .react-mde .mde-header .mde-tabs button.selected:hover {
+  border-color: #EBACE7;
+  color: black;
+}
+
+.discussion .python-editor-container .react-mde .mde-header .mde-tabs button:hover {
+  color: #EBACE7;
+}
+
+#root > div > div:nth-child(5) > div > div > div.python-editor-container.container-fluid > div > div:nth-child(2) > div > textarea {
+  border-bottom: solid 1px #EBACE7;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 22px; /*change from pt to px*/
+  color: #A7A7A7;
+}
+
+.discussion .python-editor-container .image-tip {
+  border: none;
+  border-radius: 7px;
+}
+
 /*# sourceMappingURL=Replies.css.map */

@@ -1,44 +1,61 @@
 @import "StyleBase.scss";
 
-.container-fluid .python-editor-container {
+.python-editor-container  {
   padding: 0;
+  margin: 0 0 40px 0;
   border: none;
   border-radius: 7px;
-  outline: solid 1px #EBACE7;
+  outline: solid 1px #707070;
 }
 
-.container-fluid .python-editor-container .react-mde {
+.python-editor-container .react-mde {
   border: none;
 }
 
-.container-fluid .python-editor-container .react-mde .mde-header {
+.python-editor-container .react-mde .mde-header {
   padding:10px;
   border: none;
   height:75px;
 }
-.container-fluid .python-editor-container .react-mde .mde-header div {
+
+.python-editor-container .react-mde .mde-header div {
   border: none;
 }
-.container-fluid .python-editor-container .react-mde .mde-header .mde-tabs {
+
+.python-editor-container .react-mde .mde-header .mde-tabs {
   @include font-Quicksand($size: 22px);
 }
-.container-fluid .python-editor-container .react-mde .mde-header .mde-tabs button.selected {
-  @include button-color-radius( $border-color:#D9D9D9)
-}
-.container-fluid .python-editor-container .react-mde .mde-header .mde-tabs button.selected:hover {
-  border-color:  #EBACE7;
-  color:black
-}
-.container-fluid .python-editor-container .react-mde .mde-header .mde-tabs button:hover {
-  color: #EBACE7;
+
+.python-editor-container .react-mde .mde-header .mde-tabs button {
+  color: #707070;
 }
 
-#root > div > div:nth-child(5) > div > div > div.python-editor-container.container-fluid > div > div:nth-child(2) > div > textarea {
-  border-top: solid 1px #EBACE7;
-  border-bottom: solid 1px #EBACE7;
+.python-editor-container .react-mde .mde-header .mde-tabs button:hover {
+  color: black;
 }
 
-.container-fluid .python-editor-container .image-tip {
+.python-editor-container .react-mde .mde-header .mde-tabs button.selected {
+  @include button-color-radius( $border-color:#D9D9D9);
+  color: #707070;
+}
+
+.python-editor-container .react-mde .mde-header .mde-tabs button.selected:hover {
+  color:black;
+}
+
+#root > div > div:nth-child(5) > div > div > div.text-input.row > div > div > div > div:nth-child(2) > div > textarea{
+  border-bottom: solid 1px #707070;
+  @include font-Quicksand($size: 22px);
+  color: #A7A7A7
+}
+
+.python-editor-container .image-tip {
   border: none;
   border-radius: 7px;
+  height: 55px;
+  padding: 1rem;
+}
+
+.python-editor-container .image-tip .image-input{
+  @include font-Nunito($size: 21px);
 }
