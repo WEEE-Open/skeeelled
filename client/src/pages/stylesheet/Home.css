@@ -31,7 +31,12 @@
   color: #00983a;
 }
 
-.home-page-table .default-table-new-questions-in-courses-enrolled .list-body > tr > td > .table-dot {
+.home-page-table
+  .default-table-new-questions-in-courses-enrolled
+  .list-body
+  > tr
+  > td
+  > .table-dot {
   padding: 0;
   color: #00983a;
   height: 8px;

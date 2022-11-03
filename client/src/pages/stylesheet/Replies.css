@@ -6,7 +6,7 @@
 .discussion .questionEntry-discussion-answer {
   border-radius: 9px;
   color: white;
-  background-color: #EBACE7;
+  background-color: #ebace7;
   padding-top: 10px;
   padding-left: 20px;
   padding-right: 20px;
@@ -36,7 +36,7 @@
 .discussion .questionEntry {
   color: black;
   background-color: white;
-  border: solid 2px #EBACE7;
+  border: solid 2px #ebace7;
   border-radius: 9pt;
   height: 100px;
 }
@@ -68,19 +68,19 @@
   font-size: 17px; /*change from pt to px*/
   color: black;
   background-color: white;
-  border: solid 1px #DBDBDB;
+  border: solid 1px #dbdbdb;
   border-radius: 7pt;
 }
 
 .discussion .reply-button:hover {
-  border: solid 1px #EBACE7;
+  border: solid 1px #ebace7;
 }
 
 .discussion .python-editor-container {
   padding: 0;
   border: none;
   border-radius: 7px;
-  outline: solid 1px #EBACE7;
+  outline: solid 1px #ebace7;
 }
 
 .discussion .python-editor-container .react-mde {
@@ -103,29 +103,53 @@
   font-size: 22px; /*change from pt to px*/
 }
 
-.discussion .python-editor-container .react-mde .mde-header .mde-tabs button.selected {
+.discussion
+  .python-editor-container
+  .react-mde
+  .mde-header
+  .mde-tabs
+  button.selected {
   color: black;
   background-color: white;
-  border-color: #D9D9D9;
+  border-color: #d9d9d9;
   border-radius: 7pt;
   border-width: 2pt;
 }
 
-.discussion .python-editor-container .react-mde .mde-header .mde-tabs button.selected:hover {
-  border-color: #EBACE7;
+.discussion
+  .python-editor-container
+  .react-mde
+  .mde-header
+  .mde-tabs
+  button.selected:hover {
+  border-color: #ebace7;
   color: black;
 }
 
-.discussion .python-editor-container .react-mde .mde-header .mde-tabs button:hover {
-  color: #EBACE7;
+.discussion
+  .python-editor-container
+  .react-mde
+  .mde-header
+  .mde-tabs
+  button:hover {
+  color: #ebace7;
 }
 
-#root > div > div:nth-child(5) > div > div > div.python-editor-container.container-fluid > div > div:nth-child(2) > div > textarea {
-  border-bottom: solid 1px #EBACE7;
+#root
+  > div
+  > div:nth-child(5)
+  > div
+  > div
+  > div.python-editor-container.container-fluid
+  > div
+  > div:nth-child(2)
+  > div
+  > textarea {
+  border-bottom: solid 1px #ebace7;
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 22px; /*change from pt to px*/
-  color: #A7A7A7;
+  color: #a7a7a7;
 }
 
 .discussion .python-editor-container .image-tip {

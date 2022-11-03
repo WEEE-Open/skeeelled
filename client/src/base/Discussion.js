@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Collapse, Row, Col, Form, Pagination, Button } from "react-bootstrap";
 
 import List from "./List";
-import "./stylesheet/Discussion.css"
+import "./stylesheet/Discussion.css";
 
 const fakeAnswers = [
   {
