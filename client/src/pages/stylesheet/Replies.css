@@ -60,4 +60,18 @@
   color: #707070;
 }
 
+.discussion .reply-button {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 17px; /*change from pt to px*/
+  color: black;
+  background-color: white;
+  border: solid 1px #DBDBDB;
+  border-radius: 7pt;
+}
+
+.discussion .reply-button:hover {
+  border: solid 1px #EBACE7;
+}
+
 /*# sourceMappingURL=Replies.css.map */

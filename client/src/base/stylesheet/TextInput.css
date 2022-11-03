@@ -13,6 +13,7 @@
 .container-fluid .python-editor-container .react-mde .mde-header {
   padding: 10px;
   border: none;
+  height: 75px;
 }
 
 .container-fluid .python-editor-container .react-mde .mde-header div {
@@ -34,9 +35,8 @@
 }
 
 .container-fluid .python-editor-container .react-mde .mde-header .mde-tabs button.selected:hover {
-  color: white;
-  background-color: #EBACE7;
   border-color: #EBACE7;
+  color: black;
 }
 
 .container-fluid .python-editor-container .react-mde .mde-header .mde-tabs button:hover {

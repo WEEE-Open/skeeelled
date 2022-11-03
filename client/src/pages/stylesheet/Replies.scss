@@ -46,3 +46,14 @@
   @include font-Nunito($size:14px, $weight:light);
   color: #707070;
 }
+.discussion .reply-button {
+  @include font-Quicksand($size: 17px);
+  color: black;
+  background-color: white;
+  border: solid 1px #DBDBDB;
+  border-radius:7pt;
+}
+
+.discussion .reply-button:hover {
+  border: solid 1px #EBACE7;
+}
