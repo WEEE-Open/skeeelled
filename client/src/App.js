@@ -100,7 +100,7 @@ function App() {
         </Col>
       </Row>
       <Row>
-        <BreadCrumb/>
+        {/*<BreadCrumb/>*/}
       </Row>
       <Row className="my-4">
         <Col xs={6} className="mx-auto">

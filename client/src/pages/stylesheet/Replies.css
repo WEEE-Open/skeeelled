@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.reply-button {
+  float: right;
+}
+
+.discussion .questionEntry-discussion {
+  border-width: 3pt;
+  border-color: #797979;
+  border-radius: 9px;
+  height: 80px;
+  color: white;
+  background-color: #EBACE7;
+  padding: 20px;
+  height: 110px;
+}
+
+.discussion .questionEntry-discussion h4 {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 25px; /*change from pt to px*/
+}
+
+.discussion .questionEntry-discussion .question-author {
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 17px; /*change from pt to px*/
+  font-style: italic;
+}
+
+.discussion .questionEntry-discussion .question-created-time {
+  margin-left: 30rem;
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 14px; /*change from pt to px*/
+}
+
+/*# sourceMappingURL=Replies.css.map */

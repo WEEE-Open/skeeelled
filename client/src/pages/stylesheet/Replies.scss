@@ -1,0 +1,26 @@
+@import "./StyleBase";
+
+.reply-button {
+  float: right;
+}
+
+.discussion .questionEntry-discussion {
+  @include header-component($border-radius:9px);
+  color: white;
+  background-color: #EBACE7;
+  padding: 20px;
+  height:110px
+}
+
+.discussion .questionEntry-discussion h4 {
+  @include font-Nunito($size:25px, $weight:bold)
+}
+
+.discussion .questionEntry-discussion .question-author {
+  @include font-Nunito($size:17px, $weight:light);
+  font-style: italic;
+}
+.discussion .questionEntry-discussion .question-created-time {
+  margin-left: 30rem;
+  @include font-Nunito($size:14px, $weight:light);
+}
