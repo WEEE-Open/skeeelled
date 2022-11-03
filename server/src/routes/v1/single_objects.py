@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 from bson import json_util
 from db import db, DbName
-from models.user import User
+from models.db.user import User
 
 router = APIRouter()
 

@@ -1,6 +1,5 @@
 from pydantic import BaseModel, Field
 from typing import List
-from .question import Question
 from .quiz import Quiz
 
 
@@ -9,5 +8,6 @@ class Course(BaseModel):
     name: str
     years_active: List[int] = []
     professors: List[str] = []  # professor ids
-    questions: List[Question] = []
+    students: List[str] = []    # student ids
     quizzes: List[Quiz] = []
+

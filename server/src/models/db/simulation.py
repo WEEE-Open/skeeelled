@@ -1,6 +1,6 @@
 from pydantic import BaseModel
-from typing import List, Any
-from .objectid import ObjectId
+from typing import List
+from models.objectid import ObjectId
 
 class ExamSimulation(BaseModel):
     course_info: ObjectId

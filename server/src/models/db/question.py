@@ -1,14 +1,15 @@
-from pydantic import BaseModel, validator, Field
-from typing import List, Any
+from pydantic import BaseModel, Field
+from typing import List
 from datetime import datetime
 from .comment import Comment
-from .objectid import ObjectId
+from ..objectid import ObjectId
 
 
 class Question(BaseModel):
     id: ObjectId = Field(alias="_id")
-    owner: str  # professor id
+    owner: str      # professor id
     title: str
+    course: str     # course id
     quiz_ref: dict = None
     content: str
     is_deleted: bool = False
@@ -16,7 +17,6 @@ class Question(BaseModel):
     tags: List[str] = []
     timestamp: float = datetime.now().timestamp()
     # mandatory limit parameter
-    comments: List[Comment] = []
 
     # constraint check on question values
     """
