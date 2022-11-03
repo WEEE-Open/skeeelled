@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Collapse, Row, Col, Form, Pagination, Button } from "react-bootstrap";
 
 import List from "./List";
+import "./stylesheet/Discussion.css"
 
 const fakeAnswers = [
   {
@@ -43,7 +44,7 @@ function Discussion(props) {
   const [currentPage, setCurrentPage] = useState(1);
 
   return (
-    <>
+    <div className="discussion-component">
       <Row>
         <Col lg="12">
           <Button
@@ -84,7 +85,7 @@ function Discussion(props) {
           </Col>
         </Row>
       </Collapse>
-    </>
+    </div>
   );
 }
 

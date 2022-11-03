@@ -54,7 +54,7 @@ function Home() {
   const [tests, setTests] = useState(fake);
 
   return (
-    <Card body>
+    <>
       <Row lg={12} className="py-0 header">
         <Col>
           <h3>Hi, Name Surname!</h3>
@@ -63,7 +63,7 @@ function Home() {
       <div className="home-page-table">
         <ListGroup lists={tests} cols={2} tiled rounded dotted />
       </div>
-    </Card>
+    </>
   );
 }
 

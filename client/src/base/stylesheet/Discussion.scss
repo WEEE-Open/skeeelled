@@ -1,0 +1,12 @@
+@import "StyleBase.scss";
+
+.discussion-component .w-100 {
+  @include button-color-radius($border-radius: 9px);
+  @include font-Quicksand($size:20px);
+  border-color: #8AD5D8;
+}
+
+.discussion-component .w-100:hover {
+  color: white;
+  background-color: #8AD5D8;
+}

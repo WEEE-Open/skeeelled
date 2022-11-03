@@ -81,11 +81,6 @@ function App() {
     setAdmin(false);
   };
 
-  const location = useLocation();
-
-  useEffect(() => {
-    console.log(location);
-  }, [location]);
 
   return (
     <Container fluid>
@@ -105,7 +100,7 @@ function App() {
         </Col>
       </Row>
       <Row>
-        <BreadCrumb pathname={location.pathname} />
+        {/*<BreadCrumb/>*/}
       </Row>
       <Row className="my-4">
         <Col xs={6} className="mx-auto">

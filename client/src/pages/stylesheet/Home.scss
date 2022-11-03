@@ -30,6 +30,7 @@
   > tr
   > td
   > .table-dot {
+  padding: 0;
   @include table-dot-margin-color($color: #00983a);
 }
 

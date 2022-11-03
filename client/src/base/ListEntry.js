@@ -143,11 +143,11 @@ function ListEntryReplies(props) {
   return (
     <div className="questionEntry">
       <Row>
-        <Col>{props.row.reply}</Col>
+        <Col className="reply-title">{props.row.reply}</Col>
+          <Col className="created-time">Created at: {props.row.createdat}</Col>
       </Row>
       <Row className="tags">
-        <Col>from {props.row.author}</Col>
-        <Col>Created at: {props.row.createdat}</Col>
+        <Col className="author">from {props.row.author}</Col>
       </Row>
     </div>
   );

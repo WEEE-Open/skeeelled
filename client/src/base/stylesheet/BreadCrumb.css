@@ -1,1 +1,25 @@
+<<<<<<< HEAD
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.breadcrumb {
+  margin: 10px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 14px; /*change from pt to px*/
+}
+
+.breadcrumb .breadcrumb-item a {
+  text-decoration: none;
+  color: #797979;
+}
+
+.breadcrumb .breadcrumb-item a:hover {
+  color: black;
+}
+
+.breadcrumb > li + li:before {
+  content: " > " !important;
+}
+
+=======
+>>>>>>> 10f27f0df5d4d154960d2bb7ade8113213e320fb
 /*# sourceMappingURL=BreadCrumb.css.map */
