@@ -61,9 +61,6 @@
   border-radius: 7px;
   height: 55px;
   padding: 1rem;
-}
-
-.python-editor-container .image-tip .image-input {
   font-family: "Nunito", sans-serif;
   font-weight: 400;
   font-size: 21px; /*change from pt to px*/

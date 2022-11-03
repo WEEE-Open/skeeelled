@@ -44,7 +44,7 @@ function Discussion(props) {
   const [currentPage, setCurrentPage] = useState(1);
 
   return (
-    <>
+    <div className="discussion-component">
       <Row>
         <Col lg="12">
           <Button
@@ -85,7 +85,7 @@ function Discussion(props) {
           </Col>
         </Row>
       </Collapse>
-    </>
+    </div>
   );
 }
 
