@@ -1,0 +1,21 @@
+.header {
+  padding-bottom: 40px;
+}
+
+.collapse {
+  margin-top: 10px;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+#hint-button {
+  float: right;
+}
+
+.answer-container .text-input .container-fluid .python-editor-container {
+  outline: solid 1px #d9d9d9;
+}
+
+/*# sourceMappingURL=Answer.css.map */

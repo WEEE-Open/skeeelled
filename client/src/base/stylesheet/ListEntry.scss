@@ -50,3 +50,15 @@
   font-style: italic;
   color: #707070;
 }
+.accordion-item .accordion-header h6 {
+  @include font-Nunito($size: 22px);
+}
+
+.accordion-item .accordion-body p {
+  @include font-Nunito($size: 17px, $weight: light);
+  color: #797979;
+}
+
+.accordion-item .accordion-body h5 {
+  @include font-Nunito($size: 22px, $weight: bold);
+}

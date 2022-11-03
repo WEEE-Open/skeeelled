@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { QuestionPreview, Discussion, TextInput } from "../base";
-import "./Answers.css";
+import "./stylesheet/Answer.css";
 
 const fakeQuestion = {
   course_code: "01UROLM",
@@ -18,14 +18,14 @@ function Answers(props) {
   const [question, setQuestion] = useState(fakeQuestion);
 
   return (
-    <Container className="container">
+    <Container className="answer-container">
       <Row lg={12} className="header">
         <Col>
           <QuestionPreview question={question} showhints={props.showhints} />
         </Col>
       </Row>
 
-      <Row className="header">
+      <Row className="text-input">
         <Col>
           <TextInput
             childProps={{

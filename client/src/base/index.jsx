@@ -12,6 +12,7 @@ import Discussion from "./Discussion";
 import SearchBar from "./SearchBar";
 import Suggestion from "./Suggestion";
 import DebugPaths from "./DebugPaths";
+import BreadCrumb from "./BreadCrumb";
 
 export {
   NavigationBar,
@@ -27,4 +28,5 @@ export {
   TextInput,
   QuestionPreview,
   Discussion,
+  BreadCrumb,
 };

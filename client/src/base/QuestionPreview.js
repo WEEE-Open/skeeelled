@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MarkdownPreview from "./MarkdownPreview";
+import "./stylesheet/QuestionPreview.css";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -19,13 +20,17 @@ function QuestionPreview({ question, showhints }) {
         <div className="d-flex justify-content-between">
           <div className="p2">{`${question.course_code} ${question.course_name}`}</div>
           <div className="p2">
-            <small>
-              Posted by {question.author} on&nbsp;
-              {question.date.toLocaleDateString("it-IT", {
-                year: "numeric",
-                month: "numeric",
-                day: "numeric",
-              })}
+            <small className="question-create-date">
+              {"Posted on " +
+                question.date.toLocaleDateString("it-IT", {
+                  year: "numeric",
+                  month: "numeric",
+                  day: "numeric",
+                })}
+            </small>
+            <br />
+            <small className="question-source">
+              by {question.author} &nbsp;
             </small>
           </div>
         </div>

@@ -15,6 +15,7 @@ import Jimp from "jimp";
 
 import "@sahircansurmeli/react-mde/lib/styles/css/react-mde-all.css";
 import "./textInput/textInput.css";
+import "./stylesheet/TextInput.css";
 import "katex/dist/katex.min.css";
 import "highlight.js/styles/github.css";
 import "./MarkdownPreview.css";
@@ -159,7 +160,7 @@ ${file.content}
   };
 
   return (
-    <Container fluid>
+    <Container className="python-editor-container" fluid>
       {!isFullScreen && (
         <ReactMde
           className={"hidden"}

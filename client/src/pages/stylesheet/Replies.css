@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+.reply-button {
+  float: right;
+}
+
+.discussion .questionEntry-discussion-answer {
+  border-radius: 9px;
+  color: white;
+  background-color: #ebace7;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 110px;
+}
+
+.discussion .questionEntry-discussion-answer h4 {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 25px; /*change from pt to px*/
+}
+
+.discussion .questionEntry-discussion-answer .question-author {
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 17px; /*change from pt to px*/
+  font-style: italic;
+}
+
+.discussion .questionEntry-discussion-answer .question-created-time {
+  margin-left: 30rem;
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 14px; /*change from pt to px*/
+}
+
+.discussion .questionEntry {
+  color: black;
+  background-color: white;
+  border: solid 2px #ebace7;
+  border-radius: 9pt;
+  height: 100px;
+}
+
+.discussion .questionEntry .reply-title {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 20px; /*change from pt to px*/
+}
+
+.discussion .questionEntry .tags .author {
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 17px; /*change from pt to px*/
+  font-style: italic;
+}
+
+.discussion .questionEntry .created-time {
+  margin-left: 30rem;
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 14px; /*change from pt to px*/
+  color: #707070;
+}
+
+.discussion .reply-button {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 17px; /*change from pt to px*/
+  color: black;
+  background-color: white;
+  border: solid 1px #dbdbdb;
+  border-radius: 7pt;
+}
+
+.discussion .reply-button:hover {
+  border: solid 1px #ebace7;
+}
+
+.discussion .python-editor-container {
+  padding: 0;
+  border: none;
+  border-radius: 7px;
+  outline: solid 1px #ebace7;
+}
+
+.discussion .python-editor-container .react-mde {
+  border: none;
+}
+
+.discussion .python-editor-container .react-mde .mde-header {
+  padding: 10px;
+  border: none;
+  height: 75px;
+}
+
+.discussion .python-editor-container .react-mde .mde-header div {
+  border: none;
+}
+
+.discussion .python-editor-container .react-mde .mde-header .mde-tabs {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 22px; /*change from pt to px*/
+}
+
+.discussion
+  .python-editor-container
+  .react-mde
+  .mde-header
+  .mde-tabs
+  button.selected {
+  color: black;
+  background-color: white;
+  border-color: #d9d9d9;
+  border-radius: 7pt;
+  border-width: 2pt;
+}
+
+.discussion
+  .python-editor-container
+  .react-mde
+  .mde-header
+  .mde-tabs
+  button.selected:hover {
+  border-color: #ebace7;
+  color: black;
+}
+
+.discussion
+  .python-editor-container
+  .react-mde
+  .mde-header
+  .mde-tabs
+  button:hover {
+  color: #ebace7;
+}
+
+#root
+  > div
+  > div:nth-child(5)
+  > div
+  > div
+  > div.python-editor-container.container-fluid
+  > div
+  > div:nth-child(2)
+  > div
+  > textarea {
+  border-bottom: solid 1px #ebace7;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 22px; /*change from pt to px*/
+  color: #a7a7a7;
+}
+
+.discussion .python-editor-container .image-tip {
+  border: none;
+  border-radius: 7px;
+}
+
+/*# sourceMappingURL=Replies.css.map */
