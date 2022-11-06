@@ -131,9 +131,7 @@ function App() {
                 element={
                   <Answers
                     showhints={showHints}
-                    setshowhints={setShowHints}
                     showdiscussion={showDiscussion}
-                    setshowdiscussion={setShowDiscussion}
                   />
                 }
               />
