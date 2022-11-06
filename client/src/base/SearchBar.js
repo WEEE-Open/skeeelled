@@ -21,16 +21,16 @@ function SearchBar({ apiCall }) {
   const [value, setValue] = useState("");
 
   useEffect(() => {
-  	const charChange = async () => {
-  		try {
-  			console.log(value);
+    const charChange = async () => {
+      try {
+        console.log(value);
         const res = await apiCall(value);
-  		} catch (err) {
-  			console.error(err.error);
-  		}
-  	}
-  	charChange();
-  }, [value])
+      } catch (err) {
+        console.error(err.error);
+      }
+    };
+    charChange();
+  }, [value]);
 
   const onSearch = (inputText) => {
     setValue(inputText);
@@ -56,7 +56,9 @@ function SearchBar({ apiCall }) {
         filterBy={() => true}
         renderMenuItemChildren={(option) => <span>{option.label}</span>}
         ref={ref}
-        onChange={() => {console.log(value)}}
+        onChange={() => {
+          console.log(value);
+        }}
         onInputChange={onSearch}
         onSearch={() => {}}
         className="async-type-head"

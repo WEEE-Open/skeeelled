@@ -131,5 +131,11 @@ const searchDiscussion = async () => {
   });
 };
 
-const API = { getCourses, getMyCourses, searchCourses, searchQuestion, searchDiscussion };
+const API = {
+  getCourses,
+  getMyCourses,
+  searchCourses,
+  searchQuestion,
+  searchDiscussion,
+};
 export default API;
