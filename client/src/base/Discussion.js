@@ -66,7 +66,7 @@ function Discussion({ showdiscussion }) {
             </Form.Group>
           </Col>
           <Col lg="12">
-            <List scope="answers" rows={answers} />
+            <List className="discussion-list" scope="answers" rows={answers} />
           </Col>
           <Col lg="12" sm="12" md="12">
             <Pagination>

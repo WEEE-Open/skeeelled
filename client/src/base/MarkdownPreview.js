@@ -10,6 +10,7 @@ import "./MarkdownPreview.css";
 const MarkdownPreview = React.memo(({ markdown }) => {
   return (
     <ReactMarkdown
+        className="markdown-preview"
       remarkPlugins={[remarkGfm, remarkMath]}
       rehypePlugins={[rehypeKatex, rehypeHighlight]}
     >

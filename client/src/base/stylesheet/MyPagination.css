@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+ul.pagination {
+  justify-items: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+ul.pagination .page-item .page-link {
+  text-decoration: none;
+  border: none;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 20px; /*change from pt to px*/
+  color: #707070;
+  outline: none;
+}
+
+ul.pagination .page-item.active .page-link {
+  border: none;
+  background-color: white;
+  color: #707070;
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 20px; /*change from pt to px*/
+}
+
+/*# sourceMappingURL=MyPagination.css.map */

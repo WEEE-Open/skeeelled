@@ -1,4 +1,4 @@
-import { Table } from "../base";
+import {MyPagination, Table} from "../base";
 import { Button, Container, Row, Col, Pagination, Card } from "react-bootstrap";
 import "./MyQuestions.css";
 
@@ -62,30 +62,7 @@ const myQuestions = () => {
               ]}
             />
           </Col>
-          <Col className="pagination" lg="12" sm="12" md="12">
-            <Pagination>
-              {[
-                <Pagination.Item key={1} active>
-                  {1}
-                </Pagination.Item>,
-                <Pagination.Item key={2} active={false}>
-                  {2}
-                </Pagination.Item>,
-                <Pagination.Item key={3} active={false}>
-                  {3}
-                </Pagination.Item>,
-                <Pagination.Item key={4} active={false}>
-                  {4}
-                </Pagination.Item>,
-                <Pagination.Item key={5} active={false}>
-                  {5}
-                </Pagination.Item>,
-                <Pagination.Item key={6} active={false}>
-                  {6}
-                </Pagination.Item>,
-              ]}
-            </Pagination>
-          </Col>
+          <MyPagination/>
         </Row>
       </Card>
     </Container>
