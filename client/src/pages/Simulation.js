@@ -214,9 +214,9 @@ export default function Simulation(props) {
 
     return (
       <Pagination>
-        <Pagination.First />
+        <Pagination.Prev />
         {items}
-        <Pagination.Last />
+        <Pagination.Next />
       </Pagination>
     );
   };
