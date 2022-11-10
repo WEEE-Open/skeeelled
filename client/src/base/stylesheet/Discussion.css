@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
+div.discussion-component > div.collapse.collapse.show.row > div:nth-child(2) > div {
+  margin-top: 20px;
+}
+
 .discussion-component .w-100 {
   color: black;
   background-color: white;
