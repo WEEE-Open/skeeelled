@@ -1,0 +1,22 @@
+@import "StyleBase.scss";
+
+ul.pagination {
+  justify-items: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+ul.pagination .page-item .page-link{
+  text-decoration: none;
+  border: none;
+  @include font-Nunito($size: 20px);
+  color: #707070;
+  outline: none;
+}
+
+ul.pagination .page-item.active .page-link{
+  border: none;
+  background-color: white;
+  color: #707070;
+  @include font-Nunito($size: 20px, $weight:bold);
+}

@@ -14,6 +14,8 @@ import Suggestion from "./Suggestion";
 import DebugPaths from "./DebugPaths";
 import BreadCrumb from "./BreadCrumb";
 
+import MyPagination from "./MyPagination";
+
 export {
   NavigationBar,
   Footer,
@@ -29,4 +31,5 @@ export {
   QuestionPreview,
   Discussion,
   BreadCrumb,
+    MyPagination
 };
