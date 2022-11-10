@@ -93,7 +93,7 @@ function ListEntryAnswers(props) {
         <Col colSpan="2">
           <Row>
               <Col>{props.row.author}, {props.row.createdat}</Col>
-          <Col>{props.row.replies > 0 && (
+          <Col>
             <span className="reply-link mx-3">
               {props.row.replies + " "}
               <Image
@@ -101,7 +101,7 @@ function ListEntryAnswers(props) {
                 width="28px"
               />
             </span>
-          )}</Col>
+          </Col>
           </Row>
         </Col>
       </Row>
