@@ -1,14 +1,13 @@
 @import "StyleBase.scss";
 
-.breadcrumb{
+.breadcrumb {
   margin: 10px;
-  @include font-Nunito($size:14px);
+  @include font-Nunito($size: 14px);
 }
 
-.breadcrumb .breadcrumb-item a{
+.breadcrumb .breadcrumb-item a {
   text-decoration: none;
   color: #797979;
-
 }
 
 .breadcrumb .breadcrumb-item a:hover {

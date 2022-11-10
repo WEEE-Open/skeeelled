@@ -21,7 +21,7 @@ function Answers(props) {
     <Container className="answer-container">
       <Row lg={12} className="header">
         <Col>
-          <QuestionPreview question={question} />
+          <QuestionPreview question={question} showhints={props.showhints} />
         </Col>
       </Row>
 

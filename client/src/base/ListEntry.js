@@ -151,7 +151,7 @@ function ListEntryReplies(props) {
     <div className="questionEntry">
       <Row>
         <Col className="reply-title">{props.row.reply}</Col>
-          <Col className="created-time">Created at: {props.row.createdat}</Col>
+        <Col className="created-time">Created at: {props.row.createdat}</Col>
       </Row>
       <Row className="tags">
         <Col className="author">from {props.row.author}</Col>

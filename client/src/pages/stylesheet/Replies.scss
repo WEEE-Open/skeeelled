@@ -5,66 +5,66 @@
 }
 
 .discussion .questionEntry-discussion-answer {
-  border-radius:9px;
+  border-radius: 9px;
   color: white;
-  background-color: #EBACE7;
+  background-color: #ebace7;
   padding-top: 10px;
   padding-left: 20px;
   padding-right: 20px;
-  height:110px
+  height: 110px;
 }
 
 .discussion .questionEntry-discussion-answer h4 {
-  @include font-Nunito($size:25px, $weight:bold)
+  @include font-Nunito($size: 25px, $weight: bold);
 }
 
 .discussion .questionEntry-discussion-answer .question-author {
-  @include font-Nunito($size:17px, $weight:light);
+  @include font-Nunito($size: 17px, $weight: light);
   font-style: italic;
 }
 .discussion .questionEntry-discussion-answer .question-created-time {
   margin-left: 30rem;
-  @include font-Nunito($size:14px, $weight:light);
+  @include font-Nunito($size: 14px, $weight: light);
 }
 
 .discussion .questionEntry {
   color: black;
   background-color: white;
-  border: solid 2px #EBACE7;
-  border-radius:9pt;
-  height:100px
+  border: solid 2px #ebace7;
+  border-radius: 9pt;
+  height: 100px;
 }
 
 .discussion .questionEntry .reply-title {
-  @include font-Nunito($size:20px);
+  @include font-Nunito($size: 20px);
 }
 
 .discussion .questionEntry .tags .author {
-  @include font-Nunito($size:17px, $weight:light);
+  @include font-Nunito($size: 17px, $weight: light);
   font-style: italic;
 }
 .discussion .questionEntry .created-time {
   margin-left: 30rem;
-  @include font-Nunito($size:14px, $weight:light);
+  @include font-Nunito($size: 14px, $weight: light);
   color: #707070;
 }
 .discussion .reply-button {
   @include font-Quicksand($size: 17px);
   color: black;
   background-color: white;
-  border: solid 1px #DBDBDB;
-  border-radius:7pt;
+  border: solid 1px #dbdbdb;
+  border-radius: 7pt;
 }
 
 .discussion .reply-button:hover {
-  border: solid 1px #EBACE7;
+  border: solid 1px #ebace7;
 }
 
-.discussion .python-editor-container  {
+.discussion .python-editor-container {
   padding: 0;
   border: none;
   border-radius: 7px;
-  outline: solid 1px #EBACE7;
+  outline: solid 1px #ebace7;
 }
 
 .discussion .python-editor-container .react-mde {
@@ -72,9 +72,9 @@
 }
 
 .discussion .python-editor-container .react-mde .mde-header {
-  padding:10px;
+  padding: 10px;
   border: none;
-  height:75px;
+  height: 75px;
 }
 .discussion .python-editor-container .react-mde .mde-header div {
   border: none;
@@ -82,21 +82,45 @@
 .discussion .python-editor-container .react-mde .mde-header .mde-tabs {
   @include font-Quicksand($size: 22px);
 }
-.discussion .python-editor-container .react-mde .mde-header .mde-tabs button.selected {
-  @include button-color-radius( $border-color:#D9D9D9)
+.discussion
+  .python-editor-container
+  .react-mde
+  .mde-header
+  .mde-tabs
+  button.selected {
+  @include button-color-radius($border-color: #d9d9d9);
 }
-.discussion .python-editor-container .react-mde .mde-header .mde-tabs button.selected:hover {
-  border-color:  #EBACE7;
-  color:black
+.discussion
+  .python-editor-container
+  .react-mde
+  .mde-header
+  .mde-tabs
+  button.selected:hover {
+  border-color: #ebace7;
+  color: black;
 }
-.discussion .python-editor-container .react-mde .mde-header .mde-tabs button:hover {
-  color: #EBACE7;
+.discussion
+  .python-editor-container
+  .react-mde
+  .mde-header
+  .mde-tabs
+  button:hover {
+  color: #ebace7;
 }
 
-#root > div > div:nth-child(5) > div > div > div.python-editor-container.container-fluid > div > div:nth-child(2) > div > textarea {
-  border-bottom: solid 1px #EBACE7;
+#root
+  > div
+  > div:nth-child(5)
+  > div
+  > div
+  > div.python-editor-container.container-fluid
+  > div
+  > div:nth-child(2)
+  > div
+  > textarea {
+  border-bottom: solid 1px #ebace7;
   @include font-Quicksand($size: 22px);
-  color: #A7A7A7
+  color: #a7a7a7;
 }
 
 .discussion .python-editor-container .image-tip {

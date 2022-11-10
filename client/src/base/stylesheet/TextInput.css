@@ -38,22 +38,37 @@
 .python-editor-container .react-mde .mde-header .mde-tabs button.selected {
   color: black;
   background-color: white;
-  border-color: #D9D9D9;
+  border-color: #d9d9d9;
   border-radius: 7px;
   border-width: 2px;
   color: #707070;
 }
 
-.python-editor-container .react-mde .mde-header .mde-tabs button.selected:hover {
+.python-editor-container
+  .react-mde
+  .mde-header
+  .mde-tabs
+  button.selected:hover {
   color: black;
 }
 
-#root > div > div:nth-child(5) > div > div > div.text-input.row > div > div > div > div:nth-child(2) > div > textarea {
+#root
+  > div
+  > div:nth-child(5)
+  > div
+  > div
+  > div.text-input.row
+  > div
+  > div
+  > div
+  > div:nth-child(2)
+  > div
+  > textarea {
   border-bottom: solid 1px #707070;
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 22px; /*change from pt to px*/
-  color: #A7A7A7;
+  color: #a7a7a7;
 }
 
 .python-editor-container .image-tip {
