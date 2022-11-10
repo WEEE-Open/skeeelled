@@ -7,10 +7,6 @@
   background-color: rgba(138, 213, 216, 0.25);
 }
 
-.answerEntry {
-  width: 0;
-}
-
 .question {
   font-size: 1.2em;
   text-decoration: none;
@@ -61,4 +57,9 @@
 
 .accordion-item .accordion-body h5 {
   @include font-Nunito($size: 22px, $weight: bold);
+}
+
+.answerEntry .answerEntry-vote {
+  display: flex;
+  height: auto;
 }
