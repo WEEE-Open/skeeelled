@@ -29,18 +29,18 @@ div.pagination-finish.row > div:nth-child(1) > ul {
   @include font-Nunito($size: 35); /* regular */
   border-radius: 9pt;
 }
-.simulation-container .page-link {
+.simulation-container ul.pagination .page-item .page-link {
   border-color: #ea9b57;
   background-color: #ea9b57;
   color: white;
 }
-.simulation-container .page-link:hover {
+.simulation-container .ul.pagination .page-item .page-link:hover {
   font-weight: 900; /* black */
   border-color: #ea9b57;
   background-color: #ea9b57;
   color: white;
 }
-.simulation-container .page-item.active .page-link {
+.simulation-container ul.pagination .page-item.active .page-link {
   font-weight: 900; /* black */
   border-color: #ea9b57;
   background-color: #ea9b57;
