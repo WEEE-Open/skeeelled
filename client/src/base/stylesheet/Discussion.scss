@@ -1,5 +1,9 @@
 @import "StyleBase.scss";
 
+ div.discussion-component > div.collapse.collapse.show.row > div:nth-child(2) > div {
+  margin-top: 20px;
+}
+
 .discussion-component .w-100 {
   @include button-color-radius($border-radius: 9px);
   @include font-Quicksand($size:20px);
