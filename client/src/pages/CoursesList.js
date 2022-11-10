@@ -4,6 +4,7 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState /* , useEffect */ } from "react";
+
 import { Recent, List, SearchBar, MyPagination } from "../base/";
 import "./stylesheet/CoursesList.css";
 import Suggestion from "../base/Suggestion";

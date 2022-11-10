@@ -1,10 +1,12 @@
+import { useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function DebugPaths() {
   const style = { padding: "5px" };
+  const [show, setShow] = useState(true);
   return (
-    <Alert dismissible>
+    <Alert show={show} onClose={() => setShow(false)} dismissible>
       <b>Dev only: </b>
       <Link style={style} to="/login">
         Login
