@@ -96,7 +96,8 @@ div.answerEntry-vote.col > a:nth-child(3) > img {
   height: 3rem;
   margin: 0;
   padding: 5px;
-  border-radius: 9px;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
   @include font-Quicksand($size: 20px, $weight: medium)
 }
 
@@ -114,4 +115,9 @@ div.answerEntry-vote.col > a:nth-child(3) > img {
 
 .answerEntry .reply-link {
   margin: 0 15px 0 10px;
+  @include button-color-radius($border-color:  #8AD5D8, $border-width: 2px)
+}
+.answerEntry .reply-link:hover {
+  background-color: #8AD5D8;
+  color: white;
 }
