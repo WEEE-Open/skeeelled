@@ -95,13 +95,13 @@ function ListQuestions({ props }) {
 
 function ListAnswers({ props }) {
   return (
-    <Table borderless className="list listAnswers">
-      <tbody>
+    <Container className="list listAnswers">
+      <div>
         {props.rows.map((r, i) => (
           <ListEntry key={i} scope={props.scope} row={r} />
         ))}
-      </tbody>
-    </Table>
+      </div>
+    </Container>
   );
 }
 
