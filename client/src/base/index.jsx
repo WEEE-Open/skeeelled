@@ -31,5 +31,5 @@ export {
   QuestionPreview,
   Discussion,
   BreadCrumb,
-    MyPagination
+  MyPagination,
 };
