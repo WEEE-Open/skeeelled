@@ -1,7 +1,4 @@
-import {
-  Row,
-  Container,
-} from "react-bootstrap";
+import { Row, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState /* , useEffect */ } from "react";
 
@@ -9,7 +6,6 @@ import { Recent, List, SearchBar, MyPagination } from "../base/";
 import "./stylesheet/CoursesList.css";
 import Suggestion from "../base/Suggestion";
 // import API from "../api/API";
-
 
 function CoursesList() {
   /** Mock courses and questions **/

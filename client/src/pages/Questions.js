@@ -11,9 +11,8 @@ import {
 import { useEffect, useState } from "react";
 // import "./Questions.css";
 import "./stylesheet/Questions.css";
-import {List, MyPagination, Recent, SearchBar, Suggestion} from "../base/";
+import { List, MyPagination, Recent, SearchBar, Suggestion } from "../base/";
 import { Link, useLocation } from "react-router-dom";
-
 
 const Questions = () => {
   const fakeQuestions = [
@@ -199,7 +198,7 @@ const Questions = () => {
                     </Col>
 
                     <Col className="pagination" lg="12" sm="12" md="12">
-                      <MyPagination/>
+                      <MyPagination />
                     </Col>
                   </Row>
                 </Container>

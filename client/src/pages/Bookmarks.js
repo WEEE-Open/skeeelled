@@ -1,8 +1,7 @@
 import { Card, Container } from "react-bootstrap";
-import {List, MyPagination, SearchBar} from "../base";
+import { List, MyPagination, SearchBar } from "../base";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-
 
 export default function Bookmarks() {
   const location = useLocation();

@@ -107,7 +107,7 @@ div.answerEntry-vote.col > a:nth-child(3) > img {
 }
 
 .answerEntry .answerEntry-credential {
-  background-color: #E2F5F5;
+  background-color: #e2f5f5;
   justify-items: center;
   align-items: center;
   height: 3rem;
@@ -138,13 +138,13 @@ div.answerEntry-vote.col > a:nth-child(3) > img {
   margin: 0 15px 0 10px;
   color: black;
   background-color: white;
-  border-color: #8AD5D8;
+  border-color: #8ad5d8;
   border-radius: 7px;
   border-width: 2px;
 }
 
 .answerEntry .reply-link:hover {
-  background-color: #8AD5D8;
+  background-color: #8ad5d8;
   color: white;
 }
 

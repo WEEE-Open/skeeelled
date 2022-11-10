@@ -84,64 +84,64 @@ function ListEntryQuestions(props) {
   );
 }
 
-
 function ListEntryAnswers(props) {
   return (
     <div className="answerEntry">
-
       <Row className="answerEntry-credential">
         <Col colSpan="2">
           <Row>
-              <Col>{props.row.author}, {props.row.createdat}</Col>
-          <Col>{props.row.replies > 0 && (
-            <span className="reply-link mx-3">
-              {props.row.replies + " "}
-              <Image
-                src={process.env.PUBLIC_URL + "/icons/DISCUSSION.svg"}
-                width="28px"
-              />
-            </span>
-          )}</Col>
+            <Col>
+              {props.row.author}, {props.row.createdat}
+            </Col>
+            <Col>
+              {props.row.replies > 0 && (
+                <span className="reply-link mx-3">
+                  {props.row.replies + " "}
+                  <Image
+                    src={process.env.PUBLIC_URL + "/icons/DISCUSSION.svg"}
+                    width="28px"
+                  />
+                </span>
+              )}
+            </Col>
           </Row>
         </Col>
       </Row>
-        <Row>
-            <MarkdownPreview rowspan="3" markdown={props.row.answer} />
-        </Row>
+      <Row>
+        <MarkdownPreview rowspan="3" markdown={props.row.answer} />
+      </Row>
 
-        <Row>
-            <Col className="answerEntry-vote">
-                    <Link to="">
-                        <Image
-                            className="up-vote"
-                            src={process.env.PUBLIC_URL + "/icons/UP ARROW.svg"}
-                            width="18px"
-                            onClick={() => {}}
-                        />
-                    </Link>
+      <Row>
+        <Col className="answerEntry-vote">
+          <Link to="">
+            <Image
+              className="up-vote"
+              src={process.env.PUBLIC_URL + "/icons/UP ARROW.svg"}
+              width="18px"
+              onClick={() => {}}
+            />
+          </Link>
 
-                <div className="vote-number">
-                    {props.row.like - props.row.dislike > 0 && "+"}
-                    {props.row.like - props.row.dislike}
-                </div>
-                    <Link to="">
-                        <Image
-                            className="down-vote"
-                            src={process.env.PUBLIC_URL + "/icons/DOWN ARROW.svg"}
-                            width="18px"
-                            onClick={() => {}}
-                        />
-                    </Link>
-            </Col>
+          <div className="vote-number">
+            {props.row.like - props.row.dislike > 0 && "+"}
+            {props.row.like - props.row.dislike}
+          </div>
+          <Link to="">
+            <Image
+              className="down-vote"
+              src={process.env.PUBLIC_URL + "/icons/DOWN ARROW.svg"}
+              width="18px"
+              onClick={() => {}}
+            />
+          </Link>
+        </Col>
 
-            <Col>
-                <Link to="/discussion/1">
-                    <Button className="reply-link">Reply</Button>
-                </Link>
-            </Col>
-        </Row>
-
-
+        <Col>
+          <Link to="/discussion/1">
+            <Button className="reply-link">Reply</Button>
+          </Link>
+        </Col>
+      </Row>
     </div>
   );
 }
