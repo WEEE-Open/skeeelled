@@ -90,20 +90,16 @@ function ListEntryAnswers(props) {
       <Row className="answerEntry-credential">
         <Col colSpan="2">
           <Row>
-            <Col>
-              {props.row.author}, {props.row.createdat}
-            </Col>
-            <Col>
-              {props.row.replies > 0 && (
-                <span className="reply-link mx-3">
-                  {props.row.replies + " "}
-                  <Image
-                    src={process.env.PUBLIC_URL + "/icons/DISCUSSION.svg"}
-                    width="28px"
-                  />
-                </span>
-              )}
-            </Col>
+              <Col>{props.row.author}, {props.row.createdat}</Col>
+          <Col>
+            <span className="reply-link mx-3">
+              {props.row.replies + " "}
+              <Image
+                src={process.env.PUBLIC_URL + "/icons/DISCUSSION.svg"}
+                width="28px"
+              />
+            </span>
+          </Col>
           </Row>
         </Col>
       </Row>
