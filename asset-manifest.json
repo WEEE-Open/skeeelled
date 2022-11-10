@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "https://weee-open.github.io/skeeelled/static/css/main.5dcdd1e9.chunk.css",
-    "main.js": "https://weee-open.github.io/skeeelled/static/js/main.e9bfdca2.chunk.js",
-    "main.js.map": "https://weee-open.github.io/skeeelled/static/js/main.e9bfdca2.chunk.js.map",
+    "main.css": "https://weee-open.github.io/skeeelled/static/css/main.3b218ca4.chunk.css",
+    "main.js": "https://weee-open.github.io/skeeelled/static/js/main.e67a2723.chunk.js",
+    "main.js.map": "https://weee-open.github.io/skeeelled/static/js/main.e67a2723.chunk.js.map",
     "runtime-main.js": "https://weee-open.github.io/skeeelled/static/js/runtime-main.231b5b97.js",
     "runtime-main.js.map": "https://weee-open.github.io/skeeelled/static/js/runtime-main.231b5b97.js.map",
     "static/css/2.f87ef01c.chunk.css": "https://weee-open.github.io/skeeelled/static/css/2.f87ef01c.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.21e6fd0c.chunk.js.map": "https://weee-open.github.io/skeeelled/static/js/3.21e6fd0c.chunk.js.map",
     "index.html": "https://weee-open.github.io/skeeelled/index.html",
     "static/css/2.f87ef01c.chunk.css.map": "https://weee-open.github.io/skeeelled/static/css/2.f87ef01c.chunk.css.map",
-    "static/css/main.5dcdd1e9.chunk.css.map": "https://weee-open.github.io/skeeelled/static/css/main.5dcdd1e9.chunk.css.map",
+    "static/css/main.3b218ca4.chunk.css.map": "https://weee-open.github.io/skeeelled/static/css/main.3b218ca4.chunk.css.map",
     "static/js/2.656c17b9.chunk.js.LICENSE.txt": "https://weee-open.github.io/skeeelled/static/js/2.656c17b9.chunk.js.LICENSE.txt",
     "static/media/katex.min.css": "https://weee-open.github.io/skeeelled/static/media/KaTeX_Typewriter-Regular.c5c02d76.ttf",
     "static/media/logoSkeeellDark.aa3ae18b.svg": "https://weee-open.github.io/skeeelled/static/media/logoSkeeellDark.aa3ae18b.svg",
@@ -27,7 +27,7 @@
     "static/js/runtime-main.231b5b97.js",
     "static/css/2.f87ef01c.chunk.css",
     "static/js/2.656c17b9.chunk.js",
-    "static/css/main.5dcdd1e9.chunk.css",
-    "static/js/main.e9bfdca2.chunk.js"
+    "static/css/main.3b218ca4.chunk.css",
+    "static/js/main.e67a2723.chunk.js"
   ]
 }
