@@ -114,7 +114,7 @@ function ListEntryAnswers(props) {
                     <Link to="">
                         <Image
                             className="up-vote"
-                            src={process.env.PUBLIC_URL + "/icons/UP ARROW.svg"}
+                            src={process.env.PUBLIC_URL + "/icons/arrow_up.svg"}
                             width="18px"
                             onClick={() => {}}
                         />
@@ -127,7 +127,7 @@ function ListEntryAnswers(props) {
                     <Link to="">
                         <Image
                             className="down-vote"
-                            src={process.env.PUBLIC_URL + "/icons/DOWN ARROW.svg"}
+                            src={process.env.PUBLIC_URL + "/icons/arrow_down.svg"}
                             width="18px"
                             onClick={() => {}}
                         />
