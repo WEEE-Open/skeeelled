@@ -1,9 +1,8 @@
-import {List, MyPagination} from "../base";
+import { List, MyPagination } from "../base";
 import { Card, Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import "./stylesheet/ListFullPage.css";
-
 
 export default function ListFullPage() {
   const location = useLocation();

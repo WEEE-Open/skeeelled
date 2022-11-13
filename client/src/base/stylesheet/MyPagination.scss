@@ -6,7 +6,7 @@ ul.pagination {
   text-decoration: none;
 }
 
-ul.pagination .page-item .page-link{
+ul.pagination .page-item .page-link {
   text-decoration: none;
   border: none;
   @include font-Nunito($size: 20px);
@@ -14,9 +14,9 @@ ul.pagination .page-item .page-link{
   outline: none;
 }
 
-ul.pagination .page-item.active .page-link{
+ul.pagination .page-item.active .page-link {
   border: none;
   background-color: white;
   color: #707070;
-  @include font-Nunito($size: 20px, $weight:bold);
+  @include font-Nunito($size: 20px, $weight: bold);
 }

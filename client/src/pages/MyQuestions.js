@@ -1,4 +1,4 @@
-import {MyPagination, Table} from "../base";
+import { MyPagination, Table } from "../base";
 import { Button, Container, Row, Col, Pagination, Card } from "react-bootstrap";
 import "./MyQuestions.css";
 
@@ -62,7 +62,7 @@ const myQuestions = () => {
               ]}
             />
           </Col>
-          <MyPagination/>
+          <MyPagination />
         </Row>
       </Card>
     </Container>

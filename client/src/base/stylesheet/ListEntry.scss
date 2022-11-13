@@ -64,20 +64,18 @@
   height: auto;
 }
 
-
 div.answerEntry-vote.col {
   margin-left: 80%;
   vertical-align: center;
-  @include font-Quicksand($size: 20px, $weight: medium)
+  @include font-Quicksand($size: 20px, $weight: medium);
 }
-
 
 div.answerEntry-vote.col > a:nth-child(1) > img {
   margin: 0 30px 0 0;
 }
 
 div.answerEntry-vote.col > div {
-  @include font-Quicksand($size: 20px, $weight: medium)
+  @include font-Quicksand($size: 20px, $weight: medium);
 }
 
 div.answerEntry-vote.col > a:nth-child(3) > img {
@@ -90,7 +88,7 @@ div.answerEntry-vote.col > a:nth-child(3) > img {
   margin: 20px 0 20px 0;
 }
 .answerEntry .answerEntry-credential {
-  background-color: #E2F5F5;
+  background-color: #e2f5f5;
   justify-items: center;
   align-items: center;
   height: 3rem;
@@ -98,7 +96,7 @@ div.answerEntry-vote.col > a:nth-child(3) > img {
   padding: 5px;
   border-top-left-radius: 9px;
   border-top-right-radius: 9px;
-  @include font-Quicksand($size: 20px, $weight: medium)
+  @include font-Quicksand($size: 20px, $weight: medium);
 }
 
 .answerEntry .markdown-preview > p {
@@ -108,16 +106,16 @@ div.answerEntry-vote.col > a:nth-child(3) > img {
 }
 
 .answerEntry .answerEntry-vote {
-  padding :10px;
+  padding: 10px;
   justify-items: center;
   align-items: center;
 }
 
 .answerEntry .reply-link {
   margin: 0 15px 0 10px;
-  @include button-color-radius($border-color:  #8AD5D8, $border-width: 2px)
+  @include button-color-radius($border-color: #8ad5d8, $border-width: 2px);
 }
 .answerEntry .reply-link:hover {
-  background-color: #8AD5D8;
+  background-color: #8ad5d8;
   color: white;
 }

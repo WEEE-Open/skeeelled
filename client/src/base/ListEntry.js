@@ -84,11 +84,9 @@ function ListEntryQuestions(props) {
   );
 }
 
-
 function ListEntryAnswers(props) {
   return (
     <div className="answerEntry">
-
       <Row className="answerEntry-credential">
         <Col colSpan="2">
           <Row>
@@ -105,9 +103,10 @@ function ListEntryAnswers(props) {
           </Row>
         </Col>
       </Row>
-        <Row>
-            <MarkdownPreview rowspan="3" markdown={props.row.answer} />
-        </Row>
+      <Row>
+        <MarkdownPreview rowspan="3" markdown={props.row.answer} />
+      </Row>
+
 
         <Row>
             <Col className="answerEntry-vote">
@@ -140,8 +139,6 @@ function ListEntryAnswers(props) {
                 </Link>
             </Col>
         </Row>
-
-
     </div>
   );
 }

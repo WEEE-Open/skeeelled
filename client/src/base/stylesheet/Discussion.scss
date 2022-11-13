@@ -1,6 +1,9 @@
 @import "StyleBase.scss";
 
- div.discussion-component > div.collapse.collapse.show.row > div:nth-child(2) > div {
+div.discussion-component
+  > div.collapse.collapse.show.row
+  > div:nth-child(2)
+  > div {
   margin-top: 20px;
 }
 
