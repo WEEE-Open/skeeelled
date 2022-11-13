@@ -148,4 +148,9 @@ div.answerEntry-vote.col > a:nth-child(3) > img {
   color: white;
 }
 
+.answerEntry .answerEntry-credential .header-svg span {
+  background-color: #e2f5f5;
+  border-color: #e2f5f5;
+}
+
 /*# sourceMappingURL=ListEntry.css.map */

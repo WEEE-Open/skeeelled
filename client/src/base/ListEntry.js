@@ -91,7 +91,7 @@ function ListEntryAnswers(props) {
         <Col colSpan="2">
           <Row>
               <Col>{props.row.author}, {props.row.createdat}</Col>
-          <Col>
+          <Col className="header-svg">
             <span className="reply-link mx-3">
               {props.row.replies + " "}
               <Image
