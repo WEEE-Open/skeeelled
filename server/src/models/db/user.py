@@ -1,7 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import List
 from datetime import datetime
-from .simulation import ExamSimulation
 
 
 class User(BaseModel):
@@ -14,6 +13,8 @@ class User(BaseModel):
     is_active: bool = False
     is_professor: bool = False
     is_admin: bool = False
+    related_courses: List[str] = []  # Course ids
+    my_BookmarkedQuestions: List[str] = []  # Question ids
     last_session: datetime
     credibility_rate: float = -1.0
-    simulation_results: List[ExamSimulation] = []
+    simulation_results: List[str] = []
