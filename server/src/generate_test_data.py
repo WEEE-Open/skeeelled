@@ -72,7 +72,7 @@ def generate_comments(n: int, question_id: ObjectId, users_list: List[User]) -> 
         author = random.choice(users_list)
         comment_list.append(Comment(
             _id=_id,
-            question_id=PydanticObjectId(question_id),
+            question_id=str(question_id),
             author=author.id,
             upvotes=random.randint(0, 100),
             downvotes=random.randint(0, 100),
@@ -91,7 +91,7 @@ def generate_questions(course_code: str, professors_list: List[User]) -> List[Qu
             _id=_id,
             owner=owner.id,
             title=q["content"]["name"]["text"],
-            course=course_code,
+            course_id=course_code,
             content=q["content"]["questiontext"]["text"],
             hint=q["content"]["generalfeedback"]["text"],
         ))
@@ -111,7 +111,6 @@ def generate_courses(n: int, professors: List[User], students: List[User]) -> Li
             name=random.choice(['Analisi', 'Chimica', 'Informatica']),
             years_active=random.choice(([2020, 2021], [2020, 2021, 2022])),
             professors=[p.id for p in random.sample(professors, random.randint(1, 3))],
-            students=[s.id for s in random.sample(students, random.randint(1, 20))]
         ))
     return course_list
 

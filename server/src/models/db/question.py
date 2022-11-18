@@ -1,21 +1,20 @@
 from pydantic import BaseModel, Field
 from typing import List
 from datetime import datetime
+from ..objectid import ObjectId
 
 
 class Question(BaseModel):
-    # id: ObjectId = Field(alias="_id")
+    id: ObjectId = Field(alias="_id")
     owner: str  # professor id
     title: str
-    quiz_ref: str  # Object id
-    course_ref: str
+    quiz_id: str = None # Object id
+    course_id: str
     content: str
     is_deleted: bool = False
     hint: str
     tags: List[str] = []
     timestamp: float = datetime.now()
-    # mandatory limit parameter
-    comments: List[str] = []
 
     # constraint check on question values
     """
