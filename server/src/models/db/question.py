@@ -14,7 +14,7 @@ class Question(BaseModel):
     is_deleted: bool = False
     hint: str
     tags: List[str] = []
-    timestamp: float = datetime.now()
+    timestamp: datetime = datetime.now()
 
     class Config:
         allow_population_by_field_name = True
