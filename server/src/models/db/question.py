@@ -1,20 +1,25 @@
 from pydantic import BaseModel, Field
 from typing import List
 from datetime import datetime
-from ..objectid import ObjectId
+from ..objectid import ObjectId, PyObjectId
 
 
 class Question(BaseModel):
-    id: ObjectId = Field(alias="_id")
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     owner: str  # professor id
     title: str
-    quiz_id: str = None # Object id
+    quiz_id: str = None     # Object id
     course_id: str
     content: str
     is_deleted: bool = False
     hint: str
     tags: List[str] = []
     timestamp: float = datetime.now()
+
+    class Config:
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
 
     # constraint check on question values
     """

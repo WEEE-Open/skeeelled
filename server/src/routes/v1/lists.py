@@ -4,22 +4,25 @@ from fastapi.responses import JSONResponse
 from bson import json_util
 from db import db, DbName
 from pymongo import ASCENDING, DESCENDING
+from typing import List
+from models.db.question import Question
 
 router = APIRouter()
 
 
-@router.get("/myQuestions")
-async def get_user_myQuestions(user_id: str, page: int = 1, itemsPerPage: int = -1):
-    questions = await db[DbName.QUESTION.value].find({"owner": user_id}) \
+@router.get("/myQuestions", response_model=List[Question])
+async def get_user_myQuestions(user_id: str, page: int = 1, itemsPerPage: int = -1) -> List[Question]:
+    questions = await db[DbName.QUESTION.value].find({"owner": user_id}, {"_id": False}) \
         .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
         .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
         .to_list(itemsPerPage if itemsPerPage > 0 else None)
-    return JSONResponse(json.loads(json_util.dumps(questions)))
+    print(questions)
+    return questions
 
 
 @router.get("/myComments")
 async def get_user_myComments(user_id: str, page: int = 1, itemsPerPage: int = -1):
-    comments = await db[DbName.COMMENT.value].find({"author": user_id}) \
+    comments = await db[DbName.COMMENT.value].find({"author": user_id}, {"_id": False}) \
         .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
         .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
         .to_list(itemsPerPage if itemsPerPage > 0 else None)
