@@ -5,10 +5,10 @@ from ..objectid import ObjectId
 
 
 class _CommentBase(BaseModel):
-    id: ObjectId = Field(default_factory=ObjectId, alias="_id")
+    id: ObjectId = Field(alias="_id")
     author: str
-    upvotes: int
-    downvotes: int
+    upvotes: int = 0
+    downvotes: int = 0
     has_verified_upvotes: bool = False  # Any professor of the same course has upvoted this answer
     timestamp: datetime = datetime.now()
     content: str
@@ -20,4 +20,4 @@ class Reply(_CommentBase):
 
 class Comment(_CommentBase):
     replies: List[Reply] = []
-    question_id: ObjectId
+    question_id: str
