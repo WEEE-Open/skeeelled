@@ -106,7 +106,7 @@ def generate_courses(n: int, professors: List[User], students: List[User]) -> Li
     for i in range(n):
         code = codes[i]
         course_list.append(Course(
-            _id=code,
+            id=code,
             code=code,
             name=random.choice(['Analisi', 'Chimica', 'Informatica']),
             years_active=random.choice(([2020, 2021], [2020, 2021, 2022])),

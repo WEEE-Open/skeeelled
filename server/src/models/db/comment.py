@@ -5,7 +5,7 @@ from ..objectid import ObjectId
 
 
 class _CommentBase(BaseModel):
-    id: ObjectId = Field(alias="_id")
+    id: ObjectId = Field(default_factory=ObjectId, alias="_id")
     author: str
     upvotes: int
     downvotes: int
