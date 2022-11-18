@@ -7,7 +7,7 @@ import xmltodict
 # model definition
 class Quiz(BaseModel):
     is_simulation: bool = False
-    file: dict = {}
+    file: dict = {}  # moodle file in xml, converted in json
 
     # constraint check
     @validator('file')

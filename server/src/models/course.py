@@ -5,9 +5,8 @@ from .quiz import Quiz
 
 
 class Course(BaseModel):
-    code: str = Field(alias="_id")
+    # check if the db create a id or not, we should use the course id provided by university
+    code: str  # = Field(alias="_id") 
     name: str
     years_active: List[int] = []
     professors: List[str] = []  # professor ids
-    questions: List[Question] = []
-    quizzes: List[Quiz] = []

@@ -6,9 +6,8 @@ from .objectid import ObjectId
 class _CommentBase(BaseModel):
     id: ObjectId = Field(alias="_id")
     author: str
-    info: Any
-    upvotes: int
-    downvotes: int
+    upvotes: int = 0
+    downvotes: int = 0
     has_verified_upvotes: bool = False  # Any professor of the same course has upvoted this answer
     timestamp: datetime = datetime.now()
     content: str

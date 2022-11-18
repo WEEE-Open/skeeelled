@@ -6,17 +6,18 @@ from .objectid import ObjectId
 
 
 class Question(BaseModel):
-    id: ObjectId = Field(alias="_id")
+    # id: ObjectId = Field(alias="_id")
     owner: str  # professor id
     title: str
-    quiz_ref: dict = None
+    quiz_ref: str  # Object id
+    course_ref: str
     content: str
     is_deleted: bool = False
-    hint: str = ""
+    hint: str
     tags: List[str] = []
-    timestamp: float = datetime.now().timestamp()
+    timestamp: float = datetime.now()
     # mandatory limit parameter
-    comments: List[Comment] = []
+    comments: List[str] = []
 
     # constraint check on question values
     """
