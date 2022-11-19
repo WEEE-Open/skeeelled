@@ -3,18 +3,6 @@
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:1": {
         "dockerDashComposeVersion": "v2"
-    },
-    "ghcr.io/devcontainers/features/python:1": {
-        "version": "3.11",
-        "installTools": true,
-        "optimize": false,
-        "installPath": "/usr/local/python",
-        "installJupyterlab": false
-    },
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "16",
-      "nodeGypDependencies": true,
-      "nvmInstallPath": "/usr/local/share/nvm"
     }
   }
 }
