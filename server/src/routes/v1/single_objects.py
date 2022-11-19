@@ -1,27 +1,23 @@
-import json
+import models.response
+import models.request
+import models.db
 from fastapi import APIRouter, HTTPException
-from fastapi.responses import JSONResponse
-from bson import json_util
 from db import db, DbName
 from models.objectid import PyObjectId
-from models.response.user import User
-from models.response.course import Course
-from models.response.question import Question
-from models.response.comment import CommentWithoutReplies
 
 router = APIRouter()
 
 
-@router.get("/user", response_model=User)
-async def get_user(user_id: str) -> User:
+@router.get("/user", response_model=models.response.User)
+async def get_user(user_id: str) -> models.response.User:
     user = await db[DbName.USER.value].find_one({"_id": user_id})
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
 
-@router.get("/course", response_model=Course)
-async def get_course(course_id: str) -> Course:
+@router.get("/course", response_model=models.response.Course)
+async def get_course(course_id: str) -> models.response.Course:
     course = db[DbName.COURSE.value].aggregate([
         {"$match": {"_id": course_id}},
         {"$lookup": {"from": DbName.USER.value, "localField": "professors", "foreignField": "_id", "as": "professors"}},
@@ -33,8 +29,8 @@ async def get_course(course_id: str) -> Course:
         raise HTTPException(status_code=404, detail="Course not found")
 
 
-@router.get("/question", response_model=Question)
-async def get_questions(question_id: PyObjectId) -> Question:
+@router.get("/question", response_model=models.response.Question)
+async def get_questions(question_id: PyObjectId) -> models.response.Question:
     question = db[DbName.QUESTION.value].aggregate([
         {"$match": {"_id": question_id}},
         {"$lookup": {"from": DbName.USER.value, "localField": "owner", "foreignField": "_id", "as": "owner"}},
@@ -51,8 +47,8 @@ async def get_questions(question_id: PyObjectId) -> Question:
         raise HTTPException(status_code=404, detail="Question not found")
 
 
-@router.get("/comment", response_model=CommentWithoutReplies)
-async def get_answer(comment_id: PyObjectId) -> CommentWithoutReplies:
+@router.get("/comment", response_model=models.response.CommentWithoutReplies)
+async def get_answer(comment_id: PyObjectId) -> models.response.CommentWithoutReplies:
     comment = db[DbName.COMMENT.value].aggregate([
         {"$match": {"_id": comment_id}},
         {"$lookup": {"from": DbName.USER.value, "localField": "author", "foreignField": "_id", "as": "author"}},
@@ -60,7 +56,23 @@ async def get_answer(comment_id: PyObjectId) -> CommentWithoutReplies:
     ])
     try:
         comment = await comment.next()
-        print(comment)
         return comment
     except StopAsyncIteration:
         raise HTTPException(status_code=404, detail="Comment not found")
+
+
+@router.post("/comment", status_code=201, response_model=models.response.CommentWithoutReplies)
+async def post_comment(comment: models.request.Comment):
+    author = await db[DbName.USER.value].find_one({"_id": comment.author})
+    if author is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    question = await db[DbName.QUESTION.value].find_one({"_id": comment.question_id})
+    if question is None:
+        raise HTTPException(status_code=404, detail="Question not found")
+    if question["course_id"] not in author["related_courses"]:
+        raise HTTPException(status_code=403, detail="User not enrolled in course")
+    new_comment = models.db.Comment(**comment.dict())
+    if author.get("is_professor", False):
+        new_comment.has_verified_upvotes = True
+    await db[DbName.COMMENT.value].insert_one(new_comment.dict(by_alias=True))
+    return new_comment

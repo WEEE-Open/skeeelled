@@ -15,7 +15,7 @@ class Reply(_Reply):
 class Comment(_Comment):
     author: Union[User, str]
     question_id: Union[Question, PyObjectId]
-    replies: List[Reply]
+    replies: List[Reply] = []
 
     class Config(_Comment.Config):
         fields = {"question_id": {"alias": "question"}}
