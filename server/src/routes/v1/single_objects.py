@@ -7,6 +7,7 @@ from models.objectid import PyObjectId
 from models.response.user import User
 from models.response.course import Course
 from models.response.question import Question
+from models.response.comment import CommentWithoutReplies
 
 router = APIRouter()
 
@@ -50,21 +51,16 @@ async def get_questions(question_id: PyObjectId) -> Question:
         raise HTTPException(status_code=404, detail="Question not found")
 
 
-@router.get("/comment")
-async def get_answer(comment_id: str):
-    comment = db[DbName.COURSE.value].aggregate([
-        {"$match": {"questions.comments.id": comment_id}},
-        {"$unwind": "$questions"},
-        {"$unwind": "$questions.comments"},
-        {"$match": {"questions.comments.id": comment_id}},
-        {"$project": {"comment": "$questions.comments", "_id": False}},
-        {"$project": {"comment.replies": False}},
-        {"$lookup": {"from": DbName.USER.value, "localField": "comment.author", "foreignField": "id",
-                     "as": "comment.author"}},
-        {"$project": {"comment.author": user_exclude}}
+@router.get("/comment", response_model=CommentWithoutReplies)
+async def get_answer(comment_id: PyObjectId) -> CommentWithoutReplies:
+    comment = db[DbName.COMMENT.value].aggregate([
+        {"$match": {"_id": comment_id}},
+        {"$lookup": {"from": DbName.USER.value, "localField": "author", "foreignField": "_id", "as": "author"}},
+        {"$unwind": "$author"},
     ])
     try:
         comment = await comment.next()
-        return JSONResponse(json.loads(json_util.dumps(comment)))
+        print(comment)
+        return comment
     except StopAsyncIteration:
         raise HTTPException(status_code=404, detail="Comment not found")

@@ -6,8 +6,8 @@ from ..db.quiz import Quiz
 
 
 class Question(_Question):
-    owner: Union[User, str, None]
-    course_id: Union[Course, str, None]
+    owner: Union[User, str]
+    course_id: Union[Course, str]
     quiz_id: Union[Quiz, str, None]
 
     class Config(_Question.Config):
