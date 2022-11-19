@@ -1,7 +1,8 @@
 import models.response
 import models.request
 import models.db
-from fastapi import APIRouter, HTTPException
+from models.objectid import ObjectId
+from fastapi import APIRouter, HTTPException, Response
 from db import db, DbName
 from models.objectid import PyObjectId
 
@@ -76,3 +77,19 @@ async def post_comment(comment: models.request.Comment):
         new_comment.has_verified_upvotes = True
     await db[DbName.COMMENT.value].insert_one(new_comment.dict(by_alias=True))
     return new_comment
+
+
+@router.post("/bookmarkQuestion", status_code=204, response_class=Response)
+async def bookmark_question(bookmark: models.request.Bookmark):
+    user = await db[DbName.USER.value].find_one({"_id": bookmark.user_id})
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    question = await db[DbName.QUESTION.value].find_one({"_id": bookmark.question_id})
+    if question is None:
+        raise HTTPException(status_code=404, detail="Question not found")
+    if question["course_id"] not in user["related_courses"]:
+        raise HTTPException(status_code=403, detail="User not enrolled in course")
+    if ObjectId(str(bookmark.question_id)) in user.get("my_BookmarkedQuestions", []):
+        raise HTTPException(status_code=418, detail="Question already bookmarked")
+    await db[DbName.USER.value].update_one({"_id": bookmark.user_id}, {
+        "$push": {"my_BookmarkedQuestions": {"$each": [bookmark.question_id], "$position": 0}}})
