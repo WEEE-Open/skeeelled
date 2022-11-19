@@ -1,10 +1,11 @@
-from pydantic import BaseModel, Field
+from ..basemodel import BaseModel
+from pydantic import Field
 from typing import List
 from datetime import datetime
-from ..objectid import PyObjectId, ObjectId
+from ..objectid import PyObjectId
 
 
-class _CommentBase(BaseModel):
+class CommentBase(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     author: str
     upvotes: int = 0
@@ -13,16 +14,11 @@ class _CommentBase(BaseModel):
     timestamp: datetime = datetime.now()
     content: str
 
-    class Config:
-        allow_population_by_field_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
 
-
-class Reply(_CommentBase):
+class Reply(CommentBase):
     pass
 
 
-class Comment(_CommentBase):
-    replies: List[Reply] = []
+class Comment(CommentBase):
     question_id: PyObjectId
+    replies: List[Reply] = []

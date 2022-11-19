@@ -14,7 +14,7 @@ from models.db.user import User
 from models.db.course import Course
 from models.db.question import Question
 from models.db.comment import Comment, Reply
-from models.objectid import ObjectId as PydanticObjectId
+from models.db.simulation import ExamSimulation
 
 client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongodb:27017/")
 client.get_io_loop = asyncio.get_running_loop
@@ -30,7 +30,7 @@ with open(os.path.join("../test_data_base", "questions")) as jsonfile:
 def generate_users(n: int, is_professor: bool) -> List[User]:
     user_list = []
     ids = list(set([f"d{random.randint(11111, 99999)}" if is_professor else f"s{random.randint(183545, 309999)}"
-                    for _ in range(2*n)]))
+                    for _ in range(2 * n)]))
     for i in range(n):
         _id = ids[i]
         name = random.choice(["Mario", "Giovanni", "Guido"])
@@ -104,7 +104,7 @@ def generate_questions(course_code: str, professors_list: List[User], students_l
 def generate_courses(n: int, professors_list: List[User], students_list: List[User]) -> List[Course]:
     course_list = []
     codes = list(set(
-        [f"{''.join([random.choice(string.digits +  string.ascii_uppercase) for _ in range(7)])}" for _ in range(2*n)]
+        [f"{''.join([random.choice(string.digits + string.ascii_uppercase) for _ in range(7)])}" for _ in range(2 * n)]
     ))
     for i in range(n):
         code = codes[i]
@@ -124,6 +124,21 @@ def generate_courses(n: int, professors_list: List[User], students_list: List[Us
     return course_list
 
 
+def generate_simulations(n: int, user: User, questions: List[Question]) -> List[ExamSimulation]:
+    simulations = []
+    for i in range(n):
+        course_id = random.choice(user.related_courses)
+        content = available_questions if \
+            len((available_questions := [q.id for q in questions if q.course_id == course_id])) < 10 \
+            else random.sample(available_questions, 10)
+        simulations.append(ExamSimulation(
+            course_id=course_id,
+            content=content,
+            results=[round(random.uniform(18, 30), 1)]
+        ))
+    return simulations
+
+
 async def main():
     await db[DbName.USER.value].drop()
     await db[DbName.COURSE.value].drop()
@@ -134,14 +149,16 @@ async def main():
     students = generate_users(50, False)
     courses = generate_courses(20, professors, students)
     questions = [q for c in courses for q in generate_questions(c.id, professors, students)]
-    comments = [c for q in questions for c in generate_comments(5, q.id, professors+students)]
+    comments = [c for q in questions for c in generate_comments(5, q.id, professors + students)]
+
+    for s in students:
+        s.simulation_results = generate_simulations(random.randint(1, 8), s, questions)
 
     await db[DbName.USER.value].insert_many([p.dict(by_alias=True) for p in professors])
     await db[DbName.USER.value].insert_many([s.dict(by_alias=True) for s in students])
     await db[DbName.COURSE.value].insert_many(c.dict(by_alias=True) for c in courses)
     await db[DbName.QUESTION.value].insert_many([q.dict(by_alias=True) for q in questions])
     await db[DbName.COMMENT.value].insert_many([c.dict(by_alias=True) for c in comments])
-
 
 if __name__ == "__main__":
     print("Beginning test data generation")

@@ -1,7 +1,9 @@
-from pydantic import BaseModel, Field
+from ..basemodel import BaseModel
+from pydantic import Field
 from typing import List
 from datetime import datetime
-from ..objectid import ObjectId, PyObjectId
+from ..objectid import PyObjectId
+from .simulation import ExamSimulation
 
 
 class User(BaseModel):
@@ -18,9 +20,4 @@ class User(BaseModel):
     my_BookmarkedQuestions: List[PyObjectId] = []  # Question ids
     last_session: datetime
     credibility_rate: float = -1.0
-    simulation_results: List[str] = []
-
-    class Config:
-        allow_population_by_field_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    simulation_results: List[ExamSimulation] = []

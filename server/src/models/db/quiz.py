@@ -1,5 +1,6 @@
 from fastapi.encoders import jsonable_encoder
-from pydantic import BaseModel, validator
+from ..basemodel import BaseModel
+from pydantic import validator
 import base64
 import xmltodict
 
