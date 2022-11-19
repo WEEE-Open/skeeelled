@@ -1,13 +1,12 @@
-import json
 from fastapi import APIRouter, HTTPException
-from fastapi.responses import JSONResponse
-from bson import json_util
 from db import db, DbName
 from pymongo import ASCENDING, DESCENDING
 from typing import List
+from models.objectid import PyObjectId
 from models.db.question import Question
 from models.db.comment import Comment
 from models.response.comment import Comment as CommentWithoutReplies
+from models.response.comment import Replies
 from models.response.user import UserBookmarkedQuestions, UserSimulationResults
 from models.response.course import Course
 
@@ -73,7 +72,7 @@ async def get_courses(page: int = 1, itemsPerPage: int = -1) -> List[Course]:
         {"$lookup": {"from": DbName.USER.value, "localField": "professors", "foreignField": "_id", "as": "professors"}},
         {"$sort": {"_id": ASCENDING}}
     ]
-    if itemsPerPage >= 1:
+    if itemsPerPage > 0:
         pipeline.append({"$skip": (page - 1) * itemsPerPage})
     courses = db[DbName.COURSE.value].aggregate(pipeline)
     return await courses.to_list(itemsPerPage if itemsPerPage > 0 else None)
@@ -88,38 +87,19 @@ async def get_questions(course_id: str, page: int = 1, itemsPerPage: int = -1) -
     return questions
 
 
-@router.get("/discussion")
-async def get_comments(question_id: str, page: int = 1, itemsPerPage: int = -1):
-    comments = db[DbName.COURSE.value].aggregate([
-        {"$match": {"questions.id": question_id}},
-        {"$unwind": "$questions"},
-        {"$match": {"questions.id": question_id}},
-        {"$project": {"code": True, "questions.id": True, "questions.comments": True if itemsPerPage < 1 else {
-            "$slice": ["$questions.comments", (page - 1) * itemsPerPage, itemsPerPage]
-        }}},
-        {"$project": {"questions.comments.replies": False, "_id": False}}
-    ])
-    try:
-        course = await comments.next()
-        return JSONResponse(json.loads(json_util.dumps(course)))
-    except StopAsyncIteration:
-        raise HTTPException(status_code=404, detail="Question not found")
+@router.get("/discussion", response_model=List[CommentWithoutReplies])
+async def get_comments(question_id: PyObjectId, page: int = 1, itemsPerPage: int = -1):
+    comments = await db[DbName.COMMENT.value].find({"question_id": question_id}, {"replies": False}) \
+        .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
+        .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
+        .to_list(itemsPerPage if itemsPerPage > 0 else None)
+    return comments
 
 
-@router.get("/replies")
-async def get_replies(comment_id: str, page: int = 1, itemsPerPage: int = -1):
-    replies = db[DbName.COURSE.value].aggregate([
-        {"$match": {"questions.comments.id": comment_id}},
-        {"$unwind": "$questions"},
-        {"$unwind": "$questions.comments"},
-        {"$match": {"questions.comments.id": comment_id}},
-        {"$project": {"code": True, "_id": False, "questions.id": True, "questions.comments.id": True,
-                      "questions.comments.replies": True if itemsPerPage < 1 else {
-                          "$slice": ["$questions.comments.replies", (page - 1) * itemsPerPage, itemsPerPage]
-                      }}}
-    ])
-    try:
-        course = await replies.next()
-        return JSONResponse(json.loads(json_util.dumps(course)))
-    except StopAsyncIteration:
-        raise HTTPException(status_code=404, detail="Comment not found")
+@router.get("/replies", response_model=Replies)
+async def get_replies(comment_id: PyObjectId, page: int = 1, itemsPerPage: int = -1):
+    replies = await db[DbName.COMMENT.value].find_one({"_id": comment_id}, {
+        "replies": True if itemsPerPage < 1 else {"$slice": [(page - 1) * itemsPerPage, itemsPerPage]}})
+    if replies is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return replies

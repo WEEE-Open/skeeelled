@@ -1,5 +1,9 @@
 from ..db.comment import Comment as _Comment
-from typing import Dict, Any, Type
+from ..basemodel import BaseModel
+from ..objectid import PyObjectId
+from pydantic import Field
+from typing import Dict, Any, Type, List
+from ..db.comment import Reply
 
 
 class Comment(_Comment):
@@ -10,3 +14,8 @@ class Comment(_Comment):
         @staticmethod
         def schema_extra(schema: Dict[str, Any], model: Type["Comment"]) -> None:
             schema.get("properties", {}).pop("replies")
+
+
+class Replies(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    replies: List[Reply]
