@@ -1,2 +1,2 @@
-from .comment import Comment
+from .comment import Comment, Reply
 from .bookmark import Bookmark

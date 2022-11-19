@@ -1,10 +1,7 @@
-import models.response
-import models.request
-import models.db
-from models.objectid import ObjectId
+import models
+from models.objectid import ObjectId, PyObjectId
 from fastapi import APIRouter, HTTPException, Response
 from db import db, DbName
-from models.objectid import PyObjectId
 
 router = APIRouter()
 
@@ -72,12 +69,34 @@ async def post_comment(comment: models.request.Comment):
         raise HTTPException(status_code=404, detail="Question not found")
     if question["course_id"] not in author["related_courses"]:
         raise HTTPException(status_code=403, detail="User not enrolled in course")
-    new_comment = models.db.Comment(**comment.dict())
-    if author.get("is_professor", False):
-        new_comment.has_verified_upvotes = True
+
+    new_comment = models.db.Comment(has_verified_upvotes=author.get("is_professor", False), **comment.dict())
     await db[DbName.COMMENT.value].insert_one(new_comment.dict(by_alias=True))
     return new_comment
 
+
+@router.post("/reply", status_code=201, response_model=models.response.Reply)
+async def post_reply(reply: models.request.Reply):
+    author = await db[DbName.USER.value].find_one({"_id": reply.author})
+    if author is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    comment = db[DbName.COMMENT.value].aggregate([
+        {"$match": {"_id": reply.comment_id}},
+        {"$lookup": {"from": DbName.QUESTION.value, "localField": "question_id", "foreignField": "_id",
+                     "as": "question"}},
+        {"$unwind": "$question"}
+    ])
+    try:
+        comment = await comment.next()
+    except StopAsyncIteration:
+        raise HTTPException(status_code=404, detail="Comment not found")
+    if comment["question"]["course_id"] not in author["related_courses"]:
+        raise HTTPException(status_code=403, detail="User not enrolled in course")
+
+    new_reply = models.db.Reply(has_verified_upvotes=author.get("is_professor", False), **reply.dict())
+    await db[DbName.COMMENT.value].update_one({"_id": reply.comment_id},
+                                              {"$push": {"replies": {"$each": [new_reply.dict()], "$position": 0}}})
+    return new_reply
 
 @router.post("/bookmarkQuestion", status_code=204, response_class=Response)
 async def bookmark_question(bookmark: models.request.Bookmark):
