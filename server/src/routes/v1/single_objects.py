@@ -3,6 +3,7 @@ from models.objectid import ObjectId, PyObjectId
 from fastapi import APIRouter, HTTPException, Response
 from db import db, DbName
 from utils import responses
+from typing import Tuple
 
 router = APIRouter()
 
@@ -117,17 +118,32 @@ async def bookmark_question(bookmark: models.request.Bookmark):
         "$push": {"my_BookmarkedQuestions": {"$each": [bookmark.question_id], "$position": 0}}})
 
 
-@router.post("/upvote", status_code=204, response_class=Response, responses=responses([404]))
-async def upvote(vote: models.request.Vote):
+async def post_vote(vote: models.request.Vote, field: str) -> (bool, bool):
+    if field != "upvotes" and field != "downvotes":
+        raise Exception("vote value must be 1 or -1")
+
     if vote.comment_id is not None:
         filter_ = {"_id": vote.comment_id}
-        update = {"$inc": {"upvotes": 1}}
+        update = {"$inc": {field: 1}}
         is_comment = True
     else:
         filter_ = {"replies._id": vote.reply_id}
-        update = {"$inc": {"replies.$.upvotes": 1}}
+        update = {"$inc": {f"replies.$.{field}": 1}}
         is_comment = False
 
     res = await db[DbName.COMMENT.value].update_one(filter_, update)
-    if res.matched_count == 0:
+    return is_comment, res.matched_count > 0
+
+
+@router.post("/upvote", status_code=204, response_class=Response, responses=responses([404]))
+async def upvote(vote: models.request.Vote):
+    is_comment, matched = await post_vote(vote, "upvotes")
+    if not matched:
+        raise HTTPException(status_code=404, detail=f"{'Comment' if is_comment else 'Reply'} not found")
+
+
+@router.post("/downvote", status_code=204, response_class=Response, responses=responses([404]))
+async def downvote(vote: models.request.Vote):
+    is_comment, matched = await post_vote(vote, "downvotes")
+    if not matched:
         raise HTTPException(status_code=404, detail=f"{'Comment' if is_comment else 'Reply'} not found")
