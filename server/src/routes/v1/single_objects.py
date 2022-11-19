@@ -115,3 +115,19 @@ async def bookmark_question(bookmark: models.request.Bookmark):
         raise HTTPException(status_code=418, detail="Question already bookmarked")
     await db[DbName.USER.value].update_one({"_id": bookmark.user_id}, {
         "$push": {"my_BookmarkedQuestions": {"$each": [bookmark.question_id], "$position": 0}}})
+
+
+@router.post("/upvote", status_code=204, response_class=Response, responses=responses([404]))
+async def upvote(vote: models.request.Vote):
+    if vote.comment_id is not None:
+        filter_ = {"_id": vote.comment_id}
+        update = {"$inc": {"upvotes": 1}}
+        is_comment = True
+    else:
+        filter_ = {"replies._id": vote.reply_id}
+        update = {"$inc": {"replies.$.upvotes": 1}}
+        is_comment = False
+
+    res = await db[DbName.COMMENT.value].update_one(filter_, update)
+    if res.matched_count == 0:
+        raise HTTPException(status_code=404, detail=f"{'Comment' if is_comment else 'Reply'} not found")
