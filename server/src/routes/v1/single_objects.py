@@ -4,6 +4,7 @@ from fastapi.responses import JSONResponse
 from bson import json_util
 from db import db, DbName
 from models.db.user import User
+from models.response.course import Course
 
 router = APIRouter()
 
@@ -11,25 +12,16 @@ user_include = {"id", "email", "username", "name", "surname", "profile_picture"}
 user_projection = {field: True for field in user_include}
 user_exclude = {field: False for field in set(User.__fields__.keys()).difference(user_include)} | {"_id": False}
 
-@router.get("/user")
-async def get_user(user_id: str):
-    user = await db[DbName.USER.value].find_one({"id": user_id}, user_projection | {"_id": False})
-    if user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return JSONResponse(json.loads(json_util.dumps(user)))
 
-
-@router.get("/course")
-async def get_course(course_id: str):
+@router.get("/course", response_model=Course)
+async def get_course(course_id: str) -> Course:
     course = db[DbName.COURSE.value].aggregate([
-        {"$match": {"code": course_id}},
-        {"$lookup": {"from": DbName.USER.value, "localField": "professors", "foreignField": "id", "as": "professors"}},
-        {"$project": {"_id": False, "code": True, "name": True, "years_active": True,
-                      "professors": user_projection}},
+        {"$match": {"_id": course_id}},
+        {"$lookup": {"from": DbName.USER.value, "localField": "professors", "foreignField": "_id", "as": "professors"}},
     ])
     try:
         course = await course.next()
-        return JSONResponse(json.loads(json_util.dumps(course)))
+        return course
     except StopAsyncIteration:
         raise HTTPException(status_code=404, detail="Course not found")
 
