@@ -2,11 +2,12 @@ import models
 from models.objectid import ObjectId, PyObjectId
 from fastapi import APIRouter, HTTPException, Response
 from db import db, DbName
+from utils import responses
 
 router = APIRouter()
 
 
-@router.get("/user", response_model=models.response.User)
+@router.get("/user", response_model=models.response.User, responses=responses([404]))
 async def get_user(user_id: str) -> models.response.User:
     user = await db[DbName.USER.value].find_one({"_id": user_id})
     if user is None:
@@ -14,7 +15,7 @@ async def get_user(user_id: str) -> models.response.User:
     return user
 
 
-@router.get("/course", response_model=models.response.Course)
+@router.get("/course", response_model=models.response.Course, responses=responses([404]))
 async def get_course(course_id: str) -> models.response.Course:
     course = db[DbName.COURSE.value].aggregate([
         {"$match": {"_id": course_id}},
@@ -27,7 +28,7 @@ async def get_course(course_id: str) -> models.response.Course:
         raise HTTPException(status_code=404, detail="Course not found")
 
 
-@router.get("/question", response_model=models.response.Question)
+@router.get("/question", response_model=models.response.Question, responses=responses([404]))
 async def get_questions(question_id: PyObjectId) -> models.response.Question:
     question = db[DbName.QUESTION.value].aggregate([
         {"$match": {"_id": question_id}},
@@ -45,7 +46,7 @@ async def get_questions(question_id: PyObjectId) -> models.response.Question:
         raise HTTPException(status_code=404, detail="Question not found")
 
 
-@router.get("/comment", response_model=models.response.CommentWithoutReplies)
+@router.get("/comment", response_model=models.response.CommentWithoutReplies, responses=responses([404]))
 async def get_answer(comment_id: PyObjectId) -> models.response.CommentWithoutReplies:
     comment = db[DbName.COMMENT.value].aggregate([
         {"$match": {"_id": comment_id}},
@@ -59,7 +60,8 @@ async def get_answer(comment_id: PyObjectId) -> models.response.CommentWithoutRe
         raise HTTPException(status_code=404, detail="Comment not found")
 
 
-@router.post("/comment", status_code=201, response_model=models.response.CommentWithoutReplies)
+@router.post("/comment", status_code=201, response_model=models.response.CommentWithoutReplies,
+             responses=responses([404, 403]))
 async def post_comment(comment: models.request.Comment):
     author = await db[DbName.USER.value].find_one({"_id": comment.author})
     if author is None:
@@ -75,7 +77,7 @@ async def post_comment(comment: models.request.Comment):
     return new_comment
 
 
-@router.post("/reply", status_code=201, response_model=models.response.Reply)
+@router.post("/reply", status_code=201, response_model=models.response.Reply, responses=responses([404, 403]))
 async def post_reply(reply: models.request.Reply):
     author = await db[DbName.USER.value].find_one({"_id": reply.author})
     if author is None:
@@ -98,7 +100,8 @@ async def post_reply(reply: models.request.Reply):
                                               {"$push": {"replies": {"$each": [new_reply.dict()], "$position": 0}}})
     return new_reply
 
-@router.post("/bookmarkQuestion", status_code=204, response_class=Response)
+
+@router.post("/bookmarkQuestion", status_code=204, response_class=Response, responses=responses([404, 403, 418]))
 async def bookmark_question(bookmark: models.request.Bookmark):
     user = await db[DbName.USER.value].find_one({"_id": bookmark.user_id})
     if user is None:
