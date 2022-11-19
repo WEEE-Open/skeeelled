@@ -88,7 +88,7 @@ async def get_questions(course_id: str, page: int = 1, itemsPerPage: int = -1) -
 
 
 @router.get("/discussion", response_model=List[CommentWithoutReplies])
-async def get_comments(question_id: PyObjectId, page: int = 1, itemsPerPage: int = -1):
+async def get_comments(question_id: PyObjectId, page: int = 1, itemsPerPage: int = -1) -> List[CommentWithoutReplies]:
     comments = await db[DbName.COMMENT.value].find({"question_id": question_id}, {"replies": False}) \
         .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
         .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
@@ -97,7 +97,7 @@ async def get_comments(question_id: PyObjectId, page: int = 1, itemsPerPage: int
 
 
 @router.get("/replies", response_model=Replies)
-async def get_replies(comment_id: PyObjectId, page: int = 1, itemsPerPage: int = -1):
+async def get_replies(comment_id: PyObjectId, page: int = 1, itemsPerPage: int = -1) -> Replies:
     replies = await db[DbName.COMMENT.value].find_one({"_id": comment_id}, {
         "replies": True if itemsPerPage < 1 else {"$slice": [(page - 1) * itemsPerPage, itemsPerPage]}})
     if replies is None:
