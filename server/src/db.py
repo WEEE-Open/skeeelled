@@ -7,7 +7,7 @@ class DbName(Enum):
 	USER = "users"
 	QUESTION = 'questions'
 	COMMENT = 'comments'
-	EXAM_SIM = 'simulations'
+	QUIZ = 'quizzes'
 
 
 db = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongodb:27017/").test_db

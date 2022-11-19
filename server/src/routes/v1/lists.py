@@ -3,8 +3,8 @@ from db import db, DbName
 from pymongo import ASCENDING, DESCENDING
 from typing import List
 from models.objectid import PyObjectId
-from models.db.question import Question
 from models.db.comment import Comment
+from models.response.question import Question
 from models.response.comment import Comment as CommentWithoutReplies
 from models.response.comment import Replies
 from models.response.user import UserBookmarkedQuestions, UserSimulationResults
