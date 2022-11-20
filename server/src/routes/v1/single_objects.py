@@ -118,7 +118,7 @@ async def bookmark_question(bookmark: models.request.Bookmark):
         "$push": {"my_BookmarkedQuestions": {"$each": [bookmark.question_id], "$position": 0}}})
 
 
-async def post_vote(vote: models.request.Vote, field: str) -> (bool, bool):
+async def post_vote(vote: models.request.Vote, field: str) -> Tuple[bool, bool]:
     if field != "upvotes" and field != "downvotes":
         raise Exception("vote value must be 1 or -1")
 
