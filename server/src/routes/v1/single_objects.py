@@ -120,7 +120,7 @@ async def bookmark_question(bookmark: models.request.Bookmark):
 
 async def post_vote(vote: models.request.Vote, field: str) -> Tuple[bool, bool]:
     if field != "upvotes" and field != "downvotes":
-        raise Exception("vote value must be 1 or -1")
+        raise Exception("field name must be 'upvotes' or 'downvotes'")
 
     if vote.comment_id is not None:
         filter_ = {"_id": vote.comment_id}

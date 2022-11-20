@@ -7,5 +7,5 @@ class SimulationResult(ExamSimulation):
         fields = {"content": {"exclude": True}}
 
         @staticmethod
-        def schema_extra(schema: Dict[str, Any], model: Type["SimulationResult"]) -> None:
+        def schema_extra(schema: Dict[str, Any], _) -> None:
             schema.get("properties", {}).pop("content")
