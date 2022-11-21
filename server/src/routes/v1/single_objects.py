@@ -119,6 +119,15 @@ async def bookmark_question(bookmark: models.request.Bookmark):
         "$push": {"my_BookmarkedQuestions": {"$each": [bookmark.question_id], "$position": 0}}})
 
 
+@router.post("/unbookmarkQuestion", status_code=204, response_class=Response, responses=responses([404]))
+async def bookmark_question(bookmark: models.request.Bookmark):
+    user = await db[DbName.USER.value].find_one({"_id": bookmark.user_id})
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    await db[DbName.USER.value].update_one({"_id": bookmark.user_id}, {
+        "$pull": {"my_BookmarkedQuestions": bookmark.question_id}})
+
+
 async def post_vote(vote: models.request.Vote, direction: Literal["up", "down"]):
     user = await db[DbName.USER.value].find_one({"_id": vote.user_id})
     if user is None:
