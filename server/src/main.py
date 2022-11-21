@@ -1,14 +1,13 @@
 import bson.errors
 from fastapi import FastAPI, status
-from fastapi.responses import JSONResponse, HTMLResponse
-from bson import ObjectId, DBRef
-from typing import List
+from fastapi.responses import JSONResponse
+from bson import ObjectId
 from utils.json_encoder import JSONEncoder
 
 from db import db, DbName
 from routes import router as main_router
-from models.question import Question, multiple_insertion
-from models.quiz import Quiz
+from models.db.question import Question, multiple_insertion
+from models.db.quiz import Quiz
 
 app = FastAPI()
 

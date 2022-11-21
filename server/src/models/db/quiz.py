@@ -1,13 +1,16 @@
 from fastapi.encoders import jsonable_encoder
-from pydantic import BaseModel, validator
+from ..basemodel import BaseModel
+from pydantic import validator, Field
 import base64
 import xmltodict
+from ..objectid import PyObjectId
 
 
 # model definition
 class Quiz(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     is_simulation: bool = False
-    file: dict = {}
+    file: dict = {}  # moodle file in xml, converted in json
 
     # constraint check
     @validator('file')
