@@ -58,8 +58,9 @@ def generate_replies(n: int, users_list: List[User]) -> List[Reply]:
         reply_list.append(Reply(
             _id=_id,
             author=author.id,
-            upvotes=random.randint(0, 100),
-            downvotes=random.randint(0, 100),
+            has_verified_upvotes=author.is_professor,
+            upvoted_by=[u.id for u in random.sample(users_list, random.randint(0, len(users_list) // 2))],
+            downvoted_by=[u.id for u in random.sample(users_list, random.randint(0, len(users_list) // 2))],
             content=''.join(random.choices(string.ascii_letters, k=50)),
         ))
     return reply_list
@@ -74,8 +75,9 @@ def generate_comments(n: int, question_id: ObjectId, users_list: List[User]) -> 
             _id=_id,
             question_id=question_id,
             author=author.id,
-            upvotes=random.randint(0, 100),
-            downvotes=random.randint(0, 100),
+            has_verified_upvotes=author.is_professor,
+            upvoted_by=[u.id for u in random.sample(users_list, random.randint(0, len(users_list) // 2))],
+            downvoted_by=[u.id for u in random.sample(users_list, random.randint(0, len(users_list) // 2))],
             content=''.join(random.choices(string.ascii_letters, k=50)),
             replies=generate_replies(random.randint(0, 5), users_list),
         ))

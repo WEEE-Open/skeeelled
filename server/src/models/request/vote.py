@@ -5,7 +5,7 @@ from typing import Dict, Any
 
 
 class Vote(BaseModel):
-    user_id: str = None
+    user_id: str
     comment_id: PyObjectId = None
     reply_id: PyObjectId = None
 

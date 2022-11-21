@@ -1,9 +1,10 @@
+import db
 import models
 from models.objectid import ObjectId, PyObjectId
 from fastapi import APIRouter, HTTPException, Response
 from db import db, DbName
-from utils import responses
-from typing import Tuple
+from utils import responses, get_by_path
+from typing import Literal
 
 router = APIRouter()
 
@@ -48,7 +49,7 @@ async def get_questions(question_id: PyObjectId) -> models.response.Question:
 
 
 @router.get("/comment", response_model=models.response.CommentWithoutReplies, responses=responses([404]))
-async def get_answer(comment_id: PyObjectId) -> models.response.CommentWithoutReplies:
+async def get_comment(comment_id: PyObjectId) -> models.response.CommentWithoutReplies:
     comment = db[DbName.COMMENT.value].aggregate([
         {"$match": {"_id": comment_id}},
         {"$lookup": {"from": DbName.USER.value, "localField": "author", "foreignField": "_id", "as": "author"}},
@@ -118,32 +119,38 @@ async def bookmark_question(bookmark: models.request.Bookmark):
         "$push": {"my_BookmarkedQuestions": {"$each": [bookmark.question_id], "$position": 0}}})
 
 
-async def post_vote(vote: models.request.Vote, field: str) -> Tuple[bool, bool]:
-    if field != "upvotes" and field != "downvotes":
-        raise Exception("field name must be 'upvotes' or 'downvotes'")
+async def post_vote(vote: models.request.Vote, direction: Literal["up", "down"]) -> Literal["voted", "unvoted"]:
+    user = await db[DbName.USER.value].find_one({"_id": vote.user_id})
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
 
-    if vote.comment_id is not None:
-        filter_ = {"_id": vote.comment_id}
-        update = {"$inc": {field: 1}}
-        is_comment = True
-    else:
-        filter_ = {"replies._id": vote.reply_id}
-        update = {"$inc": {f"replies.$.{field}": 1}}
-        is_comment = False
+    opp = "down" if direction == "up" else "up"
+    is_comment = bool(vote.comment_id)
+    filter_ = {"_id": vote.comment_id} if is_comment else {"replies._id": vote.reply_id}
+    projection = None if is_comment else {f"replies.$": True}
+    path_get = f"{direction}voted_by" if is_comment else f"replies.0.{direction}voted_by"
+    path_update = path_get if is_comment else path_get.replace(".0.", ".$.")
+    path_opp = path_update.replace(direction, opp)
 
-    res = await db[DbName.COMMENT.value].update_one(filter_, update)
-    return is_comment, res.matched_count > 0
+    voted_by = await db[DbName.COMMENT.value].find_one(filter_, projection)
+    if voted_by is None:
+        raise HTTPException(status_code=404, detail=f"{'Comment' if is_comment else 'Reply'} not found")
+
+    voted_by = get_by_path(voted_by, path_get)
+
+    if vote.user_id in voted_by:
+        await db[DbName.COMMENT.value].update_one(filter_, {"$pull": {path_update: vote.user_id}})
+        return "unvoted"
+
+    await db[DbName.COMMENT.value].update_one(filter_, {"$push": {path_update: vote.user_id}, "$pull": {path_opp: vote.user_id}})
+    return "voted"
 
 
-@router.post("/upvote", status_code=204, response_class=Response, responses=responses([404]))
+@router.post("/upvote", status_code=200, response_model=models.response.VoteResult, responses=responses([404]))
 async def upvote(vote: models.request.Vote):
-    is_comment, matched = await post_vote(vote, "upvotes")
-    if not matched:
-        raise HTTPException(status_code=404, detail=f"{'Comment' if is_comment else 'Reply'} not found")
+    return models.response.VoteResult(msg=await post_vote(vote, "up"))
 
 
-@router.post("/downvote", status_code=204, response_class=Response, responses=responses([404]))
+@router.post("/downvote", status_code=200, response_model=models.response.VoteResult, responses=responses([404]))
 async def downvote(vote: models.request.Vote):
-    is_comment, matched = await post_vote(vote, "downvotes")
-    if not matched:
-        raise HTTPException(status_code=404, detail=f"{'Comment' if is_comment else 'Reply'} not found")
+    return models.response.VoteResult(msg=await post_vote(vote, "down"))

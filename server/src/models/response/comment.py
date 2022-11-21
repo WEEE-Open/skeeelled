@@ -1,33 +1,33 @@
-from ..db.comment import Comment as _Comment
-from ..db.comment import Reply as _Reply
+from ..db.comment import CommentBase as _CommentBase
 from ..basemodel import BaseModel
 from ..objectid import PyObjectId
-from pydantic import Field
-from typing import Dict, Any, Type, List, Union
+from pydantic import Field, root_validator
+from typing import List, Union
 from .user import User
-from .question import Question
 
 
-class Reply(_Reply):
+class CommentBase(_CommentBase):
     author: Union[User, str]
+    upvotes: int = 0
+    downvotes: int = 0
+
+    @root_validator
+    def set_upvotes_downvotes(cls, values):
+        values["upvotes"] = len(values.get("upvoted_by", []))
+        values["downvotes"] = len(values.get("downvoted_by", []))
+        return values
 
 
-class Comment(_Comment):
-    author: Union[User, str]
-    question_id: Union[Question, PyObjectId]
+class Reply(CommentBase):
+    pass
+
+
+class CommentWithoutReplies(CommentBase):
+    question_id: PyObjectId
+
+
+class Comment(CommentWithoutReplies):
     replies: List[Reply] = []
-
-    class Config(_Comment.Config):
-        fields = {"question_id": {"alias": "question"}}
-
-
-class CommentWithoutReplies(Comment):
-    class Config(Comment.Config):
-        fields = Comment.Config.fields | {"replies": {"exclude": True}}
-
-        @staticmethod
-        def schema_extra(schema: Dict[str, Any], model: Type["Comment"]) -> None:
-            schema.get("properties", {}).pop("replies")
 
 
 class Replies(BaseModel):
