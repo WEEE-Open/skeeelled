@@ -153,3 +153,14 @@ async def upvote(vote: models.request.Vote):
 @router.post("/downvote", status_code=204, response_class=Response, responses=responses([404]))
 async def downvote(vote: models.request.Vote):
     await post_vote(vote, "down")
+
+
+@router.post("/unvote", status_code=204, response_class=Response)
+async def unvote(vote: models.request.Vote):
+    is_comment = bool(vote.comment_id)
+    filter_ = {"_id": vote.comment_id} if is_comment else {"replies._id": vote.reply_id}
+    path = "" if is_comment else f"replies.0."
+    await db[DbName.COMMENT.value].update_one(filter_, {"$pull": {
+        path+"upvoted_by": vote.user_id,
+        path+"downvoted_by": vote.user_id
+    }})
