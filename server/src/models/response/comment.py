@@ -2,7 +2,7 @@ from ..db.comment import CommentBase as _CommentBase
 from ..basemodel import BaseModel
 from ..objectid import PyObjectId
 from pydantic import Field, root_validator
-from typing import List, Union
+from typing import List, Union, Dict, Any, Type
 from .user import User
 
 
@@ -13,9 +13,15 @@ class CommentBase(_CommentBase):
 
     @root_validator
     def set_upvotes_downvotes(cls, values):
-        values["upvotes"] = len(values.get("upvoted_by", []))
-        values["downvotes"] = len(values.get("downvoted_by", []))
+        values["upvoted_by"] = len(values.get("upvoted_by", []))
+        values["downvoted_by"] = len(values.get("downvoted_by", []))
         return values
+
+    class Config(_CommentBase.Config):
+        @staticmethod
+        def schema_extra(schema: Dict[str, Any], _):
+            schema.get("properties", {}).pop("upvoted_by")
+            schema.get("properties", {}).pop("downvoted_by")
 
 
 class Reply(CommentBase):
