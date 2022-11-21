@@ -119,7 +119,7 @@ async def bookmark_question(bookmark: models.request.Bookmark):
         "$push": {"my_BookmarkedQuestions": {"$each": [bookmark.question_id], "$position": 0}}})
 
 
-async def post_vote(vote: models.request.Vote, direction: Literal["up", "down"]) -> Literal["voted", "unvoted"]:
+async def post_vote(vote: models.request.Vote, direction: Literal["up", "down"]):
     user = await db[DbName.USER.value].find_one({"_id": vote.user_id})
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -139,18 +139,17 @@ async def post_vote(vote: models.request.Vote, direction: Literal["up", "down"])
     voted_by = get_by_path(voted_by, path_get)
 
     if vote.user_id in voted_by:
-        await db[DbName.COMMENT.value].update_one(filter_, {"$pull": {path_update: vote.user_id}})
-        return "unvoted"
+        raise HTTPException(status_code=418, detail=f"Question already {direction}voted")
 
-    await db[DbName.COMMENT.value].update_one(filter_, {"$push": {path_update: vote.user_id}, "$pull": {path_opp: vote.user_id}})
-    return "voted"
+    await db[DbName.COMMENT.value].update_one(filter_,
+                                              {"$push": {path_update: vote.user_id}, "$pull": {path_opp: vote.user_id}})
 
 
-@router.post("/upvote", status_code=200, response_model=models.response.VoteResult, responses=responses([404]))
+@router.post("/upvote", status_code=204, response_class=Response, responses=responses([404, 418]))
 async def upvote(vote: models.request.Vote):
-    return models.response.VoteResult(msg=await post_vote(vote, "up"))
+    await post_vote(vote, "up")
 
 
-@router.post("/downvote", status_code=200, response_model=models.response.VoteResult, responses=responses([404]))
+@router.post("/downvote", status_code=204, response_class=Response, responses=responses([404]))
 async def downvote(vote: models.request.Vote):
-    return models.response.VoteResult(msg=await post_vote(vote, "down"))
+    await post_vote(vote, "down")
