@@ -5,6 +5,7 @@ from fastapi import APIRouter, HTTPException, Response
 from db import db, DbName
 from utils import responses, get_by_path
 from typing import Literal
+import functools
 
 router = APIRouter()
 
@@ -141,6 +142,10 @@ async def post_vote(vote: models.request.Vote, direction: Literal["up", "down"])
     path_get = f"{direction}voted_by" if is_comment else f"replies.0.{direction}voted_by"
     path_update = path_get if is_comment else path_get.replace(".0.", ".$.")
     path_opp = path_update.replace(direction, opp)
+    update = {
+        "$push": {path_update: vote.user_id},
+        "$pull": {path_opp: vote.user_id}
+    }
 
     voted_by = await db[DbName.COMMENT.value].find_one(filter_, projection)
     if voted_by is None:
@@ -149,14 +154,13 @@ async def post_vote(vote: models.request.Vote, direction: Literal["up", "down"])
     has_verified_upvotes = get_by_path(voted_by, f"{path}has_verified_upvotes".replace(".$.", ".0."))
     voted_by = get_by_path(voted_by, path_get)
 
+    if direction == "up":
+        update["$set"] = {f"{path}has_verified_upvotes": has_verified_upvotes or user["is_professor"]}
+
     if vote.user_id in voted_by:
         raise HTTPException(status_code=418, detail=f"Question already {direction}voted")
 
-    await db[DbName.COMMENT.value].update_one(filter_, {
-        "$push": {path_update: vote.user_id},
-        "$pull": {path_opp: vote.user_id},
-        "$set": {f"{path}has_verified_upvotes": has_verified_upvotes or user["is_professor"]}
-    })
+    await db[DbName.COMMENT.value].update_one(filter_, update)
 
 
 @router.post("/upvote", status_code=204, response_class=Response, responses=responses([404, 418]))
@@ -173,8 +177,41 @@ async def downvote(vote: models.request.Vote):
 async def unvote(vote: models.request.Vote):
     is_comment = bool(vote.comment_id)
     filter_ = {"_id": vote.comment_id} if is_comment else {"replies._id": vote.reply_id}
-    path = "" if is_comment else f"replies.0."
-    await db[DbName.COMMENT.value].update_one(filter_, {"$pull": {
-        path+"upvoted_by": vote.user_id,
-        path+"downvoted_by": vote.user_id
-    }})
+    path = "" if is_comment else "replies."
+    update_path = path + ("" if is_comment else "$.")
+    local_field = "upvoted_by" if is_comment else "replies.upvoted_by"
+
+    pipeline = [
+        {"$match": filter_},
+        {"$lookup": {
+            "from": DbName.USER.value,
+            "localField": local_field,
+            "foreignField": "_id",
+            "as": "upvoted_users"
+        }},
+        {"$project": {
+            "upvoted_users": {"$filter": {"input": "$upvoted_users", "cond": {"$ne": [vote.user_id, "$$this._id"]}}}}
+        },
+        {"$project": {"upvoted_users": {"is_professor": True}}}
+    ]
+
+    if not is_comment:
+        pipeline.insert(0, {"$unwind": "$replies"})
+
+    comment = db[DbName.COMMENT.value].aggregate(pipeline)
+
+    try:
+        comment = await comment.next()
+        has_verified_upvotes = functools.reduce(lambda c, u: c or u["is_professor"],
+                                                comment["upvoted_users"], False)
+        print(has_verified_upvotes)
+    except StopAsyncIteration:
+        raise HTTPException(status_code=404, detail=f"{'Comment' if is_comment else 'Reply'} not found")
+
+    await db[DbName.COMMENT.value].update_one(filter_, {
+        "$pull": {
+            f"{update_path}upvoted_by": vote.user_id,
+            f"{update_path}downvoted_by": vote.user_id
+        },
+        "$set": {f"{update_path}has_verified_upvotes": has_verified_upvotes}
+    })
