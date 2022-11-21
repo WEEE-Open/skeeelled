@@ -137,6 +137,7 @@ async def post_vote(vote: models.request.Vote, direction: Literal["up", "down"])
     is_comment = bool(vote.comment_id)
     filter_ = {"_id": vote.comment_id} if is_comment else {"replies._id": vote.reply_id}
     projection = None if is_comment else {f"replies.$": True}
+    path = "" if is_comment else f"replies.$."
     path_get = f"{direction}voted_by" if is_comment else f"replies.0.{direction}voted_by"
     path_update = path_get if is_comment else path_get.replace(".0.", ".$.")
     path_opp = path_update.replace(direction, opp)
@@ -145,13 +146,17 @@ async def post_vote(vote: models.request.Vote, direction: Literal["up", "down"])
     if voted_by is None:
         raise HTTPException(status_code=404, detail=f"{'Comment' if is_comment else 'Reply'} not found")
 
+    has_verified_upvotes = get_by_path(voted_by, f"{path}has_verified_upvotes".replace(".$.", ".0."))
     voted_by = get_by_path(voted_by, path_get)
 
     if vote.user_id in voted_by:
         raise HTTPException(status_code=418, detail=f"Question already {direction}voted")
 
-    await db[DbName.COMMENT.value].update_one(filter_,
-                                              {"$push": {path_update: vote.user_id}, "$pull": {path_opp: vote.user_id}})
+    await db[DbName.COMMENT.value].update_one(filter_, {
+        "$push": {path_update: vote.user_id},
+        "$pull": {path_opp: vote.user_id},
+        "$set": {f"{path}has_verified_upvotes": has_verified_upvotes or user["is_professor"]}
+    })
 
 
 @router.post("/upvote", status_code=204, response_class=Response, responses=responses([404, 418]))
