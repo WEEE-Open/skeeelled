@@ -134,6 +134,7 @@ def generate_simulations(n: int, user: User, questions: List[Question]) -> List[
             len((available_questions := [q.id for q in questions if q.course_id == course_id])) < 10 \
             else random.sample(available_questions, 10)
         simulations.append(ExamSimulation(
+            user_id=user.id,
             course_id=course_id,
             content=content,
             results=[round(random.uniform(18, 30), 1)]
@@ -146,21 +147,21 @@ async def main():
     await db[DbName.COURSE.value].drop()
     await db[DbName.QUESTION.value].drop()
     await db[DbName.COMMENT.value].drop()
+    await db[DbName.SIMULATION.value].drop()
 
     professors = generate_users(5, True)
     students = generate_users(50, False)
     courses = generate_courses(20, professors, students)
     questions = [q for c in courses for q in generate_questions(c.id, professors, students)]
     comments = [c for q in questions for c in generate_comments(5, q.id, professors + students)]
-
-    for s in students:
-        s.simulation_results = generate_simulations(random.randint(1, 8), s, questions)
+    simulations = [si for st in students for si in generate_simulations(random.randint(1, 8), st, questions)]
 
     await db[DbName.USER.value].insert_many([p.dict(by_alias=True) for p in professors])
     await db[DbName.USER.value].insert_many([s.dict(by_alias=True) for s in students])
     await db[DbName.COURSE.value].insert_many(c.dict(by_alias=True) for c in courses)
     await db[DbName.QUESTION.value].insert_many([q.dict(by_alias=True) for q in questions])
     await db[DbName.COMMENT.value].insert_many([c.dict(by_alias=True) for c in comments])
+    await db[DbName.SIMULATION.value].insert_many([s.dict(by_alias=True) for s in simulations])
 
 if __name__ == "__main__":
     print("Beginning test data generation")
