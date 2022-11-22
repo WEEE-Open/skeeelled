@@ -32,7 +32,7 @@ async def get_course(course_id: str) -> models.response.Course:
 
 
 @router.get("/question", response_model=models.response.Question, responses=responses([404]))
-async def get_questions(question_id: PyObjectId) -> models.response.Question:
+async def get_question(question_id: PyObjectId) -> models.response.Question:
     question = db[DbName.QUESTION.value].aggregate([
         {"$match": {"_id": question_id}},
         {"$lookup": {"from": DbName.USER.value, "localField": "owner", "foreignField": "_id", "as": "owner"}},
@@ -121,7 +121,7 @@ async def bookmark_question(bookmark: models.request.Bookmark):
 
 
 @router.post("/unbookmarkQuestion", status_code=204, response_class=Response, responses=responses([404]))
-async def bookmark_question(bookmark: models.request.Bookmark):
+async def unbookmark_question(bookmark: models.request.Bookmark):
     user = await db[DbName.USER.value].find_one({"_id": bookmark.user_id})
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")

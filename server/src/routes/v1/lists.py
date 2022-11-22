@@ -1,17 +1,16 @@
 from fastapi import APIRouter, HTTPException
 from db import db, DbName
 from pymongo import ASCENDING, DESCENDING
-from typing import List
+from typing import List, Dict
 from models.objectid import PyObjectId
-from models.response import Question, Comment, CommentWithoutReplies, Replies, UserBookmarkedQuestions, \
-    UserSimulationResults, Course
+from models.response import Question, Comment, CommentWithoutReplies, Replies, UserBookmarkedQuestions, Course, SimulationResult
 from utils import responses
 
 router = APIRouter()
 
 
 @router.get("/myQuestions", response_model=List[Question])
-async def get_user_myQuestions(user_id: str, page: int = 1, itemsPerPage: int = -1) -> List[Question]:
+async def get_user_questions(user_id: str, page: int = 1, itemsPerPage: int = -1) -> List[Question]:
     questions = await db[DbName.QUESTION.value].find({"owner": user_id}) \
         .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
         .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
@@ -20,7 +19,7 @@ async def get_user_myQuestions(user_id: str, page: int = 1, itemsPerPage: int = 
 
 
 @router.get("/myComments", response_model=List[CommentWithoutReplies])
-async def get_user_myComments(user_id: str, page: int = 1, itemsPerPage: int = -1) -> List[CommentWithoutReplies]:
+async def get_user_comments(user_id: str, page: int = 1, itemsPerPage: int = -1) -> List[CommentWithoutReplies]:
     comments = await db[DbName.COMMENT.value].find({"author": user_id}, {"replies": False}) \
         .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
         .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
@@ -29,7 +28,7 @@ async def get_user_myComments(user_id: str, page: int = 1, itemsPerPage: int = -
 
 
 @router.get("/myReplies", response_model=List[Comment])
-async def get_user_myReplies(user_id: str, page: int = 1, itemsPerPage: int = -1) -> List[Comment]:
+async def get_user_replies(user_id: str, page: int = 1, itemsPerPage: int = -1) -> List[Comment]:
     comments = await db[DbName.COMMENT.value].find({"replies.author": user_id}) \
         .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
         .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
@@ -37,8 +36,24 @@ async def get_user_myReplies(user_id: str, page: int = 1, itemsPerPage: int = -1
     return comments
 
 
+@router.get("/mySimulationResults", response_model=List[SimulationResult])
+async def get_user_simulation_results(user_id: str, page: int = 1, itemsPerPage: int = -1) -> List[SimulationResult]:
+    pipeline: List[Dict] = [
+        {"$match": {"user_id": user_id}},
+        {"$lookup": {"from": DbName.COURSE.value, "localField": "course_id", "foreignField": "_id", "as": "course_id"}},
+        {"$unwind": "$course_id"},
+        {"$sort": {"timestamp": DESCENDING, "_id": DESCENDING}},
+    ]
+    if itemsPerPage > 0:
+        pipeline.append({"$skip": (page - 1) * itemsPerPage})
+    simulations = await db[DbName.SIMULATION.value].aggregate(pipeline) \
+        .to_list(itemsPerPage if itemsPerPage > 0 else None)
+    print(simulations)
+    return simulations
+
+
 @router.get("/myBookmarkedQuestions", response_model=UserBookmarkedQuestions, responses=responses([404]))
-async def get_user_myBookmarkedQuestions(user_id: str, page: int = 1,
+async def get_user_bookmarked_questions(user_id: str, page: int = 1,
                                          itemsPerPage: int = -1) -> UserBookmarkedQuestions:
     user = db[DbName.USER.value].aggregate([
         {"$match": {"_id": user_id}},
@@ -52,15 +67,6 @@ async def get_user_myBookmarkedQuestions(user_id: str, page: int = 1,
         return user
     except StopAsyncIteration:
         raise HTTPException(status_code=404, detail="User not found")
-
-
-@router.get("/mySimulationResults", response_model=UserSimulationResults, responses=responses([404]))
-async def get_user_mySimulationResults(user_id: str, page: int = 1, itemsPerPage: int = -1) -> UserSimulationResults:
-    user_simulations = await db[DbName.USER.value].find_one({"_id": user_id}, {
-        "simulation_results": True if itemsPerPage < 1 else {"$slice": [(page - 1) * itemsPerPage, itemsPerPage]}})
-    if user_simulations is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return user_simulations
 
 
 @router.get("/courses", response_model=List[Course])
