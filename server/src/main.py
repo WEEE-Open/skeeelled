@@ -8,6 +8,7 @@ from db import db, DbName
 from routes import router as main_router
 from models.db.question import Question, multiple_insertion
 from models.db.quiz import Quiz
+from models.db.simulation import ExamSimulation
 import json
 
 app = FastAPI()
@@ -114,3 +115,12 @@ async def get_simulation(user_id: str, simulation_id: str):
 
     return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
                         content="No simulation found")
+
+
+@app.post("/v1/simulation")
+async def post_simulation(simulation: ExamSimulation):
+    result = await db[DbName.SIMULATION.value].insert_one(simulation.dict())
+    if result:
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"inserted_id": str(result.inserted_id)})
+    return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                        content="Insertion not executed")
