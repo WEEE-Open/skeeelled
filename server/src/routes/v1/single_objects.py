@@ -204,7 +204,7 @@ async def unvote(vote: models.request.Vote):
         comment = await comment.next()
         has_verified_upvotes = functools.reduce(lambda c, u: c or u["is_professor"],
                                                 comment["upvoted_users"], False)
-        print(has_verified_upvotes)
+
     except StopAsyncIteration:
         raise HTTPException(status_code=404, detail=f"{'Comment' if is_comment else 'Reply'} not found")
 

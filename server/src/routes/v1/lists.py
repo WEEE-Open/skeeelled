@@ -48,7 +48,6 @@ async def get_user_simulation_results(user_id: str, page: int = 1, itemsPerPage:
         pipeline.append({"$skip": (page - 1) * itemsPerPage})
     simulations = await db[DbName.SIMULATION.value].aggregate(pipeline) \
         .to_list(itemsPerPage if itemsPerPage > 0 else None)
-    print(simulations)
     return simulations
 
 
