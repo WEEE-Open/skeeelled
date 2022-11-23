@@ -10,7 +10,7 @@ import functools
 router = APIRouter()
 
 
-@router.get("/user", response_model=models.response.User, responses=responses([404]))
+@router.get("/user", response_model=models.response.User, responses=responses(404))
 async def get_user(user_id: str) -> models.response.User:
     user = await db[DbName.USER.value].find_one({"_id": user_id})
     if user is None:
@@ -18,7 +18,7 @@ async def get_user(user_id: str) -> models.response.User:
     return user
 
 
-@router.get("/course", response_model=models.response.Course, responses=responses([404]))
+@router.get("/course", response_model=models.response.Course, responses=responses(404))
 async def get_course(course_id: str) -> models.response.Course:
     course = db[DbName.COURSE.value].aggregate([
         {"$match": {"_id": course_id}},
@@ -31,7 +31,7 @@ async def get_course(course_id: str) -> models.response.Course:
         raise HTTPException(status_code=404, detail="Course not found")
 
 
-@router.get("/question", response_model=models.response.Question, responses=responses([404]))
+@router.get("/question", response_model=models.response.Question, responses=responses(404))
 async def get_question(question_id: PyObjectId) -> models.response.Question:
     question = db[DbName.QUESTION.value].aggregate([
         {"$match": {"_id": question_id}},
@@ -49,7 +49,7 @@ async def get_question(question_id: PyObjectId) -> models.response.Question:
         raise HTTPException(status_code=404, detail="Question not found")
 
 
-@router.get("/comment", response_model=models.response.CommentWithoutReplies, responses=responses([404]))
+@router.get("/comment", response_model=models.response.CommentWithoutReplies, responses=responses(404))
 async def get_comment(comment_id: PyObjectId) -> models.response.CommentWithoutReplies:
     comment = db[DbName.COMMENT.value].aggregate([
         {"$match": {"_id": comment_id}},
@@ -64,7 +64,7 @@ async def get_comment(comment_id: PyObjectId) -> models.response.CommentWithoutR
 
 
 @router.post("/comment", status_code=201, response_model=models.response.CommentWithoutReplies,
-             responses=responses([404, 403]))
+             responses=responses(404, 403))
 async def post_comment(comment: models.request.Comment):
     author = await db[DbName.USER.value].find_one({"_id": comment.author})
     if author is None:
@@ -80,7 +80,7 @@ async def post_comment(comment: models.request.Comment):
     return new_comment
 
 
-@router.post("/reply", status_code=201, response_model=models.response.Reply, responses=responses([404, 403]))
+@router.post("/reply", status_code=201, response_model=models.response.Reply, responses=responses(404, 403))
 async def post_reply(reply: models.request.Reply):
     author = await db[DbName.USER.value].find_one({"_id": reply.author})
     if author is None:
@@ -104,7 +104,7 @@ async def post_reply(reply: models.request.Reply):
     return new_reply
 
 
-@router.post("/bookmarkQuestion", status_code=204, response_class=Response, responses=responses([404, 403, 418]))
+@router.post("/bookmarkQuestion", status_code=204, response_class=Response, responses=responses(404, 403, 418))
 async def bookmark_question(bookmark: models.request.Bookmark):
     user = await db[DbName.USER.value].find_one({"_id": bookmark.user_id})
     if user is None:
@@ -120,7 +120,7 @@ async def bookmark_question(bookmark: models.request.Bookmark):
         "$push": {"my_BookmarkedQuestions": {"$each": [bookmark.question_id], "$position": 0}}})
 
 
-@router.post("/unbookmarkQuestion", status_code=204, response_class=Response, responses=responses([404]))
+@router.post("/unbookmarkQuestion", status_code=204, response_class=Response, responses=responses(404))
 async def unbookmark_question(bookmark: models.request.Bookmark):
     user = await db[DbName.USER.value].find_one({"_id": bookmark.user_id})
     if user is None:
@@ -163,17 +163,17 @@ async def post_vote(vote: models.request.Vote, direction: Literal["up", "down"])
     await db[DbName.COMMENT.value].update_one(filter_, update)
 
 
-@router.post("/upvote", status_code=204, response_class=Response, responses=responses([404, 418]))
+@router.post("/upvote", status_code=204, response_class=Response, responses=responses(404, 418))
 async def upvote(vote: models.request.Vote):
     await post_vote(vote, "up")
 
 
-@router.post("/downvote", status_code=204, response_class=Response, responses=responses([404]))
+@router.post("/downvote", status_code=204, response_class=Response, responses=responses(404, 418))
 async def downvote(vote: models.request.Vote):
     await post_vote(vote, "down")
 
 
-@router.post("/unvote", status_code=204, response_class=Response)
+@router.post("/unvote", status_code=204, response_class=Response, responses=responses(404))
 async def unvote(vote: models.request.Vote):
     is_comment = bool(vote.comment_id)
     filter_ = {"_id": vote.comment_id} if is_comment else {"replies._id": vote.reply_id}

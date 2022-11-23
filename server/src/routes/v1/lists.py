@@ -5,12 +5,13 @@ from typing import List, Dict
 from models.objectid import PyObjectId
 from models.response import Question, Comment, CommentWithoutReplies, Replies, UserBookmarkedQuestions, Course, SimulationResult
 from utils import responses
+from pydantic import PositiveInt
 
 router = APIRouter()
 
 
 @router.get("/myQuestions", response_model=List[Question])
-async def get_user_questions(user_id: str, page: int = 1, itemsPerPage: int = -1) -> List[Question]:
+async def get_user_questions(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
     questions = await db[DbName.QUESTION.value].find({"owner": user_id}) \
         .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
         .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
@@ -19,7 +20,7 @@ async def get_user_questions(user_id: str, page: int = 1, itemsPerPage: int = -1
 
 
 @router.get("/myComments", response_model=List[CommentWithoutReplies])
-async def get_user_comments(user_id: str, page: int = 1, itemsPerPage: int = -1) -> List[CommentWithoutReplies]:
+async def get_user_comments(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
     comments = await db[DbName.COMMENT.value].find({"author": user_id}, {"replies": False}) \
         .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
         .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
@@ -28,7 +29,7 @@ async def get_user_comments(user_id: str, page: int = 1, itemsPerPage: int = -1)
 
 
 @router.get("/myReplies", response_model=List[Comment])
-async def get_user_replies(user_id: str, page: int = 1, itemsPerPage: int = -1) -> List[Comment]:
+async def get_user_replies(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
     comments = await db[DbName.COMMENT.value].find({"replies.author": user_id}) \
         .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
         .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
@@ -36,8 +37,21 @@ async def get_user_replies(user_id: str, page: int = 1, itemsPerPage: int = -1) 
     return comments
 
 
+@router.get("/myCoursesNewQuestions", response_model=List[Question], responses=responses(404))
+async def get_new_questions_from_user_courses(user_id: str, itemsPerPage: PositiveInt, page: PositiveInt = 1):
+    user = await db[DbName.USER.value].find_one({"_id": user_id})
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    courses = user["related_courses"]
+    questions = await db[DbName.QUESTION.value].find({"course_id": {"$in": courses}}) \
+        .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
+        .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
+        .to_list(itemsPerPage if itemsPerPage > 0 else None)
+    return questions
+
+
 @router.get("/mySimulationResults", response_model=List[SimulationResult])
-async def get_user_simulation_results(user_id: str, page: int = 1, itemsPerPage: int = -1) -> List[SimulationResult]:
+async def get_user_simulation_results(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
     pipeline: List[Dict] = [
         {"$match": {"user_id": user_id}},
         {"$lookup": {"from": DbName.COURSE.value, "localField": "course_id", "foreignField": "_id", "as": "course_id"}},
@@ -51,9 +65,8 @@ async def get_user_simulation_results(user_id: str, page: int = 1, itemsPerPage:
     return simulations
 
 
-@router.get("/myBookmarkedQuestions", response_model=UserBookmarkedQuestions, responses=responses([404]))
-async def get_user_bookmarked_questions(user_id: str, page: int = 1,
-                                         itemsPerPage: int = -1) -> UserBookmarkedQuestions:
+@router.get("/myBookmarkedQuestions", response_model=UserBookmarkedQuestions, responses=responses(404))
+async def get_user_bookmarked_questions(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
     user = db[DbName.USER.value].aggregate([
         {"$match": {"_id": user_id}},
         {"$lookup": {"from": DbName.QUESTION.value, "localField": "my_BookmarkedQuestions", "foreignField": "_id",
@@ -69,7 +82,7 @@ async def get_user_bookmarked_questions(user_id: str, page: int = 1,
 
 
 @router.get("/courses", response_model=List[Course])
-async def get_courses(page: int = 1, itemsPerPage: int = -1) -> List[Course]:
+async def get_courses(page: PositiveInt = 1, itemsPerPage: int = -1):
     pipeline = [
         {"$lookup": {"from": DbName.USER.value, "localField": "professors", "foreignField": "_id", "as": "professors"}},
         {"$sort": {"_id": ASCENDING}}
@@ -81,7 +94,7 @@ async def get_courses(page: int = 1, itemsPerPage: int = -1) -> List[Course]:
 
 
 @router.get("/questions", response_model=List[Question])
-async def get_questions(course_id: str, page: int = 1, itemsPerPage: int = -1) -> List[Question]:
+async def get_questions(course_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
     questions = await db[DbName.QUESTION.value].find({"course_id": course_id}) \
         .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
         .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
@@ -90,7 +103,7 @@ async def get_questions(course_id: str, page: int = 1, itemsPerPage: int = -1) -
 
 
 @router.get("/discussion", response_model=List[CommentWithoutReplies])
-async def get_comments(question_id: PyObjectId, page: int = 1, itemsPerPage: int = -1) -> List[CommentWithoutReplies]:
+async def get_comments(question_id: PyObjectId, page: PositiveInt = 1, itemsPerPage: int = -1):
     comments = await db[DbName.COMMENT.value].find({"question_id": question_id}, {"replies": False}) \
         .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
         .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
@@ -98,8 +111,8 @@ async def get_comments(question_id: PyObjectId, page: int = 1, itemsPerPage: int
     return comments
 
 
-@router.get("/replies", response_model=Replies, responses=responses([404]))
-async def get_replies(comment_id: PyObjectId, page: int = 1, itemsPerPage: int = -1) -> Replies:
+@router.get("/replies", response_model=Replies, responses=responses(404))
+async def get_replies(comment_id: PyObjectId, page: PositiveInt = 1, itemsPerPage: int = -1):
     replies = await db[DbName.COMMENT.value].find_one({"_id": comment_id}, {
         "replies": True if itemsPerPage < 1 else {"$slice": [(page - 1) * itemsPerPage, itemsPerPage]}})
     if replies is None:
