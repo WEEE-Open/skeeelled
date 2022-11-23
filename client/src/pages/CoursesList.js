@@ -1,11 +1,12 @@
 import { Row, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useState /* , useEffect */ } from "react";
+import {useEffect, useState /* , useEffect */} from "react";
 
 import { Recent, List, SearchBar, MyPagination } from "../base/";
 import "./stylesheet/CoursesList.css";
 import Suggestion from "../base/Suggestion";
-// import API from "../api/API";
+import API from "../api/API";
+import CourseObj from "../entities/CourseObj";
 
 function CoursesList() {
   /** Mock courses and questions **/
@@ -51,6 +52,11 @@ function CoursesList() {
       excerpt: "Cras justo odio...",
     },
   ];
+
+
+  const allCourses = API.getCourses()
+
+  console.log(allCourses)
 
   const [courses, setCourses] = useState(fakeCourses /*[]*/);
   const [myCourses, setMyCourses] = useState([]);
