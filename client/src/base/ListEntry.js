@@ -90,6 +90,7 @@ function ListEntryAnswers(props) {
       <Row className="answerEntry-credential">
         <Col colSpan="2">
           <Row>
+
               <Col>{props.row.author}, {props.row.createdat}</Col>
           <Col className="header-svg">
             <span className="reply-link mx-3">
@@ -100,6 +101,7 @@ function ListEntryAnswers(props) {
               />
             </span>
           </Col>
+
           </Row>
         </Col>
       </Row>

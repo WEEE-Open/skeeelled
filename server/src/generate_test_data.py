@@ -10,10 +10,11 @@ import random
 from bson.objectid import ObjectId
 
 from db import DbName
-from models.user import User
-from models.course import Course
-from models.question import Question
-from models.comment import Comment, Reply
+from models.db.user import User
+from models.db.course import Course
+from models.db.question import Question
+from models.db.comment import Comment, Reply
+from models.db.simulation import ExamSimulation
 
 client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongodb:27017/")
 client.get_io_loop = asyncio.get_running_loop
@@ -29,13 +30,13 @@ with open(os.path.join("../test_data_base", "questions")) as jsonfile:
 def generate_users(n: int, is_professor: bool) -> List[User]:
     user_list = []
     ids = list(set([f"d{random.randint(11111, 99999)}" if is_professor else f"s{random.randint(183545, 309999)}"
-                    for _ in range(2*n)]))
+                    for _ in range(2 * n)]))
     for i in range(n):
         _id = ids[i]
         name = random.choice(["Mario", "Giovanni", "Guido"])
         surname = random.choice(["Rossi", "Bianchi", "Verdi"])
         user_list.append(User(
-            _id=_id,
+            id=_id,
             email=f"{name}.{surname}@polito.it" if is_professor else f"{_id}@studenti.polito.it",
             username=f"{name}.{surname}.{_id}",
             name=name,
@@ -49,7 +50,7 @@ def generate_users(n: int, is_professor: bool) -> List[User]:
     return user_list
 
 
-def generate_replies(n: int, course_code: str, users_list: List[User]) -> List[Reply]:
+def generate_replies(n: int, users_list: List[User]) -> List[Reply]:
     reply_list = []
     for i in range(n):
         _id = ObjectId()
@@ -57,34 +58,29 @@ def generate_replies(n: int, course_code: str, users_list: List[User]) -> List[R
         reply_list.append(Reply(
             _id=_id,
             author=author.id,
-            upvotes=random.randint(0, 100),
-            downvotes=random.randint(0, 100),
+            has_verified_upvotes=author.is_professor,
+            upvoted_by=[u.id for u in random.sample(users_list, random.randint(0, len(users_list) // 2))],
+            downvoted_by=[u.id for u in random.sample(users_list, random.randint(0, len(users_list) // 2))],
             content=''.join(random.choices(string.ascii_letters, k=50)),
         ))
-        author.my_Replies.append(str(_id))
-        if course_code not in author.related_courses:
-            author.related_courses.append(course_code)
-
     return reply_list
 
 
-def generate_comments(n: int, course_code: str, users_list: List[User]) -> List[Comment]:
+def generate_comments(n: int, question_id: ObjectId, users_list: List[User]) -> List[Comment]:
     comment_list = []
     for i in range(n):
         _id = ObjectId()
         author = random.choice(users_list)
         comment_list.append(Comment(
             _id=_id,
+            question_id=question_id,
             author=author.id,
-            upvotes=random.randint(0, 100),
-            downvotes=random.randint(0, 100),
+            has_verified_upvotes=author.is_professor,
+            upvoted_by=[u.id for u in random.sample(users_list, random.randint(0, len(users_list) // 2))],
+            downvoted_by=[u.id for u in random.sample(users_list, random.randint(0, len(users_list) // 2))],
             content=''.join(random.choices(string.ascii_letters, k=50)),
-            replies=generate_replies(random.randint(0, 5), course_code, users_list),
+            replies=generate_replies(random.randint(0, 5), users_list),
         ))
-        author.my_Comments.append(str(_id))
-        if course_code not in author.related_courses:
-            author.related_courses.append(course_code)
-
     return comment_list
 
 
@@ -93,57 +89,81 @@ def generate_questions(course_code: str, professors_list: List[User], students_l
     for q in qlist:
         _id = ObjectId()
         owner = random.choice(professors_list)
+        bookmarking_students = random.sample(students_list, random.randint(1, 50))
+        for s in bookmarking_students:
+            s.my_BookmarkedQuestions.append(_id)
         question_list.append(Question(
             _id=_id,
             owner=owner.id,
             title=q["content"]["name"]["text"],
+            course_id=course_code,
             content=q["content"]["questiontext"]["text"],
             hint=q["content"]["generalfeedback"]["text"],
-            comments=generate_comments(random.randint(0, 5), course_code, professors_list + students_list),
         ))
-        owner.my_Questions.append(str(_id))
-        random.choice(professors_list + students_list).my_BookmarkedQuestions.append(str(_id))
-
     return question_list
 
 
 def generate_courses(n: int, professors_list: List[User], students_list: List[User]) -> List[Course]:
     course_list = []
     codes = list(set(
-        [f"{''.join([random.choice(string.digits +  string.ascii_uppercase) for _ in range(7)])}" for _ in range(2*n)]
+        [f"{''.join([random.choice(string.digits + string.ascii_uppercase) for _ in range(7)])}" for _ in range(2 * n)]
     ))
     for i in range(n):
         code = codes[i]
         professors = random.sample(professors_list, random.randint(1, 3))
+        students = random.sample(students_list, random.randint(1, 50))
+        for p in professors:
+            p.related_courses.append(code)
+        for s in students:
+            s.related_courses.append(code)
         course_list.append(Course(
             _id=code,
             code=code,
             name=random.choice(['Analisi', 'Chimica', 'Informatica']),
             years_active=random.choice(([2020, 2021], [2020, 2021, 2022])),
             professors=[p.id for p in professors],
-            questions=generate_questions(code, professors, students_list),
         ))
-        for p in professors:
-            p.related_courses.append(code)
-
     return course_list
+
+
+def generate_simulations(n: int, user: User, questions: List[Question]) -> List[ExamSimulation]:
+    simulations = []
+    for i in range(n):
+        course_id = random.choice(user.related_courses)
+        content = available_questions if \
+            len((available_questions := [q.id for q in questions if q.course_id == course_id])) < 10 \
+            else random.sample(available_questions, 10)
+        simulations.append(ExamSimulation(
+            user_id=user.id,
+            course_id=course_id,
+            content=content,
+            results=[round(random.uniform(18, 30), 1)]
+        ))
+    return simulations
 
 
 async def main():
     await db[DbName.USER.value].drop()
     await db[DbName.COURSE.value].drop()
+    await db[DbName.QUESTION.value].drop()
+    await db[DbName.COMMENT.value].drop()
+    await db[DbName.SIMULATION.value].drop()
 
     professors = generate_users(5, True)
     students = generate_users(50, False)
     courses = generate_courses(20, professors, students)
+    questions = [q for c in courses for q in generate_questions(c.id, professors, students)]
+    comments = [c for q in questions for c in generate_comments(5, q.id, professors + students)]
+    simulations = [si for st in students for si in generate_simulations(random.randint(1, 8), st, questions)]
 
-    await db[DbName.USER.value].insert_many([p.dict() for p in professors])
-    await db[DbName.USER.value].insert_many([s.dict() for s in students])
-    await db[DbName.COURSE.value].insert_many(c.dict() for c in courses)
-
+    await db[DbName.USER.value].insert_many([p.dict(by_alias=True) for p in professors])
+    await db[DbName.USER.value].insert_many([s.dict(by_alias=True) for s in students])
+    await db[DbName.COURSE.value].insert_many(c.dict(by_alias=True) for c in courses)
+    await db[DbName.QUESTION.value].insert_many([q.dict(by_alias=True) for q in questions])
+    await db[DbName.COMMENT.value].insert_many([c.dict(by_alias=True) for c in comments])
+    await db[DbName.SIMULATION.value].insert_many([s.dict(by_alias=True) for s in simulations])
 
 if __name__ == "__main__":
     print("Beginning test data generation")
-    # print(qlist[0]["content"])
     asyncio.run(main())
     print("Test data generation finished successfully.")
