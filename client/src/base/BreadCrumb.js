@@ -98,7 +98,6 @@ export default function BreadCrumb(props) {
 
   const location = useLocation();
 
-  // record the
   const [crumbPathArr, setCrumbPathArr] = useState(
       // find the complete object path from the root lvl
     breadcrumbRecord.filter((e) => {
