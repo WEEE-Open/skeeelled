@@ -54,9 +54,13 @@ function CoursesList() {
   ];
 
 
-  const allCourses = API.getCourses()
+  const AllCourses = API.getCourses().then((a) => {
+    console.log(a)
+  }).catch((err)=> {
+    console.log(err)
+  })
 
-  console.log(allCourses)
+
 
   const [courses, setCourses] = useState(fakeCourses /*[]*/);
   const [myCourses, setMyCourses] = useState([]);
