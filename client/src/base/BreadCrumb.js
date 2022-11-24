@@ -93,13 +93,14 @@ export default function BreadCrumb(props) {
       path: `/bookmarks`,
       title: `Bookmarks`,
       children: [],
-    },
+    }
   ];
 
   const location = useLocation();
 
-  // record thee
+  // record the
   const [crumbPathArr, setCrumbPathArr] = useState(
+      // find the complete object path from the root lvl
     breadcrumbRecord.filter((e) => {
       if (location.pathname === e.path) {
         return e;
@@ -107,9 +108,18 @@ export default function BreadCrumb(props) {
     })
   );
 
+  const [currPath, setCurrPath] = useState(
+      // default = (Home, "/") => only toggle the root
+      breadcrumbRecord.filter((e) => {
+        if (location.pathname === e.path) {
+          return e;
+        }
+      })
+  )
+
+
   useEffect(() => {
     let isRoot = false;
-
     // if the reloaded page is root => re-route path
     setCrumbPathArr(
       breadcrumbRecord.filter((e) => {
@@ -119,19 +129,22 @@ export default function BreadCrumb(props) {
         }
       })
     );
+
     // if the reloaded page is not root => find parent-child path
     if (!isRoot) {
       setCrumbPathArr(findChild(crumbPathArr, location.pathname));
+      // setCurrPath(findPath(crumbPathArr, location.pathname, currPath));
     }
 
     console.log(crumbPathArr);
-    console.log(`location: ${location.pathname}`);
-  }, [location]);
+    console.log(`current location: ${location.pathname}`);
+  }, [location, ]);
 
   const findChild = (path, dest) => {
     let i;
     const root = path[path.length - 1];
 
+    // the end of path
     if (!root.children) {
       return path;
     }
@@ -145,16 +158,35 @@ export default function BreadCrumb(props) {
     return path;
   };
 
+  const findPath = (path, dest, curr) => {
+
+    let i;
+    const  root = path[0]
+
+    if (!root) {
+      return [];
+    }
+
+    if (dest.includes(root.path)) {
+      return curr
+    }
+
+    for (i=0; i<root.children.length; i++) {
+      setCurrPath(findPath(root.children[i], dest, currPath.push(root.children[i])));
+    }
+
+  }
+
   return (
     <>
       <Breadcrumb className="breadcrumb">
         {crumbPathArr?.map((e, index) => {
           return index === crumbPathArr.length - 1 ? (
-            <Breadcrumb.Item active href={e.path}>
+            <Breadcrumb.Item active href={e.path} key={"breadcrumb-index" + index}>
               {e.title}
             </Breadcrumb.Item>
           ) : (
-            <Breadcrumb.Item href={e.path}>{e.title}</Breadcrumb.Item>
+            <Breadcrumb.Item href={e.path} key={"breadcrumb-index" + index}>{e.title}</Breadcrumb.Item>
           );
         })}
       </Breadcrumb>
