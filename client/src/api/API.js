@@ -1,7 +1,7 @@
 
 import CourseObj from "../entities/CourseObj";
 
-const prefix = "/v1";
+const prefix = "http://localhost:8000/v1";
 
 // header API
 const postLogout = async () => {
