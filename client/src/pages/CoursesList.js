@@ -1,6 +1,6 @@
 import { Row, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {useEffect, useState /* , useEffect */} from "react";
+import { useEffect, useState /* , useEffect */ } from "react";
 
 import { Recent, List, SearchBar, MyPagination } from "../base/";
 import "./stylesheet/CoursesList.css";
@@ -53,14 +53,13 @@ function CoursesList() {
     },
   ];
 
-
-  const AllCourses = API.getCourses().then((a) => {
-    console.log(a)
-  }).catch((err)=> {
-    console.log(err)
-  })
-
-
+  const AllCourses = API.getCourses()
+    .then((a) => {
+      console.log(a);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   const [courses, setCourses] = useState(fakeCourses /*[]*/);
   const [myCourses, setMyCourses] = useState([]);
