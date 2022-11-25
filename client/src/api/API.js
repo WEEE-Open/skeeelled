@@ -1,7 +1,7 @@
-import CoursesList from "../pages/CoursesList.js";
+
 import CourseObj from "../entities/CourseObj";
 
-const prefix = "/v1";
+const prefix = "http://localhost:8000/v1";
 
 // header API
 const postLogout = async () => {
@@ -53,7 +53,7 @@ const getCourses = async () => {
             .then((json) =>
               resolve(json.map((courses) => CourseObj.from(courses)))
             )
-            .catch((err) => reject("Generic Error"));
+            .catch((err) => reject(err));
         } else {
           reject("Generic Error");
         }

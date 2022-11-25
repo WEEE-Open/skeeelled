@@ -20,4 +20,3 @@ class User(BaseModel):
     my_BookmarkedQuestions: List[PyObjectId] = []  # Question ids
     last_session: datetime
     credibility_rate: float = -1.0
-    simulation_results: List[ExamSimulation] = []

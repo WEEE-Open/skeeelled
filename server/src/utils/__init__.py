@@ -1,7 +1,7 @@
 from typing import List
 
 
-def responses(codes: List[int]):
+def responses(*codes: int):
     return {c: {} for c in codes}
 
 
