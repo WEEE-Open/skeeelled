@@ -1,4 +1,5 @@
 import CourseObj from "../entities/CourseObj";
+import ReplyObj from "../entities/ReplyObj";
 
 const prefix = "http://localhost:8000/v1";
 
@@ -60,6 +61,29 @@ const getCourses = async () => {
       .catch((err) => reject("Unavailable"));
   });
 };
+
+const getReplies = async (comment_id, page = 1, itemsPerPage = -1) => {
+  return new Promise((resolve, reject) => {
+    fetch(prefix + "/replies?comment_id=" + comment_id + "&page=" + page + "&itemsPerPage=" + itemsPerPage)
+      .then((res) => {
+        if (res.status === 404) {
+          resolve([]);
+        } else if (res.status === 401) {
+          reject("Authentication Error");
+        } else if (res.ok) {
+          res
+            .json()
+            .then((json) =>
+              resolve(json.replies.map((replies) => ReplyObj.from(replies)))
+            )
+            .catch((err) => reject(err));
+        } else {
+          reject("Generic Error");
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  });
+}
 
 const searchCourses = async (query) => {
   return new Promise((resolve, reject) => {
@@ -133,6 +157,7 @@ const searchDiscussion = async () => {
 const API = {
   getCourses,
   getMyCourses,
+  getReplies,
   searchCourses,
   searchQuestion,
   searchDiscussion,

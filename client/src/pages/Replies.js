@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { List, ListEntry, Recent, SearchBar, TextInput } from "../base";
 import "./stylesheet/Replies.css";
+import API from "../api/API";
+import ReplyObj from "../entities/ReplyObj";
 
 function Answer(props) {
   return (
@@ -37,7 +39,7 @@ function Replies() {
     },
     {
       id: 2,
-      reply: "Maybe is wrong",
+      reply: "Maybe is wrang",
       author: "Jim",
       createdat: "17:30 13/02/2021",
     },
@@ -48,6 +50,15 @@ function Replies() {
       createdat: "19:40 14/03/2021",
     },
   ];
+
+  //TEST API
+  const AllReplis = API.getReplies("6380eae7306106889038c590")
+    .then((a) => {
+      console.log(a);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   const [replies, setReplies] = useState(fakeReplies);
 
