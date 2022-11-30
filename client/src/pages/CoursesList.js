@@ -53,13 +53,9 @@ function CoursesList() {
     },
   ];
 
-
-
-  useEffect(()=> {
-    API.getCourses()
-        .then((courses) => setCourses(courses))
-  }, [])
-
+  useEffect(() => {
+    API.getCourses().then((courses) => setCourses(courses));
+  }, []);
 
   const [courses, setCourses] = useState([]);
   const [myCourses, setMyCourses] = useState([]);
@@ -102,34 +98,24 @@ function CoursesList() {
       </Row>
       <Row className="courses-body">
         <Link
-            className="list-attributes"
-            to={{
-              pathname:
-                  "/listfullpage/" + "My Courses".replace(/\s/g, "").toLowerCase(),
-            }}
-            state={{ scope: "courses", title: "My Courses", rows: courses }}
+          className="list-attributes"
+          to={{
+            pathname:
+              "/listfullpage/" + "My Courses".replace(/\s/g, "").toLowerCase(),
+          }}
+          state={{ scope: "courses", title: "My Courses", rows: courses }}
         >
-          <List
-              scope="courses"
-              title={"My Courses"}
-              rows={courses}
-              rounded
-          />
+          <List scope="courses" title={"My Courses"} rows={courses} rounded />
         </Link>
         <Link
-            className="list-attributes"
-            to={{
-              pathname:
-                  "/listfullpage/" + "All Courses".replace(/\s/g, "").toLowerCase(),
-            }}
-            state={{ scope: "courses", title: "All Courses", rows: courses }}
+          className="list-attributes"
+          to={{
+            pathname:
+              "/listfullpage/" + "All Courses".replace(/\s/g, "").toLowerCase(),
+          }}
+          state={{ scope: "courses", title: "All Courses", rows: courses }}
         >
-          <List
-              scope="courses"
-              title={"All Courses"}
-              rows={courses}
-              rounded
-          />
+          <List scope="courses" title={"All Courses"} rows={courses} rounded />
         </Link>
       </Row>
     </Container>

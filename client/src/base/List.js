@@ -12,7 +12,7 @@ import {
   Card,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {ListEntry, MyPagination, SearchBar} from "./";
+import { ListEntry, MyPagination, SearchBar } from "./";
 // import "./List.css";
 import "./stylesheet/List.css"; // scss file access
 import { useEffect, useState } from "react";
@@ -49,17 +49,18 @@ function ListDefault({ props }) {
             <tbody className="list-body">
               {props.rows.map((r, i) => {
                 entryCount = i;
-               return <ListEntry
+                return (
+                  <ListEntry
                     key={i}
                     row={r}
                     scope={props.scope}
                     dotted={props.dotted}
-                />
+                  />
+                );
               })}
             </tbody>
           </table>
         </div>
-
       ) : (
         <div
           className={

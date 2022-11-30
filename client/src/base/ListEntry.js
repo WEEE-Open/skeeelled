@@ -33,7 +33,6 @@ function ListEntryDefault(props) {
   );
 }
 
-
 function ListEntryCourses(props) {
   return (
     <tr>
@@ -47,9 +46,11 @@ function ListEntryCourses(props) {
           {props.row.name}
         </Link>
       </td>
-      <td>{props.row.professors.map((prof) => {
+      <td>
+        {props.row.professors.map((prof) => {
           return prof.name;
-      })}</td>
+        })}
+      </td>
       {/*<td>{props.row.cfu}</td>*/}
     </tr>
   );
