@@ -33,21 +33,24 @@ function ListEntryDefault(props) {
   );
 }
 
+
 function ListEntryCourses(props) {
   return (
     <tr>
-      <td>{props.row.code}</td>
+      <td>{props.row["_id"]}</td>
       <td>
         <Link
-          to={"/course/" + props.row.code}
-          state={{ courseId: props.row.code, title: props.row.course }}
+          to={"/course/" + props.row["_id"]}
+          state={{ courseId: props.row["_id"], title: props.row.name }}
           className="course-entry"
         >
-          {props.row.course}
+          {props.row.name}
         </Link>
       </td>
-      <td>{props.row.professor}</td>
-      <td>{props.row.cfu}</td>
+      <td>{props.row.professors.map((prof) => {
+          return prof.name;
+      })}</td>
+      {/*<td>{props.row.cfu}</td>*/}
     </tr>
   );
 }
