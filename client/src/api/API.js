@@ -1,4 +1,3 @@
-
 import CourseObj from "../entities/CourseObj";
 
 const prefix = "http://localhost:8000/v1";
