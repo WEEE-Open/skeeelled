@@ -12,7 +12,7 @@ import {
   Card,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { ListEntry, SearchBar } from "./";
+import {ListEntry, MyPagination, SearchBar} from "./";
 // import "./List.css";
 import "./stylesheet/List.css"; // scss file access
 import { useEffect, useState } from "react";
@@ -29,6 +29,7 @@ function HeaderColspan(scope) {
 }
 
 function ListDefault({ props }) {
+  let entryCount;
   return (
     <>
       {props.rounded ? (
@@ -46,17 +47,19 @@ function ListDefault({ props }) {
               </tr>
             </thead>
             <tbody className="list-body">
-              {props.rows.map((r, i) => (
-                <ListEntry
-                  key={i}
-                  row={r}
-                  scope={props.scope}
-                  dotted={props.dotted}
+              {props.rows.map((r, i) => {
+                entryCount = i;
+               return <ListEntry
+                    key={i}
+                    row={r}
+                    scope={props.scope}
+                    dotted={props.dotted}
                 />
-              ))}
+              })}
             </tbody>
           </table>
         </div>
+
       ) : (
         <div
           className={
@@ -77,6 +80,12 @@ function ListDefault({ props }) {
           </Table>
         </div>
       )}
+
+      {/*/!*pagination for list longer that 10 item*!/*/}
+      {/*{*/}
+      {/*  entryCount > 10 ? <MyPagination*/}
+      {/*  />: <></>*/}
+      {/*}*/}
     </>
   );
 }
