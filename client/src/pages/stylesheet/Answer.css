@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
 .header {
   padding-bottom: 40px;
 }
@@ -14,8 +15,74 @@
   float: right;
 }
 
+.answer-container .card {
+  border-radius: 9pt;
+}
+
 .answer-container .text-input .container-fluid .python-editor-container {
   outline: solid 1px #d9d9d9;
+}
+
+.answer-container .show-advice-button {
+  color: black;
+  background-color: white;
+  border-color: #8ad5d8;
+  border-radius: 7pt;
+  border-width: 2px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 17px; /*change from pt to px*/
+}
+
+.answer-container .show-advice-button:hover {
+  color: white;
+  background-color: white;
+  border-color: #8ad5d8;
+  border-radius: 7pt;
+  border-width: 2px;
+  background-color: #8ad5d8;
+}
+
+.answer-container .course-name {
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 20px; /*change from pt to px*/
+  color: #707070;
+  padding-top: 10px;
+}
+
+.answer-container .card-header {
+  background-color: #E2F5F5;
+  border-top-left-radius: 9pt;
+  border-top-right-radius: 9pt;
+}
+
+.answer-container .card-header .question-create-date {
+  color: #707070;
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 14px; /*change from pt to px*/
+}
+
+.answer-container .card-header .question-source {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 14px; /*change from pt to px*/
+  font-style: italic;
+}
+
+.answer-container .markdown-preview {
+  font-family: "Nunito", sans-serif;
+  font-weight: bold;
+  font-size: 25px; /*change from pt to px*/
+  padding: 10px 10px 20px 10px;
+}
+
+.answer-container .question-advice-shown {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 17px; /*change from pt to px*/
+  padding: 30px 10px 10px 10px;
 }
 
 /*# sourceMappingURL=Answer.css.map */
