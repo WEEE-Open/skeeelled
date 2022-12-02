@@ -5,3 +5,4 @@ from typing import List, Union
 
 class Course(_Course):
     professors: List[Union[str, User]]
+    cfu: int
