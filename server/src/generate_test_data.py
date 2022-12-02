@@ -120,6 +120,7 @@ def generate_courses(n: int, professors_list: List[User], students_list: List[Us
             _id=code,
             code=code,
             name=random.choice(['Analisi', 'Chimica', 'Informatica']),
+            cfu=random.randint(1, 13),
             years_active=random.choice(([2020, 2021], [2020, 2021, 2022])),
             professors=[p.id for p in professors],
         ))
