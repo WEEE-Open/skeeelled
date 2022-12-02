@@ -7,6 +7,9 @@ WORKDIR /src
 COPY ./requirements.txt ./
 COPY ./docker/FastAPI/entrypoint.sh /
 
+RUN  apt-get -y update
+RUN  apt-get -y install gcc pkg-config libxml2-dev libxmlsec1-dev libxmlsec1-openssl
+
 RUN pip install -r requirements.txt
 
 ENTRYPOINT ["sh", "/entrypoint.sh"]
