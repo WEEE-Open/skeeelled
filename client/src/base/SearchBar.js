@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { InputGroup, Button } from "react-bootstrap";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 
@@ -19,6 +19,18 @@ function SearchBar({ apiCall }) {
 
   const [suggestions, setSuggestions] = useState([]);
   const [value, setValue] = useState("");
+
+  useEffect(() => {
+    const charChange = async () => {
+      try {
+        console.log(value);
+        const res = await apiCall(value);
+      } catch (err) {
+        console.error(err.error);
+      }
+    };
+    charChange();
+  }, [value]);
 
   const onSearch = (inputText) => {
     setValue(inputText);
@@ -44,6 +56,9 @@ function SearchBar({ apiCall }) {
         filterBy={() => true}
         renderMenuItemChildren={(option) => <span>{option.label}</span>}
         ref={ref}
+        onChange={() => {
+          console.log(value);
+        }}
         onInputChange={onSearch}
         onSearch={() => {}}
         className="async-type-head"

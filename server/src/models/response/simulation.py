@@ -1,11 +1,12 @@
-from ..db.simulation import ExamSimulation
-from typing import Dict, Any, Type
+from ..basemodel import BaseModel
+from ..objectid import PyObjectId
+from pydantic import Field
+from .course import Course
+from typing import List
 
 
-class SimulationResult(ExamSimulation):
-    class Config(ExamSimulation.Config):
-        fields = {"content": {"exclude": True}}
-
-        @staticmethod
-        def schema_extra(schema: Dict[str, Any], model: Type["SimulationResult"]) -> None:
-            schema.get("properties", {}).pop("content")
+class SimulationResult(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    user_id: str
+    course_id: Course = Field(alias="course")
+    results: List[float]

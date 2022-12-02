@@ -3,6 +3,8 @@
 [![Lint](https://github.com/WEEE-Open/skeeelled/actions/workflows/linter.yml/badge.svg?branch=master)](https://github.com/WEEE-Open/skeeelled/actions/workflows/linter.yml)
 [![CD](https://github.com/WEEE-Open/skeeelled/actions/workflows/cd.yml/badge.svg?branch=master)](https://github.com/WEEE-Open/skeeelled/actions/workflows/cd.yml)
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=master&repo=424187804)
+
 A tutoring web platform which allows professors and students to collaborate:  
 - **professors** can post exam questions, exercises, and give advice to students  
 - **students** can answer questions, rate each other's answers, and simulate exams.

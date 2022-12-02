@@ -36,18 +36,22 @@ function ListEntryDefault(props) {
 function ListEntryCourses(props) {
   return (
     <tr>
-      <td>{props.row.code}</td>
+      <td>{props.row["_id"]}</td>
       <td>
         <Link
-          to={"/course/" + props.row.code}
-          state={{ courseId: props.row.code, title: props.row.course }}
+          to={"/course/" + props.row["_id"]}
+          state={{ courseId: props.row["_id"], title: props.row.name }}
           className="course-entry"
         >
-          {props.row.course}
+          {props.row.name}
         </Link>
       </td>
-      <td>{props.row.professor}</td>
-      <td>{props.row.cfu}</td>
+      <td>
+        {props.row.professors.map((prof) => {
+          return prof.name;
+        })}
+      </td>
+      {/*<td>{props.row.cfu}</td>*/}
     </tr>
   );
 }
@@ -86,56 +90,61 @@ function ListEntryQuestions(props) {
 
 function ListEntryAnswers(props) {
   return (
-    <>
-      <tr>
-        <td colSpan="2">
-          {props.row.author}, {props.row.createdat}
-          {props.row.replies > 0 && (
-            <span className="reply-link mx-3">
-              {props.row.replies + " "}
-              <Image
-                src={process.env.PUBLIC_URL + "/icons/DISCUSSION.svg"}
-                width="28px"
-              />
-            </span>
-          )}
-        </td>
-      </tr>
-      <tr>
-        <td className="answerEntry">
-          <Link to="">
-            <Image
-              src={process.env.PUBLIC_URL + "/icons/UP ARROW.svg"}
-              width="18px"
-              onClick={() => {}}
-            />
-          </Link>
-        </td>
+    <div className="answerEntry">
+      <Row className="answerEntry-credential">
+        <Col colSpan="2">
+          <Row>
+            <Col>
+              {props.row.author}, {props.row.createdat}
+            </Col>
+            <Col className="header-svg">
+              <span className="reply-link mx-3">
+                {props.row.replies + " "}
+                <Image
+                  src={process.env.PUBLIC_URL + "/icons/DISCUSSION.svg"}
+                  width="28px"
+                />
+              </span>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      <Row>
         <MarkdownPreview rowspan="3" markdown={props.row.answer} />
-      </tr>
-      <tr>
-        <td className="answerEntry">
-          {props.row.like - props.row.dislike > 0 && "+"}
-          {props.row.like - props.row.dislike}
-        </td>
-      </tr>
-      <tr>
-        <td className="answerEntry">
+      </Row>
+
+      <Row>
+        <Col className="answerEntry-vote">
           <Link to="">
             <Image
-              src={process.env.PUBLIC_URL + "/icons/DOWN ARROW.svg"}
+              className="up-vote"
+              src={process.env.PUBLIC_URL + "/icons/arrow_up.svg"}
               width="18px"
               onClick={() => {}}
             />
           </Link>
-        </td>
-        <td>
+
+          <div className="vote-number">
+            {props.row.like - props.row.dislike > 0 && "+"}
+            {props.row.like - props.row.dislike}
+          </div>
+          <Link to="">
+            <Image
+              className="down-vote"
+              src={process.env.PUBLIC_URL + "/icons/arrow_down.svg"}
+              width="18px"
+              onClick={() => {}}
+            />
+          </Link>
+        </Col>
+
+        <Col>
           <Link to="/discussion/1">
             <Button className="reply-link">Reply</Button>
           </Link>
-        </td>
-      </tr>
-    </>
+        </Col>
+      </Row>
+    </div>
   );
 }
 
@@ -143,11 +152,11 @@ function ListEntryReplies(props) {
   return (
     <div className="questionEntry">
       <Row>
-        <Col>{props.row.reply}</Col>
+        <Col className="reply-title">{props.row.reply}</Col>
+        <Col className="created-time">Created at: {props.row.createdat}</Col>
       </Row>
       <Row className="tags">
-        <Col>from {props.row.author}</Col>
-        <Col>Created at: {props.row.createdat}</Col>
+        <Col className="author">from {props.row.author}</Col>
       </Row>
     </div>
   );

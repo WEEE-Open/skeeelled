@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Collapse, Row, Col, Form, Pagination, Button } from "react-bootstrap";
 
 import List from "./List";
+import "./stylesheet/Discussion.css";
 
 const fakeAnswers = [
   {
@@ -35,15 +36,13 @@ const fakeAnswers = [
 
 const no_pages = 5;
 
-function Discussion(props) {
-  const [showDiscussion, setShowDiscussion] = useState(
-    props.showdiscussion || false
-  );
+function Discussion({ showdiscussion }) {
+  const [showDiscussion, setShowDiscussion] = useState(showdiscussion || false);
   const [answers, setAnswers] = useState(fakeAnswers);
   const [currentPage, setCurrentPage] = useState(1);
 
   return (
-    <>
+    <div className="discussion-component">
       <Row>
         <Col lg="12">
           <Button
@@ -67,7 +66,7 @@ function Discussion(props) {
             </Form.Group>
           </Col>
           <Col lg="12">
-            <List scope="answers" rows={answers} />
+            <List className="discussion-list" scope="answers" rows={answers} />
           </Col>
           <Col lg="12" sm="12" md="12">
             <Pagination>
@@ -84,7 +83,7 @@ function Discussion(props) {
           </Col>
         </Row>
       </Collapse>
-    </>
+    </div>
   );
 }
 

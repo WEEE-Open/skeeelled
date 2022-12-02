@@ -1,0 +1,73 @@
+@import "StyleBase.scss";
+
+.python-editor-container {
+  padding: 0;
+  margin: 0 0 40px 0;
+  border: none;
+  border-radius: 7px;
+  outline: solid 1px #707070;
+}
+
+.python-editor-container .react-mde {
+  border: none;
+}
+
+.python-editor-container .react-mde .mde-header {
+  padding: 10px;
+  border: none;
+  height: 75px;
+}
+
+.python-editor-container .react-mde .mde-header div {
+  border: none;
+}
+
+.python-editor-container .react-mde .mde-header .mde-tabs {
+  @include font-Quicksand($size: 22px);
+}
+
+.python-editor-container .react-mde .mde-header .mde-tabs button {
+  color: #707070;
+}
+
+.python-editor-container .react-mde .mde-header .mde-tabs button:hover {
+  color: black;
+}
+
+.python-editor-container .react-mde .mde-header .mde-tabs button.selected {
+  @include button-color-radius($border-color: #d9d9d9);
+  color: #707070;
+}
+
+.python-editor-container
+  .react-mde
+  .mde-header
+  .mde-tabs
+  button.selected:hover {
+  color: black;
+}
+
+#root
+  > div
+  > div:nth-child(5)
+  > div
+  > div
+  > div.text-input.row
+  > div
+  > div
+  > div
+  > div:nth-child(2)
+  > div
+  > textarea {
+  border-bottom: solid 1px #707070;
+  @include font-Quicksand($size: 22px);
+  color: #a7a7a7;
+}
+
+.python-editor-container .image-tip {
+  border: none;
+  border-radius: 7px;
+  height: 55px;
+  padding: 1rem;
+  @include font-Nunito($size: 21px);
+}

@@ -2,19 +2,21 @@ import { Row, Col, Card, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { List, ListEntry, Recent, SearchBar, TextInput } from "../base";
-import "./Replies.css";
+import "./stylesheet/Replies.css";
 
 function Answer(props) {
   return (
-    <div className="questionEntry">
+    <div className="questionEntry-discussion-answer">
       <Row>
         <Col>
           <h4>{props.ans.answer}</h4>
         </Col>
+        <Col className="question-created-time">
+          Created at: {props.ans.createdat}
+        </Col>
       </Row>
       <Row>
-        <Col>from {props.ans.author}</Col>
-        <Col>Created at: {props.ans.createdat}</Col>
+        <Col className="question-author">from {props.ans.author}</Col>
       </Row>
     </div>
   );
@@ -50,12 +52,12 @@ function Replies() {
   const [replies, setReplies] = useState(fakeReplies);
 
   return (
-    <>
+    <div className="discussion">
       <Answer ans={answer} />
       <List scope="replies" rows={replies} />
       <TextInput />
       <Button className="reply-button my-2">Reply</Button>
-    </>
+    </div>
   );
 }
 
