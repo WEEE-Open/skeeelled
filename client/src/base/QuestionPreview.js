@@ -18,7 +18,7 @@ function QuestionPreview({ question, showhints }) {
     <Card>
       <Card.Header>
         <div className="d-flex justify-content-between">
-          <div className="p2">{`${question.course_code} ${question.course_name}`}</div>
+          <div className="course-name">{`${question.course_code} ${question.course_name}`}</div>
           <div className="p2">
             <small className="question-create-date">
               {"Posted on " +
@@ -40,7 +40,7 @@ function QuestionPreview({ question, showhints }) {
         <MarkdownPreview markdown={question.text} />
         {question.advice && (
           <Button
-            className="btn-sm mt-5"
+            className="show-advice-button"
             onClick={() => {
               setShowAdvice(!showAdvice);
             }}
@@ -48,7 +48,7 @@ function QuestionPreview({ question, showhints }) {
             {showAdvice ? "Hide advice" : "Show advice"}
           </Button>
         )}
-        {showAdvice && <h6 className="mt-3">{question.advice}</h6>}
+        {showAdvice && <h6 className="question-advice-shown">{question.advice}</h6>}
       </Card.Body>
     </Card>
   );
