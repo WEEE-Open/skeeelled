@@ -39,6 +39,16 @@ services:
     depends_on:
       - mongodb
 
+  test-idp:
+    image: quay.io/keycloak/keycloak:20.0.1
+    environment:
+      KEYCLOAK_ADMIN: "admin"
+      KEYCLOAK_ADMIN_PASSWORD: "admin"
+    ports:
+      - "8080:8080"
+    command:
+      - start-dev
+
   # web server (acting as a reverse proxy in production)
   nginx:
     build: ./server/docker/nginx
