@@ -1,6 +1,6 @@
 import { Row, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {useEffect, useState /* , useEffect */} from "react";
+import { useEffect, useState /* , useEffect */ } from "react";
 
 import { Recent, List, SearchBar, MyPagination } from "../base/";
 import "./stylesheet/CoursesList.css";
@@ -52,6 +52,7 @@ function CoursesList() {
       excerpt: "Cras justo odio...",
     },
   ];
+
 
 
   useEffect(()=> {

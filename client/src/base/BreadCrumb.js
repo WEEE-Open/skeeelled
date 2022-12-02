@@ -93,13 +93,13 @@ export default function BreadCrumb(props) {
       path: `/bookmarks`,
       title: `Bookmarks`,
       children: [],
-    }
+    },
   ];
 
   const location = useLocation();
 
   const [crumbPathArr, setCrumbPathArr] = useState(
-      // find the complete object path from the root lvl
+    // find the complete object path from the root lvl
     breadcrumbRecord.filter((e) => {
       if (location.pathname === e.path) {
         return e;
@@ -108,14 +108,13 @@ export default function BreadCrumb(props) {
   );
 
   const [currPath, setCurrPath] = useState(
-      // default = (Home, "/") => only toggle the root
-      breadcrumbRecord.filter((e) => {
-        if (location.pathname === e.path) {
-          return e;
-        }
-      })
-  )
-
+    // default = (Home, "/") => only toggle the root
+    breadcrumbRecord.filter((e) => {
+      if (location.pathname === e.path) {
+        return e;
+      }
+    })
+  );
 
   useEffect(() => {
     let isRoot = false;
@@ -137,7 +136,7 @@ export default function BreadCrumb(props) {
 
     console.log(crumbPathArr);
     console.log(`current location: ${location.pathname}`);
-  }, [location, ]);
+  }, [location]);
 
   const findChild = (path, dest) => {
     let i;
@@ -158,34 +157,40 @@ export default function BreadCrumb(props) {
   };
 
   const findPath = (path, dest, curr) => {
-
     let i;
-    const  root = path[0]
+    const root = path[0];
 
     if (!root) {
       return [];
     }
 
     if (dest.includes(root.path)) {
-      return curr
+      return curr;
     }
 
-    for (i=0; i<root.children.length; i++) {
-      setCurrPath(findPath(root.children[i], dest, currPath.push(root.children[i])));
+    for (i = 0; i < root.children.length; i++) {
+      setCurrPath(
+        findPath(root.children[i], dest, currPath.push(root.children[i]))
+      );
     }
-
-  }
+  };
 
   return (
     <>
       <Breadcrumb className="breadcrumb">
         {crumbPathArr?.map((e, index) => {
           return index === crumbPathArr.length - 1 ? (
-            <Breadcrumb.Item active href={e.path} key={"breadcrumb-index" + index}>
+            <Breadcrumb.Item
+              active
+              href={e.path}
+              key={"breadcrumb-index" + index}
+            >
               {e.title}
             </Breadcrumb.Item>
           ) : (
-            <Breadcrumb.Item href={e.path} key={"breadcrumb-index" + index}>{e.title}</Breadcrumb.Item>
+            <Breadcrumb.Item href={e.path} key={"breadcrumb-index" + index}>
+              {e.title}
+            </Breadcrumb.Item>
           );
         })}
       </Breadcrumb>
