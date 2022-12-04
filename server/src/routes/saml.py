@@ -2,9 +2,10 @@ from fastapi import APIRouter, Request, HTTPException, Response
 from onelogin.saml2.idp_metadata_parser import OneLogin_Saml2_IdPMetadataParser
 from onelogin.saml2.auth import OneLogin_Saml2_Auth
 from starlette.responses import RedirectResponse
+from utils import responses
 
 IDP_URL = "https://samltest.id/saml/idp"
-SP_URL = "https://bbfc-2-198-120-57.eu.ngrok.io/saml"
+SP_URL = "https://1d8d-2-198-120-57.eu.ngrok.io/saml"
 
 router = APIRouter()
 
@@ -49,18 +50,23 @@ async def prepare_from_fastapi_request(request: Request):
 async def login(request: Request):
     req = await prepare_from_fastapi_request(request)
     auth = OneLogin_Saml2_Auth(req, settings)
-    callback_url = auth.login()
-    response = RedirectResponse(url=callback_url)
-    return response
+    return auth.login()
 
 
-@router.post("/callback")
-async def callback():
-    print("Callback")
-    return "Hello SAML callback"
+@router.post("/callback", responses=responses(500, 401))
+async def callback(request: Request):
+    req = await prepare_from_fastapi_request(request)
+    auth = OneLogin_Saml2_Auth(req, settings)
+    auth.process_response()  # Process IdP response
+    errors = auth.get_errors()  # This method receives an array with the errors
+    if len(errors) > 0:
+        raise HTTPException(500, "Error when processing SAML Response: %s %s" % (', '.join(errors), auth.get_last_error_reason()))
+    if not auth.is_authenticated():  # This check if the response was ok and the user data retrieved or not (user authenticated)
+        raise HTTPException(401)
+    return auth.get_attributes()
 
 
-@router.get("/metadata", response_class=XMLResponse)
+@router.get("/metadata", response_class=XMLResponse, responses=responses(500))
 async def saml_metadata(request: Request):
     req = await prepare_from_fastapi_request(request)
     auth = OneLogin_Saml2_Auth(req, settings)
