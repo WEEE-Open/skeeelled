@@ -112,7 +112,7 @@ div.answerEntry-vote.col > a:nth-child(3) > img {
 }
 
 .answerEntry .reply-link {
-  margin: 0 15px 0 10px;
+  margin: 0 15px 0 0px;
   @include button-color-radius($border-color: #8ad5d8, $border-width: 2px);
 }
 .answerEntry .reply-link:hover {
