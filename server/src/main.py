@@ -4,22 +4,32 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from bson import ObjectId
 from utils.json_encoder import JSONEncoder
+from starlette.middleware import Middleware
+from starlette.middleware.authentication import AuthenticationMiddleware
+from starlette_authlib.middleware import AuthlibMiddleware as SessionMiddleware
 
 from db import db, DbName
 from routes import router as main_router
 from models.db.question import Question, multiple_insertion
 from models.db.quiz import Quiz
+from utils.auth_backend import ValidateJWT
 
-app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origin_regex=".*localhost:.*",
-    allow_methods=["*"],
-    allow_headers=["*"],
-    allow_credentials=True,
-)
 
+middleware = [
+    Middleware(
+        CORSMiddleware,
+        allow_origin_regex=".*localhost:.*",
+        allow_methods=["*"],
+        allow_headers=["*"],
+        allow_credentials=True
+    ),
+    # TODO: create a real secret_key in production
+    Middleware(SessionMiddleware, secret_key="merhaba dunya! bugun nasilsin acaba?"),
+    Middleware(AuthenticationMiddleware, backend=ValidateJWT())
+]
+
+app = FastAPI(middleware=middleware)
 app.include_router(main_router)
 
 # read and upload the quiz on the database

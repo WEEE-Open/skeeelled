@@ -3,6 +3,7 @@ from onelogin.saml2.idp_metadata_parser import OneLogin_Saml2_IdPMetadataParser
 from onelogin.saml2.auth import OneLogin_Saml2_Auth
 from starlette.responses import RedirectResponse
 from utils import responses
+from generate_test_data import TEST_STUDENT_ID
 
 IDP_URL = "https://samltest.id/saml/idp"
 SP_URL = "https://1d8d-2-198-120-57.eu.ngrok.io/saml"
@@ -63,7 +64,8 @@ async def callback(request: Request):
         raise HTTPException(500, "Error when processing SAML Response: %s %s" % (', '.join(errors), auth.get_last_error_reason()))
     if not auth.is_authenticated():  # This check if the response was ok and the user data retrieved or not (user authenticated)
         raise HTTPException(401)
-    return auth.get_attributes()
+    request.session.update({"user_id": TEST_STUDENT_ID})
+    return "User authenticated"
 
 
 @router.get("/metadata", response_class=XMLResponse, responses=responses(500))
