@@ -4,4 +4,6 @@ from starlette.authentication import AuthenticationBackend, AuthCredentials, Sim
 class ValidateJWT(AuthenticationBackend):
     async def authenticate(self, conn):
         print(conn.session)
-        return AuthCredentials(["authenticated"]), SimpleUser("Sahircan")
+        if not conn.session:
+            return
+        return AuthCredentials(["authenticated"]), SimpleUser(conn.session.get("user_id"))
