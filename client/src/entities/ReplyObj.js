@@ -9,10 +9,25 @@ class ReplyObj {
         this.content = content;
         this.upvotes = upvotes;
         this.downvotes = downvotes;
+
+        //Properties for List
+        this.reply = this.content;
+        let date = new Date(this.timestamp);
+        this.createdat = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear();
     }
 
     static from(json) {
-        return Object.assign(new ReplyObj, json);
+        return new ReplyObj(
+                json._id,
+                json.author,
+                json.upvoted_by,
+                json.downvoted_by,
+                json.has_verified_upvotes,
+                json.timestamp,
+                json.content,
+                json.upvotes,
+                json.downvotes
+            );
     }
 }
 

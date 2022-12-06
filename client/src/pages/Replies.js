@@ -30,37 +30,15 @@ function Replies() {
     author: "Jim",
     createdat: "10/10/1010",
   };
-  const fakeReplies = [
-    {
-      id: 1,
-      reply: "I think it's correct",
-      author: "Donato",
-      createdat: "15:20 12/01/2021",
-    },
-    {
-      id: 2,
-      reply: "Maybe is wrang",
-      author: "Jim",
-      createdat: "17:30 13/02/2021",
-    },
-    {
-      id: 3,
-      reply: "idk",
-      author: "Derek",
-      createdat: "19:40 14/03/2021",
-    },
-  ];
 
-  //TEST API
-  const AllReplis = API.getReplies("6380eae7306106889038c590")
-    .then((a) => {
-      console.log(a);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  const [replies, setReplies] = useState([]);
 
-  const [replies, setReplies] = useState(fakeReplies);
+  useEffect(() => {
+    API.getReplies("6380eae7306106889038c590")
+      .then(_replies => {
+          setReplies(_replies);
+      })
+  }, [])
 
   return (
     <div className="discussion">
