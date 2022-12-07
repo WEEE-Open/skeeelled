@@ -62,51 +62,53 @@ const getCourses = async () => {
 };
 
 const getQuestions = async (courseId) => {
-    return new Promise((resolve, reject) => {
-        fetch(prefix + "/questions?course_id=" + courseId + "&page=1&itemsPerPage=-1")
-            .then((res) => {
-                if (res.status === 404) {
-                    resolve([]);
-                } else if (res.status === 401) {
-                    reject("Authentication Error");
-                } else if (res.ok) {
-                    res
-                        .json()
-                        .then((json) =>
-                            resolve(json)
-                        )
-                        .catch((err) => reject(err));
-                } else {
-                    reject("Generic Error");
-                }
-            })
-            .catch((err) => reject("Unavailable"));
-    });
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix + "/questions?course_id=" + courseId + "&page=1&itemsPerPage=-1"
+    )
+      .then((res) => {
+        if (res.status === 404) {
+          resolve([]);
+        } else if (res.status === 401) {
+          reject("Authentication Error");
+        } else if (res.ok) {
+          res
+            .json()
+            .then((json) => resolve(json))
+            .catch((err) => reject(err));
+        } else {
+          reject("Generic Error");
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  });
 };
 
 const getDiscussions = async (questionId) => {
-    return new Promise((resolve, reject) => {
-        fetch(prefix + "/discussion?question_id=" + questionId + "&page=1&itemsPerPage=-1")
-            .then((res) => {
-                if (res.status === 404) {
-                    resolve([]);
-                } else if (res.status === 401) {
-                    reject("Authentication Error");
-                } else if (res.ok) {
-                    res
-                        .json()
-                        .then((json) =>
-                            resolve(json)
-                        )
-                        .catch((err) => reject(err));
-                } else {
-                    reject("Generic Error");
-                }
-            })
-            .catch((err) => reject("Unavailable"));
-    });
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix +
+        "/discussion?question_id=" +
+        questionId +
+        "&page=1&itemsPerPage=-1"
+    )
+      .then((res) => {
+        if (res.status === 404) {
+          resolve([]);
+        } else if (res.status === 401) {
+          reject("Authentication Error");
+        } else if (res.ok) {
+          res
+            .json()
+            .then((json) => resolve(json))
+            .catch((err) => reject(err));
+        } else {
+          reject("Generic Error");
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  });
 };
-
 
 const searchCourses = async (query) => {
   return new Promise((resolve, reject) => {
@@ -180,8 +182,8 @@ const searchDiscussion = async () => {
 const API = {
   getCourses,
   getMyCourses,
-    getQuestions,
-    getDiscussions,
+  getQuestions,
+  getDiscussions,
   searchCourses,
   searchQuestion,
   searchDiscussion,

@@ -16,8 +16,6 @@ import { Link, useLocation } from "react-router-dom";
 import API from "../api/API";
 
 const Questions = () => {
-
-
   const fakeQuestions = [
     {
       id: 1,
@@ -49,17 +47,18 @@ const Questions = () => {
   //       setAllQuestions(API.getAllQuestions)
   // }, [])
 
-  useEffect(()=> {
-    API.getQuestions(locationState.courseId)
-        .then((questions) => setQuestions(questions))
-  }, [])
+  useEffect(() => {
+    API.getQuestions(locationState.courseId).then((questions) =>
+      setQuestions(questions)
+    );
+  }, []);
 
   const [allQuestions, setAllQuestions] = useState([]);
   const [questions, setQuestions] = useState(fakeQuestions);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
   const suggestionType = ["Latest", "Hottest"];
 
-  console.log(allQuestions)
+  console.log(allQuestions);
 
   // hook for responsive react
   const useMediaQuery = (query) => {
@@ -86,7 +85,7 @@ const Questions = () => {
 
   const locationState = useLocation().state;
 
-  console.log(questions)
+  console.log(questions);
 
   return (
     <>

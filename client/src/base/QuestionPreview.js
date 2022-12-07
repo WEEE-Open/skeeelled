@@ -21,7 +21,8 @@ function QuestionPreview({ question, showhints }) {
           <div className="course-name">{`${question.course} ${question.title}`}</div>
           <div className="p2">
             <small className="question-create-date">
-              {"Posted on " + question.timestamp
+              {
+                "Posted on " + question.timestamp
                 // question.date.toLocaleDateString("it-IT", {
                 //   year: "numeric",
                 //   month: "numeric",
@@ -49,7 +50,9 @@ function QuestionPreview({ question, showhints }) {
             {showAdvice ? "Hide advice" : "Show advice"}
           </Button>
         )}
-        {showAdvice && <h6 className="question-advice-shown">{question.hint}</h6>}
+        {showAdvice && (
+          <h6 className="question-advice-shown">{question.hint}</h6>
+        )}
       </Card.Body>
     </Card>
   );
