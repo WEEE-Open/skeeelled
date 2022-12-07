@@ -36,7 +36,7 @@ const fakeAnswers = [
 
 const no_pages = 5;
 
-function Discussion({ showdiscussion }) {
+function Discussion({ showdiscussion, discussions }) {
   const [showDiscussion, setShowDiscussion] = useState(showdiscussion || false);
   const [answers, setAnswers] = useState(fakeAnswers);
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,7 +53,7 @@ function Discussion({ showdiscussion }) {
               showDiscussion ? "btn-warning" : "btn-success"
             }`}
           >
-            {showDiscussion ? "Hide discussion" : "Show discusssion"}
+            {showDiscussion ? "Hide discussion" : "Show discussion"}
           </Button>
         </Col>
       </Row>
@@ -66,20 +66,20 @@ function Discussion({ showdiscussion }) {
             </Form.Group>
           </Col>
           <Col lg="12">
-            <List className="discussion-list" scope="answers" rows={answers} />
+            <List className="discussion-list" scope="answers" rows={discussions} />
           </Col>
           <Col lg="12" sm="12" md="12">
-            <Pagination>
-              {[...Array(no_pages)].map((_, idx) => (
-                <Pagination.Item
-                  key={idx + 1}
-                  active={currentPage === idx + 1}
-                  onClick={() => setCurrentPage(idx + 1)}
-                >
-                  {idx + 1}
-                </Pagination.Item>
-              ))}
-            </Pagination>
+            {/*<Pagination>*/}
+            {/*  {[...Array(no_pages)].map((_, idx) => (*/}
+            {/*    <Pagination.Item*/}
+            {/*      key={idx + 1}*/}
+            {/*      active={currentPage === idx + 1}*/}
+            {/*      onClick={() => setCurrentPage(idx + 1)}*/}
+            {/*    >*/}
+            {/*      {idx + 1}*/}
+            {/*    </Pagination.Item>*/}
+            {/*  ))}*/}
+            {/*</Pagination>*/}
           </Col>
         </Row>
       </Collapse>

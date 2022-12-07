@@ -13,8 +13,11 @@ import { useEffect, useState } from "react";
 import "./stylesheet/Questions.css";
 import { List, MyPagination, Recent, SearchBar, Suggestion } from "../base/";
 import { Link, useLocation } from "react-router-dom";
+import API from "../api/API";
 
 const Questions = () => {
+
+
   const fakeQuestions = [
     {
       id: 1,
@@ -42,9 +45,21 @@ const Questions = () => {
     },
   ];
 
-  const [questions, setQuestions] = useState(fakeQuestions /*[]*/);
+  // useEffect(()=> {
+  //       setAllQuestions(API.getAllQuestions)
+  // }, [])
+
+  useEffect(()=> {
+    API.getQuestions(locationState.courseId)
+        .then((questions) => setQuestions(questions))
+  }, [])
+
+  const [allQuestions, setAllQuestions] = useState([]);
+  const [questions, setQuestions] = useState(fakeQuestions);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
   const suggestionType = ["Latest", "Hottest"];
+
+  console.log(allQuestions)
 
   // hook for responsive react
   const useMediaQuery = (query) => {
@@ -70,6 +85,8 @@ const Questions = () => {
   const isDesktop = useMediaQuery("(min-width: 960px)");
 
   const locationState = useLocation().state;
+
+  console.log(questions)
 
   return (
     <>

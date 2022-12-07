@@ -18,29 +18,30 @@ function QuestionPreview({ question, showhints }) {
     <Card>
       <Card.Header>
         <div className="d-flex justify-content-between">
-          <div className="p2">{`${question.course_code} ${question.course_name}`}</div>
+          <div className="course-name">{`${question.course} ${question.title}`}</div>
           <div className="p2">
             <small className="question-create-date">
-              {"Posted on " +
-                question.date.toLocaleDateString("it-IT", {
-                  year: "numeric",
-                  month: "numeric",
-                  day: "numeric",
-                })}
+              {"Posted on " + question.timestamp
+                // question.date.toLocaleDateString("it-IT", {
+                //   year: "numeric",
+                //   month: "numeric",
+                //   day: "numeric",
+                // })
+              }
             </small>
             <br />
             <small className="question-source">
-              by {question.author} &nbsp;
+              by {question.owner} &nbsp;
             </small>
           </div>
         </div>
       </Card.Header>
       <Card.Body>
         <Card.Title>{question.title}</Card.Title>
-        <MarkdownPreview markdown={question.text} />
-        {question.advice && (
+        <MarkdownPreview markdown={question.content} />
+        {question.hint && (
           <Button
-            className="btn-sm mt-5"
+            className="show-advice-button"
             onClick={() => {
               setShowAdvice(!showAdvice);
             }}
@@ -48,7 +49,7 @@ function QuestionPreview({ question, showhints }) {
             {showAdvice ? "Hide advice" : "Show advice"}
           </Button>
         )}
-        {showAdvice && <h6 className="mt-3">{question.advice}</h6>}
+        {showAdvice && <h6 className="question-advice-shown">{question.hint}</h6>}
       </Card.Body>
     </Card>
   );
