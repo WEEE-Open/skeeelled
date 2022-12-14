@@ -105,6 +105,18 @@ function ListAnswers({ props }) {
   );
 }
 
+function ListMyComments({props}) {
+  return (
+    <>
+      <h3 className="listMyCommentsTitle">{props.title}</h3>
+      <hr />
+      {props.rows.map((r) => (
+        <ListEntry scope={props.scope} row={r} />
+      ))}
+    </>
+  );
+}
+
 function ListReplies({ props }) {
   return (
     <>
@@ -225,6 +237,7 @@ function ListSelection({ props }) {
 function List(props) {
   if (props.scope === "questions") return <ListQuestions props={props} />;
   if (props.scope === "answers") return <ListAnswers props={props} />;
+  if (props.scope === "myComments") return <ListMyComments props={props} />;
   if (props.scope === "replies") return <ListReplies props={props} />;
   if (props.scope === "suggestion") return <ListSuggestion props={props} />;
   if (props.scope === "simulationResult")

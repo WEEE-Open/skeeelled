@@ -11,9 +11,8 @@ class ReplyObj {
         this.downvotes = downvotes;
 
         //Properties for List
-        this.reply = this.content;
         let date = new Date(this.timestamp);
-        this.createdat = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear();
+        this.createdat = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear() + ", " + date.getHours() + ":" + date.getMinutes();
     }
 
     static from(json) {
