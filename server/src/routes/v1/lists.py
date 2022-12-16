@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from db import db, DbName
 from pymongo import ASCENDING, DESCENDING
-from typing import List, Dict
+from typing import List, Literal
 from models.objectid import PyObjectId
 from models.response import Question, Comment, CommentWithoutReplies, Replies, UserBookmarkedQuestions, Course, SimulationResult
 from utils import responses
@@ -118,3 +118,27 @@ async def get_replies(comment_id: PyObjectId, page: PositiveInt = 1, itemsPerPag
     if replies is None:
         raise HTTPException(status_code=404, detail="User not found")
     return replies
+
+@router.get("/suggestionsAllCourses", response_model=List[Question])
+async def get_suggestionsAllCourses (type: Literal["latest", "hot"], user_id: str, page: int = 1, itemsPerPage: int = -1):
+    user = await db[DbName.USER.value].find_one({"_id": user_id})
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    courses = user["related_courses"]
+    if type == "latest":
+        questions = await db[DbName.QUESTION.value].find({"course_id": {"$in": courses}}, {"is_deleted": False}) \
+           .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
+           .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
+           .to_list(itemsPerPage if itemsPerPage > 0 else None)
+    return questions
+
+
+@router.get("/suggestionsCourse", response_model=List[Question])
+async def get_suggestionsCourse (type: Literal["latest", "hot"], course_id: str, page: int = 1, itemsPerPage: int = -1):
+    if type == "latest":
+        questions = await db[DbName.QUESTION.value].find({"course_id": course_id}, {"is_deleted": False}) \
+            .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
+            .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
+            .to_list(itemsPerPage if itemsPerPage > 0 else None)
+    return questions
+
