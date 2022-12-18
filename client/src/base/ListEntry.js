@@ -7,7 +7,7 @@ import {
   Accordion,
   Button,
 } from "react-bootstrap";
-import {Link, useLocation} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import MarkdownPreview from "./MarkdownPreview";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -46,7 +46,6 @@ function ListEntryDefault(props) {
   );
 }
 
-
 function ListEntryCourses(props) {
   return (
     <tr>
@@ -55,15 +54,21 @@ function ListEntryCourses(props) {
         {/* ROUTE: /course/course:id COMPONENT: <Questions/> */}
         <Link
           to={"/course/" + props.row["_id"]}
-          state={{ courseId: props.row["_id"], title: props.row.name, query: props.row }}
+          state={{
+            courseId: props.row["_id"],
+            title: props.row.name,
+            query: props.row,
+          }}
           className="course-entry"
         >
           {props.row.name}
         </Link>
       </td>
-      <td>{props.row.professors.map((prof) => {
+      <td>
+        {props.row.professors.map((prof) => {
           return prof.name;
-      })}</td>
+        })}
+      </td>
       {/*<td>{props.row.cfu}</td>*/}
     </tr>
   );
@@ -71,7 +76,7 @@ function ListEntryCourses(props) {
 
 function ListEntryQuestions(props) {
 
-    const timestamp = props.row.timestamp
+  const timestamp = props.row.timestamp;
 
   return (
     <div className="questionEntry">
@@ -79,12 +84,14 @@ function ListEntryQuestions(props) {
         <Col>
           <Row>
             {/* ROUTE: /question/question:id COMPONENT: <Answer/> */}
-            <Link to={"/question/" + props.row["_id"]} className="question"
-                  state={{
-                    questionId: props.row["_id"],
-                      courseId: props.row.course
-                  }}
-           >
+            <Link
+              to={"/question/" + props.row["_id"]}
+              className="question"
+              state={{
+                questionId: props.row["_id"],
+                courseId: props.row.course,
+              }}
+            >
               {props.row.title}
             </Link>
           </Row>
@@ -99,8 +106,8 @@ function ListEntryQuestions(props) {
           </Row>
         </Col>
         <Col>
-          <Row className="created-at">Created at:  {timestamp}</Row>
-          <Row className="created-from">from  {props.row.owner}</Row>
+          <Row className="created-at">Created at: {timestamp}</Row>
+          <Row className="created-from">from {props.row.owner}</Row>
         </Col>
       </Row>
       <Row>

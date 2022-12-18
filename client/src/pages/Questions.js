@@ -10,14 +10,12 @@ import {
 
 import { useEffect, useState } from "react";
 // import "./Questions.css";
-import "./stylesheet/Questions.css";
+import "./stylesheet/Questions.scss";
 import { List, MyPagination, Recent, SearchBar, Suggestion } from "../base/";
 import { Link, useLocation } from "react-router-dom";
 import API from "../api/API";
 
 const Questions = () => {
-
-
   const fakeQuestions = [
     {
       id: 1,
@@ -46,10 +44,11 @@ const Questions = () => {
   ];
 
 
-  useEffect(()=> {
-    API.getQuestions(locationState.courseId)
-        .then((questions) => setQuestions(questions))
-  }, [])
+  useEffect(() => {
+    API.getQuestions(locationState.courseId).then((questions) =>
+      setQuestions(questions)
+    );
+  }, []);
 
   const [questions, setQuestions] = useState(fakeQuestions);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);

@@ -25,30 +25,38 @@
 }
 
 .answer-container .show-advice-button {
-  @include button-color-radius($color:black, $border-color: #8ad5d8, $border-width:2px);
+  @include button-color-radius(
+    $color: black,
+    $border-color: #8ad5d8,
+    $border-width: 2px
+  );
   @include font-Quicksand($size: 17px);
 }
 
 .answer-container .show-advice-button:hover {
-  @include button-color-radius($color:white, $border-color: #8ad5d8, $border-width:2px);
+  @include button-color-radius(
+    $color: white,
+    $border-color: #8ad5d8,
+    $border-width: 2px
+  );
   background-color: #8ad5d8;
 }
 
 .answer-container .course-name {
-  @include font-Quicksand($size: 20px, $weight: bold );
+  @include font-Quicksand($size: 20px, $weight: bold);
   color: #707070;
   padding-top: 10px;
 }
 
 .answer-container .card-header {
-  background-color: #E2F5F5;
+  background-color: #e2f5f5;
   border-top-left-radius: 9pt;
   border-top-right-radius: 9pt;
 }
 
 .answer-container .card-header .question-create-date {
   color: #707070;
-  @include font-Nunito($size: 14px, $weight: light)
+  @include font-Nunito($size: 14px, $weight: light);
 }
 
 .answer-container .card-header .question-source {
@@ -58,10 +66,10 @@
 
 .answer-container .markdown-preview {
   @include font-Nunito($size: 25px, $weight: bold);
-  padding: 10px 10px 20px 10px
+  padding: 10px 10px 20px 10px;
 }
 
 .answer-container .question-advice-shown {
   @include font-Nunito($size: 17px);
-  padding: 30px 10px 10px 10px
+  padding: 30px 10px 10px 10px;
 }
