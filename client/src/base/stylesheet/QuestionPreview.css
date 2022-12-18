@@ -1,120 +1,46 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
-#root
-  > div
-  > div:nth-child(5)
-  > div
-  > div
-  > div.header.row.row-cols-lg-12
-  > div
-  > div {
+#root > div > div:nth-child(5) > div > div > div.header.row.row-cols-lg-12 > div > div {
   border-radius: 9px;
 }
 
-#root
-  > div
-  > div:nth-child(5)
-  > div
-  > div
-  > div.header.row.row-cols-lg-12
-  > div
-  > div
-  .card-header {
+#root > div > div:nth-child(5) > div > div > div.header.row.row-cols-lg-12 > div > div .card-header {
   color: #707070;
   background-color: #e2f5f5;
 }
 
-#root
-  > div
-  > div:nth-child(5)
-  > div
-  > div
-  > div.header.row.row-cols-lg-12
-  > div
-  > div
-  > div.card-header
-  > div
-  > div:nth-child(1) {
+#root > div > div:nth-child(5) > div > div > div.header.row.row-cols-lg-12 > div > div > div.card-header > div > div:nth-child(1) {
   font-family: "Quicksand", sans-serif;
   font-weight: bold;
   font-size: 20px; /*change from pt to px*/
 }
 
-#root
-  > div
-  > div:nth-child(5)
-  > div
-  > div
-  > div.header.row.row-cols-lg-12
-  > div
-  > div
-  > div.card-header
-  > div
-  > div:nth-child(2)
-  > small.question-source {
+#root > div > div:nth-child(5) > div > div > div.header.row.row-cols-lg-12 > div > div > div.card-header > div > div:nth-child(2) > small.question-source {
   font-family: "Nunito", sans-serif;
   font-weight: bold;
   font-size: 14px; /*change from pt to px*/
   font-style: italic;
 }
 
-#root
-  > div
-  > div:nth-child(5)
-  > div
-  > div
-  > div.header.row.row-cols-lg-12
-  > div
-  > div
-  > div.card-header
-  > div
-  > div:nth-child(2)
-  > small.question-create-date {
+#root > div > div:nth-child(5) > div > div > div.header.row.row-cols-lg-12 > div > div > div.card-header > div > div:nth-child(2) > small.question-create-date {
   font-family: "Nunito", sans-serif;
   font-weight: light;
   font-size: 14px; /*change from pt to px*/
 }
 
-#root
-  > div
-  > div:nth-child(5)
-  > div
-  > div
-  > div.header.row.row-cols-lg-12
-  > div
-  > div
-  > div.card-body
-  > div {
+#root > div > div:nth-child(5) > div > div > div.header.row.row-cols-lg-12 > div > div > div.card-body > div {
   font-family: "Nunito", sans-serif;
   font-weight: bold;
   font-size: 25px; /*change from pt to px*/
 }
 
-#root
-  > div
-  > div:nth-child(5)
-  > div
-  > div
-  > div.header.row.row-cols-lg-12
-  > div
-  > div
-  > div.card-body
-  > p {
+#root > div > div:nth-child(5) > div > div > div.header.row.row-cols-lg-12 > div > div > div.card-body > p {
   font-family: "Nunito", sans-serif;
   font-weight: bold;
   font-size: 25px; /*change from pt to px*/
   color: #707070;
 }
 
-#root
-  > div
-  > div:nth-child(5)
-  > div
-  > div
-  > div.header.row.row-cols-lg-12
-  > div
-  > div
-  > div.card-body
-  > button {
+#root > div > div:nth-child(5) > div > div > div.header.row.row-cols-lg-12 > div > div > div.card-body > button {
   color: black;
   background-color: white;
   border-color: #8ad5d8;
@@ -125,16 +51,7 @@
   font-size: 17px; /*change from pt to px*/
 }
 
-#root
-  > div
-  > div:nth-child(5)
-  > div
-  > div
-  > div.header.row.row-cols-lg-12
-  > div
-  > div
-  > div.card-body
-  > button:hover {
+#root > div > div:nth-child(5) > div > div > div.header.row.row-cols-lg-12 > div > div > div.card-body > button:hover {
   background-color: #8ad5d8;
   color: white;
 }
