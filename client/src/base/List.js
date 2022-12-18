@@ -15,7 +15,8 @@ import { Link } from "react-router-dom";
 import {ListEntry, MyPagination, SearchBar} from "./";
 // import "./List.css";
 import "./stylesheet/List.css"; // scss file access
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
+import {GlobalStateContext} from "../GlobalStateProvider";
 
 function HeaderColspan(scope) {
   switch (scope) {
@@ -29,7 +30,6 @@ function HeaderColspan(scope) {
 }
 
 function ListDefault({ props }) {
-  let entryCount;
   return (
     <>
       {props.rounded ? (
@@ -48,7 +48,6 @@ function ListDefault({ props }) {
             </thead>
             <tbody className="list-body">
               {props.rows.map((r, i) => {
-                entryCount = i;
                return <ListEntry
                     key={i}
                     row={r}
@@ -99,6 +98,19 @@ function ListQuestions({ props }) {
         <ListEntry key={i} scope={props.scope} row={r} />
       ))}
     </>
+  );
+}
+
+function ListBookmarkQuestions({ props }) {
+  console.log(props.rows)
+  return (
+      <>
+        <h3 className="listQuestionsTitle">{props.title}</h3>
+        <SearchBar />
+        {props.rows.map((r, i) => (
+            <ListEntry key={i} scope={props.scope} row={r} />
+        ))}
+      </>
   );
 }
 
@@ -233,6 +245,7 @@ function ListSelection({ props }) {
 
 function List(props) {
   if (props.scope === "questions") return <ListQuestions props={props} />;
+  if (props.scope === "bookmarks") return <ListBookmarkQuestions props={props} />;
   if (props.scope === "answers") return <ListAnswers props={props} />;
   if (props.scope === "replies") return <ListReplies props={props} />;
   if (props.scope === "suggestion") return <ListSuggestion props={props} />;
