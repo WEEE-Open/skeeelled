@@ -1,17 +1,5 @@
 @import "StyleBase";
 
-.questionEntry {
-  padding: 1.5rem;
-  margin-bottom: 10px;
-  border-radius: 16px;
-  background-color: rgba(138, 213, 216, 0.25);
-}
-
-.question {
-  font-size: 1.2em;
-  text-decoration: none;
-}
-
 .tags {
   font-size: 0.8em;
   padding-right: 5px;
@@ -26,6 +14,20 @@
   float: right;
 }
 
+// course-page-default
+
+.questionEntry {
+  padding: 1.5rem;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  background-color: rgba(138, 213, 216, 0.25);
+}
+
+.question {
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
 .questionEntry .question {
   @include font-Nunito($size: 20px);
   color: black;
@@ -34,6 +36,7 @@
 .questionEntry .tags {
   @include font-Nunito($size: 14px, $weight: light);
   text-decoration: none;
+  color: #0062FF;
 }
 
 .questionEntry .created-at {
@@ -46,6 +49,49 @@
   font-style: italic;
   color: #707070;
 }
+
+// bookmark-page
+.bookmarkQuestionEntry {
+  padding: 1.5rem;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  background-color: #EBACE7;
+}
+
+.bookmarkQuestionEntry .question {
+  @include font-Nunito($size: 20px);
+  color: black;
+}
+
+.bookmarkQuestionEntry .tags {
+  @include font-Nunito($size: 14px, $weight: light);
+  text-decoration: none;
+  color: #0062FF;
+}
+
+.bookmarkQuestionEntry .created-at {
+  @include font-Nunito($weight: light, $size: 14px);
+  color:white;
+}
+
+//.bookmarkQuestionEntry .created-from {
+//  @include font-Nunito($size: 14px);
+//  font-style: italic;
+//  color: #707070;
+//}
+
+.bookmarkQuestionEntry .course-name {
+  @include font-Nunito($size: 16px);
+  font-style: italic;
+  color: white;
+  margin-left: 0;
+}
+
+.bookmarkQuestionEntry .content {
+  @include font-Nunito($size: 18px, $weight: light);
+}
+
+// simulation-page
 .accordion-item .accordion-header h6 {
   @include font-Nunito($size: 22px);
 }
