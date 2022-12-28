@@ -17,12 +17,25 @@ import rehypeHighlight from "rehype-highlight";
 // import "./ListEntry.css";
 import "./stylesheet/ListEntry.css";
 import QuestionPreview from "./QuestionPreview";
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import { UserSettings } from "../pages";
+import {GlobalStateContext} from "../GlobalStateProvider";
 
 function ListEntryDefault(props) {
+
+    const [isLoading, setIsLoading] = useState(true)
+
+    const {myCoursesNewQuestions} = useContext(GlobalStateContext)
+
+    useEffect(()=> {
+        if (myCoursesNewQuestions !== []) {
+            setTimeout(()=> setIsLoading(false), 200)
+        }
+    }, [myCoursesNewQuestions])
+
   return (
-    <tr>
+      !isLoading &&
+      <tr>
       {props.row.map((cell, i) => (
         <td key={i}>
           {props.dotted && <span className="table-dot">●</span>}
@@ -62,7 +75,6 @@ function ListEntryCourses(props) {
 }
 
 function ListEntryQuestions(props) {
-  const locationState = useLocation().state;
 
   const timestamp = props.row.timestamp;
 
@@ -103,6 +115,53 @@ function ListEntryQuestions(props) {
       </Row>
     </div>
   );
+}
+
+function ListEntryBookmarkQuestions(props) {
+
+     const [timestamp,setTimestamp] = useState((new Date(props.row.timestamp.split('.')[0])).toString().replace("(Central European Standard Time)", ""));
+
+
+    return (
+        <div className="bookmarkQuestionEntry">
+            <Row>
+                <Col>
+                    <Row>
+                        <Row className="course-name">
+                            {props.row["course_id"]}
+                        </Row>
+                        <Row>
+                        {/* ROUTE: /question/question:id COMPONENT: <Answer/> */}
+                        <Link to={"/question/" + props.row["_id"]} className="question"
+                              state={{
+                                  questionId: props.row["_id"],
+                                  courseId: props.row.course
+                              }}
+                        >
+                            {props.row.title}
+                        </Link>
+                    </Row>
+                    </Row>
+                    <Row>
+                        <Col>
+                            {props.row.tags.map((t, i) => (
+                                <Link key={i} to="" className="tags">
+                                    #{t}
+                                </Link>
+                            ))}
+                        </Col>
+                    </Row>
+                </Col>
+                <Col>
+                    <Row className="created-at">Created at:  {timestamp}</Row>
+                    {/*<Row className="created-from">from  {props.row.owner}</Row>*/}
+                </Col>
+            </Row>
+            <Row>
+                <Col>{props.row.content}</Col>
+            </Row>
+        </div>
+    );
 }
 
 function ListEntryAnswers(props) {
@@ -279,6 +338,7 @@ function ListEntry(props) {
       )}
       {props.scope === "courses" && <ListEntryCourses row={props.row} />}
       {props.scope === "questions" && <ListEntryQuestions row={props.row} />}
+        {props.scope === "bookmarks" && <ListEntryBookmarkQuestions row={props.row} />}
       {props.scope === "answers" && <ListEntryAnswers row={props.row} />}
       {props.scope === "replies" && <ListEntryReplies row={props.row} />}
       {props.scope === "test" && <ListEntryTest row={props.row} />}

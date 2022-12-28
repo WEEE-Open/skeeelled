@@ -10,7 +10,7 @@ import {
 
 import { useEffect, useState } from "react";
 // import "./Questions.css";
-import "./stylesheet/Questions.css";
+import "./stylesheet/Questions.scss";
 import { List, MyPagination, Recent, SearchBar, Suggestion } from "../base/";
 import { Link, useLocation } from "react-router-dom";
 import API from "../api/API";
@@ -43,9 +43,6 @@ const Questions = () => {
     },
   ];
 
-  // useEffect(()=> {
-  //       setAllQuestions(API.getAllQuestions)
-  // }, [])
 
   useEffect(() => {
     API.getQuestions(locationState.courseId).then((questions) =>
@@ -53,12 +50,10 @@ const Questions = () => {
     );
   }, []);
 
-  const [allQuestions, setAllQuestions] = useState([]);
   const [questions, setQuestions] = useState(fakeQuestions);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
   const suggestionType = ["Latest", "Hottest"];
 
-  console.log(allQuestions);
 
   // hook for responsive react
   const useMediaQuery = (query) => {
@@ -85,8 +80,6 @@ const Questions = () => {
 
   const locationState = useLocation().state;
 
-  console.log(questions);
-
   return (
     <>
       <Container>
@@ -102,13 +95,6 @@ const Questions = () => {
                           className="add-question-button"
                           onClick={() => {}}
                         >
-                          {/*<Image*/}
-                          {/*    className="add-icon"*/}
-                          {/*    src={*/}
-                          {/*      process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"*/}
-                          {/*    }*/}
-                          {/*    width="13px"*/}
-                          {/*/>*/}
                           {" Enroll in course"}
                         </Button>
 
@@ -123,14 +109,6 @@ const Questions = () => {
                           }}
                         >
                           <Button className="start-simulation-button">
-                            {/*<Image*/}
-                            {/*    className="add-icon"*/}
-                            {/*    src={*/}
-                            {/*      process.env.PUBLIC_URL +*/}
-                            {/*      "/icons/SIMULATION RESULTS_WHITE.svg"*/}
-                            {/*    }*/}
-                            {/*    width="13px"*/}
-                            {/*/>*/}
                             {" Start Simulation"}
                           </Button>
                         </Link>
@@ -173,13 +151,6 @@ const Questions = () => {
                           className="add-question-button"
                           onClick={() => {}}
                         >
-                          {/*<Image*/}
-                          {/*    className="add-icon"*/}
-                          {/*    src={*/}
-                          {/*      process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"*/}
-                          {/*    }*/}
-                          {/*    width="13px"*/}
-                          {/*/>*/}
                           {" Enroll in course"}
                         </Button>
 
@@ -194,14 +165,6 @@ const Questions = () => {
                           }}
                         >
                           <Button className="start-simulation-button">
-                            {/*<Image*/}
-                            {/*    className="add-icon"*/}
-                            {/*    src={*/}
-                            {/*      process.env.PUBLIC_URL +*/}
-                            {/*      "/icons/SIMULATION RESULTS_WHITE.svg"*/}
-                            {/*    }*/}
-                            {/*    width="13px"*/}
-                            {/*/>*/}
                             {" Start Simulation"}
                           </Button>
                         </Link>

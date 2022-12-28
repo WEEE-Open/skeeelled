@@ -103,12 +103,7 @@
   font-size: 22px; /*change from pt to px*/
 }
 
-.discussion
-  .python-editor-container
-  .react-mde
-  .mde-header
-  .mde-tabs
-  button.selected {
+.discussion .python-editor-container .react-mde .mde-header .mde-tabs button.selected {
   color: black;
   background-color: white;
   border-color: #d9d9d9;
@@ -116,35 +111,16 @@
   border-width: 2pt;
 }
 
-.discussion
-  .python-editor-container
-  .react-mde
-  .mde-header
-  .mde-tabs
-  button.selected:hover {
+.discussion .python-editor-container .react-mde .mde-header .mde-tabs button.selected:hover {
   border-color: #ebace7;
   color: black;
 }
 
-.discussion
-  .python-editor-container
-  .react-mde
-  .mde-header
-  .mde-tabs
-  button:hover {
+.discussion .python-editor-container .react-mde .mde-header .mde-tabs button:hover {
   color: #ebace7;
 }
 
-#root
-  > div
-  > div:nth-child(5)
-  > div
-  > div
-  > div.python-editor-container.container-fluid
-  > div
-  > div:nth-child(2)
-  > div
-  > textarea {
+#root > div > div:nth-child(5) > div > div > div.python-editor-container.container-fluid > div > div:nth-child(2) > div > textarea {
   border-bottom: solid 1px #ebace7;
   font-family: "Quicksand", sans-serif;
   font-weight: 400;

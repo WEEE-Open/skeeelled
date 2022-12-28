@@ -16,16 +16,23 @@
 }
 
 .input-group {
-  margin-bottom: 20px;
-  border-radius: 9pt;
+  margin-top: 10px;
+  margin-bottom: 10px;
   width: 100%;
   height: 58px;
 }
 
-.async-type-head {
+.input-group .async-type-head {
+  border-radius: 9pt;
+}
+
+.async-type-head > div input {
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 22px; /*change from pt to px*/
+  color: #707070;
+  border-radius: 9pt;
+  border-color: #707070;
 }
 
 /*# sourceMappingURL=SearchBar.css.map */
