@@ -36,7 +36,7 @@
 .questionEntry .tags {
   @include font-Nunito($size: 14px, $weight: light);
   text-decoration: none;
-  color: #0062FF;
+  color: #0062ff;
 }
 
 .questionEntry .created-at {
@@ -55,7 +55,7 @@
   padding: 1.5rem;
   margin-bottom: 10px;
   border-radius: 16px;
-  background-color: #EBACE7;
+  background-color: #ebace7;
 }
 
 .bookmarkQuestionEntry .question {
@@ -66,12 +66,12 @@
 .bookmarkQuestionEntry .tags {
   @include font-Nunito($size: 14px, $weight: light);
   text-decoration: none;
-  color: #0062FF;
+  color: #0062ff;
 }
 
 .bookmarkQuestionEntry .created-at {
   @include font-Nunito($weight: light, $size: 14px);
-  color:white;
+  color: white;
 }
 
 //.bookmarkQuestionEntry .created-from {

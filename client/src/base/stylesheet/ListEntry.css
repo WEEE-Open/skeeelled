@@ -37,7 +37,7 @@
   font-weight: light;
   font-size: 14px; /*change from pt to px*/
   text-decoration: none;
-  color: #0062FF;
+  color: #0062ff;
 }
 
 .questionEntry .created-at {
@@ -59,7 +59,7 @@
   padding: 1.5rem;
   margin-bottom: 10px;
   border-radius: 16px;
-  background-color: #EBACE7;
+  background-color: #ebace7;
 }
 
 .bookmarkQuestionEntry .question {
@@ -74,7 +74,7 @@
   font-weight: light;
   font-size: 14px; /*change from pt to px*/
   text-decoration: none;
-  color: #0062FF;
+  color: #0062ff;
 }
 
 .bookmarkQuestionEntry .created-at {
