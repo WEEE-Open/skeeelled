@@ -133,3 +133,23 @@ async def post_simulation(simulation: ExamSimulation):
         return JSONResponse(status_code=status.HTTP_200_OK, content={"inserted_id": str(result.inserted_id)})
     return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                         content="Insertion not executed")
+
+
+@app.post("/v1/startSimulation")
+async def start_simulation(multiple_choice: bool, exam_only: bool, n_questions: int, penalty: float,
+                           maximum_score: float, user_id: str, course_id: str):
+    cursor = db[DbName.QUESTION.value].aggregate(
+        [{"$match": {"multiple_questions": multiple_choice, "is_exam": exam_only}},
+         {"$sample": {"size": n_questions}},
+         {"$project": {"_id": 1}}
+         ])
+    ids = await cursor.to_list(n_questions)
+    ids = [a['_id'] for a in ids]
+    sim = ExamSimulation(user_id=user_id,
+                         course_id=course_id,
+                         content=ids,
+                         penality=penalty,
+                         maximum_score=maximum_score,
+                         results=[])
+    sim = await db[DbName.SIMULATION.value].insert_one(sim.dict(by_alias=True))
+    return str(sim.inserted_id)
