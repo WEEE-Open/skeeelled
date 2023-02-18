@@ -1,11 +1,12 @@
 import { Row, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useState /* , useEffect */ } from "react";
+import { useEffect, useState /* , useEffect */ } from "react";
 
 import { Recent, List, SearchBar, MyPagination } from "../base/";
 import "./stylesheet/CoursesList.css";
 import Suggestion from "../base/Suggestion";
-// import API from "../api/API";
+import API from "../api/API";
+import CourseObj from "../entities/CourseObj";
 
 function CoursesList() {
   /** Mock courses and questions **/
@@ -52,7 +53,11 @@ function CoursesList() {
     },
   ];
 
-  const [courses, setCourses] = useState(fakeCourses /*[]*/);
+  useEffect(() => {
+    API.getCourses().then((courses) => setCourses(courses));
+  }, []);
+
+  const [courses, setCourses] = useState([]);
   const [myCourses, setMyCourses] = useState([]);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
   const suggestionType = ["Latest", "Hottest"];
@@ -92,29 +97,27 @@ function CoursesList() {
         <SearchBar />
       </Row>
       <Row className="courses-body">
-        {coursesType.map((type, i) => {
-          return (
-            <Link
-              key={i}
-              className="list-attributes"
-              to={{
-                pathname:
-                  "/listfullpage/" + type.replace(/\s/g, "").toLowerCase(),
-              }}
-              state={{ scope: "courses", title: type, rows: courses }}
-            >
-              <List
-                key={i}
-                scope="courses"
-                title={type}
-                rows={courses}
-                rounded
-              />
-            </Link>
-          );
-        })}
+        <Link
+          className="list-attributes"
+          to={{
+            pathname:
+              "/listfullpage/" + "My Courses".replace(/\s/g, "").toLowerCase(),
+          }}
+          state={{ scope: "courses", title: "My Courses", rows: courses }}
+        >
+          <List scope="courses" title={"My Courses"} rows={courses} rounded />
+        </Link>
+        <Link
+          className="list-attributes"
+          to={{
+            pathname:
+              "/listfullpage/" + "All Courses".replace(/\s/g, "").toLowerCase(),
+          }}
+          state={{ scope: "courses", title: "All Courses", rows: courses }}
+        >
+          <List scope="courses" title={"All Courses"} rows={courses} rounded />
+        </Link>
       </Row>
-      <MyPagination />
     </Container>
   );
 }

@@ -1,16 +1,31 @@
 from fastapi import APIRouter, Request, HTTPException, Response
+from fastapi.responses import RedirectResponse
 from onelogin.saml2.idp_metadata_parser import OneLogin_Saml2_IdPMetadataParser
 from onelogin.saml2.auth import OneLogin_Saml2_Auth
 from starlette.responses import RedirectResponse
 from utils import responses
 from generate_test_data import TEST_STUDENT_ID
+from urllib.error import URLError
+from time import sleep
 
-IDP_URL = "https://samltest.id/saml/idp"
-SP_URL = "https://1d8d-2-198-120-57.eu.ngrok.io/saml"
+print("ANANANANANANANANANAN")
+IDP_URL = "http://172.19.0.2:8080/realms/skeeelled/protocol/saml/descriptor"
+# IDP_URL = "https://idp.polito.it/idp-metadata.xml"
+SP_URL = "http://172.19.0.6:8000/saml"
 
 router = APIRouter()
 
-idp_data = OneLogin_Saml2_IdPMetadataParser.parse_remote(IDP_URL)
+# TODO: Might delete in production
+while True:
+    try:
+        idp_data = OneLogin_Saml2_IdPMetadataParser.parse_remote(IDP_URL)
+        print("Connected to the IdP")
+        break
+    except URLError:
+        print("Waiting for the IdP...")
+        sleep(5)
+
+print(idp_data)
 settings = {
     "strict": False,    # for testing
     "debug": True,      # for testing
@@ -23,6 +38,8 @@ settings = {
         }
     }
 }
+
+print("BABAN")
 
 
 class XMLResponse(Response):
@@ -54,7 +71,7 @@ async def login(request: Request):
     return auth.login()
 
 
-@router.post("/callback", responses=responses(500, 401))
+@router.post("/callback", status_code=303, response_class=RedirectResponse, responses=responses(500, 401))
 async def callback(request: Request):
     req = await prepare_from_fastapi_request(request)
     auth = OneLogin_Saml2_Auth(req, settings)
@@ -64,8 +81,11 @@ async def callback(request: Request):
         raise HTTPException(500, "Error when processing SAML Response: %s %s" % (', '.join(errors), auth.get_last_error_reason()))
     if not auth.is_authenticated():  # This check if the response was ok and the user data retrieved or not (user authenticated)
         raise HTTPException(401)
+    attr = auth.get_attributes()
+    print("attr:")
+    print(attr)
     request.session.update({"user_id": TEST_STUDENT_ID})
-    return "User authenticated"
+    return "https://google.com"
 
 
 @router.get("/metadata", response_class=XMLResponse, responses=responses(500))

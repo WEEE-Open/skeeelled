@@ -4,4 +4,5 @@ from .user import User
 
 
 class Course(_Course):
-    professors: List[Union[str, "User"]]
+    professors: List[Union[str, User]]
+    cfu: int

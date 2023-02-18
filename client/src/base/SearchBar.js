@@ -23,7 +23,6 @@ function SearchBar({ apiCall }) {
   useEffect(() => {
     const charChange = async () => {
       try {
-        console.log(value);
         const res = await apiCall(value);
       } catch (err) {
         console.error(err.error);
@@ -51,7 +50,7 @@ function SearchBar({ apiCall }) {
         isLoading={false}
         searchText=""
         emptyLabel=""
-        promptText=""
+        promptText="xxx"
         options={suggestions}
         filterBy={() => true}
         renderMenuItemChildren={(option) => <span>{option.label}</span>}
@@ -63,36 +62,36 @@ function SearchBar({ apiCall }) {
         onSearch={() => {}}
         className="async-type-head"
       />
-      {value.length > 0 && (
-        <Button
-          variant="link"
-          onClick={() => {
-            ref.current.clear();
-            setValue("");
-          }}
-          className={
-            "btn-outline-primary border-left-0 border " + styles.clearButton
-          }
-        >
-          <img
-            width="20"
-            height="20"
-            src={process.env.PUBLIC_URL + "/icons/x.svg"}
-            alt="Search"
-          />
-        </Button>
-      )}
-      <Button
-        variant={value.length > 0 ? "primary" : "link"}
-        className="btn-outline-primary border-left-0 border"
-      >
-        <img
-          width="20"
-          height="20"
-          src={process.env.PUBLIC_URL + "/icons/SEARCH.svg"}
-          alt="Search"
-        />
-      </Button>
+      {/*{value.length > 0 && (*/}
+      {/*  <Button*/}
+      {/*    variant="link"*/}
+      {/*    onClick={() => {*/}
+      {/*      ref.current.clear();*/}
+      {/*      setValue("");*/}
+      {/*    }}*/}
+      {/*    className={*/}
+      {/*      "btn-outline-primary border-left-0 border " + styles.clearButton*/}
+      {/*    }*/}
+      {/*  >*/}
+      {/*    <img*/}
+      {/*      width="20"*/}
+      {/*      height="20"*/}
+      {/*      src={process.env.PUBLIC_URL + "/icons/x.svg"}*/}
+      {/*      alt="Search"*/}
+      {/*    />*/}
+      {/*  </Button>*/}
+      {/*)}*/}
+      {/*<Button*/}
+      {/*  variant={value.length > 0 ? "primary" : "link"}*/}
+      {/*  className="btn-outline-primary border-left-0 border"*/}
+      {/*>*/}
+      {/*  <img*/}
+      {/*    width="20"*/}
+      {/*    height="20"*/}
+      {/*    src={process.env.PUBLIC_URL + "/icons/SEARCH.svg"}*/}
+      {/*    alt="Search"*/}
+      {/*  />*/}
+      {/*</Button>*/}
     </InputGroup>
   );
 }

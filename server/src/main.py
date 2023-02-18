@@ -13,6 +13,8 @@ from routes import router as main_router
 from models.db.question import Question, multiple_insertion
 from models.db.quiz import Quiz
 from utils.auth_backend import ValidateJWT
+from models.db.simulation import ExamSimulation
+import json
 
 
 
@@ -87,21 +89,14 @@ async def search_courses(query: str, limit: int = 10):
 @app.get("/v1/searchQuestion")
 async def search_question(query: str, course_id: str, limit: int = 10):
     result = db[DbName.QUESTION.value].find(
-        {"content.name.text": {'$regex': f'(?i){query}'}, "course.id": course_id})
+        {"content": {'$regex': f'(?i){query}'}, "course_id": course_id})
     result = await result.to_list(limit)
     if result:
         result = json.loads(json.dumps(result, cls=JSONEncoder))
         return JSONResponse(status_code=status.HTTP_200_OK, content=result)
 
     result = db[DbName.QUESTION.value].find(
-        {"tags": {'$regex': f'(?i){query}'}, "course.id": course_id})
-    result = await result.to_list(limit)
-    if result:
-        result = json.loads(json.dumps(result, cls=JSONEncoder))
-        return JSONResponse(status_code=status.HTTP_200_OK, content=result)
-
-    result = db[DbName.QUESTION.value].find(
-        {"content.questiontext.text": {'$regex': f'(?i){query}'}, "course.id": course_id})
+        {"tags": {'$regex': f'(?i){query}'}, "course_id": course_id})
     result = await result.to_list(limit)
     if result:
         result = json.loads(json.dumps(result, cls=JSONEncoder))
@@ -115,9 +110,9 @@ async def search_question(query: str, course_id: str, limit: int = 10):
 async def search_discussion(query: str, question_id: str, limit: int = 10):
     if not check_valid_id(question_id):
         return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content="The id is not a valid format")
-    result = db[DbName.QUESTION.value].find(
-        {"$or": [{"answers.content": {'$regex': f'(?i){query}'}}, {"answers.replies": {'$regex': f'(?i){query}'}}],
-         "_id": ObjectId(question_id)})
+    result = db[DbName.COMMENT.value].find(
+        {"$or": [{"content": {'$regex': f'(?i){query}'}}, {"replies": {'$regex': f'(?i){query}'}}],
+         "question_id": ObjectId(question_id)})
     result = await result.to_list(limit)
     if result:
         result = json.loads(json.dumps(result, cls=JSONEncoder))
@@ -132,10 +127,19 @@ async def get_simulation(user_id: str, simulation_id: str):
     if not check_valid_id(simulation_id):
         return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             content="The simulation id is not a valid format")
-    simulation = await db[DbName.EXAM_SIM.value].find_one({"_id": ObjectId(simulation_id), "created_by.id": user_id})
+    simulation = await db[DbName.SIMULATION.value].find_one({"_id": ObjectId(simulation_id), "user_id": user_id})
     if simulation:
         result = json.loads(json.dumps(simulation, cls=JSONEncoder))
         return JSONResponse(status_code=status.HTTP_200_OK, content=result)
 
     return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
                         content="No simulation found")
+
+
+@app.post("/v1/simulation")
+async def post_simulation(simulation: ExamSimulation):
+    result = await db[DbName.SIMULATION.value].insert_one(simulation.dict())
+    if result:
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"inserted_id": str(result.inserted_id)})
+    return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                        content="Insertion not executed")

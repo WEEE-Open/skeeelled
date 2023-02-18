@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["StyleBase.scss","MyPagination.scss"],"names":[],"mappings":"AAAQ;ACER;EACE;EACA;EACA;;;AAGF;EACE;EACA;EDNA;EACA,aAFuC;EAGvC,WCK4B,MDLV;ECMlB;EACA;;;AAGF;EACE;EACA;EACA;EDfA;EACA,aCe0C;EDd1C,WCc4B,MDdV","file":"MyPagination.css"}
+{"version":3,"sourceRoot":"","sources":["StyleBase.scss","MyPagination.scss"],"names":[],"mappings":"AAAQ;ACER;EACE;EACA;EACA;;;AAGF;EACE;EACA;EDNA;EACA,aAFuC;EAGvC,WCK4B,MDLV;ECMlB;EACA;;;AAGF;EACE;EACA;EACA;EDfA;EACA,aCe2C;EDd3C,WCc4B,MDdV","file":"MyPagination.css"}

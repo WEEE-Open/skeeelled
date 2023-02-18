@@ -12,6 +12,9 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      default:
+        ipv4_address: 172.19.0.7
 
   # development only dashboard for easily checking db changes
   mongo-express:
@@ -25,18 +28,9 @@ services:
       ME_CONFIG_MONGODB_URL: "mongodb://root:example@mongodb:27017/"
     depends_on:
       - mongodb
-
-  # Test IdP as a replacement for Shibboleth. DELETE IN PRODUCTION!
-  test-idp:
-    image: quay.io/keycloak/keycloak:20.0.1
-    environment:
-      KEYCLOAK_ADMIN: "admin"
-      KEYCLOAK_ADMIN_PASSWORD: "admin"
-    ports:
-      - "8080:8080"
-    command:
-      - start-dev
-
+    networks:
+      default:
+        ipv4_address: 172.19.0.3
 
   # FastAPI backend (served by uvicorn in development)
   server:
@@ -50,7 +44,12 @@ services:
       - "8000:8000"
     depends_on:
       - mongodb
-      - test-idp
+      - testidp
+    links:
+      - testidp
+    networks:
+      default:
+        ipv4_address: 172.19.0.6
 
   # web server (acting as a reverse proxy in production)
   nginx:
@@ -62,6 +61,9 @@ services:
     depends_on:
       - server
     restart: on-failure
+    networks:
+      default:
+        ipv4_address: 172.19.0.4
 
   # ReactJS frontend (run with npm start in development)
   client:
@@ -74,3 +76,53 @@ services:
     command: ["npm", "start"]
     ports:
       - "3000:3000"
+    networks:
+      default:
+        ipv4_address: 172.19.0.5
+
+  # Test IdP as a replacement for Shibboleth.
+  # TODO: DELETE IN PRODUCTION!
+  testidp:
+    image: quay.io/keycloak/keycloak:20.0.1
+    environment:
+      KEYCLOAK_ADMIN: "admin"
+      KEYCLOAK_ADMIN_PASSWORD: "admin"
+    volumes:
+      - ./keycloak/data/:/opt/keycloak/data/import
+    ports:
+      - "8080:8080"
+    command:
+      - start-dev --import-realm
+    networks:
+      default:
+        ipv4_address: 172.19.0.2
+
+  # A way to test the authentication flow without the need of public IP addresses.
+  # TODO: DELETE IN PRODUCTION!
+  firefox:
+    image: lscr.io/linuxserver/firefox:latest
+    container_name: firefox
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ./firefox:/config
+    ports:
+      - "5800:3000"
+    shm_size: "1gb"
+    restart: unless-stopped
+    networks:
+      default:
+        ipv4_address: 172.19.0.8
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.19.0.0/16
+        - gateway: 172.19.0.1

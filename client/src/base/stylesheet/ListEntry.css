@@ -1,16 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&display=swap");
-.questionEntry {
-  padding: 1.5rem;
-  margin-bottom: 10px;
-  border-radius: 16px;
-  background-color: rgba(138, 213, 216, 0.25);
-}
-
-.question {
-  font-size: 1.2em;
-  text-decoration: none;
-}
-
 .tags {
   font-size: 0.8em;
   padding-right: 5px;
@@ -25,6 +13,18 @@
   float: right;
 }
 
+.questionEntry {
+  padding: 1.5rem;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  background-color: rgba(138, 213, 216, 0.25);
+}
+
+.question {
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
 .questionEntry .question {
   font-family: "Nunito", sans-serif;
   font-weight: 400;
@@ -37,6 +37,7 @@
   font-weight: light;
   font-size: 14px; /*change from pt to px*/
   text-decoration: none;
+  color: #0062ff;
 }
 
 .questionEntry .created-at {
@@ -52,6 +53,50 @@
   font-size: 14px; /*change from pt to px*/
   font-style: italic;
   color: #707070;
+}
+
+.bookmarkQuestionEntry {
+  padding: 1.5rem;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  background-color: #ebace7;
+}
+
+.bookmarkQuestionEntry .question {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 20px; /*change from pt to px*/
+  color: black;
+}
+
+.bookmarkQuestionEntry .tags {
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 14px; /*change from pt to px*/
+  text-decoration: none;
+  color: #0062ff;
+}
+
+.bookmarkQuestionEntry .created-at {
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 14px; /*change from pt to px*/
+  color: white;
+}
+
+.bookmarkQuestionEntry .course-name {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 16px; /*change from pt to px*/
+  font-style: italic;
+  color: white;
+  margin-left: 0;
+}
+
+.bookmarkQuestionEntry .content {
+  font-family: "Nunito", sans-serif;
+  font-weight: light;
+  font-size: 18px; /*change from pt to px*/
 }
 
 .accordion-item .accordion-header h6 {
@@ -135,7 +180,7 @@ div.answerEntry-vote.col > a:nth-child(3) > img {
 }
 
 .answerEntry .reply-link {
-  margin: 0 15px 0 10px;
+  margin: 0 15px 0 0px;
   color: black;
   background-color: white;
   border-color: #8ad5d8;
@@ -146,6 +191,11 @@ div.answerEntry-vote.col > a:nth-child(3) > img {
 .answerEntry .reply-link:hover {
   background-color: #8ad5d8;
   color: white;
+}
+
+.answerEntry .answerEntry-credential .header-svg span {
+  background-color: #e2f5f5;
+  border-color: #e2f5f5;
 }
 
 /*# sourceMappingURL=ListEntry.css.map */
