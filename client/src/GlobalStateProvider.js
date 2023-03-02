@@ -4,7 +4,7 @@ import API from "./api/API";
 export const GlobalStateContext = createContext([{}, function () {}]);
 
 const GlobalStateProvider = ({ children }) => {
-  const [userID, setUserID] = useState("s260606");
+  const [userID, setUserID] = useState("s313131");
 
   const [myCoursesNewQuestions, setMyCoursesNewQuestions] = useState([]);
 

@@ -8,6 +8,7 @@ import {
   Navigate as Redirect,
   Link,
   useLocation,
+  useSearchParams,
 } from "react-router-dom";
 import {
   NavigationBar,
@@ -37,9 +38,20 @@ import {
 } from "./pages/";
 import GlobalStateProvider from "./GlobalStateProvider";
 // import parsedQuestions from "./constants/parsed";
-// import API from './api/API'
+import API from './api/API';
 
-function App() {
+function Login() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const token = searchParams.get("token");
+  document.cookie.
+  localStorage.setItem("token", token);
+
+  return <Redirect to="/" />
+}
+
+function AppEntry() {
+  const [token, setToken] = useState(null);
   const [loggedIn, setLoggedIn] = useState(true); // TODO: reset to false, true used for debugging purposes
   const [showHints, setShowHints] = useState(false);
   const [showDiscussion, setShowDiscussion] = useState(false);
@@ -48,8 +60,18 @@ function App() {
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    if (!loggedIn) setMessage("");
-  }, [loggedIn]);
+    fetch("http://172.19.0.6:8000/v1/whoami", { credentials: "include" })
+      .then((res) => {
+        if (res.status === 401) {
+          window.location.replace("http://172.19.0.6:8000/saml/login");
+        }
+        setToken(res);
+      })
+      .catch((err) => {
+        console.log("catch");
+        console.log(err);
+      })
+  }, []);
 
   // useEffect(() => {
   // 	const checkAuth = async () => {
@@ -83,102 +105,101 @@ function App() {
   };
 
   return (
-    <GlobalStateProvider>
-      <Container fluid>
-        <Row>
-          <Col className="px-0">
-            <NavigationBar
-              dark={dark}
-              setdark={setDark}
-              logged={loggedIn}
-              setlogged={setLoggedIn}
-              showhints={showHints}
-              setshowhints={setShowHints}
-              showdiscussion={showDiscussion}
-              setshowdiscussion={setShowDiscussion}
-              logout={doLogout}
+    <Container fluid>
+      <Row>
+        <Col className="px-0">
+          <NavigationBar
+            dark={dark}
+            setdark={setDark}
+            logged={loggedIn}
+            setlogged={setLoggedIn}
+            showhints={showHints}
+            setshowhints={setShowHints}
+            showdiscussion={showDiscussion}
+            setshowdiscussion={setShowDiscussion}
+            logout={doLogout}
+          />
+        </Col>
+      </Row>
+      {/*<Row><BreadCrumb/></Row>*/}
+      <Row className="my-4">
+        <Col xs={6} className="mx-auto">
+          {message && (
+            <Alert
+              variant={message.type}
+              onClose={() => setMessage("")}
+              dismissible={!message.noclose}
+            >
+              {message.msg}
+            </Alert>
+          )}
+        </Col>
+      </Row>
+      <DebugPaths />
+      <Row className="my-4">
+        <Col sm={11} md={10} className="mx-auto">
+          {/*
+        <Exam question={parsedQuestions.quiz.question} />
+        */}
+          <Routes>
+            <Route path="/*" element={<Redirect to="/" />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<UserSettings />} />
+            <Route path="/courses" element={<CoursesList />} />
+            <Route path="/course/:courseid" element={<Questions />} />
+            <Route
+              path="/question/:questionid"
+              element={
+                <Answers
+                  showhints={showHints}
+                  showdiscussion={showDiscussion}
+                />
+              }
             />
-          </Col>
-        </Row>
-        {/*<Row><BreadCrumb/></Row>*/}
-        <Row className="my-4">
-          <Col xs={6} className="mx-auto">
-            {message && (
-              <Alert
-                variant={message.type}
-                onClose={() => setMessage("")}
-                dismissible={!message.noclose}
-              >
-                {message.msg}
-              </Alert>
-            )}
-          </Col>
-        </Row>
-        <DebugPaths />
-        <Row className="my-4">
-          <Col sm={11} md={10} className="mx-auto">
-            {/*
-					<Exam question={parsedQuestions.quiz.question} />
-					*/}
-            {loggedIn ? (
-              <Routes>
-                <Route path="/*" element={<Redirect to="/" />} />
-                <Route path="/" element={<Home />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/settings" element={<UserSettings />} />
-                <Route path="/courses" element={<CoursesList />} />
-                <Route path="/course/:courseid" element={<Questions />} />
-                <Route
-                  path="/question/:questionid"
-                  element={
-                    <Answers
-                      showhints={showHints}
-                      showdiscussion={showDiscussion}
-                    />
-                  }
-                />
-                <Route path="/discussion/:questionid" element={<Replies />} />
-                <Route
-                  path="/simulation/:simulationType"
-                  element={<Simulation />}
-                />
-                <Route path="/addquestion" element={<AddQuestion />} />
-                <Route path="/todel" element={<Exam />} />
-                <Route
-                  path="/listfullpage/:listName"
-                  element={<ListFullPage />}
-                />
-                <Route path="/bookmarks" element={<Bookmarks />} />
-                <Route
-                  path="/startsimulation/:courseName"
-                  element={<StartSimulation />}
-                />
-                <Route
-                  path="/simulationresult/:courseName"
-                  element={<SimulationResult />}
-                />
-                <Route path="/simulationview" element={<SimulationAccess />} />
-                <Route
-                  path="/python-editor"
-                  element={<TextInput dark={dark} pythonQuestion />}
-                />{" "}
-                {/* For debugging purposes */}
-              </Routes>
-            ) : (
-              <Routes>
-                <Route path="/*" element={<Redirect to="/login" />} />
-                <Route
-                  path="/login"
-                  element={<LoginForm login={() => setLoggedIn(true)} />}
-                />
-              </Routes>
-            )}
-          </Col>
-        </Row>
-        <Row>
-          <Footer />
-        </Row>
-      </Container>
+            <Route path="/discussion/:questionid" element={<Replies />} />
+            <Route
+              path="/simulation/:simulationType"
+              element={<Simulation />}
+            />
+            <Route path="/addquestion" element={<AddQuestion />} />
+            <Route path="/todel" element={<Exam />} />
+            <Route
+              path="/listfullpage/:listName"
+              element={<ListFullPage />}
+            />
+            <Route path="/bookmarks" element={<Bookmarks />} />
+            <Route
+              path="/startsimulation/:courseName"
+              element={<StartSimulation />}
+            />
+            <Route
+              path="/simulationresult/:courseName"
+              element={<SimulationResult />}
+            />
+            <Route path="/simulationview" element={<SimulationAccess />} />
+            <Route
+              path="/python-editor"
+              element={<TextInput dark={dark} pythonQuestion />}
+            />{" "}
+            {/* For debugging purposes */}
+          </Routes>
+        </Col>
+      </Row>
+      <Row>
+        <Footer />
+      </Row>
+    </Container>
+  );
+}
+
+function App() {
+  return (
+    <GlobalStateProvider>
+      <Routes>
+        <Route path="/postLogin" element={<Login />} />
+        <Route path="/*" element={<AppEntry />} />
+      </Routes>
     </GlobalStateProvider>
   );
 }

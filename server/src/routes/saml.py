@@ -7,6 +7,7 @@ from utils import responses
 from generate_test_data import TEST_STUDENT_ID
 from urllib.error import URLError
 from time import sleep
+from jose import jwt
 
 print("ANANANANANANANANANAN")
 IDP_URL = "http://172.19.0.2:8080/realms/skeeelled/protocol/saml/descriptor"
@@ -64,11 +65,14 @@ async def prepare_from_fastapi_request(request: Request):
     return rv
 
 
-@router.get("/login", response_class=RedirectResponse)
+@router.get("/login")
 async def login(request: Request):
-    req = await prepare_from_fastapi_request(request)
-    auth = OneLogin_Saml2_Auth(req, settings)
-    return auth.login()
+    if request.user.is_authenticated:
+        return request.user.display_name
+    else:
+        req = await prepare_from_fastapi_request(request)
+        auth = OneLogin_Saml2_Auth(req, settings)
+        return RedirectResponse(auth.login())
 
 
 @router.post("/callback", status_code=303, response_class=RedirectResponse, responses=responses(500, 401))
@@ -81,11 +85,8 @@ async def callback(request: Request):
         raise HTTPException(500, "Error when processing SAML Response: %s %s" % (', '.join(errors), auth.get_last_error_reason()))
     if not auth.is_authenticated():  # This check if the response was ok and the user data retrieved or not (user authenticated)
         raise HTTPException(401)
-    attr = auth.get_attributes()
-    print("attr:")
-    print(attr)
-    request.session.update({"user_id": TEST_STUDENT_ID})
-    return "https://google.com"
+    request.session.update({"user_id": auth.get_nameid()})
+    return RedirectResponse("http://172.19.0.5:3000/", status_code=303, )
 
 
 @router.get("/metadata", response_class=XMLResponse, responses=responses(500))

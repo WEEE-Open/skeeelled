@@ -11,5 +11,6 @@ RUN  apt-get -y update
 RUN  apt-get -y install gcc pkg-config libxml2-dev libxmlsec1-dev libxmlsec1-openssl
 
 RUN pip install -r requirements.txt
+RUN pip install "python-jose[cryptography]"
 
 ENTRYPOINT ["sh", "/entrypoint.sh"]

@@ -1,6 +1,8 @@
 import CourseObj from "../entities/CourseObj";
 
-const prefix = "http://localhost:8000/v1";
+const rootURL = "http://172.19.0.6:8000";
+const prefix = rootURL + "/v1";
+// const prefix = "http://localhost:8000/v1";
 
 // header API
 const postLogout = async () => {
@@ -18,6 +20,10 @@ const postLogout = async () => {
       });
   });
 };
+
+const login = async () => {
+    return fetch(rootURL + "/saml/login", { method: "GET", redirect: "manual" });
+}
 
 // Courses related APIs
 const getMyCourses = async () => {
@@ -241,5 +247,6 @@ const API = {
   searchDiscussion,
   getMyCourseNewQuestions,
   getMyBookmarkedQuestions,
+  login,
 };
 export default API;

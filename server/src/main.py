@@ -1,5 +1,5 @@
 import bson.errors
-from fastapi import FastAPI, status
+from fastapi import FastAPI, status, Request, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from bson import ObjectId
@@ -15,24 +15,29 @@ from models.db.quiz import Quiz
 from utils.auth_backend import ValidateJWT
 from models.db.simulation import ExamSimulation
 import json
-
-
+from jose import jwt
 
 middleware = [
     Middleware(
         CORSMiddleware,
-        allow_origin_regex=".*localhost:.*",
-        allow_methods=["*"],
+        allow_origins=["http://localhost:3000", "http://172.19.0.5:3000"],
         allow_headers=["*"],
+        allow_methods=["*"],
         allow_credentials=True
     ),
     # TODO: create a real secret_key in production
-    Middleware(SessionMiddleware, secret_key="merhaba dunya! bugun nasilsin acaba?"),
+    Middleware(SessionMiddleware, secret_key="merhaba dunya! bugun nasilsin acaba?", max_age=300, same_site="lax", domain="http://172.19.0.5:3000"),
     Middleware(AuthenticationMiddleware, backend=ValidateJWT())
 ]
 
 app = FastAPI(middleware=middleware)
 app.include_router(main_router)
+
+@app.get("/v1/whoami")
+async def whoami(request: Request):
+    if not request.user.is_authenticated:
+        raise HTTPException(401, "Unauthorized")
+    return request.user.display_name
 
 # read and upload the quiz on the database
 @app.post("/v1/uploadQuestionsFile")

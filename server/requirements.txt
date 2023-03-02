@@ -6,3 +6,11 @@ python3-saml == 1.14.0
 python-multipart == 0.0.5
 itsdangerous == 2.1.2
 starlette-authlib == 0.1.17
+cffi==1.15.1
+cryptography==39.0.1
+ecdsa==0.18.0
+pyasn1==0.4.8
+pycparser==2.21
+python-jose>=3.3.0
+rsa==4.9
+six==1.16.0
