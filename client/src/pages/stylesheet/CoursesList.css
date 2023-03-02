@@ -21,6 +21,10 @@
   font-size: 22px; /*change from pt to px*/
 }
 
+.courses-body .default-table-my-courses .course-entry:hover {
+  color: #2aebff;
+}
+
 .courses-body .default-table-all-courses .listTitle {
   border-color: #8ad5d8;
   color: #8ad5d8;
@@ -35,6 +39,10 @@
   font-family: "Nunito", sans-serif;
   font-weight: bold;
   font-size: 22px; /*change from pt to px*/
+}
+
+.courses-body .default-table-all-courses .course-entry:hover {
+  color: #2aebff;
 }
 
 .suggestion-card .list-suggestion-title {

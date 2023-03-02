@@ -16,6 +16,8 @@ from models.db.question import Question
 from models.db.comment import Comment, Reply
 from models.db.simulation import ExamSimulation
 
+TEST_STUDENT_ID = "s313131"
+
 client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongodb:27017/")
 client.get_io_loop = asyncio.get_running_loop
 db = client["test_db"]
@@ -32,7 +34,7 @@ def generate_users(n: int, is_professor: bool) -> List[User]:
     ids = list(set([f"d{random.randint(11111, 99999)}" if is_professor else f"s{random.randint(183545, 309999)}"
                     for _ in range(2 * n)]))
     for i in range(n):
-        _id = ids[i]
+        _id = ids[i] if is_professor or i else TEST_STUDENT_ID
         name = random.choice(["Mario", "Giovanni", "Guido"])
         surname = random.choice(["Rossi", "Bianchi", "Verdi"])
         user_list.append(User(
@@ -155,7 +157,7 @@ async def main():
     await db[DbName.SIMULATION.value].drop()
 
     professors = generate_users(5, True)
-    students = generate_users(50, False)
+    students = [] + generate_users(50, False)
     courses = generate_courses(20, professors, students)
     questions = [q for c in courses for q in generate_questions(c.id, professors, students)]
     comments = [c for q in questions for c in generate_comments(5, q.id, professors + students)]
