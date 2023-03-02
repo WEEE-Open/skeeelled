@@ -34,7 +34,12 @@
   padding: 12px;
 }
 
-.list-full-page .default-table-new-questions-in-courses-enrolled .list-body > tr > td > .table-dot {
+.list-full-page
+  .default-table-new-questions-in-courses-enrolled
+  .list-body
+  > tr
+  > td
+  > .table-dot {
   color: #00983a;
   height: 8px;
   width: 8px;
@@ -106,7 +111,12 @@
   padding: 12px;
 }
 
-.list-full-page .default-table-my-simulation-results .list-body > tr > td > .table-dot {
+.list-full-page
+  .default-table-my-simulation-results
+  .list-body
+  > tr
+  > td
+  > .table-dot {
   color: #e28111;
   height: 8px;
   width: 8px;

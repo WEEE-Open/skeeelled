@@ -44,11 +44,26 @@
   color: #707070;
 }
 
-.python-editor-container .react-mde .mde-header .mde-tabs button.selected:hover {
+.python-editor-container
+  .react-mde
+  .mde-header
+  .mde-tabs
+  button.selected:hover {
   color: black;
 }
 
-#root > div > div:nth-child(5) > div > div > div.text-input.row > div > div > div > div:nth-child(2) > div > textarea {
+#root
+  > div
+  > div:nth-child(5)
+  > div
+  > div
+  > div.text-input.row
+  > div
+  > div
+  > div
+  > div:nth-child(2)
+  > div
+  > textarea {
   border-bottom: solid 1px #707070;
   font-family: "Quicksand", sans-serif;
   font-weight: 400;

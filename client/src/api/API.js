@@ -180,49 +180,55 @@ const searchDiscussion = async () => {
 };
 
 const getMyCourseNewQuestions = (userId) => {
-    return new Promise((resolve, reject) => {
-        fetch(prefix + "/myCoursesNewQuestions?user_id=" + userId +"&itemsPerPage=50&page=1")
-            ?.then((res) => {
-                if (res.status === 404) {
-                    resolve([]);
-                } else if (res.status === 401) {
-                    reject("Authentication Error");
-                } else if (res.ok) {
-                    res
-                        ?.json()
-                        ?.then((json) =>
-                            resolve(json)
-                        )
-                        .catch((err) => reject(err));
-                } else {
-                    reject("Generic Error");
-                }
-            })
-            .catch((err) => reject("Unavailable"));
-    });
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix +
+        "/myCoursesNewQuestions?user_id=" +
+        userId +
+        "&itemsPerPage=50&page=1"
+    )
+      ?.then((res) => {
+        if (res.status === 404) {
+          resolve([]);
+        } else if (res.status === 401) {
+          reject("Authentication Error");
+        } else if (res.ok) {
+          res
+            ?.json()
+            ?.then((json) => resolve(json))
+            .catch((err) => reject(err));
+        } else {
+          reject("Generic Error");
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  });
 };
 
 const getMyBookmarkedQuestions = (userId) => {
-    return new Promise((resolve, reject) => {
-        fetch(prefix + "/myBookmarkedQuestions?user_id=" +  userId + "&page=1&itemsPerPage=-1")
-            ?.then((res) => {
-                if (res.status === 404) {
-                    resolve([]);
-                } else if (res.status === 401) {
-                    reject("Authentication Error");
-                } else if (res.ok) {
-                    res
-                        ?.json()
-                        ?.then((json) =>
-                            resolve(json)
-                        )
-                        .catch((err) => reject(err));
-                } else {
-                    reject("Generic Error");
-                }
-            })
-            .catch((err) => reject("Unavailable"));
-    });
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix +
+        "/myBookmarkedQuestions?user_id=" +
+        userId +
+        "&page=1&itemsPerPage=-1"
+    )
+      ?.then((res) => {
+        if (res.status === 404) {
+          resolve([]);
+        } else if (res.status === 401) {
+          reject("Authentication Error");
+        } else if (res.ok) {
+          res
+            ?.json()
+            ?.then((json) => resolve(json))
+            .catch((err) => reject(err));
+        } else {
+          reject("Generic Error");
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  });
 };
 
 const API = {
@@ -233,7 +239,7 @@ const API = {
   searchCourses,
   searchQuestion,
   searchDiscussion,
-    getMyCourseNewQuestions,
-    getMyBookmarkedQuestions
+  getMyCourseNewQuestions,
+  getMyBookmarkedQuestions,
 };
 export default API;

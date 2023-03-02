@@ -1,6 +1,5 @@
 @import "StyleBase.scss";
 
-.bookmarks-container .bookmark-title{
+.bookmarks-container .bookmark-title {
   @include font-Nunito($size: 41px, $weight: bold);
-
 }

@@ -3,17 +3,14 @@ import API from "./api/API";
 
 export const GlobalStateContext = createContext([{}, function () {}]);
 
+
 const GlobalStateProvider = ({children}) => {
 
     const [userID, setUserID] = useState("s313131");
 
-    const [myCoursesNewQuestions, setMyCoursesNewQuestions] = useState(
-        []
-    )
+    const [myCoursesNewQuestions, setMyCoursesNewQuestions] = useState([])
 
-    const [myBookmarkedQuestions, setMyBookmarkedQuestions] = useState(
-        []
-    )
+    const [myBookmarkedQuestions, setMyBookmarkedQuestions] = useState([])
 
     useEffect(()=> {
         API.getMyCourseNewQuestions(userID)

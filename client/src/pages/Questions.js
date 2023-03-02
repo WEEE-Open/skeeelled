@@ -43,7 +43,6 @@ const Questions = () => {
     },
   ];
 
-
   useEffect(() => {
     API.getQuestions(locationState.courseId).then((questions) =>
       setQuestions(questions)
@@ -53,7 +52,6 @@ const Questions = () => {
   const [questions, setQuestions] = useState(fakeQuestions);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
   const suggestionType = ["Latest", "Hottest"];
-
 
   // hook for responsive react
   const useMediaQuery = (query) => {
