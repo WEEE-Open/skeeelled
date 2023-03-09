@@ -27,9 +27,8 @@ app.include_router(main_router)
 # read and upload the quiz on the database
 @app.post("/v1/uploadQuestionsFile")
 async def create_quiz(q: Quiz):
-    # retrieve the code and the file format
-    file_type = q.file["type"]
-    parsed = q.convert_to_json()
+    # parsed = q.convert_to_json()
+    parsed = True
     # upload the converted file to the database
     if parsed:
         assigned_id = await q.insert_quiz(db[DbName.QUIZ.value])
@@ -37,7 +36,7 @@ async def create_quiz(q: Quiz):
         if assigned_id:
             question_list = []
             quiz_ref = {"$ref": "quizzes", "$id": assigned_id}
-            for question in q.file["contents"]["quiz"]["question"]:
+            for question in q.file["content"]["quiz"]["question"]:
                 new_question = Question(owner=q.owner, quiz_ref=quiz_ref, content=question)
                 question_list.append(new_question)
                 await multiple_insertion(db[DbName.QUESTION.value], question_list)
