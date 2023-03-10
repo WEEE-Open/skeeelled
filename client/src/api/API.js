@@ -156,7 +156,7 @@ const getReplies = async (comment_id, page = 1, itemsPerPage = -1) => {
 
 const searchCourses = async (query) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/searchCourses?query=" + query)
+    fetch(prefix + "/searchCourses?query=" + query + "&limit=10")
       .then((res) => {
         if (res.status === 404) {
           resolve([]);
@@ -177,9 +177,9 @@ const searchCourses = async (query) => {
   });
 };
 
-const searchQuestion = async () => {
+const searchQuestion = async (query, course_id) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/searchQuestion")
+    fetch(prefix + "/searchQuestion?query=" + query + "&course_id=" + course_id)
       .then((res) => {
         if (res.status === 404) {
           resolve([]);
@@ -200,9 +200,9 @@ const searchQuestion = async () => {
   });
 };
 
-const searchDiscussion = async () => {
+const searchDiscussion = async (query, question_id) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/searchDiscussion")
+    fetch(prefix + "/searchDiscussion?query=" + query + "&question_id=" + question_id)
       .then((res) => {
         if (res.status === 404) {
           resolve([]);

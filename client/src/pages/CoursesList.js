@@ -9,22 +9,7 @@ import API from "../api/API";
 import CourseObj from "../entities/CourseObj";
 
 function CoursesList() {
-  /** Mock courses and questions **/
-  const fakeCourses = [
-    { code: "A0B1C2", course: "Analysis 1", cfu: 10, professor: "Mario Rossi" },
-    {
-      code: "D3E4F5",
-      course: "Physics 1",
-      cfu: 10,
-      professor: "Stefano Bianchi",
-    },
-    {
-      code: "G6H7I8",
-      course: "Geometry",
-      cfu: 10,
-      professor: "Giuseppe Verdi",
-    },
-  ];
+  /** Mock questions **/
 
   const fakeQuestions = [
     {
@@ -53,22 +38,23 @@ function CoursesList() {
     },
   ];
 
-  const AllCourses = API.getCourses()
-    .then((a) => {
-      console.log(a);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  // const AllCourses = API.getCourses()
+  //   .then((courses) => {
+  //     // console.log(a);
+  //     setCourses(courses);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 
-  const [courses, setCourses] = useState(fakeCourses /*[]*/);
-  const [myCourses, setMyCourses] = useState([]);
+  const [courses, setCourses] = useState([]);
+  // const [myCourses, setMyCourses] = useState([]);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
   const suggestionType = ["Latest", "Hottest"];
   const coursesType = ["My Courses", "All Courses"];
 
   /**Courses and questions related**/
-  /*
+  //*
 	// courses
 	useEffect(()=> {
 		API.getCourses()
@@ -77,12 +63,12 @@ function CoursesList() {
 	}, []);
 
 	// myCourses
-	useEffect(() => {
-		API.getMyCourses()
-			.then(myCourses => setMyCourses(myCourses))
-			.catch(err => console.log(err));
-	}, []);
-	*/
+	// useEffect(() => {
+	// 	API.getMyCourses()
+	// 		.then(myCourses => setMyCourses(myCourses))
+	// 		.catch(err => console.log(err));
+	// }, []);
+	//*/
 
   // useEffect(() => {
   //     const getCourses = async () => {

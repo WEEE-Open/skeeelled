@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { InputGroup, Button } from "react-bootstrap";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
+import API from "../api/API";
 
 // import styles from "./searchBar/searchBar.module.scss";
 import styles from "./stylesheet/SearchBar.scss";
@@ -10,12 +11,6 @@ import "react-bootstrap-typeahead/css/Typeahead.bs5.css";
 
 function SearchBar({ apiCall }) {
   /* Mock search suggestions */
-  const fakeSuggestions = [
-    { label: "duckduckgo" },
-    { label: "duckduck" },
-    { label: "duckduckgo browser" },
-    { label: "duckduckgo download" },
-  ];
 
   const [suggestions, setSuggestions] = useState([]);
   const [value, setValue] = useState("");
@@ -23,7 +18,6 @@ function SearchBar({ apiCall }) {
   useEffect(() => {
     const charChange = async () => {
       try {
-        console.log(value);
         const res = await apiCall(value);
       } catch (err) {
         console.error(err.error);
@@ -35,7 +29,13 @@ function SearchBar({ apiCall }) {
   const onSearch = (inputText) => {
     setValue(inputText);
     if (inputText.length > 0) {
-      setSuggestions(fakeSuggestions);
+      setSuggestions(
+        [
+          ...API.searchCourses(inputText), 
+          ...API.searchQuestion(inputText, "08PJBT3"), 
+          ...API.searchDiscussion(inputText, "6380eae7306106889038c578")
+        ]
+      );
     } else {
       setSuggestions([]);
     }
@@ -47,7 +47,7 @@ function SearchBar({ apiCall }) {
     <InputGroup>
       <AsyncTypeahead
         id="Search bar"
-        placeholder="Search a course"
+        placeholder="Search a course, a question or a discussion..."
         isLoading={false}
         searchText=""
         emptyLabel=""
