@@ -1,22 +1,25 @@
 import { Card, Container } from "react-bootstrap";
 import { List, MyPagination, SearchBar } from "../base";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
+import "./stylesheet/Bookmarks.scss";
+import API from "../api/API";
+import { GlobalStateContext } from "../GlobalStateProvider";
 
 export default function Bookmarks() {
-  const location = useLocation();
+  const location = useLocation(); // default state of scope, title, and rows
+
+  const { myBookmarkedQuestions } = useContext(GlobalStateContext);
+
   return (
     <>
-      <Container>
-        <Card body>
-          <h2>{location.state.title}</h2>
-          <List
-            scope={location.state.scope}
-            title={""}
-            rows={location.state.rows}
-          />
-          <MyPagination />
-        </Card>
+      <Container className="bookmarks-container">
+        <List
+          scope={"bookmarks"}
+          title={"Bookmarked Questions"}
+          rows={myBookmarkedQuestions}
+        />
+        {/* TODO: <MyPagination />*/}
       </Container>
     </>
   );

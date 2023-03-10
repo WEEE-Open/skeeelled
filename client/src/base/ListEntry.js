@@ -7,7 +7,7 @@ import {
   Accordion,
   Button,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import MarkdownPreview from "./MarkdownPreview";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -17,48 +17,81 @@ import rehypeHighlight from "rehype-highlight";
 // import "./ListEntry.css";
 import "./stylesheet/ListEntry.css";
 import QuestionPreview from "./QuestionPreview";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserSettings } from "../pages";
+import { GlobalStateContext } from "../GlobalStateProvider";
 
 function ListEntryDefault(props) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { myCoursesNewQuestions } = useContext(GlobalStateContext);
+
+  useEffect(() => {
+    if (myCoursesNewQuestions !== []) {
+      setTimeout(() => setIsLoading(false), 200);
+    }
+  }, [myCoursesNewQuestions]);
+
   return (
-    <tr>
-      {props.row.map((cell, i) => (
-        <td key={i}>
-          {props.dotted && <span className="table-dot">●</span>}
-          {cell}
-        </td>
-      ))}
-    </tr>
+    !isLoading && (
+      <tr>
+        {props.row.map((cell, i) => (
+          <td key={i}>
+            {props.dotted && <span className="table-dot">●</span>}
+            {cell}
+          </td>
+        ))}
+      </tr>
+    )
   );
 }
 
 function ListEntryCourses(props) {
   return (
     <tr>
-      <td>{props.row._id}</td>
+      <td>{props.row["_id"]}</td>
       <td>
+        {/* ROUTE: /course/course:id COMPONENT: <Questions/> */}
         <Link
-          to={"/course/" + props.row._id}
-          state={{ courseId: props.row._id, title: props.row.name }}
+          to={"/course/" + props.row["_id"]}
+          state={{
+            courseId: props.row["_id"],
+            title: props.row.name,
+            query: props.row,
+          }}
           className="course-entry"
         >
           {props.row.name}
         </Link>
       </td>
-      <td>{props.row.professors[0].name + " " + props.row.professors[0].surname}</td>
+      <td>
+        {props.row.professors.map((prof) => {
+          return prof.name;
+        })}
+      </td>
+      {/*<td>{props.row.cfu}</td>*/}
     </tr>
   );
 }
 
 function ListEntryQuestions(props) {
+  const timestamp = props.row.timestamp;
+
   return (
     <div className="questionEntry">
       <Row>
         <Col>
           <Row>
-            <Link to={"/question/" + props.row.id} className="question">
-              {props.row.question}
+            {/* ROUTE: /question/question:id COMPONENT: <Answer/> */}
+            <Link
+              to={"/question/" + props.row["_id"]}
+              className="question"
+              state={{
+                questionId: props.row["_id"],
+                courseId: props.row.course,
+              }}
+            >
+              {props.row.title}
             </Link>
           </Row>
           <Row>
@@ -72,8 +105,8 @@ function ListEntryQuestions(props) {
           </Row>
         </Col>
         <Col>
-          <Row className="created-at">Created at: {props.row.createdat}</Row>
-          <Row className="created-from">from {props.row.author}</Row>
+          <Row className="created-at">Created at: {timestamp}</Row>
+          <Row className="created-from">from {props.row.owner}</Row>
         </Col>
       </Row>
       <Row>
@@ -83,18 +116,67 @@ function ListEntryQuestions(props) {
   );
 }
 
+function ListEntryBookmarkQuestions(props) {
+  const [timestamp, setTimestamp] = useState(
+    new Date(props.row.timestamp.split(".")[0])
+      .toString()
+      .replace("(Central European Standard Time)", "")
+  );
+
+  return (
+    <div className="bookmarkQuestionEntry">
+      <Row>
+        <Col>
+          <Row>
+            <Row className="course-name">{props.row["course_id"]}</Row>
+            <Row>
+              {/* ROUTE: /question/question:id COMPONENT: <Answer/> */}
+              <Link
+                to={"/question/" + props.row["_id"]}
+                className="question"
+                state={{
+                  questionId: props.row["_id"],
+                  courseId: props.row.course,
+                }}
+              >
+                {props.row.title}
+              </Link>
+            </Row>
+          </Row>
+          <Row>
+            <Col>
+              {props.row.tags.map((t, i) => (
+                <Link key={i} to="" className="tags">
+                  #{t}
+                </Link>
+              ))}
+            </Col>
+          </Row>
+        </Col>
+        <Col>
+          <Row className="created-at">Created at: {timestamp}</Row>
+          {/*<Row className="created-from">from  {props.row.owner}</Row>*/}
+        </Col>
+      </Row>
+      <Row>
+        <Col>{props.row.content}</Col>
+      </Row>
+    </div>
+  );
+}
+
 function ListEntryAnswers(props) {
   return (
-    <div className="answerEntry">
+    <div className="answerEntry" key={props.row["_id"]}>
       <Row className="answerEntry-credential">
         <Col colSpan="2">
           <Row>
             <Col>
-              {props.row.author}, {props.row.createdat}
+              {props.row.author}, {props.row.timestamp}
             </Col>
             <Col className="header-svg">
               <span className="reply-link mx-3">
-                {props.row.replies + " "}
+                {/*{props.row.replies + " "}*/}
                 <Image
                   src={process.env.PUBLIC_URL + "/icons/DISCUSSION.svg"}
                   width="28px"
@@ -105,7 +187,7 @@ function ListEntryAnswers(props) {
         </Col>
       </Row>
       <Row>
-        <MarkdownPreview rowspan="3" markdown={props.row.answer} />
+        <MarkdownPreview rowspan="3" markdown={props.row.content} />
       </Row>
 
       <Row>
@@ -120,8 +202,8 @@ function ListEntryAnswers(props) {
           </Link>
 
           <div className="vote-number">
-            {props.row.like - props.row.dislike > 0 && "+"}
-            {props.row.like - props.row.dislike}
+            {props.row["upvoted_by"] - props.row["downvoted_by"] > 0 && "+"}
+            {props.row["upvoted_by"] - props.row["downvoted_by"]}
           </div>
           <Link to="">
             <Image
@@ -289,6 +371,9 @@ function ListEntry(props) {
       )}
       {props.scope === "courses" && <ListEntryCourses row={props.row} />}
       {props.scope === "questions" && <ListEntryQuestions row={props.row} />}
+      {props.scope === "bookmarks" && (
+        <ListEntryBookmarkQuestions row={props.row} />
+      )}
       {props.scope === "answers" && <ListEntryAnswers row={props.row} />}
       {props.scope === "myComments" && <ListEntryMyComments row={props.row} />}
       {props.scope === "replies" && <ListEntryReplies row={props.row} />}

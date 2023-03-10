@@ -38,17 +38,12 @@ function CoursesList() {
     },
   ];
 
-  // const AllCourses = API.getCourses()
-  //   .then((courses) => {
-  //     // console.log(a);
-  //     setCourses(courses);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+  useEffect(() => {
+    API.getCourses().then((courses) => setCourses(courses));
+  }, []);
 
   const [courses, setCourses] = useState([]);
-  // const [myCourses, setMyCourses] = useState([]);
+  const [myCourses, setMyCourses] = useState([]);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
   const suggestionType = ["Latest", "Hottest"];
   const coursesType = ["My Courses", "All Courses"];
@@ -87,29 +82,27 @@ function CoursesList() {
         <SearchBar />
       </Row>
       <Row className="courses-body">
-        {coursesType.map((type, i) => {
-          return (
-            <Link
-              key={i}
-              className="list-attributes"
-              to={{
-                pathname:
-                  "/listfullpage/" + type.replace(/\s/g, "").toLowerCase(),
-              }}
-              state={{ scope: "courses", title: type, rows: courses }}
-            >
-              <List
-                key={i}
-                scope="courses"
-                title={type}
-                rows={courses}
-                rounded
-              />
-            </Link>
-          );
-        })}
+        <Link
+          className="list-attributes"
+          to={{
+            pathname:
+              "/listfullpage/" + "My Courses".replace(/\s/g, "").toLowerCase(),
+          }}
+          state={{ scope: "courses", title: "My Courses", rows: courses }}
+        >
+          <List scope="courses" title={"My Courses"} rows={courses} rounded />
+        </Link>
+        <Link
+          className="list-attributes"
+          to={{
+            pathname:
+              "/listfullpage/" + "All Courses".replace(/\s/g, "").toLowerCase(),
+          }}
+          state={{ scope: "courses", title: "All Courses", rows: courses }}
+        >
+          <List scope="courses" title={"All Courses"} rows={courses} rounded />
+        </Link>
       </Row>
-      <MyPagination />
     </Container>
   );
 }

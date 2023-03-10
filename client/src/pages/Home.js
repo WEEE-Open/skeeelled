@@ -1,20 +1,21 @@
 import { Row, Col, Card } from "react-bootstrap";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./stylesheet/Home.css";
 import { ListGroup, SearchBar } from "../base/";
+import API from "../api/API";
+import isLabelEnd from "katex/dist/katex.mjs";
+import { GlobalStateContext } from "../GlobalStateProvider";
 
 function Home() {
-  const fake = [
+  const { myCoursesNewQuestions, MyReplies, MyQuestions, MyAnswers } =
+    useContext(GlobalStateContext);
+
+  const homePageList = [
+    //!! typeof(rows) = Array() !!//
     {
       scope: "default",
       title: "New questions in courses enrolled",
-      rows: [
-        ["Cras justo odio"],
-        ["Dapibus ac facilisis in"],
-        ["Morbi leo risus"],
-        ["Porta ac consectetur ac"],
-        ["Vestibulum at eros"],
-      ],
+      rows: myCoursesNewQuestions,
     },
     {
       scope: "default",
@@ -51,7 +52,7 @@ function Home() {
     },
   ];
 
-  const [tests, setTests] = useState(fake);
+  const [homeLists, setHomeLists] = useState(homePageList);
 
   return (
     <>
@@ -61,7 +62,7 @@ function Home() {
         </Col>
       </Row>
       <div className="home-page-table">
-        <ListGroup lists={tests} cols={2} tiled rounded dotted />
+        {<ListGroup lists={homeLists} cols={2} tiled rounded dotted />}
       </div>
     </>
   );

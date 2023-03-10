@@ -64,6 +64,55 @@ const getCourses = async () => {
   });
 };
 
+const getQuestions = async (courseId) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix + "/questions?course_id=" + courseId + "&page=1&itemsPerPage=-1"
+    )
+      .then((res) => {
+        if (res.status === 404) {
+          resolve([]);
+        } else if (res.status === 401) {
+          reject("Authentication Error");
+        } else if (res.ok) {
+          res
+            .json()
+            .then((json) => resolve(json))
+            .catch((err) => reject(err));
+        } else {
+          reject("Generic Error");
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  });
+};
+
+const getDiscussions = async (questionId) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix +
+        "/discussion?question_id=" +
+        questionId +
+        "&page=1&itemsPerPage=-1"
+    )
+      .then((res) => {
+        if (res.status === 404) {
+          resolve([]);
+        } else if (res.status === 401) {
+          reject("Authentication Error");
+        } else if (res.ok) {
+          res
+            .json()
+            .then((json) => resolve(json))
+            .catch((err) => reject(err));
+        } else {
+          reject("Generic Error");
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  });
+};
+
 const getMyQuestions = async(user_id, page = 1, itemsPerPage = -1) => {
   return new Promise((resolve, reject) =>{
     fetch(prefix + "/myQuestions?user_id=" + user_id + "&page=" + page + "&itemsPerPage=" + itemsPerPage)
@@ -229,9 +278,63 @@ const searchDiscussion = async (query, question_id) => {
   });
 };
 
+const getMyCourseNewQuestions = (userId) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix +
+        "/myCoursesNewQuestions?user_id=" +
+        userId +
+        "&itemsPerPage=50&page=1"
+    )
+      ?.then((res) => {
+        if (res.status === 404) {
+          resolve([]);
+        } else if (res.status === 401) {
+          reject("Authentication Error");
+        } else if (res.ok) {
+          res
+            ?.json()
+            ?.then((json) => resolve(json))
+            .catch((err) => reject(err));
+        } else {
+          reject("Generic Error");
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  });
+};
+
+const getMyBookmarkedQuestions = (userId) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix +
+        "/myBookmarkedQuestions?user_id=" +
+        userId +
+        "&page=1&itemsPerPage=-1"
+    )
+      ?.then((res) => {
+        if (res.status === 404) {
+          resolve([]);
+        } else if (res.status === 401) {
+          reject("Authentication Error");
+        } else if (res.ok) {
+          res
+            ?.json()
+            ?.then((json) => resolve(json))
+            .catch((err) => reject(err));
+        } else {
+          reject("Generic Error");
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  });
+};
+
 const API = {
   getCourses,
   getMyCourses,
+  getQuestions,
+  getDiscussions,
   getMyQuestions,
   getMyComments,
   getReplies,
@@ -239,5 +342,7 @@ const API = {
   searchCourses,
   searchQuestion,
   searchDiscussion,
+  getMyCourseNewQuestions,
+  getMyBookmarkedQuestions,
 };
 export default API;
