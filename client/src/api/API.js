@@ -162,6 +162,8 @@ const searchCourses = async (query) => {
           resolve([]);
         } else if (res.status === 401) {
           reject("Authentication Error");
+        } else if (res.status === 500) {
+          resolve([]);
         } else if (res.ok) {
           res
             .json()
@@ -185,6 +187,8 @@ const searchQuestion = async (query, course_id) => {
           resolve([]);
         } else if (res.status === 401) {
           reject("Authentication Error");
+        } else if (res.status === 500){
+          resolve([]);
         } else if (res.ok) {
           res
             .json()
@@ -208,6 +212,8 @@ const searchDiscussion = async (query, question_id) => {
           resolve([]);
         } else if (res.status === 401) {
           reject("Authentication Error");
+        } else if (res.status === 500){
+          resolve([]);
         } else if (res.ok) {
           res
             .json()
