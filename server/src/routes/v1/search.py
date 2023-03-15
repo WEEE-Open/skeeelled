@@ -1,8 +1,5 @@
 from fastapi import APIRouter, status
-from fastapi.responses import JSONResponse
 from db import db, DbName
-import json
-from utils.json_encoder import JSONEncoder
 from models.response import Course, Question, Comment
 from models.objectid import PyObjectId
 from typing import List
