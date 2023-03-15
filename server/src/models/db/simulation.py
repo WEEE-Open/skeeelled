@@ -11,7 +11,7 @@ class ExamSimulation(BaseModel):
     course_id: str
     timestamp: datetime = datetime.now()
     content: List[PyObjectId]
-    penality: float
+    penalty: float
     maximum_score: float
     # points of a question should be fraction correct * default_grade - fraction wrong - penalty_grade
     results: List[float]

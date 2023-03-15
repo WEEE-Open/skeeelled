@@ -147,7 +147,7 @@ async def start_simulation(multiple_choice: bool, exam_only: bool, n_questions: 
     sim = ExamSimulation(user_id=user_id,
                          course_id=course_id,
                          content=ids,
-                         penality=penalty,
+                         penalty=penalty,
                          maximum_score=maximum_score,
                          results=[])
     sim = await db[DbName.SIMULATION.value].insert_one(sim.dict(by_alias=True))
