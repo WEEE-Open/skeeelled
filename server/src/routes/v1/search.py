@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter
 from db import db, DbName
 from models.response import Course, Question, Comment
 from models.objectid import PyObjectId
