@@ -1,5 +1,5 @@
 from ..basemodel import BaseModel
-from pydantic import Field
+from pydantic import Field, PositiveFloat, NonNegativeFloat
 from typing import List
 from ..objectid import PyObjectId
 from datetime import datetime
@@ -10,8 +10,8 @@ class ExamSimulation(BaseModel):
     user_id: str
     course_id: str
     timestamp: datetime = datetime.now()
-    content: List[PyObjectId]
-    penalty: float
-    maximum_score: float
+    questions: List[PyObjectId]
+    penalty: NonNegativeFloat
+    maximum_score: PositiveFloat
     # points of a question should be fraction correct * default_grade - fraction wrong - penalty_grade
-    results: List[float]
+    results: List[float] = []

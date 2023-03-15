@@ -3,7 +3,7 @@ from db import db, DbName
 from pymongo import ASCENDING, DESCENDING
 from typing import List, Dict
 from models.objectid import PyObjectId
-from models.response import Question, Comment, CommentWithoutReplies, Replies, UserBookmarkedQuestions, Course, SimulationResult
+from models.response import Question, Comment, CommentWithoutReplies, Replies, UserBookmarkedQuestions, Course, ExamSimulation
 from utils import responses
 from pydantic import PositiveInt
 
@@ -50,7 +50,7 @@ async def get_new_questions_from_user_courses(user_id: str, itemsPerPage: Positi
     return questions
 
 
-@router.get("/mySimulationResults", response_model=List[SimulationResult])
+@router.get("/myExamSimulations", response_model=List[ExamSimulation])
 async def get_user_simulation_results(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
     pipeline: List[Dict] = [
         {"$match": {"user_id": user_id}},

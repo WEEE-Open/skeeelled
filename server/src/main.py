@@ -24,6 +24,7 @@ app.add_middleware(
 
 app.include_router(main_router)
 
+
 # read and upload the quiz on the database
 @app.post("/v1/uploadQuestionsFile")
 async def create_quiz(q: Quiz):
@@ -56,46 +57,3 @@ def check_valid_id(id: str):
     except (bson.errors.InvalidId, TypeError):
         return False
     return True
-
-
-@app.get("/v1/simulation")
-async def get_simulation(user_id: str, simulation_id: str):
-    if not check_valid_id(simulation_id):
-        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            content="The simulation id is not a valid format")
-    simulation = await db[DbName.SIMULATION.value].find_one({"_id": ObjectId(simulation_id), "user_id": user_id})
-    if simulation:
-        result = json.loads(json.dumps(simulation, cls=JSONEncoder))
-        return JSONResponse(status_code=status.HTTP_200_OK, content=result)
-
-    return JSONResponse(status_code=status.HTTP_404_NOT_FOUND,
-                        content="No simulation found")
-
-
-@app.post("/v1/simulation")
-async def post_simulation(simulation: ExamSimulation):
-    result = await db[DbName.SIMULATION.value].insert_one(simulation.dict())
-    if result:
-        return JSONResponse(status_code=status.HTTP_200_OK, content={"inserted_id": str(result.inserted_id)})
-    return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                        content="Insertion not executed")
-
-
-@app.post("/v1/startSimulation")
-async def start_simulation(multiple_choice: bool, exam_only: bool, n_questions: int, penalty: float,
-                           maximum_score: float, user_id: str, course_id: str):
-    cursor = db[DbName.QUESTION.value].aggregate(
-        [{"$match": {"multiple_questions": multiple_choice, "is_exam": exam_only}},
-         {"$sample": {"size": n_questions}},
-         {"$project": {"_id": 1}}
-         ])
-    ids = await cursor.to_list(n_questions)
-    ids = [a['_id'] for a in ids]
-    sim = ExamSimulation(user_id=user_id,
-                         course_id=course_id,
-                         content=ids,
-                         penalty=penalty,
-                         maximum_score=maximum_score,
-                         results=[])
-    sim = await db[DbName.SIMULATION.value].insert_one(sim.dict(by_alias=True))
-    return str(sim.inserted_id)
