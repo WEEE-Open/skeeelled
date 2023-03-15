@@ -1,16 +1,12 @@
-import bson.errors
 from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-from bson import ObjectId
-from utils.json_encoder import JSONEncoder
 
 from db import db, DbName
 from routes import router as main_router
 from models.db.question import Question, multiple_insertion
 from models.db.quiz import Quiz
-from models.db.simulation import ExamSimulation
-import json
+
 
 app = FastAPI()
 
@@ -49,11 +45,3 @@ async def create_quiz(q: Quiz):
         return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             content="Something went wrong during the quiz content decoding: "
                                     "Please check again your request body")
-
-
-def check_valid_id(id: str):
-    try:
-        ObjectId(id)
-    except (bson.errors.InvalidId, TypeError):
-        return False
-    return True
