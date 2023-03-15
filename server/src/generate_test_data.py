@@ -142,7 +142,7 @@ def generate_simulations(n: int, user: User, questions: List[Question]) -> List[
             user_id=user.id,
             course_id=course_id,
             content=content,
-            penality=random.choice((0, 0.5, 1, 1.5, 2)),
+            penalty=random.choice((0, 0.5, 1, 1.5, 2)),
             maximum_score=random.randint(10, 30),
             results=[round(random.uniform(18, 30), 1)]
         ))
