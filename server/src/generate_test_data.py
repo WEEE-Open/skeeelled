@@ -102,6 +102,8 @@ def generate_questions(course_code: str, professors_list: List[User], students_l
             course_id=course_code,
             content=q["content"]["questiontext"]["text"],
             hint=q["content"]["generalfeedback"]["text"],
+            is_exam=random.choices([True, False], [9, 1])[0],
+            multiple_questions=random.choices([True, False], [9, 1])[0],
         ))
     return question_list
 
@@ -140,8 +142,9 @@ def generate_simulations(n: int, user: User, questions: List[Question]) -> List[
         simulations.append(ExamSimulation(
             user_id=user.id,
             course_id=course_id,
-            content=content,
-            results=[round(random.uniform(18, 30), 1)]
+            questions=content,
+            penalty=random.choice((0, 0.5, 1, 1.5, 2)),
+            maximum_score=random.randint(10, 30)
         ))
     return simulations
 
