@@ -26,7 +26,7 @@ async def get_simulation(simulation_id: PyObjectId):
         raise HTTPException(status_code=404, detail="Simulation not found")
 
 
-@router.post("/startSimulation", response_class=PlainTextResponse, responses=responses(404))
+@router.post("/startSimulation", status_code=201, response_class=PlainTextResponse, responses=responses(404))
 async def start_simulation(sim: models.request.ExamSimulation):
     user = await db[DbName.USER.value].find_one({"_id": sim.user_id})
     if user is None:
