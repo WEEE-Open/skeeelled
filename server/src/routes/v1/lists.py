@@ -33,7 +33,20 @@ async def get_user_replies(user_id: str, page: PositiveInt = 1, itemsPerPage: in
     pipeline = [
         {"$unwind": "$replies"},
         {"$match": {"replies.author": user_id}},
-        {"$sort": {"timestamp": DESCENDING, "_id": DESCENDING}},
+        {"$sort": {"replies.timestamp": DESCENDING, "replies._id": DESCENDING}},
+    ]
+    if itemsPerPage > 0:
+        pipeline.append({"$skip": (page - 1) * itemsPerPage})
+    replies = await db[DbName.COMMENT.value].aggregate(pipeline).to_list(itemsPerPage if itemsPerPage > 0 else None)
+    return replies
+
+
+@router.get("/repliesToMe", response_model=List[SingleReply])
+async def get_replies_to_user(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
+    pipeline = [
+        {"$match": {"author": user_id}},
+        {"$unwind": "$replies"},
+        {"$sort": {"replies.timestamp": DESCENDING, "replies._id": DESCENDING}},
     ]
     if itemsPerPage > 0:
         pipeline.append({"$skip": (page - 1) * itemsPerPage})

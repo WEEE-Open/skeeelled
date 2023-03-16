@@ -38,11 +38,13 @@ class Replies(BaseModel):
 
 
 class SingleReply(BaseModel):
-    question_id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     replies: Reply
 
     @root_validator
     def change_field_names(cls, values):
         values["reply"] = values.get("replies", {})
+        values["comment_id"] = values["id"]
         values.pop("replies")
+        values.pop("id")
         return values
