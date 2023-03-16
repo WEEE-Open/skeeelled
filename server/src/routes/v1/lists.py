@@ -127,41 +127,38 @@ async def get_suggestionsAllCourses (type: Literal["latest", "hot"], user_id: st
         raise HTTPException(status_code=404, detail="User not found")
     courses = user["related_courses"]
     if type == "latest":
-        questions = await db[DbName.QUESTION.value].find({"course_id": {"$in": courses}}, {"is_deleted": False}) \
+        questions = db[DbName.QUESTION.value].find({"course_id": {"$in": courses}}, {"is_deleted": False}) \
            .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
-           .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
-           .to_list(itemsPerPage if itemsPerPage > 0 else None)
-        return questions
+           .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0)
     if type == "hot":
-        questions = db[DbName.QUESTION.value].aggregate([
-                {"$match": {"course_id": {"$in": courses}}},
-                {"$lookup": {
-                    "from": DbName.COMMENT.value,
-                    "localField": "_id",
-                    "foreignField": "question_id",
-                    "as": "comments"
-                }},
-                {"$filter": {
-                    "input": "$comments",
-                    "as": "comment",
-                    "cond": {"$gte": ["$$comment.timestamp", date.today() - timedelta(days=7)]}
-                }},
-                {"$set": {"no_comments": {"$size": "$comments"}}},
-                {"$sort": {"no_comments": DESCENDING}},
-                {"$project": {"suggestionsAllCourses": True if itemsPerPage < 1 else {
-                    "$slice": ["$suggestionsAllCourses", (page - 1) * itemsPerPage, itemsPerPage]}}},
-        ])
-        return await questions.to_list()
+        pipeline = [
+            {"$match": {"course_id": {"$in": courses}}},
+            {"$lookup": {
+                "from": DbName.COMMENT.value,
+                "localField": "_id",
+                "foreignField": "question_id",
+                "as": "comments"
+            }},
+            {"$set": {"new_comments": {"$filter": {
+                "input": "$comments",
+                "as": "comment",
+                "cond": {"$gte": ["$$comment.timestamp", datetime.today() - timedelta(days=10)]}
+            }}}},
+            {"$set": {"no_comments": {"$size": "$new_comments"}}},
+            {"$sort": {"no_comments": DESCENDING}}
+        ]
+        if itemsPerPage > 0 and page > 0:
+            pipeline.append({"$skip": (page - 1) * itemsPerPage})
+        questions = db[DbName.QUESTION.value].aggregate(pipeline)
+    return await questions.to_list(itemsPerPage if itemsPerPage > 0 else None)
 
 
 @router.get("/suggestionsCourse", response_model=List[Question])
 async def get_suggestionsCourse (type: Literal["latest", "hot"], course_id: str, page: int = 1, itemsPerPage: int = -1):
     if type == "latest":
-        questions = await db[DbName.QUESTION.value].find({"course_id": course_id}, {"is_deleted": False}) \
+        questions = db[DbName.QUESTION.value].find({"course_id": course_id}, {"is_deleted": False}) \
             .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
-            .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
-            .to_list(itemsPerPage if itemsPerPage > 0 else None)
-        return questions
+            .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0)
     if type == "hot":
         pipeline = [
                 {"$match": {"course_id": course_id, "is_deleted": False}},
@@ -171,14 +168,15 @@ async def get_suggestionsCourse (type: Literal["latest", "hot"], course_id: str,
                     "foreignField": "question_id",
                     "as": "comments"
                 }},
-                {"$unwind": "$comments"},
-                {"$match": {"comments.timestamp": {"$gte": datetime.today() - timedelta(days=200)}}},
-                {"$group": {"_id": "$comments.question_id"}},
-                {"$set": {"no_comments": {"$size": "$comments"}}},
+                {"$set": {"new_comments": {"$filter": {
+                    "input": "$comments",
+                    "as": "comment",
+                    "cond": {"$gte": ["$$comment.timestamp", datetime.today() - timedelta(days=10)]}
+                }}}},
+                {"$set": {"no_comments": {"$size": "$new_comments"}}},
                 {"$sort": {"no_comments": DESCENDING}},
         ]
         if itemsPerPage > 0 and page > 0:
             pipeline.append({"$skip": (page - 1) * itemsPerPage})
-        questions = await db[DbName.QUESTION.value].aggregate(pipeline).to_list(itemsPerPage if itemsPerPage > 0 else None)
-        print(questions)
-        return questions
+        questions = db[DbName.QUESTION.value].aggregate(pipeline)
+    return await questions.to_list(itemsPerPage if itemsPerPage > 0 else None)
