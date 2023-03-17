@@ -20,4 +20,4 @@ async def upload_questions_file(user_id: str, course_id: str, file: UploadFile):
     if course is None:
         raise HTTPException(status_code=404, detail="Course not found")
 
-    print(file.filename)
+    print(file.filename, file.content_type)
