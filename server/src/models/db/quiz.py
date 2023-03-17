@@ -31,9 +31,9 @@ class Quiz(BaseModel):
     def convert_to_json(self):
         # parsing xml
         try:
-            quiz_content = base64.b64decode(self.file["contents"])
+            quiz_content = base64.b64decode(self.file["content"])
             json_xml = xmltodict.parse(quiz_content)
-            self.file["contents"] = json_xml
+            self.file["content"] = json_xml
             if isinstance(json_xml, dict):
                 return jsonable_encoder(json_xml)
             else:
