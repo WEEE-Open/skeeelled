@@ -9,15 +9,15 @@ class Question(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     owner: str  # professor id
     title: str
-    quiz_id: str = None     # Object id
+    quiz_id: str = None  # Object id
     course_id: str
     content: str
+    is_exam: bool
+    multiple_questions: bool
     is_deleted: bool = False
     hint: str
     tags: List[str] = []
     timestamp: datetime = datetime.now()
-
-
 
     # constraint check on question values
     """

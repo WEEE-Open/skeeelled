@@ -17,6 +17,7 @@ from models.db.comment import Comment, Reply
 from models.db.simulation import ExamSimulation
 
 TEST_STUDENT_ID = "s313131"
+TEST_PROFESSOR_ID = "d313131"
 
 client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://root:example@mongodb:27017/")
 client.get_io_loop = asyncio.get_running_loop
@@ -34,7 +35,7 @@ def generate_users(n: int, is_professor: bool) -> List[User]:
     ids = list(set([f"d{random.randint(11111, 99999)}" if is_professor else f"s{random.randint(183545, 309999)}"
                     for _ in range(2 * n)]))
     for i in range(n):
-        _id = ids[i] if is_professor or i else TEST_STUDENT_ID
+        _id = ids[i] if i else TEST_PROFESSOR_ID if is_professor else TEST_STUDENT_ID
         name = random.choice(["Mario", "Giovanni", "Guido"])
         surname = random.choice(["Rossi", "Bianchi", "Verdi"])
         user_list.append(User(
@@ -101,6 +102,8 @@ def generate_questions(course_code: str, professors_list: List[User], students_l
             course_id=course_code,
             content=q["content"]["questiontext"]["text"],
             hint=q["content"]["generalfeedback"]["text"],
+            is_exam=random.choices([True, False], [9, 1])[0],
+            multiple_questions=random.choices([True, False], [9, 1])[0],
         ))
     return question_list
 
@@ -139,8 +142,9 @@ def generate_simulations(n: int, user: User, questions: List[Question]) -> List[
         simulations.append(ExamSimulation(
             user_id=user.id,
             course_id=course_id,
-            content=content,
-            results=[round(random.uniform(18, 30), 1)]
+            questions=content,
+            penalty=random.choice((0, 0.5, 1, 1.5, 2)),
+            maximum_score=random.randint(10, 30)
         ))
     return simulations
 
