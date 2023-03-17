@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useContext, useState} from "react";
 import {
   Container,
   Card,
@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./SimulationAccess.css";
+import {GlobalStateContext} from "../GlobalStateProvider";
 
 export default function SimulationAccess() {
   const fakeSimulationResult = [
@@ -64,13 +65,18 @@ export default function SimulationAccess() {
     },
   ];
 
+  const {
+    mySimulationResult
+  } = useContext(GlobalStateContext)
   const [coursesEnrolled, setCoursesEnrolled] = useState(fakeCourses);
   const [simulationResult, setSimulationResult] =
-    useState(fakeSimulationResult);
+    useState(mySimulationResult);
   const [courseSelected, setCourseSelected] = useState({});
   const [courseSelectedTitle, setCourseSelectedTitle] = useState(
     "Select Course of Simulation"
   );
+
+  console.log(mySimulationResult)
   return (
     <>
       <Container className="">
@@ -132,7 +138,7 @@ export default function SimulationAccess() {
                       return (
                         <>
                           <Dropdown.Item
-                            key={i}
+                            key={"enrolled" + i}
                             as="button"
                             onClick={() => {
                               setCourseSelectedTitle(e.course);
@@ -156,10 +162,10 @@ export default function SimulationAccess() {
                     <>
                       <ListGroup.Item varient="flush">
                         {
-                          <Row key={i}>
-                            <Col>{e.course}</Col>
-                            <Col>{e.score}</Col>
-                            <Col>{e.date}</Col>
+                          <Row key={"result" + i}>
+                            <Col>{e.course.name}</Col>
+                            <Col>{e.results[0]}</Col>
+                            <Col>{e.course["years_active"][(e.course["years_active"]).length - 1]}</Col>
                           </Row>
                         }
                       </ListGroup.Item>

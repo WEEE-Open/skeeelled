@@ -145,7 +145,7 @@ export default function SimulationResult() {
           hover
           className="simulation-result-table"
         >
-          <thead b>
+          <thead>
             <tr>
               <th>Result</th>
               <th>Number</th>
