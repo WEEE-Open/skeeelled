@@ -2,6 +2,7 @@ import CommentObj from "../entities/CommentObj";
 import CourseObj from "../entities/CourseObj";
 import QuestionObj from "../entities/QuestionObj";
 import ReplyObj from "../entities/ReplyObj";
+import DiscussionObj from "../entities/DiscussionObj";
 
 const prefix = "http://localhost:8000/v1";
 
@@ -242,7 +243,7 @@ const searchQuestion = async (query, course_id) => {
           res
             .json()
             .then((json) =>
-              resolve(json.map((courses) => CourseObj.from(courses)))
+              resolve(json.map((questions) => QuestionObj.from(questions)))
             )
             .catch((err) => reject("Generic Error"));
         } else {
@@ -267,7 +268,7 @@ const searchDiscussion = async (query, question_id) => {
           res
             .json()
             .then((json) =>
-              resolve(json.map((courses) => CourseObj.from(courses)))
+              resolve(json.map((discussions) => DiscussionObj.from(discussions)))
             )
             .catch((err) => reject("Generic Error"));
         } else {

@@ -29,13 +29,21 @@ function SearchBar({ apiCall }) {
   const onSearch = (inputText) => {
     setValue(inputText);
     if (inputText.length > 0) {
-      setSuggestions(
-        [
-          ...API.searchCourses(inputText), 
-          ...API.searchQuestion(inputText, "08PJBT3"), 
-          ...API.searchDiscussion(inputText, "6380eae7306106889038c578")
-        ]
-      );
+      let risultati = [
+        API.searchCourses(inputText)
+        // ...[API.searchCourses(inputText).PromiseResult],
+        // ...[API.searchQuestion(inputText, "08PJBT3").PromiseResult],
+        // ...[API.searchDiscussion(inputText, "6380eae7306106889038c578").PromiseResult]
+      ];
+      console.log(risultati);
+      setSuggestions(risultati);
+      // setSuggestions(
+      //   [
+      //     ...[API.searchCourses(inputText)], 
+      //     ...[API.searchQuestion(inputText, "08PJBT3")], 
+      //     ...[API.searchDiscussion(inputText, "6380eae7306106889038c578")]
+      //   ]
+      // );
     } else {
       setSuggestions([]);
     }
