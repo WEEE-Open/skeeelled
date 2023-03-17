@@ -1,4 +1,4 @@
-import React, {useEffect, useState, createContext, useContext} from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import API from "./api/API";
 
 export const GlobalStateContext = createContext([{}, function () {}]);
@@ -12,7 +12,7 @@ const GlobalStateProvider = ({ children }) => {
 
   const [myBookmarkedQuestions, setMyBookmarkedQuestions] = useState([]);
 
-  const [mySimulationResult, setMySimulationResult] = useState([])
+  const [mySimulationResult, setMySimulationResult] = useState([]);
 
   useEffect(() => {
     API.getMyCourseNewQuestions(userID).then((questions) => {
@@ -21,26 +21,27 @@ const GlobalStateProvider = ({ children }) => {
     API.getMyBookmarkedQuestions(userID).then((questions) => {
       setMyBookmarkedQuestions(questions["myBookmarkedQuestions"]);
     });
-      API.getUser(userID).then((info) => {
-          setUserInfo(info)
-      })
-      API.getMySimulationResult(userID).then((result)=> {
-          setMySimulationResult(result)
-      })
+    API.getUser(userID).then((info) => {
+      setUserInfo(info);
+    });
+    API.getMySimulationResult(userID).then((result) => {
+      setMySimulationResult(result);
+    });
   }, []);
 
-  console.log(userInfo)
+  console.log(userInfo);
 
   return (
     <GlobalStateContext.Provider
       value={{
-          userInfo,
-          setUserInfo,
+        userInfo,
+        setUserInfo,
         myCoursesNewQuestions,
         setMyCoursesNewQuestions,
         myBookmarkedQuestions,
         setMyBookmarkedQuestions,
-          mySimulationResult, setMySimulationResult
+        mySimulationResult,
+        setMySimulationResult,
       }}
     >
       {children}

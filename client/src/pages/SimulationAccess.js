@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import { useContext, useState } from "react";
 import {
   Container,
   Card,
@@ -14,7 +14,7 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./SimulationAccess.css";
-import {GlobalStateContext} from "../GlobalStateProvider";
+import { GlobalStateContext } from "../GlobalStateProvider";
 
 export default function SimulationAccess() {
   const fakeSimulationResult = [
@@ -65,18 +65,15 @@ export default function SimulationAccess() {
     },
   ];
 
-  const {
-    mySimulationResult
-  } = useContext(GlobalStateContext)
+  const { mySimulationResult } = useContext(GlobalStateContext);
   const [coursesEnrolled, setCoursesEnrolled] = useState(fakeCourses);
-  const [simulationResult, setSimulationResult] =
-    useState(mySimulationResult);
+  const [simulationResult, setSimulationResult] = useState(mySimulationResult);
   const [courseSelected, setCourseSelected] = useState({});
   const [courseSelectedTitle, setCourseSelectedTitle] = useState(
     "Select Course of Simulation"
   );
 
-  console.log(mySimulationResult)
+  console.log(mySimulationResult);
   return (
     <>
       <Container className="">
@@ -165,7 +162,13 @@ export default function SimulationAccess() {
                           <Row key={"result" + i}>
                             <Col>{e.course.name}</Col>
                             <Col>{e.results[0]}</Col>
-                            <Col>{e.course["years_active"][(e.course["years_active"]).length - 1]}</Col>
+                            <Col>
+                              {
+                                e.course["years_active"][
+                                  e.course["years_active"].length - 1
+                                ]
+                              }
+                            </Col>
                           </Row>
                         }
                       </ListGroup.Item>
