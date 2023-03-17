@@ -8,7 +8,7 @@ from utils import responses
 router = APIRouter()
 
 
-@router.get("/simulation", response_model=models.response.ExamSimulation)
+@router.get("/simulation", response_model=models.response.ExamSimulation, responses=responses(404))
 async def get_simulation(simulation_id: PyObjectId):
     simulation = db[DbName.SIMULATION.value].aggregate([
         {"$match": {"_id": simulation_id}},
