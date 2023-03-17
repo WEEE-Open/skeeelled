@@ -4,9 +4,10 @@ FROM python:3.9-slim-buster
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /src
-COPY ./requirements.txt ./
+COPY ./src/requirements.txt /src/
 COPY ./docker/FastAPI/entrypoint.sh /
 
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 ENTRYPOINT ["sh", "/entrypoint.sh"]

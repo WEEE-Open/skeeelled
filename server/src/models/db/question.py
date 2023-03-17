@@ -45,6 +45,7 @@ class Question(BaseModel):
         return await dbcoll.find_one({"content": self.content})
     """
 
+
 async def multiple_insertion(collection, questions):
     for d in list(questions):
         if d.content["@type"] == "category":
