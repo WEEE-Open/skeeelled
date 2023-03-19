@@ -4,7 +4,6 @@ from utils import responses
 import defusedxml.ElementTree as ET
 from xml.etree.ElementTree import Element
 import xmltodict
-from pprint import pprint
 from typing import List
 from uuid import uuid4
 from base64 import b64decode
@@ -14,6 +13,7 @@ from bson.objectid import ObjectId
 import os
 from urllib.parse import urljoin
 import re
+from pprint import pprint
 
 
 BASE_URL = "http://localhost/"
@@ -21,6 +21,7 @@ VALID_TYPES = "category|multichoice|truefalse|shortanswer|matching|cloze|essay|n
 VALID_MIME_TYPES = [r"^image/.+", r"^audio/.+", r"^video/.+"]
 MEDIA_ROOT = "/server/media"
 MEDIA_URL = urljoin(BASE_URL, "/media/")
+FILE_SIZE_LIMIT = int(8e6)    # 8 MB
 
 router = APIRouter()
 
@@ -31,10 +32,12 @@ def get_text(elem: Element) -> str:
     return elem.text
 
 
-def save_file(file: Element, parent: Element, path: str):
+def save_file(file: Element, path: str):
     _id = uuid4()
     buffer = b64decode(file.text)
     file.text = None
+    if len(buffer) > FILE_SIZE_LIMIT:
+        raise HTTPException(422, f"Cannot upload files over {FILE_SIZE_LIMIT / 1e6} MB")
     mime_type = magic.from_buffer(buffer, mime=True)
     if not any([re.match(mt, mime_type) for mt in VALID_MIME_TYPES]):
         raise HTTPException(422, f"Cannot upload file with mime type {mime_type}")
@@ -48,13 +51,14 @@ def save_file(file: Element, parent: Element, path: str):
     url = urljoin(urljoin(MEDIA_URL, path), filename)
     file.attrib.pop("encoding")
     file.set("url", url)
+    print(filepath, len(buffer))
     return url
 
 
 def create_question(elem: Element, categories: List[str]):
     question_xml = ET.tostring(elem, encoding="UTF-8")
     question_json = xmltodict.parse(question_xml)
-    pprint(question_json)
+    # pprint(question_json)
 
 
 
@@ -104,7 +108,6 @@ async def upload_questions_file(file: UploadFile, user_id: str = "", course_id: 
                 elem.clear()
             if elem.tag == "file":
                 print("file found")
-                parent = stack[-1]
                 question_elem = stack[1]
                 if question_elem.tag != "question":
                     raise HTTPException(status_code=422,
@@ -113,5 +116,5 @@ async def upload_questions_file(file: UploadFile, user_id: str = "", course_id: 
                     question_ids[question_elem] = ObjectId()
                 question_id = question_ids[question_elem]
                 path = os.path.join(course_id, str(quiz_id), str(question_id)) + "/"
-                print(save_file(elem, parent, path))
+                print(save_file(elem, path))
 
