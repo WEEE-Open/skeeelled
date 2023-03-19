@@ -111,10 +111,9 @@ async def upload_questions_file(file: UploadFile, user_id: str = "", course_id: 
                 question_elem = stack[1]
                 if question_elem.tag != "question":
                     raise HTTPException(status_code=422,
-                                        detail="Not a valid MoodleXML file (has a first level root that is not a question)")
+                                        detail="Not a valid MoodleXML file (has a first level element that is not a question)")
                 if question_elem not in question_ids:
                     question_ids[question_elem] = ObjectId()
                 question_id = question_ids[question_elem]
                 path = os.path.join(course_id, str(quiz_id), str(question_id)) + "/"
                 print(save_file(elem, path))
-
