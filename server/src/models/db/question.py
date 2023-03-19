@@ -1,8 +1,21 @@
 from ..basemodel import BaseModel
 from pydantic import Field
-from typing import List
+from typing import List, Literal
 from datetime import datetime
 from ..objectid import PyObjectId
+
+VALID_TYPES = "category|multichoice|truefalse|shortanswer|matching|cloze|essay|numerical|description".split("|")
+
+
+class MoodleQuestion(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    owner: str
+    course_id: str
+    quiz_id: str = None
+    categories: List[str]
+    type: Literal[
+        "category", "multichoice", "truefalse", "shortanswer", "matching", "cloze", "essay", "numerical", "description"
+    ]
 
 
 class Question(BaseModel):

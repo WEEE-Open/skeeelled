@@ -7,6 +7,9 @@ WORKDIR /src
 COPY ./src/requirements.txt /src/
 COPY ./docker/FastAPI/entrypoint.sh /
 
+RUN  apt-get -y update
+RUN  apt-get -y install libmagic1
+
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
