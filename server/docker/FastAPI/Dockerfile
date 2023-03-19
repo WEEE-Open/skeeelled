@@ -3,8 +3,8 @@ FROM python:3.9-slim-buster
 
 ENV PYTHONUNBUFFERED=1
 
-WORKDIR /src
-COPY ./src/requirements.txt /src/
+WORKDIR /server/src
+COPY ./src/requirements.txt /server/src/
 COPY ./docker/FastAPI/entrypoint.sh /
 
 RUN  apt-get -y update

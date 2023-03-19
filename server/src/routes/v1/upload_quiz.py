@@ -10,9 +10,15 @@ from uuid import uuid4
 from base64 import b64decode
 import magic
 import mimetypes
+from bson.objectid import ObjectId
+import os
+from urllib.parse import urljoin
 
+BASE_URL = "http://localhost/"
 VALID_TYPES = "category|multichoice|truefalse|shortanswer|matching|cloze|essay|numerical|description".split("|")
 VALID_MIME_TYPES = ""
+MEDIA_ROOT = "/server/media"
+MEDIA_URL = urljoin(BASE_URL, "/media/")
 
 router = APIRouter()
 
@@ -23,16 +29,19 @@ def get_text(elem: Element) -> str:
     return elem.text
 
 
-def save_file(file: Element, parent: Element):
+def save_file(file: Element, parent: Element, path: str):
     _id = uuid4()
     buffer = b64decode(file.text)
     file.text = None
     mime_type = magic.from_buffer(buffer, mime=True)
     ext = mimetypes.guess_extension(mime_type)
-    print(mime_type)
-    print()
-    with open(f"../static/{_id}{ext}", "wb") as fp:
+    filename = f"{_id}{ext}"
+    dirpath = os.path.join(MEDIA_ROOT, path)
+    os.makedirs(dirpath)
+    with open(os.path.join(dirpath, filename), "wb") as fp:
         fp.write(buffer)
+    url = urljoin(urljoin(MEDIA_URL, path), filename)
+    return url
 
 
 def create_question(elem: Element, categories: List[str]):
@@ -64,6 +73,8 @@ async def upload_questions_file(file: UploadFile, user_id: str = "", course_id: 
 
     categories = []
     stack = []
+    quiz_id = ObjectId()
+    question_ids = {}
 
     for event, elem in ET.iterparse(file.file, events=("start", "end")):
         if event == "start":
@@ -86,12 +97,22 @@ async def upload_questions_file(file: UploadFile, user_id: str = "", course_id: 
             if elem.tag == "file":
                 print("file found")
                 parent = stack[-1]
-                save_file(elem, parent)
+                question_elem = stack[1]
+                if question_elem.tag != "question":
+                    raise HTTPException(status_code=422,
+                                        detail="Not a valid MoodleXML file (has a first level root that is not a question)")
+                if question_elem not in question_ids:
+                    question_ids[question_elem] = ObjectId()
+                question_id = question_ids[question_elem]
+                path = os.path.join(course_id, str(quiz_id), str(question_id)) + "/"
+                print(save_file(elem, parent, path))
 
+    """
     print(elem.tag)
     print("stack = ", stack)
     tree = ElementTree(elem)
-    # tree.write("uploaded_xml.xml")
+    tree.write("uploaded_xml.xml")
+    """
 
     """
     quiz = xmltodict.parse(file.file)
