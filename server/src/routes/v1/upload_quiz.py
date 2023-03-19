@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, UploadFile
 from db import db, DbName
 from utils import responses
 import defusedxml.ElementTree as ET
-from xml.etree.ElementTree import ElementTree, Element
+from xml.etree.ElementTree import Element
 import xmltodict
 from pprint import pprint
 from typing import List
@@ -13,10 +13,12 @@ import mimetypes
 from bson.objectid import ObjectId
 import os
 from urllib.parse import urljoin
+import re
+
 
 BASE_URL = "http://localhost/"
 VALID_TYPES = "category|multichoice|truefalse|shortanswer|matching|cloze|essay|numerical|description".split("|")
-VALID_MIME_TYPES = ""
+VALID_MIME_TYPES = [r"^image/.+", r"^audio/.+", r"^video/.+"]
 MEDIA_ROOT = "/server/media"
 MEDIA_URL = urljoin(BASE_URL, "/media/")
 
@@ -34,18 +36,26 @@ def save_file(file: Element, parent: Element, path: str):
     buffer = b64decode(file.text)
     file.text = None
     mime_type = magic.from_buffer(buffer, mime=True)
+    if not any([re.match(mt, mime_type) for mt in VALID_MIME_TYPES]):
+        raise HTTPException(422, f"Cannot upload file with mime type {mime_type}")
     ext = mimetypes.guess_extension(mime_type)
     filename = f"{_id}{ext}"
     dirpath = os.path.join(MEDIA_ROOT, path)
+    filepath = os.path.join(dirpath, filename)
     os.makedirs(dirpath)
-    with open(os.path.join(dirpath, filename), "wb") as fp:
+    with open(filepath, "wb") as fp:
         fp.write(buffer)
     url = urljoin(urljoin(MEDIA_URL, path), filename)
+    file.attrib.pop("encoding")
+    file.set("url", url)
     return url
 
 
 def create_question(elem: Element, categories: List[str]):
-    pass
+    question_xml = ET.tostring(elem, encoding="UTF-8")
+    question_json = xmltodict.parse(question_xml)
+    pprint(question_json)
+
 
 
 @router.post("/uploadQuestionsFile", responses=responses(403, 404, 422))
@@ -82,7 +92,7 @@ async def upload_questions_file(file: UploadFile, user_id: str = "", course_id: 
                 raise HTTPException(status_code=422, detail="Not a valid MoodleXML file (root element is not quiz)")
             stack.append(elem)
         if event == "end":
-            """
+            stack.pop()
             if elem.tag == "question":
                 if (_type := elem.get("type")) not in VALID_TYPES:
                     raise HTTPException(status_code=422,
@@ -92,8 +102,6 @@ async def upload_questions_file(file: UploadFile, user_id: str = "", course_id: 
                     continue
                 create_question(elem, categories)
                 elem.clear()
-            """
-            stack.pop()
             if elem.tag == "file":
                 print("file found")
                 parent = stack[-1]
@@ -107,15 +115,3 @@ async def upload_questions_file(file: UploadFile, user_id: str = "", course_id: 
                 path = os.path.join(course_id, str(quiz_id), str(question_id)) + "/"
                 print(save_file(elem, parent, path))
 
-    """
-    print(elem.tag)
-    print("stack = ", stack)
-    tree = ElementTree(elem)
-    tree.write("uploaded_xml.xml")
-    """
-
-    """
-    quiz = xmltodict.parse(file.file)
-
-    pprint(quiz)
-    """
