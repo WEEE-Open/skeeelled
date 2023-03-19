@@ -56,7 +56,7 @@ class MultichoiceQuestion(MoodleQuestion):
 
 class TruefalseQuestion(MoodleQuestion):
     type: Literal["truefalse"] = Field(alias="@type")
-    answer = List[Answer]
+    answer: List[Answer]
 
     @validator("answer")
     def check_len(cls, v):
