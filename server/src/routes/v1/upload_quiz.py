@@ -58,8 +58,8 @@ def save_file(file: Element, path: str):
 def create_question(elem: Element, categories: List[str]):
     question_xml = ET.tostring(elem, encoding="UTF-8")
     question_json = xmltodict.parse(question_xml)
-    # pprint(question_json)
-
+    pprint(question_json)
+    # TODO: unpack "name"
 
 
 @router.post("/uploadQuestionsFile", responses=responses(403, 404, 422))

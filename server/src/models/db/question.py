@@ -1,21 +1,82 @@
 from ..basemodel import BaseModel
-from pydantic import Field
-from typing import List, Literal
+from pydantic import Field, NonNegativeFloat, validator, NonNegativeInt
+from typing import List, Literal, Dict, Optional, Union
 from datetime import datetime
 from ..objectid import PyObjectId
 
-VALID_TYPES = "category|multichoice|truefalse|shortanswer|matching|cloze|essay|numerical|description".split("|")
+
+class TextField(BaseModel):
+    text: str
+    format: Optional[Literal["html", "plain_text", "markdown"]] = Field(alias="@format")
+    file: Optional[Dict]
+
+
+class Answer(TextField):
+    fraction: NonNegativeFloat = Field(alias="@fraction")
+    feedback: TextField
+
+
+class NumericalAnswer(Answer):
+    tolerance: NonNegativeFloat = 0.0
+
+
+class Unit(BaseModel):
+    multiplier: float
+    unit_name: str
 
 
 class MoodleQuestion(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     owner: str
     course_id: str
-    quiz_id: str = None
+    quiz_id: str
     categories: List[str]
     type: Literal[
-        "category", "multichoice", "truefalse", "shortanswer", "matching", "cloze", "essay", "numerical", "description"
-    ]
+        "multichoice", "truefalse", "shortanswer", "matching", "cloze", "essay", "numerical", "description"
+    ] = Field(alias="@type")
+    name: str
+    questiontext: TextField
+    penalty: NonNegativeFloat = 0.0
+    generalfeedback: Optional[TextField]
+    defaultgrade: NonNegativeFloat = 1.0
+    hidden: bool = False
+    answer: Union[Answer, List[Answer]]
+
+
+class MultichoiceQuestion(MoodleQuestion):
+    type: Literal["multichoice"] = Field(alias="@type")
+    answer: List[Answer]
+    single: bool
+    shuffleanswers: bool
+    correctfeedback: Optional[TextField]
+    partiallycorrectfeedback: Optional[TextField]
+    incorrectfeedback: Optional[TextField]
+    answernumbering: Literal["none", "abc", "ABCD", "123"]
+
+
+class TruefalseQuestion(MoodleQuestion):
+    type: Literal["truefalse"] = Field(alias="@type")
+    answer = List[Answer]
+
+    @validator("answer")
+    def check_len(cls, v):
+        assert len(v) == 2, "answer must have 2 elements in a truefalse question"
+        return v
+
+
+class ShortanswerQuestion(MoodleQuestion):
+    type: Literal["shortanswer"] = Field(alias="@type")
+    usecase: bool = False
+
+
+class NumericalQuestion(MoodleQuestion):
+    type: Literal["numerical"] = Field(alias="@type")
+    answer: NumericalAnswer
+    units: Optional[List[Unit]]
+    unitgradingtype: Optional[Literal[0, 1]]
+    unitpenalty: Optional[NonNegativeFloat]
+    showunits: Optional[NonNegativeInt]
+    unitsleft: Optional[int]
 
 
 class Question(BaseModel):
