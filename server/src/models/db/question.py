@@ -1,14 +1,22 @@
 from ..basemodel import BaseModel
-from pydantic import Field, NonNegativeFloat, validator, NonNegativeInt
-from typing import List, Literal, Dict, Optional, Union
+from pydantic import Field, NonNegativeFloat, validator, NonNegativeInt, AnyHttpUrl
+from typing import List, Literal, Optional, Union
 from datetime import datetime
 from ..objectid import PyObjectId
 
+# Unsupoorted question types: "matching", "cloze", "description"
+
+
+class File(BaseModel):
+    name: str = Field(alias="@name")
+    path: str = Field(alias="@path")
+    url: AnyHttpUrl = Field(alias="@url")
+
 
 class TextField(BaseModel):
-    text: str
+    text: Optional[str]
     format: Optional[Literal["html", "plain_text", "markdown"]] = Field(alias="@format")
-    file: Optional[Dict]
+    file: Union[File, List[File], None]
 
 
 class Answer(TextField):
@@ -20,6 +28,10 @@ class NumericalAnswer(Answer):
     tolerance: NonNegativeFloat = 0.0
 
 
+class EssayAnswer(Answer):
+    fraction: Literal[0]
+
+
 class Unit(BaseModel):
     multiplier: float
     unit_name: str
@@ -29,10 +41,10 @@ class MoodleQuestion(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     owner: str
     course_id: str
-    quiz_id: str
+    quiz_id: PyObjectId
     categories: List[str]
     type: Literal[
-        "multichoice", "truefalse", "shortanswer", "matching", "cloze", "essay", "numerical", "description"
+        "multichoice", "truefalse", "shortanswer", "essay", "numerical"
     ] = Field(alias="@type")
     name: str
     questiontext: TextField
@@ -77,6 +89,10 @@ class NumericalQuestion(MoodleQuestion):
     unitpenalty: Optional[NonNegativeFloat]
     showunits: Optional[NonNegativeInt]
     unitsleft: Optional[int]
+
+
+class EssayQuestion(MoodleQuestion):
+    answer: EssayAnswer
 
 
 class Question(BaseModel):
