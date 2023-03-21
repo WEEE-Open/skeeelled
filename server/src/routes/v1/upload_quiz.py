@@ -135,8 +135,7 @@ def parse_xml(file: BinaryIO, user_id: str, course_id: str, quiz_id: ObjectId) -
 
 @router.post("/uploadQuestionsFile", status_code=201, response_model=models.response.Quiz,
              responses=responses(403, 404, 422, 501))
-async def upload_questions_file(file: UploadFile, user_id: str = "", course_id: str = "", is_simulation: bool = False):
-    """
+async def upload_questions_file(file: UploadFile, user_id: str, course_id: str, is_simulation: bool = False):
     user = await db[DbName.USER.value].find_one({"_id": user_id})
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -147,7 +146,6 @@ async def upload_questions_file(file: UploadFile, user_id: str = "", course_id: 
     course = await db[DbName.COURSE.value].find_one({"_id": course_id})
     if course is None:
         raise HTTPException(status_code=404, detail="Course not found")
-    """
 
     quiz_id = ObjectId()
     questions = parse_xml(file.file, user_id, course_id, quiz_id)
