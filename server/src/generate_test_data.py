@@ -91,7 +91,7 @@ def generate_questions(course_code: str, professors_list: List[User], students_l
         for s in bookmarking_students:
             s.my_BookmarkedQuestions.append(_id)
         question = q.copy(deep=True, update={
-            "_id": _id,
+            "id": _id,
             "owner": owner.id,
             "course_id": course_code
         })
