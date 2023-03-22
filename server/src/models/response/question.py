@@ -4,18 +4,16 @@ from .user import User
 from .course import Course
 from typing import List, Literal, Optional, Union
 from pydantic import Field, NonNegativeFloat, NonNegativeInt, validator
+from ..objectid import PyObjectId
 
 
-class MoodleQuestion(_MoodleQuestion):
+class Question(_MoodleQuestion):
     owner: Union[User, str]
     course_id: Union[Course, str]
-    quiz_id: Union[Quiz, str]
-
-    class Config(_MoodleQuestion.Config):
-        fields = {"course_id": {"alias": "course"}, "quiz_id": {"alias": "quiz"}}
+    quiz_id: Union[Quiz, PyObjectId]
 
 
-class MultichoiceQuestion(MoodleQuestion):
+class MultichoiceQuestion(Question):
     type: Literal["multichoice"] = Field(alias="@type")
     answer: List[Answer]
     single: bool
@@ -26,7 +24,7 @@ class MultichoiceQuestion(MoodleQuestion):
     answernumbering: Literal["none", "abc", "ABCD", "123"]
 
 
-class TruefalseQuestion(MoodleQuestion):
+class TruefalseQuestion(Question):
     type: Literal["truefalse"] = Field(alias="@type")
     answer: List[Answer]
 
@@ -36,12 +34,12 @@ class TruefalseQuestion(MoodleQuestion):
         return v
 
 
-class ShortanswerQuestion(MoodleQuestion):
+class ShortanswerQuestion(Question):
     type: Literal["shortanswer"] = Field(alias="@type")
     usecase: bool = False
 
 
-class NumericalQuestion(MoodleQuestion):
+class NumericalQuestion(Question):
     type: Literal["numerical"] = Field(alias="@type")
     answer: NumericalAnswer
     units: Optional[List[Unit]]
@@ -51,9 +49,6 @@ class NumericalQuestion(MoodleQuestion):
     unitsleft: Optional[int]
 
 
-class EssayQuestion(MoodleQuestion):
+class EssayQuestion(Question):
     type: Literal["essay"]
     answer: EssayAnswer
-
-
-Question = Union[MultichoiceQuestion, TruefalseQuestion, ShortanswerQuestion, NumericalQuestion, EssayQuestion]
