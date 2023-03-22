@@ -9,12 +9,10 @@ from typing import List
 import random
 from bson.objectid import ObjectId
 
+
 from db import DbName
-from models.db.user import User
-from models.db.course import Course
-from models.db.question import Question
-from models.db.comment import Comment, Reply
-from models.db.simulation import ExamSimulation
+from models.db import User, Course, Question, Comment, Reply, ExamSimulation
+
 
 TEST_STUDENT_ID = "s313131"
 TEST_PROFESSOR_ID = "d313131"

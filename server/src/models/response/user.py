@@ -1,7 +1,7 @@
 from ..basemodel import BaseModel
 from ..objectid import PyObjectId
 from pydantic import Field
-from ..db.question import Question
+from .question import Question
 from typing import List
 
 
