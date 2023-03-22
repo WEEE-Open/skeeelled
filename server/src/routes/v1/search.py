@@ -15,10 +15,10 @@ async def search_courses(query: str, limit: int = 10):
 @router.get("/searchQuestions", response_model=List[Question])
 async def search_question(course_id: str, query: str, limit: int = 10):
     result = await db[DbName.QUESTION.value].find(
-        {"content": {'$regex': f'(?i){query}'}, "course_id": course_id}).to_list(limit)
+        {"questiontext.text": {'$regex': f'(?i){query}'}, "course_id": course_id}).to_list(limit)
     if not result:
         result = await db[DbName.QUESTION.value].find(
-            {"tags": {'$regex': f'(?i){query}'}, "course_id": course_id}).to_list(limit)
+            {"categories": {'$regex': f'(?i){query}'}, "course_id": course_id}).to_list(limit)
     return result
 
 

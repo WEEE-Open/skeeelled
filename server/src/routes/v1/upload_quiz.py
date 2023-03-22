@@ -38,8 +38,9 @@ router = APIRouter()
 
 
 def get_text(elem: Element) -> str:
-    if text_elem := elem.find("text"):
-        return text_elem.text
+    text = elem.findtext("text")
+    if text:
+        return text
     return elem.text
 
 

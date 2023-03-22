@@ -1,6 +1,7 @@
 import asyncio
 import os
 import string
+import shutil
 
 import motor.motor_asyncio
 from datetime import datetime
@@ -146,6 +147,7 @@ async def main():
     await db[DbName.QUESTION.value].drop()
     await db[DbName.COMMENT.value].drop()
     await db[DbName.SIMULATION.value].drop()
+    shutil.rmtree("/server/media/TEST")
 
     quiz_xml = open(QUIZ_FILEPATH, "rb")
     quiz_id = ObjectId()
