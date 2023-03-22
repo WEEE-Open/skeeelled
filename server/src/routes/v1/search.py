@@ -26,4 +26,4 @@ async def search_question(course_id: str, query: str, limit: int = 10):
 async def search_discussion(question_id: PyObjectId, query: str, limit: int = 10):
     return await db[DbName.COMMENT.value].find({"question_id": question_id,
                                                 "$or": [{"content": {'$regex': f'(?i){query}'}},
-                                                        {"replies": {'$regex': f'(?i){query}'}}]}).to_list(limit)
+                                                        {"replies.content": {'$regex': f'(?i){query}'}}]}).to_list(limit)
