@@ -66,7 +66,7 @@ def save_file(file: Element, path: str):
     return url
 
 
-def create_question(elem: Element, _id: ObjectId, owner: str, course_id: str, quiz_id: ObjectId,
+def create_question(elem: Element, _id: ObjectId, owner: str, course_id: str, quiz_id: ObjectId, is_exam: bool,
                     categories: List[str]) -> models.db.question.MoodleQuestion:
     question_xml = ET.tostring(elem, encoding="UTF-8")
     question = xmltodict.parse(question_xml)["question"]
@@ -81,6 +81,7 @@ def create_question(elem: Element, _id: ObjectId, owner: str, course_id: str, qu
             course_id=course_id,
             quiz_id=quiz_id,
             categories=categories,
+            is_exam=is_exam,
             **question
         )
     except KeyError:
@@ -90,7 +91,8 @@ def create_question(elem: Element, _id: ObjectId, owner: str, course_id: str, qu
         raise HTTPException(status_code=422, detail="Error while parsing the questions")
 
 
-def parse_xml(file: BinaryIO, user_id: str, course_id: str, quiz_id: ObjectId) -> List[models.db.MoodleQuestion]:
+def parse_xml(file: BinaryIO, user_id: str, course_id: str, quiz_id: ObjectId, is_exam: bool) -> List[
+    models.db.MoodleQuestion]:
     categories = []
     stack = []
     question_ids = {}
@@ -118,7 +120,9 @@ def parse_xml(file: BinaryIO, user_id: str, course_id: str, quiz_id: ObjectId) -
                 if _type == "category":
                     categories = get_text(elem.find("category")).split("/")[1:]
                     continue
-                questions.append(create_question(elem, question_ids.get(elem), user_id, course_id, quiz_id, categories))
+                questions.append(
+                    create_question(elem, question_ids.get(elem), user_id, course_id, quiz_id, is_exam, categories)
+                )
                 elem.clear()
             if elem.tag == "file":
                 question_elem = stack[1]
@@ -136,7 +140,7 @@ def parse_xml(file: BinaryIO, user_id: str, course_id: str, quiz_id: ObjectId) -
 
 @router.post("/uploadQuestionsFile", status_code=201, response_model=models.response.Quiz,
              responses=responses(403, 404, 422, 501))
-async def upload_questions_file(file: UploadFile, user_id: str, course_id: str, is_simulation: bool = False):
+async def upload_questions_file(file: UploadFile, user_id: str, course_id: str, is_exam: bool = False):
     user = await db[DbName.USER.value].find_one({"_id": user_id})
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -149,13 +153,13 @@ async def upload_questions_file(file: UploadFile, user_id: str, course_id: str, 
         raise HTTPException(status_code=404, detail="Course not found")
 
     quiz_id = ObjectId()
-    questions = parse_xml(file.file, user_id, course_id, quiz_id)
+    questions = parse_xml(file.file, user_id, course_id, quiz_id, is_exam)
 
     quiz = models.db.Quiz(
         _id=quiz_id,
         uploaded_by=user_id,
         course_id=course_id,
-        is_simulation=is_simulation,
+        is_exam=is_exam,
         filename=file.filename
     )
 

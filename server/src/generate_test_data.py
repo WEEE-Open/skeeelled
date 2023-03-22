@@ -151,7 +151,7 @@ async def main():
 
     quiz_xml = open(QUIZ_FILEPATH, "rb")
     quiz_id = ObjectId()
-    qlist = parse_xml(quiz_xml, TEST_PROFESSOR_ID, "TEST", quiz_id)
+    qlist = parse_xml(quiz_xml, TEST_PROFESSOR_ID, "TEST", quiz_id, True)
     quiz_xml.close()
 
     professors = generate_users(5, True)

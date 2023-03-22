@@ -8,5 +8,5 @@ class Quiz(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     uploaded_by: str
     course_id: str
-    is_simulation: bool = False
+    is_exam: bool = False
     filename: str

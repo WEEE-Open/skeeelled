@@ -34,8 +34,13 @@ async def start_simulation(sim: models.request.ExamSimulation):
     if course is None:
         raise HTTPException(status_code=404, detail="Course not found")
     # TODO: decide if we allow students not taking the course to create a simulation
+    query = {"course_id": sim.course_id}
+    if sim.multiple_choice:
+        query["@type"] = "multichoice"
+    if sim.exam_only:
+        query["is_exam"] = True
     cursor = db[DbName.QUESTION.value].aggregate(
-        [{"$match": {"multiple_questions": sim.multiple_choice, "is_exam": sim.exam_only, "course_id": sim.course_id}},
+        [{"$match": query},
          {"$sample": {"size": sim.n_questions}},
          {"$project": {"_id": 1}}
          ])

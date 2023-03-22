@@ -41,6 +41,7 @@ class MoodleQuestion(BaseModel):
     owner: str
     course_id: str
     quiz_id: PyObjectId
+    is_exam: bool = False
     categories: List[str]
     type: Literal[
         "multichoice", "truefalse", "shortanswer", "essay", "numerical"
