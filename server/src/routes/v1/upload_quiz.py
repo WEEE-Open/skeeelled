@@ -100,7 +100,8 @@ def parse_xml(file: BinaryIO, user_id: str, course_id: str, quiz_id: ObjectId, i
 
     # Remove the xml tag
     xml_tag = file.readline()
-    if xml_tag != b'<?xml version="1.0" encoding="UTF-8"?>\n':
+    print("line:", xml_tag)
+    if xml_tag != b'<?xml version="1.0" encoding="UTF-8"?>\n' and xml_tag != b'<?xml version="1.0" encoding="UTF-8"?>\r\n':
         raise HTTPException(status_code=422, detail="Not a valid XML file")
 
     for event, elem in ET.iterparse(file, events=("start", "end")):
