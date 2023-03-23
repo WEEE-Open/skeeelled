@@ -1,7 +1,8 @@
 from ..db.simulation import ExamSimulation as _ExamSimulation
-from typing import List
+from typing import List, Union
 from .question import Question
+from ..objectid import PyObjectId
 
 
 class ExamSimulation(_ExamSimulation):
-    questions: List[Question]
+    questions: Union[List[Question], List[PyObjectId]]

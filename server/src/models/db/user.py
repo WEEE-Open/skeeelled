@@ -3,7 +3,6 @@ from pydantic import Field
 from typing import List
 from datetime import datetime
 from ..objectid import PyObjectId
-from .simulation import ExamSimulation
 
 
 class User(BaseModel):

@@ -1,7 +1,6 @@
 from ..basemodel import BaseModel
 from ..objectid import PyObjectId
 from pydantic import Field
-from ..db.question import Question
 from typing import List
 
 
@@ -19,6 +18,11 @@ class User(BaseModel):
     # profile_picture: str
 
 
+from .question import Question
+
+
 class UserBookmarkedQuestions(BaseModel):
     id: str = Field(alias="_id")
     myBookmarkedQuestions: List[Question]
+
+
