@@ -27,20 +27,20 @@ function SearchBar({ apiCall }) {
     charChange();
   }, [value]);
 
-  const onSearch = (inputText) => {
+  const onSearch = async (inputText) => {
     //TODO REMOVE THESE
-    apiCall.courseId = "60T47C0";
-    apiCall.questionId = "6380eae7306106889038c500";
+    apiCall.courseId = "19IT0SW";
+    apiCall.questionId = "641cca4fd104b2e33e8d4c1b";
     //-------------------
     setValue(inputText);
     if (inputText.length > 0) {
       let risultati = [];
       if(apiCall.scope === "courses")
-        risultati = [API.searchCourses(inputText)];
+        risultati = await API.searchCourses(inputText);
       else if(apiCall.scope === "questions")
-        risultati = [API.searchQuestion(inputText, apiCall.courseId)];
+        risultati = await API.searchQuestion(inputText, apiCall.courseId);
       else if(apiCall.scope === "discussion")
-        risultati = [API.searchDiscussion(inputText, apiCall.questionId)];
+        risultati = await API.searchDiscussion(inputText, apiCall.questionId);
 
       console.log(risultati);
     } else {
