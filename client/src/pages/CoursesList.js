@@ -79,7 +79,7 @@ function CoursesList() {
         <h3 className="courses-title">Courses</h3>
       </Row>
       <Row>
-        <SearchBar />
+        <SearchBar apiCall="courses"></SearchBar>
       </Row>
       <Row className="courses-body">
         <Link

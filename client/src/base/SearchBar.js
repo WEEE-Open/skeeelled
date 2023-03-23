@@ -10,6 +10,7 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 import "react-bootstrap-typeahead/css/Typeahead.bs5.css";
 
 function SearchBar({ apiCall }) {
+// function SearchBar(props) {
   /* Mock search suggestions */
 
   const [suggestions, setSuggestions] = useState([]);
@@ -18,7 +19,7 @@ function SearchBar({ apiCall }) {
   useEffect(() => {
     const charChange = async () => {
       try {
-        const res = await apiCall(value);
+        // const res = await apiCall(value);
       } catch (err) {
         console.error(err.error);
       }
@@ -29,21 +30,13 @@ function SearchBar({ apiCall }) {
   const onSearch = (inputText) => {
     setValue(inputText);
     if (inputText.length > 0) {
-      let risultati = [
-        API.searchCourses(inputText)
-        // ...[API.searchCourses(inputText).PromiseResult],
-        // ...[API.searchQuestion(inputText, "08PJBT3").PromiseResult],
-        // ...[API.searchDiscussion(inputText, "6380eae7306106889038c578").PromiseResult]
-      ];
-      console.log(risultati);
-      setSuggestions(risultati);
-      // setSuggestions(
-      //   [
-      //     ...[API.searchCourses(inputText)], 
-      //     ...[API.searchQuestion(inputText, "08PJBT3")], 
-      //     ...[API.searchDiscussion(inputText, "6380eae7306106889038c578")]
-      //   ]
-      // );
+      let risultati = [];
+      if(apiCall === "courses")
+        risultati = [API.searchCourses(inputText)];
+      else if(apiCall === "questions")
+        risultati = [API.searchQuestion(inputText, "08PJBT3")];
+      else if(apiCall === "discussion")
+        risultati = [API.searchDiscussion(inputText, "6380eae7306106889038c578")];
     } else {
       setSuggestions([]);
     }
