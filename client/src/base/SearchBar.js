@@ -28,15 +28,21 @@ function SearchBar({ apiCall }) {
   }, [value]);
 
   const onSearch = (inputText) => {
+    //TODO REMOVE THESE
+    apiCall.courseId = "60T47C0";
+    apiCall.questionId = "6380eae7306106889038c500";
+    //-------------------
     setValue(inputText);
     if (inputText.length > 0) {
       let risultati = [];
-      if(apiCall === "courses")
+      if(apiCall.scope === "courses")
         risultati = [API.searchCourses(inputText)];
-      else if(apiCall === "questions")
-        risultati = [API.searchQuestion(inputText, "08PJBT3")];
-      else if(apiCall === "discussion")
-        risultati = [API.searchDiscussion(inputText, "6380eae7306106889038c578")];
+      else if(apiCall.scope === "questions")
+        risultati = [API.searchQuestion(inputText, apiCall.courseId)];
+      else if(apiCall.scope === "discussion")
+        risultati = [API.searchDiscussion(inputText, apiCall.questionId)];
+
+      console.log(risultati);
     } else {
       setSuggestions([]);
     }
@@ -48,7 +54,7 @@ function SearchBar({ apiCall }) {
     <InputGroup>
       <AsyncTypeahead
         id="Search bar"
-        placeholder="Search a course, a question or a discussion..."
+        placeholder={"Search between " + apiCall.scope + "..."}
         isLoading={false}
         searchText=""
         emptyLabel=""

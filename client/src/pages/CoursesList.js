@@ -79,7 +79,7 @@ function CoursesList() {
         <h3 className="courses-title">Courses</h3>
       </Row>
       <Row>
-        <SearchBar apiCall="courses"></SearchBar>
+        <SearchBar apiCall={{scope: "courses"}}></SearchBar>
       </Row>
       <Row className="courses-body">
         <Link

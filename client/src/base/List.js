@@ -94,7 +94,7 @@ function ListQuestions({ props }) {
   return (
     <>
       <h3 className="listQuestionsTitle">{props.title}</h3>
-      <SearchBar />
+      <SearchBar apiCall={{scope: "questions"}}/>
       {props.rows.map((r, i) => (
         <ListEntry key={i} scope={props.scope} row={r} />
       ))}
@@ -106,7 +106,7 @@ function ListBookmarkQuestions({ props }) {
   return (
     <>
       <h3 className="listQuestionsTitle">{props.title}</h3>
-      <SearchBar />
+      <SearchBar apiCall={{scope: "questions"}}/>
       {props.rows.map((r, i) => (
         <ListEntry key={i} scope={props.scope} row={r} />
       ))}
