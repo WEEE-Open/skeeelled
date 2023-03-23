@@ -103,7 +103,6 @@ function ListQuestions({ props }) {
 }
 
 function ListBookmarkQuestions({ props }) {
-  console.log(props.rows);
   return (
     <>
       <h3 className="listQuestionsTitle">{props.title}</h3>

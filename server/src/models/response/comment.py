@@ -2,7 +2,7 @@ from ..db.comment import CommentBase as _CommentBase
 from ..basemodel import BaseModel
 from ..objectid import PyObjectId
 from pydantic import Field, root_validator
-from typing import List, Union, Dict, Any
+from typing import List, Union
 from .user import User
 
 

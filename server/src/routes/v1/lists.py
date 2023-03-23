@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from db import db, DbName
 from pymongo import ASCENDING, DESCENDING
-from typing import List, Dict
+from typing import List
 from models.objectid import PyObjectId
 from models.response import Question, SingleReply, CommentWithoutReplies, Replies, UserBookmarkedQuestions, Course, ExamSimulation
 from utils import responses
@@ -55,7 +55,7 @@ async def get_replies_to_user(user_id: str, page: PositiveInt = 1, itemsPerPage:
 
 
 @router.get("/myCoursesNewQuestions", response_model=List[Question], responses=responses(404))
-async def get_new_questions_from_user_courses(user_id: str, itemsPerPage: PositiveInt, page: PositiveInt = 1):
+async def get_new_questions_from_user_courses(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
     user = await db[DbName.USER.value].find_one({"_id": user_id})
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -69,10 +69,10 @@ async def get_new_questions_from_user_courses(user_id: str, itemsPerPage: Positi
 
 @router.get("/myExamSimulations", response_model=List[ExamSimulation])
 async def get_user_simulation_results(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
-    pipeline: List[Dict] = [
+    pipeline = [
         {"$match": {"user_id": user_id}},
-        {"$lookup": {"from": DbName.COURSE.value, "localField": "course_id", "foreignField": "_id", "as": "course_id"}},
-        {"$unwind": "$course_id"},
+        {"$lookup": {"from": DbName.COURSE.value, "localField": "course_id", "foreignField": "_id", "as": "course"}},
+        {"$unwind": "$course"},
         {"$sort": {"timestamp": DESCENDING, "_id": DESCENDING}},
     ]
     if itemsPerPage > 0:
