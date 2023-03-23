@@ -2,7 +2,7 @@ import { Row, Col, Card, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { List, ListEntry, Recent, SearchBar, TextInput } from "../base";
-import "./stylesheet/Replies.css";
+import "./stylesheet/Replies.scss";
 
 function Answer(props) {
   return (

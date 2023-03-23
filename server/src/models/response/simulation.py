@@ -1,12 +1,8 @@
-from ..basemodel import BaseModel
+from ..db.simulation import ExamSimulation as _ExamSimulation
+from typing import List, Union
+from .question import Question
 from ..objectid import PyObjectId
-from pydantic import Field
-from .course import Course
-from typing import List
 
 
-class SimulationResult(BaseModel):
-    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    user_id: str
-    course_id: Course = Field(alias="course")
-    results: List[float]
+class ExamSimulation(_ExamSimulation):
+    questions: Union[List[Question], List[PyObjectId]]

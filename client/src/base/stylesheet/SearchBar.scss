@@ -17,12 +17,25 @@
 }
 
 .input-group {
-  margin-bottom: 20px;
-  border-radius: 9pt;
+  margin-top: 10px;
+  margin-bottom: 10px;
   width: 100%;
   height: 58px;
 }
 
-.async-type-head {
-  @include font-Quicksand($size: 22px);
+.input-group .async-type-head {
+  border-radius: 9pt;
 }
+
+.async-type-head > div input {
+  @include font-Quicksand($size: 22px);
+  color: #707070;
+  border-radius: 9pt;
+  border-color: #707070;
+}
+
+//.input-group button {
+//  border-radius:9pt;
+//  border-left: none;
+//  border-color: #707070;
+//}

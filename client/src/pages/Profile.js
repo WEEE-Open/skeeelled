@@ -1,8 +1,9 @@
 import { Row, Col, Card, Image } from "react-bootstrap";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 // import "./Profile.css";
 import "./stylesheet/Profile.css"; // scss file access
 import { ListGroup, SearchBar } from "../base/";
+import { GlobalStateContext } from "../GlobalStateProvider";
 
 function Profile() {
   const fake = [
@@ -41,6 +42,15 @@ function Profile() {
 
   const [tests, setTests] = useState(fake);
 
+  const { userInfo } = useContext(GlobalStateContext);
+
+  const [courses, setCourses] = useState(fake);
+  const [user, setUser] = useState(userInfo);
+
+  useEffect(() => {
+    setUser(userInfo);
+  }, [userInfo]);
+
   return (
     <Card body>
       <Row lg={12} className="py-0 header">
@@ -51,8 +61,10 @@ function Profile() {
           />
         </Col>
         <Col className="user-name-nickname">
-          <h3 className="user-name-surname">Name Surname</h3>
-          <h4 className="user-nickname">@nickname</h4>
+          <h3 className="user-name-surname">
+            {user.name + " " + user.surname}
+          </h3>
+          <h4 className="user-nickname">{"@" + user.username}</h4>
         </Col>
       </Row>
       <div className="user-profile">

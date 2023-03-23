@@ -1,8 +1,9 @@
 import { Row, Col, Card, Image, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./UserSettings.css";
 import { List } from "../base/";
+import { GlobalStateContext } from "../GlobalStateProvider";
 
 function UserSettings() {
   const fake = [
@@ -10,7 +11,14 @@ function UserSettings() {
     [<Form.Check />, "Physics I"],
     [<Form.Check />, "Geometry"],
   ];
+  const { userInfo } = useContext(GlobalStateContext);
+
   const [courses, setCourses] = useState(fake);
+  const [user, setUser] = useState(userInfo);
+
+  useEffect(() => {
+    setUser(userInfo);
+  }, [userInfo]);
 
   return (
     <Card body>
@@ -19,8 +27,8 @@ function UserSettings() {
           <Image src={process.env.PUBLIC_URL + "/icons/PERSON.svg"} />
         </Col>
         <Col>
-          <h3>Name Surname</h3>
-          <h4>@Nickname</h4>
+          <h3> {user?.name + " " + user?.surname} </h3>
+          <h4> {} </h4>
           <Form.Control placeholder="Change nickname" />
           <Form.Check label="Public profile" />
         </Col>

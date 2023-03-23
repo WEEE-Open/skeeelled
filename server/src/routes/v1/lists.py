@@ -3,7 +3,7 @@ from db import db, DbName
 from pymongo import ASCENDING, DESCENDING
 from typing import List, Literal
 from models.objectid import PyObjectId
-from models.response import Question, Comment, CommentWithoutReplies, Replies, UserBookmarkedQuestions, Course, SimulationResult
+from models.response import Question, SingleReply, CommentWithoutReplies, Replies, UserBookmarkedQuestions, Course, ExamSimulation
 from utils import responses
 from pydantic import PositiveInt
 from datetime import date, timedelta, datetime
@@ -29,17 +29,34 @@ async def get_user_comments(user_id: str, page: PositiveInt = 1, itemsPerPage: i
     return comments
 
 
-@router.get("/myReplies", response_model=List[Comment])
+@router.get("/myReplies", response_model=List[SingleReply])
 async def get_user_replies(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
-    comments = await db[DbName.COMMENT.value].find({"replies.author": user_id}) \
-        .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
-        .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
-        .to_list(itemsPerPage if itemsPerPage > 0 else None)
-    return comments
+    pipeline = [
+        {"$unwind": "$replies"},
+        {"$match": {"replies.author": user_id}},
+        {"$sort": {"replies.timestamp": DESCENDING, "replies._id": DESCENDING}},
+    ]
+    if itemsPerPage > 0:
+        pipeline.append({"$skip": (page - 1) * itemsPerPage})
+    replies = await db[DbName.COMMENT.value].aggregate(pipeline).to_list(itemsPerPage if itemsPerPage > 0 else None)
+    return replies
+
+
+@router.get("/repliesToMe", response_model=List[SingleReply])
+async def get_replies_to_user(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
+    pipeline = [
+        {"$match": {"author": user_id}},
+        {"$unwind": "$replies"},
+        {"$sort": {"replies.timestamp": DESCENDING, "replies._id": DESCENDING}},
+    ]
+    if itemsPerPage > 0:
+        pipeline.append({"$skip": (page - 1) * itemsPerPage})
+    replies = await db[DbName.COMMENT.value].aggregate(pipeline).to_list(itemsPerPage if itemsPerPage > 0 else None)
+    return replies
 
 
 @router.get("/myCoursesNewQuestions", response_model=List[Question], responses=responses(404))
-async def get_new_questions_from_user_courses(user_id: str, itemsPerPage: PositiveInt, page: PositiveInt = 1):
+async def get_new_questions_from_user_courses(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
     user = await db[DbName.USER.value].find_one({"_id": user_id})
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -51,12 +68,12 @@ async def get_new_questions_from_user_courses(user_id: str, itemsPerPage: Positi
     return questions
 
 
-@router.get("/mySimulationResults", response_model=List[SimulationResult])
+@router.get("/myExamSimulations", response_model=List[ExamSimulation])
 async def get_user_simulation_results(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
-    pipeline: List[Dict] = [
+    pipeline = [
         {"$match": {"user_id": user_id}},
-        {"$lookup": {"from": DbName.COURSE.value, "localField": "course_id", "foreignField": "_id", "as": "course_id"}},
-        {"$unwind": "$course_id"},
+        {"$lookup": {"from": DbName.COURSE.value, "localField": "course_id", "foreignField": "_id", "as": "course"}},
+        {"$unwind": "$course"},
         {"$sort": {"timestamp": DESCENDING, "_id": DESCENDING}},
     ]
     if itemsPerPage > 0:

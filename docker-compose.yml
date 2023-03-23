@@ -32,8 +32,10 @@ services:
       context: ./server
       dockerfile: docker/FastAPI/Dockerfile
     volumes:
-      - ./server/src:/src
-      - ./server/test_data_base:/test_data_base
+      - ./server/src:/server/src
+      - ./server/test_data_base:/server/test_data_base
+      - ./server/static:/server/static
+      - ./server/media:/server/media
     ports:
       - "8000:8000"
     depends_on:
@@ -43,7 +45,8 @@ services:
   nginx:
     build: ./server/docker/nginx
     volumes:
-      - ./server/static:/static
+      - ./server/static:/server/static
+      - ./server/media:/server/media
     ports:
       - "80:80"
     depends_on:
