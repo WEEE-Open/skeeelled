@@ -7,7 +7,9 @@ import rehypeHighlight from "rehype-highlight";
 
 import "./MarkdownPreview.css";
 
-const MarkdownPreview = React.memo(({ markdown }) => {
+const MarkdownPreview = React.memo(({ markdown, format }) => {
+
+  console.log(format)
   return (
     <ReactMarkdown
       className="markdown-preview"
