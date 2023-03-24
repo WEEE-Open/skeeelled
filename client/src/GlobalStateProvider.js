@@ -49,9 +49,6 @@ const GlobalStateProvider = ({ children }) => {
       setUserCourses(Courses)
   },[allCourses, relatedCourses])
 
-    console.log(allCourses)
-  console.log(relatedCourses)
-
   return (
     <GlobalStateContext.Provider
       value={{
