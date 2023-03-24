@@ -38,9 +38,9 @@ function CoursesList() {
     },
   ];
 
-  useEffect(() => {
-    API.getCourses().then((courses) => setCourses(courses));
-  }, []);
+  // useEffect(() => {
+  //   API.getCourses().then((courses) => setCourses(courses));
+  // }, []);
 
   const [courses, setCourses] = useState([]);
   const [myCourses, setMyCourses] = useState([]);

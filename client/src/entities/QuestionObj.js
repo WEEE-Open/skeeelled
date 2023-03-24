@@ -22,7 +22,7 @@ class QuestionObj {
         return new QuestionObj(
             json._id,
             json.owner,
-            json.title,
+            json.name,
             json.quiz,
             json.course,
             json.content,

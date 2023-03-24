@@ -251,7 +251,7 @@ const searchCourses = async (query) => {
 
 const searchQuestion = async (query, course_id) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/searchQuestion?query=" + query + "&course_id=" + course_id)
+    fetch(prefix + "/searchQuestions?query=" + query + "&course_id=" + course_id)
       .then((res) => {
         if (res.status === 404) {
           resolve([]);

@@ -10,10 +10,8 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 import "react-bootstrap-typeahead/css/Typeahead.bs5.css";
 
 function SearchBar({ apiCall }) {
-// function SearchBar(props) {
-  /* Mock search suggestions */
-
   const [suggestions, setSuggestions] = useState([]);
+  const [options, setOptions] = useState([]);
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -28,23 +26,23 @@ function SearchBar({ apiCall }) {
   }, [value]);
 
   const onSearch = async (inputText) => {
+    let results = [];
     //TODO REMOVE THESE
     apiCall.courseId = "19IT0SW";
     apiCall.questionId = "641cca4fd104b2e33e8d4c1b";
     //-------------------
     setValue(inputText);
     if (inputText.length > 0) {
-      let risultati = [];
       if(apiCall.scope === "courses")
-        risultati = await API.searchCourses(inputText);
+        results = await API.searchCourses(inputText);
       else if(apiCall.scope === "questions")
-        risultati = await API.searchQuestion(inputText, apiCall.courseId);
+        results = await API.searchQuestion(inputText, apiCall.courseId);
       else if(apiCall.scope === "discussion")
-        risultati = await API.searchDiscussion(inputText, apiCall.questionId);
+        results = await API.searchDiscussion(inputText, apiCall.questionId);
 
-      console.log(risultati);
+      setOptions(GenerateOptions(results, apiCall.scope));
     } else {
-      setSuggestions([]);
+      setOptions([]);
     }
   };
 
@@ -58,14 +56,12 @@ function SearchBar({ apiCall }) {
         isLoading={false}
         searchText=""
         emptyLabel=""
-        promptText="xxx"
-        options={suggestions}
+        promptText="... 👀👻"
+        options={options}
         filterBy={() => true}
         renderMenuItemChildren={(option) => <span>{option.label}</span>}
         ref={ref}
-        onChange={() => {
-          console.log(value);
-        }}
+        onChange={() => {}}
         onInputChange={onSearch}
         onSearch={() => {}}
         className="async-type-head"
@@ -102,6 +98,31 @@ function SearchBar({ apiCall }) {
       {/*</Button>*/}
     </InputGroup>
   );
+}
+
+function GenerateOptions(results, scope){
+  var options = [];
+
+  results.forEach(result => {
+    if(scope === "courses")
+      options.push({
+        id: result._id,
+        label: result.name + " - " + result._id
+      });
+    else if(scope === "questions")
+      // console.log(result);
+      options.push({
+        id: result.id,
+        label: result.title + " - " + result.owner
+      });
+    else if(scope === "discussion")
+      options.push({
+        id: result.id,
+        label: result.id + " - " + result.author
+      });
+  });
+
+  return options;
 }
 
 export default SearchBar;
