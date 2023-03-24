@@ -1,12 +1,13 @@
 import { Row, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useEffect, useState /* , useEffect */ } from "react";
+import {useContext, useEffect, useState /* , useEffect */} from "react";
 
 import { Recent, List, SearchBar, MyPagination } from "../base/";
 import "./stylesheet/CoursesList.css";
 import Suggestion from "../base/Suggestion";
 import API from "../api/API";
 import CourseObj from "../entities/CourseObj";
+import {GlobalStateContext} from "../GlobalStateProvider";
 
 function CoursesList() {
   /** Mock courses and questions **/
@@ -53,13 +54,21 @@ function CoursesList() {
     },
   ];
 
+  const {
+    userCourses,
+    allCourses,
+  } = useContext(GlobalStateContext);
+
   useEffect(() => {
-    API.getCourses().then((courses) => setCourses(courses));
+    setCourses(allCourses)
+    setMyCourses(userCourses)
   }, []);
 
-  const [courses, setCourses] = useState([]);
-  const [myCourses, setMyCourses] = useState([]);
+
+
+  const [courses, setCourses] = useState(allCourses);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
+  const [myCourses, setMyCourses] = useState(userCourses)
   const suggestionType = ["Latest", "Hottest"];
   const coursesType = ["My Courses", "All Courses"];
 
@@ -103,9 +112,9 @@ function CoursesList() {
             pathname:
               "/listfullpage/" + "My Courses".replace(/\s/g, "").toLowerCase(),
           }}
-          state={{ scope: "courses", title: "My Courses", rows: courses }}
+          state={{ scope: "courses", title: "My Courses", rows: myCourses }}
         >
-          <List scope="courses" title={"My Courses"} rows={courses} rounded />
+          <List scope="courses" title={"My Courses"} rows={myCourses} rounded />
         </Link>
         <Link
           className="list-attributes"
