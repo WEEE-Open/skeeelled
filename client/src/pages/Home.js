@@ -54,6 +54,8 @@ function Home() {
 
   const [homeLists, setHomeLists] = useState(homePageList);
 
+  console.log(myCoursesNewQuestions)
+
   return (
     <>
       <Row lg={12} className="py-0 header">
