@@ -1,4 +1,4 @@
-import React, {useEffect, useState, createContext, useContext} from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import API from "./api/API";
 
 export const GlobalStateContext = createContext([{}, function () {}]);
@@ -52,8 +52,8 @@ const GlobalStateProvider = ({ children }) => {
   return (
     <GlobalStateContext.Provider
       value={{
-          userInfo,
-          setUserInfo,
+        userInfo,
+        setUserInfo,
         myCoursesNewQuestions,
         setMyCoursesNewQuestions,
         myBookmarkedQuestions,

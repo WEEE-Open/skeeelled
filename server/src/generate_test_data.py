@@ -1,7 +1,7 @@
 import asyncio
 import os
-import json
 import string
+import shutil
 
 import motor.motor_asyncio
 from datetime import datetime
@@ -10,12 +10,10 @@ import random
 from bson.objectid import ObjectId
 
 from db import DbName
-from models.db.user import User
-from models.db.course import Course
-from models.db.question import Question
-from models.db.comment import Comment, Reply
-from models.db.simulation import ExamSimulation
+from models.db import User, Course, Comment, Reply, ExamSimulation, MoodleQuestion
+from routes.v1.upload_quiz import parse_xml
 
+QUIZ_FILEPATH = "/server/test_data_base/domande_FISICAI_I_NEW_trigonometria_e_geometria_20211103_1529.xml"
 TEST_STUDENT_ID = "s313131"
 TEST_PROFESSOR_ID = "d313131"
 
@@ -25,9 +23,6 @@ db = client["test_db"]
 
 with open(os.path.join("../test_data_base", "asd_but_in_b64")) as test_pic:
     profile_picture = test_pic.read().strip()
-
-with open(os.path.join("../test_data_base", "questions")) as jsonfile:
-    qlist = json.load(jsonfile)
 
 
 def generate_users(n: int, is_professor: bool) -> List[User]:
@@ -87,7 +82,8 @@ def generate_comments(n: int, question_id: ObjectId, users_list: List[User]) -> 
     return comment_list
 
 
-def generate_questions(course_code: str, professors_list: List[User], students_list: List[User]) -> List[Question]:
+def generate_questions(course_code: str, professors_list: List[User], students_list: List[User],
+                       qlist: List[MoodleQuestion]) -> List[MoodleQuestion]:
     question_list = []
     for q in qlist:
         _id = ObjectId()
@@ -95,16 +91,12 @@ def generate_questions(course_code: str, professors_list: List[User], students_l
         bookmarking_students = random.sample(students_list, random.randint(1, 50))
         for s in bookmarking_students:
             s.my_BookmarkedQuestions.append(_id)
-        question_list.append(Question(
-            _id=_id,
-            owner=owner.id,
-            title=q["content"]["name"]["text"],
-            course_id=course_code,
-            content=q["content"]["questiontext"]["text"],
-            hint=q["content"]["generalfeedback"]["text"],
-            is_exam=random.choices([True, False], [9, 1])[0],
-            multiple_questions=random.choices([True, False], [9, 1])[0],
-        ))
+        question = q.copy(deep=True, update={
+            "id": _id,
+            "owner": owner.id,
+            "course_id": course_code
+        })
+        question_list.append(question)
     return question_list
 
 
@@ -132,7 +124,7 @@ def generate_courses(n: int, professors_list: List[User], students_list: List[Us
     return course_list
 
 
-def generate_simulations(n: int, user: User, questions: List[Question]) -> List[ExamSimulation]:
+def generate_simulations(n: int, user: User, questions: List[MoodleQuestion]) -> List[ExamSimulation]:
     simulations = []
     for i in range(n):
         course_id = random.choice(user.related_courses)
@@ -155,11 +147,17 @@ async def main():
     await db[DbName.QUESTION.value].drop()
     await db[DbName.COMMENT.value].drop()
     await db[DbName.SIMULATION.value].drop()
+    shutil.rmtree("/server/media/TEST")
+
+    quiz_xml = open(QUIZ_FILEPATH, "rb")
+    quiz_id = ObjectId()
+    qlist = parse_xml(quiz_xml, TEST_PROFESSOR_ID, "TEST", quiz_id, True)
+    quiz_xml.close()
 
     professors = generate_users(5, True)
     students = [] + generate_users(50, False)
     courses = generate_courses(20, professors, students)
-    questions = [q for c in courses for q in generate_questions(c.id, professors, students)]
+    questions = [q for c in courses for q in generate_questions(c.id, professors, students, qlist)]
     comments = [c for q in questions for c in generate_comments(5, q.id, professors + students)]
     simulations = [si for st in students for si in generate_simulations(random.randint(1, 8), st, questions)]
 
@@ -169,6 +167,7 @@ async def main():
     await db[DbName.QUESTION.value].insert_many([q.dict(by_alias=True) for q in questions])
     await db[DbName.COMMENT.value].insert_many([c.dict(by_alias=True) for c in comments])
     await db[DbName.SIMULATION.value].insert_many([s.dict(by_alias=True) for s in simulations])
+
 
 if __name__ == "__main__":
     print("Beginning test data generation")
