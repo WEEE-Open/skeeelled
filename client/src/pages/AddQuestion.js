@@ -8,7 +8,7 @@ import API from "../api/API";
 function AddQuestion(props) {
   const [courses, setCourses] = useState([]);
 	useEffect(() => {
-		API.getCourses()
+		API.getMyCourses("s313131")
 			.then(myCourses => setCourses(GenerateOptions(myCourses)))
 			.catch(err => console.log(err));
 	}, []);

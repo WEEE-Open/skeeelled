@@ -44,9 +44,9 @@ const getUser = async (userID) => {
 };
 
 // Courses related APIs
-const getMyCourses = async () => {
+const getMyCourses = async (userID) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/mycourses")
+    fetch(prefix + "/myCourses?user_id=" + userID + "&page=1&itemsPerPage=-1")
       .then((res) => {
         if (res.status === 404) {
           resolve([]);
