@@ -6,35 +6,11 @@ import "./stylesheet/Replies.css";
 import API from "../api/API";
 import ReplyObj from "../entities/ReplyObj";
 
-function Answer(props) {
-  return (
-    <div className="questionEntry-discussion-answer">
-      <Row>
-        <Col>
-          <h4>{props.ans.answer}</h4>
-        </Col>
-        <Col className="question-created-time">
-          Created at: {props.ans.createdat}
-        </Col>
-      </Row>
-      <Row>
-        <Col className="question-author">from {props.ans.author}</Col>
-      </Row>
-    </div>
-  );
-}
-
-function Replies() {
-  const answer = {
-    answer: "Lorem ipsum dolor sit amet",
-    author: "Jim",
-    createdat: "10/10/1010",
-  };
-
+function MyReplies() {
   const [replies, setReplies] = useState([]);
 
   useEffect(() => {
-    API.getReplies("6380eae7306106889038c590")
+    API.getMyReplies("d29590", 1, 5)
       .then(_replies => {
           setReplies(_replies);
       })
@@ -42,7 +18,6 @@ function Replies() {
 
   return (
     <div className="discussion">
-      <Answer ans={answer} />
       <List scope="replies" rows={replies} />
       <TextInput />
       <Button className="reply-button my-2">Reply</Button>
@@ -50,4 +25,4 @@ function Replies() {
   );
 }
 
-export default Replies;
+export default MyReplies;
