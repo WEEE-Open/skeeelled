@@ -94,7 +94,7 @@ function ListQuestions({ props }) {
   return (
     <>
       <h3 className="listQuestionsTitle">{props.title}</h3>
-      <SearchBar apiCall={{scope: "questions"}}/>
+      <SearchBar apiCall={{ scope: "questions" }} />
       {props.rows.map((r, i) => (
         <ListEntry key={i} scope={props.scope} row={r} />
       ))}
@@ -106,7 +106,7 @@ function ListBookmarkQuestions({ props }) {
   return (
     <>
       <h3 className="listQuestionsTitle">{props.title}</h3>
-      <SearchBar apiCall={{scope: "questions"}}/>
+      <SearchBar apiCall={{ scope: "questions" }} />
       {props.rows.map((r, i) => (
         <ListEntry key={i} scope={props.scope} row={r} />
       ))}
@@ -126,7 +126,7 @@ function ListAnswers({ props }) {
   );
 }
 
-function ListMyComments({props}) {
+function ListMyComments({ props }) {
   return (
     <>
       <h3 className="listMyCommentsTitle">{props.title}</h3>

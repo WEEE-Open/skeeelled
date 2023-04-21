@@ -33,11 +33,11 @@ function SearchBar({ apiCall }) {
     //-------------------
     setValue(inputText);
     if (inputText.length > 0) {
-      if(apiCall.scope === "courses")
+      if (apiCall.scope === "courses")
         results = await API.searchCourses(inputText);
-      else if(apiCall.scope === "questions")
+      else if (apiCall.scope === "questions")
         results = await API.searchQuestion(inputText, apiCall.courseId);
-      else if(apiCall.scope === "discussion")
+      else if (apiCall.scope === "discussion")
         results = await API.searchDiscussion(inputText, apiCall.questionId);
 
       setOptions(GenerateOptions(results, apiCall.scope));
@@ -100,25 +100,25 @@ function SearchBar({ apiCall }) {
   );
 }
 
-function GenerateOptions(results, scope){
+function GenerateOptions(results, scope) {
   var options = [];
 
-  results.forEach(result => {
-    if(scope === "courses")
+  results.forEach((result) => {
+    if (scope === "courses")
       options.push({
         id: result._id,
-        label: result.name + " - " + result._id
+        label: result.name + " - " + result._id,
       });
-    else if(scope === "questions")
+    else if (scope === "questions")
       // console.log(result);
       options.push({
         id: result.id,
-        label: result.title + " - " + result.owner
+        label: result.title + " - " + result.owner,
       });
-    else if(scope === "discussion")
+    else if (scope === "discussion")
       options.push({
         id: result.id,
-        label: result.id + " - " + result.author
+        label: result.id + " - " + result.author,
       });
   });
 

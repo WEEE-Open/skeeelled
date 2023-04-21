@@ -50,20 +50,20 @@ function CoursesList() {
 
   /**Courses and questions related**/
   //*
-	// courses
-	useEffect(()=> {
-		API.getCourses()
-			.then(courses => setCourses(courses))
-			.catch(err => console.log(err));
-	}, []);
+  // courses
+  useEffect(() => {
+    API.getCourses()
+      .then((courses) => setCourses(courses))
+      .catch((err) => console.log(err));
+  }, []);
 
-	// myCourses
-	// useEffect(() => {
-	// 	API.getMyCourses()
-	// 		.then(myCourses => setMyCourses(myCourses))
-	// 		.catch(err => console.log(err));
-	// }, []);
-	//*/
+  // myCourses
+  // useEffect(() => {
+  // 	API.getMyCourses()
+  // 		.then(myCourses => setMyCourses(myCourses))
+  // 		.catch(err => console.log(err));
+  // }, []);
+  //*/
 
   // useEffect(() => {
   //     const getCourses = async () => {
@@ -79,7 +79,7 @@ function CoursesList() {
         <h3 className="courses-title">Courses</h3>
       </Row>
       <Row>
-        <SearchBar apiCall={{scope: "courses"}}></SearchBar>
+        <SearchBar apiCall={{ scope: "courses" }}></SearchBar>
       </Row>
       <Row className="courses-body">
         <Link

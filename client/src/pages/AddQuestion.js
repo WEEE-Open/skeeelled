@@ -7,11 +7,11 @@ import API from "../api/API";
 
 function AddQuestion(props) {
   const [courses, setCourses] = useState([]);
-	useEffect(() => {
-		API.getMyCourses("s313131")
-			.then(myCourses => setCourses(GenerateOptions(myCourses)))
-			.catch(err => console.log(err));
-	}, []);
+  useEffect(() => {
+    API.getMyCourses("s313131")
+      .then((myCourses) => setCourses(GenerateOptions(myCourses)))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <>
@@ -27,10 +27,10 @@ function AddQuestion(props) {
   );
 }
 
-function GenerateOptions(results){
+function GenerateOptions(results) {
   var options = [];
-  results.forEach(result => {
-      options.push(result.name + " - " + result._id);
+  results.forEach((result) => {
+    options.push(result.name + " - " + result._id);
   });
   return options;
 }

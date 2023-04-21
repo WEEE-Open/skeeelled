@@ -10,11 +10,10 @@ function MyReplies() {
   const [replies, setReplies] = useState([]);
 
   useEffect(() => {
-    API.getMyReplies("d29590", 1, 5)
-      .then(_replies => {
-          setReplies(_replies);
-      })
-  }, [])
+    API.getMyReplies("d29590", 1, 5).then((_replies) => {
+      setReplies(_replies);
+    });
+  }, []);
 
   return (
     <div className="discussion">

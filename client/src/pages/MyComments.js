@@ -15,19 +15,18 @@ import { List, MyPagination, Recent, SearchBar, Suggestion } from "../base";
 import { Link, useLocation } from "react-router-dom";
 import API from "../api/API";
 
-const MyComments = () => {  
+const MyComments = () => {
   const [myComments, setMyComments] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const suggestionType = ["Latest", "Hottest"];
 
   useEffect(() => {
-      API.getMyComments("d29590", 1, 5)
-          .then(_myComments => {
-              setMyComments(_myComments);
-              setSuggestions(_myComments);
-              console.log(_myComments);
-          })
-  }, [])
+    API.getMyComments("d29590", 1, 5).then((_myComments) => {
+      setMyComments(_myComments);
+      setSuggestions(_myComments);
+      console.log(_myComments);
+    });
+  }, []);
 
   // hook for responsive react
   const useMediaQuery = (query) => {
@@ -130,7 +129,7 @@ const MyComments = () => {
                       </div>
                       <List
                         scope="myComments"
-                      //   title={locationState.title}
+                        //   title={locationState.title}
                         title="My comments"
                         rows={myComments}
                       />

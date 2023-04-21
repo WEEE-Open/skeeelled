@@ -4,17 +4,15 @@ import "./MyQuestions.css";
 import API from "../api/API";
 import { useEffect, useState } from "react";
 
-
 const MyQuestions = () => {
   const [myQuestions, setMyQuestions] = useState([]);
 
   useEffect(() => {
-    API.getMyQuestions("d29590")
-      .then(_myQuestions => {
-        setMyQuestions(_myQuestions);
-        console.log(_myQuestions);
-      })
-  }, [])
+    API.getMyQuestions("d29590").then((_myQuestions) => {
+      setMyQuestions(_myQuestions);
+      console.log(_myQuestions);
+    });
+  }, []);
 
   return (
     <Container className="container">

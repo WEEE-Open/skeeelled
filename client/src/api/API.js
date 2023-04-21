@@ -134,9 +134,17 @@ const getDiscussions = async (questionId) => {
   });
 };
 
-const getMyQuestions = async(user_id, page = 1, itemsPerPage = -1) => {
-  return new Promise((resolve, reject) =>{
-    fetch(prefix + "/myQuestions?user_id=" + user_id + "&page=" + page + "&itemsPerPage=" + itemsPerPage)
+const getMyQuestions = async (user_id, page = 1, itemsPerPage = -1) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix +
+        "/myQuestions?user_id=" +
+        user_id +
+        "&page=" +
+        page +
+        "&itemsPerPage=" +
+        itemsPerPage
+    )
       .then((res) => {
         if (res.status === 404) {
           resolve([]);
@@ -154,14 +162,22 @@ const getMyQuestions = async(user_id, page = 1, itemsPerPage = -1) => {
         }
       })
       .catch((err) => reject("Unavailable"));
-  })
-}
+  });
+};
 
-const getMyComments = async(user_id, page = 1, itemsPerPage = 1) => {
-  return new Promise((resolve, reject) =>{
-    fetch(prefix + "/myComments?user_id=" + user_id + "&page=" + page + "&itemsPerPage=" + itemsPerPage)
+const getMyComments = async (user_id, page = 1, itemsPerPage = 1) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix +
+        "/myComments?user_id=" +
+        user_id +
+        "&page=" +
+        page +
+        "&itemsPerPage=" +
+        itemsPerPage
+    )
       .then((res) => {
-        if(res.status === 404) {
+        if (res.status === 404) {
           resolve([]);
         } else if (res.ok) {
           res
@@ -169,18 +185,26 @@ const getMyComments = async(user_id, page = 1, itemsPerPage = 1) => {
             .then((json) =>
               resolve(json.map((comments) => CommentObj.from(comments)))
             )
-            .catch((err) => reject(err))
+            .catch((err) => reject(err));
         } else {
           reject("Generic Error");
         }
       })
       .catch((err) => reject("Unavailable"));
-  })
-}
+  });
+};
 
 const getMyReplies = async (user_id, page = 1, itemsPerPage = -1) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/myReplies?user_id=" + user_id + "&page=" + page + "&itemsPerPage=" + itemsPerPage)
+    fetch(
+      prefix +
+        "/myReplies?user_id=" +
+        user_id +
+        "&page=" +
+        page +
+        "&itemsPerPage=" +
+        itemsPerPage
+    )
       .then((res) => {
         if (res.status === 404) {
           resolve([]);
@@ -199,11 +223,19 @@ const getMyReplies = async (user_id, page = 1, itemsPerPage = -1) => {
       })
       .catch((err) => reject("Unavailable"));
   });
-}
+};
 
 const getReplies = async (comment_id, page = 1, itemsPerPage = -1) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/replies?comment_id=" + comment_id + "&page=" + page + "&itemsPerPage=" + itemsPerPage)
+    fetch(
+      prefix +
+        "/replies?comment_id=" +
+        comment_id +
+        "&page=" +
+        page +
+        "&itemsPerPage=" +
+        itemsPerPage
+    )
       .then((res) => {
         if (res.status === 404) {
           resolve([]);
@@ -222,7 +254,7 @@ const getReplies = async (comment_id, page = 1, itemsPerPage = -1) => {
       })
       .catch((err) => reject("Unavailable"));
   });
-}
+};
 
 const searchCourses = async (query) => {
   return new Promise((resolve, reject) => {
@@ -251,13 +283,15 @@ const searchCourses = async (query) => {
 
 const searchQuestion = async (query, course_id) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/searchQuestions?query=" + query + "&course_id=" + course_id)
+    fetch(
+      prefix + "/searchQuestions?query=" + query + "&course_id=" + course_id
+    )
       .then((res) => {
         if (res.status === 404) {
           resolve([]);
         } else if (res.status === 401) {
           reject("Authentication Error");
-        } else if (res.status === 500){
+        } else if (res.status === 500) {
           resolve([]);
         } else if (res.ok) {
           res
@@ -276,19 +310,27 @@ const searchQuestion = async (query, course_id) => {
 
 const searchDiscussion = async (query, question_id) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/searchDiscussion?query=" + query + "&question_id=" + question_id)
+    fetch(
+      prefix +
+        "/searchDiscussion?query=" +
+        query +
+        "&question_id=" +
+        question_id
+    )
       .then((res) => {
         if (res.status === 404) {
           resolve([]);
         } else if (res.status === 401) {
           reject("Authentication Error");
-        } else if (res.status === 500){
+        } else if (res.status === 500) {
           resolve([]);
         } else if (res.ok) {
           res
             .json()
             .then((json) =>
-              resolve(json.map((discussions) => DiscussionObj.from(discussions)))
+              resolve(
+                json.map((discussions) => DiscussionObj.from(discussions))
+              )
             )
             .catch((err) => reject("Generic Error"));
         } else {

@@ -34,11 +34,10 @@ function Replies() {
   const [replies, setReplies] = useState([]);
 
   useEffect(() => {
-    API.getReplies("6380eae7306106889038c590")
-      .then(_replies => {
-          setReplies(_replies);
-      })
-  }, [])
+    API.getReplies("6380eae7306106889038c590").then((_replies) => {
+      setReplies(_replies);
+    });
+  }, []);
 
   return (
     <div className="discussion">
