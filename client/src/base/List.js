@@ -94,7 +94,7 @@ function ListQuestions({ props }) {
   return (
     <>
       <h3 className="listQuestionsTitle">{props.title}</h3>
-      <SearchBar />
+      <SearchBar apiCall={{ scope: "questions" }} />
       {props.rows.map((r, i) => (
         <ListEntry key={i} scope={props.scope} row={r} />
       ))}
@@ -106,7 +106,7 @@ function ListBookmarkQuestions({ props }) {
   return (
     <>
       <h3 className="listQuestionsTitle">{props.title}</h3>
-      <SearchBar />
+      <SearchBar apiCall={{ scope: "questions" }} />
       {props.rows.map((r, i) => (
         <ListEntry key={i} scope={props.scope} row={r} />
       ))}
@@ -123,6 +123,18 @@ function ListAnswers({ props }) {
         ))}
       </div>
     </Container>
+  );
+}
+
+function ListMyComments({ props }) {
+  return (
+    <>
+      <h3 className="listMyCommentsTitle">{props.title}</h3>
+      <hr />
+      {props.rows.map((r) => (
+        <ListEntry scope={props.scope} row={r} />
+      ))}
+    </>
   );
 }
 
@@ -248,6 +260,7 @@ function List(props) {
   if (props.scope === "bookmarks")
     return <ListBookmarkQuestions props={props} />;
   if (props.scope === "answers") return <ListAnswers props={props} />;
+  if (props.scope === "myComments") return <ListMyComments props={props} />;
   if (props.scope === "replies") return <ListReplies props={props} />;
   if (props.scope === "suggestion") return <ListSuggestion props={props} />;
   if (props.scope === "simulationResult")

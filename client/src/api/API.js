@@ -1,4 +1,8 @@
+import CommentObj from "../entities/CommentObj";
 import CourseObj from "../entities/CourseObj";
+import QuestionObj from "../entities/QuestionObj";
+import ReplyObj from "../entities/ReplyObj";
+import DiscussionObj from "../entities/DiscussionObj";
 
 const prefix = "http://localhost:8000/v1";
 
@@ -40,9 +44,9 @@ const getUser = async (userID) => {
 };
 
 // Courses related APIs
-const getMyCourses = async () => {
+const getMyCourses = async (userID) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/mycourses")
+    fetch(prefix + "/myCourses?user_id=" + userID + "&page=1&itemsPerPage=-1")
       .then((res) => {
         if (res.status === 404) {
           resolve([]);
@@ -130,14 +134,138 @@ const getDiscussions = async (questionId) => {
   });
 };
 
+const getMyQuestions = async (user_id, page = 1, itemsPerPage = -1) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix +
+        "/myQuestions?user_id=" +
+        user_id +
+        "&page=" +
+        page +
+        "&itemsPerPage=" +
+        itemsPerPage
+    )
+      .then((res) => {
+        if (res.status === 404) {
+          resolve([]);
+        } else if (res.status === 401) {
+          reject("Authentication Error");
+        } else if (res.ok) {
+          res
+            .json()
+            .then((json) =>
+              resolve(json.map((myQuestions) => QuestionObj.from(myQuestions)))
+            )
+            .catch((err) => reject(err));
+        } else {
+          reject("Generic Error");
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  });
+};
+
+const getMyComments = async (user_id, page = 1, itemsPerPage = 1) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix +
+        "/myComments?user_id=" +
+        user_id +
+        "&page=" +
+        page +
+        "&itemsPerPage=" +
+        itemsPerPage
+    )
+      .then((res) => {
+        if (res.status === 404) {
+          resolve([]);
+        } else if (res.ok) {
+          res
+            .json()
+            .then((json) =>
+              resolve(json.map((comments) => CommentObj.from(comments)))
+            )
+            .catch((err) => reject(err));
+        } else {
+          reject("Generic Error");
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  });
+};
+
+const getMyReplies = async (user_id, page = 1, itemsPerPage = -1) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix +
+        "/myReplies?user_id=" +
+        user_id +
+        "&page=" +
+        page +
+        "&itemsPerPage=" +
+        itemsPerPage
+    )
+      .then((res) => {
+        if (res.status === 404) {
+          resolve([]);
+        } else if (res.status === 401) {
+          reject("Authentication Error");
+        } else if (res.ok) {
+          res
+            .json()
+            .then((json) =>
+              resolve(json.map((myReplies) => ReplyObj.from(myReplies)))
+            )
+            .catch((err) => reject(err));
+        } else {
+          reject("Generic Error");
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  });
+};
+
+const getReplies = async (comment_id, page = 1, itemsPerPage = -1) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix +
+        "/replies?comment_id=" +
+        comment_id +
+        "&page=" +
+        page +
+        "&itemsPerPage=" +
+        itemsPerPage
+    )
+      .then((res) => {
+        if (res.status === 404) {
+          resolve([]);
+        } else if (res.status === 401) {
+          reject("Authentication Error");
+        } else if (res.ok) {
+          res
+            .json()
+            .then((json) =>
+              resolve(json.replies.map((replies) => ReplyObj.from(replies)))
+            )
+            .catch((err) => reject(err));
+        } else {
+          reject("Generic Error");
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  });
+};
+
 const searchCourses = async (query) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/searchCourses?query=" + query)
+    fetch(prefix + "/searchCourses?query=" + query + "&limit=10")
       .then((res) => {
         if (res.status === 404) {
           resolve([]);
         } else if (res.status === 401) {
           reject("Authentication Error");
+        } else if (res.status === 500) {
+          resolve([]);
         } else if (res.ok) {
           res
             .json()
@@ -153,19 +281,23 @@ const searchCourses = async (query) => {
   });
 };
 
-const searchQuestion = async () => {
+const searchQuestion = async (query, course_id) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/searchQuestion")
+    fetch(
+      prefix + "/searchQuestions?query=" + query + "&course_id=" + course_id
+    )
       .then((res) => {
         if (res.status === 404) {
           resolve([]);
         } else if (res.status === 401) {
           reject("Authentication Error");
+        } else if (res.status === 500) {
+          resolve([]);
         } else if (res.ok) {
           res
             .json()
             .then((json) =>
-              resolve(json.map((courses) => CourseObj.from(courses)))
+              resolve(json.map((questions) => QuestionObj.from(questions)))
             )
             .catch((err) => reject("Generic Error"));
         } else {
@@ -176,19 +308,29 @@ const searchQuestion = async () => {
   });
 };
 
-const searchDiscussion = async () => {
+const searchDiscussion = async (query, question_id) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/searchDiscussion")
+    fetch(
+      prefix +
+        "/searchDiscussion?query=" +
+        query +
+        "&question_id=" +
+        question_id
+    )
       .then((res) => {
         if (res.status === 404) {
           resolve([]);
         } else if (res.status === 401) {
           reject("Authentication Error");
+        } else if (res.status === 500) {
+          resolve([]);
         } else if (res.ok) {
           res
             .json()
             .then((json) =>
-              resolve(json.map((courses) => CourseObj.from(courses)))
+              resolve(
+                json.map((discussions) => DiscussionObj.from(discussions))
+              )
             )
             .catch((err) => reject("Generic Error"));
         } else {
@@ -286,6 +428,10 @@ const API = {
   getMyCourses,
   getQuestions,
   getDiscussions,
+  getMyQuestions,
+  getMyComments,
+  getReplies,
+  getMyReplies,
   searchCourses,
   searchQuestion,
   searchDiscussion,

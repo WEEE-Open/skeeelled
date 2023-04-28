@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { InputGroup, Button } from "react-bootstrap";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
+import API from "../api/API";
 
 // import styles from "./searchBar/searchBar.module.scss";
 import styles from "./stylesheet/SearchBar.scss";
@@ -9,21 +10,14 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 import "react-bootstrap-typeahead/css/Typeahead.bs5.css";
 
 function SearchBar({ apiCall }) {
-  /* Mock search suggestions */
-  const fakeSuggestions = [
-    { label: "duckduckgo" },
-    { label: "duckduck" },
-    { label: "duckduckgo browser" },
-    { label: "duckduckgo download" },
-  ];
-
   const [suggestions, setSuggestions] = useState([]);
+  const [options, setOptions] = useState([]);
   const [value, setValue] = useState("");
 
   useEffect(() => {
     const charChange = async () => {
       try {
-        const res = await apiCall(value);
+        // const res = await apiCall(value);
       } catch (err) {
         console.error(err.error);
       }
@@ -31,12 +25,24 @@ function SearchBar({ apiCall }) {
     charChange();
   }, [value]);
 
-  const onSearch = (inputText) => {
+  const onSearch = async (inputText) => {
+    let results = [];
+    //TODO REMOVE THESE
+    apiCall.courseId = "19IT0SW";
+    apiCall.questionId = "641cca4fd104b2e33e8d4c1b";
+    //-------------------
     setValue(inputText);
     if (inputText.length > 0) {
-      setSuggestions(fakeSuggestions);
+      if (apiCall.scope === "courses")
+        results = await API.searchCourses(inputText);
+      else if (apiCall.scope === "questions")
+        results = await API.searchQuestion(inputText, apiCall.courseId);
+      else if (apiCall.scope === "discussion")
+        results = await API.searchDiscussion(inputText, apiCall.questionId);
+
+      setOptions(GenerateOptions(results, apiCall.scope));
     } else {
-      setSuggestions([]);
+      setOptions([]);
     }
   };
 
@@ -46,18 +52,16 @@ function SearchBar({ apiCall }) {
     <InputGroup>
       <AsyncTypeahead
         id="Search bar"
-        placeholder="Search a course"
+        placeholder={"Search between " + apiCall.scope + "..."}
         isLoading={false}
         searchText=""
         emptyLabel=""
-        promptText="xxx"
-        options={suggestions}
+        promptText="... 👀👻"
+        options={options}
         filterBy={() => true}
         renderMenuItemChildren={(option) => <span>{option.label}</span>}
         ref={ref}
-        onChange={() => {
-          console.log(value);
-        }}
+        onChange={() => {}}
         onInputChange={onSearch}
         onSearch={() => {}}
         className="async-type-head"
@@ -94,6 +98,31 @@ function SearchBar({ apiCall }) {
       {/*</Button>*/}
     </InputGroup>
   );
+}
+
+function GenerateOptions(results, scope) {
+  var options = [];
+
+  results.forEach((result) => {
+    if (scope === "courses")
+      options.push({
+        id: result._id,
+        label: result.name + " - " + result._id,
+      });
+    else if (scope === "questions")
+      // console.log(result);
+      options.push({
+        id: result.id,
+        label: result.title + " - " + result.owner,
+      });
+    else if (scope === "discussion")
+      options.push({
+        id: result.id,
+        label: result.id + " - " + result.author,
+      });
+  });
+
+  return options;
 }
 
 export default SearchBar;

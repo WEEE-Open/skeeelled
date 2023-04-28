@@ -5,6 +5,8 @@ import Exam from "./Exam";
 import Home from "./Home";
 import LoginForm from "./LoginForm";
 import MyQuestions from "./MyQuestions";
+import MyComments from "./MyComments";
+import MyReplies from "./MyReplies";
 import Profile from "./Profile";
 import Questions from "./Questions";
 import Replies from "./Replies";
@@ -24,6 +26,8 @@ export {
   Home,
   LoginForm,
   MyQuestions,
+  MyComments,
+  MyReplies,
   Profile,
   Questions,
   Replies,

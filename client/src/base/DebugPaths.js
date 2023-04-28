@@ -33,6 +33,12 @@ function DebugPaths() {
       <Link style={style} to="/myquestions">
         MyQuestions
       </Link>
+      <Link style={style} to="/mycomments">
+        MyComments
+      </Link>
+      <Link style={style} to="/myreplies">
+        MyReplies
+      </Link>
       <Link style={style} to="/discussion/QUESTID">
         Discussion
       </Link>

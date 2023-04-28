@@ -32,7 +32,7 @@ function Home() {
       scope: "default",
       title: "My questions",
       rows: [
-        ["Cras justo odio"],
+        ["Cras justkjkkkkko odio"],
         ["Dapibus ac facilisis in"],
         ["Morbi leo risus"],
         ["Porta ac consectetur ac"],

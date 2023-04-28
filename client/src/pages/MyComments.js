@@ -11,20 +11,20 @@ import {
 import { useEffect, useState } from "react";
 // import "./Questions.css";
 import "./stylesheet/Questions.css";
-import { List, MyPagination, Recent, SearchBar, Suggestion } from "../base/";
+import { List, MyPagination, Recent, SearchBar, Suggestion } from "../base";
 import { Link, useLocation } from "react-router-dom";
 import API from "../api/API";
 
-const MyQuestions = () => {
-  const [myQuestions, setMyQuestions] = useState([]);
+const MyComments = () => {
+  const [myComments, setMyComments] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const suggestionType = ["Latest", "Hottest"];
 
   useEffect(() => {
-    API.getMyQuestions("d29590", 1, 5).then((_myQuestions) => {
-      setMyQuestions(_myQuestions);
-      setSuggestions(_myQuestions);
-      console.log(_myQuestions);
+    API.getMyComments("d29590", 1, 5).then((_myComments) => {
+      setMyComments(_myComments);
+      setSuggestions(_myComments);
+      console.log(_myComments);
     });
   }, []);
 
@@ -79,10 +79,10 @@ const MyQuestions = () => {
                         </Button>
                       </div>
                       <List
-                        scope="questions"
-                        //   title={locationState.title}
-                        title="My questions"
-                        rows={myQuestions}
+                        scope="myComments"
+                        // title={locationState.title}
+                        title="My comments"
+                        rows={myComments}
                       />
                       <MyPagination />
                     </Col>
@@ -93,7 +93,7 @@ const MyQuestions = () => {
                             <Row key={i}>
                               <Suggestion
                                 scope={"suggestion"}
-                                title={type + " Questions"}
+                                title={type + " Comments"}
                                 rows={suggestions}
                               />
                             </Row>
@@ -128,10 +128,10 @@ const MyQuestions = () => {
                         </Button>
                       </div>
                       <List
-                        scope="questions"
+                        scope="myComments"
                         //   title={locationState.title}
-                        title="My questions"
-                        rows={myQuestions}
+                        title="My comments"
+                        rows={myComments}
                       />
                     </Col>
 
@@ -148,7 +148,7 @@ const MyQuestions = () => {
                       <Col key={i}>
                         <Suggestion
                           scope={"suggestion"}
-                          title={type + " Questions"}
+                          title={type + " Comments"}
                           rows={suggestions}
                         />
                       </Col>
@@ -164,4 +164,4 @@ const MyQuestions = () => {
   );
 };
 
-export default MyQuestions;
+export default MyComments;
