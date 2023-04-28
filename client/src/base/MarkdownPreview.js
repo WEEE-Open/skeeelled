@@ -9,7 +9,6 @@ import rehypeRaw from "rehype-raw";
 import "./MarkdownPreview.css";
 
 const MarkdownPreview = React.memo(({ markdown, format }) => {
-
   return (
     <ReactMarkdown
       className="markdown-preview"
