@@ -20,11 +20,13 @@ const GlobalStateProvider = ({ children }) => {
 
   const [userCourses, setUserCourses] = useState([])
 
+    console.log(myCoursesNewQuestions)
 
   useEffect(() => {
       API.getCourses().then((courses) => setAllCourses(courses));
     API.getMyCourseNewQuestions(userID).then((questions) => {
-      setMyCoursesNewQuestions(questions.map((x) => [x.content]));
+      setMyCoursesNewQuestions(questions.map((x) => [x.questiontext.text
+      ]));
     });
     API.getMyBookmarkedQuestions(userID).then((questions) => {
       setMyBookmarkedQuestions(questions["myBookmarkedQuestions"]);
