@@ -91,17 +91,17 @@ function ListEntryQuestions(props) {
                 courseId: props.row.course,
               }}
             >
-              {props.row.title}
+              {props.row.name}
             </Link>
           </Row>
           <Row>
-            <Col>
-              {props.row.tags.map((t, i) => (
-                <Link key={i} to="" className="tags">
-                  #{t}
-                </Link>
-              ))}
-            </Col>
+            {/*<Col>*/}
+            {/*  {props.row.tags.map((t, i) => (*/}
+            {/*    <Link key={i} to="" className="tags">*/}
+            {/*      #{t}*/}
+            {/*    </Link>*/}
+            {/*  ))}*/}
+            {/*</Col>*/}
           </Row>
         </Col>
         <Col>
@@ -117,11 +117,11 @@ function ListEntryQuestions(props) {
 }
 
 function ListEntryBookmarkQuestions(props) {
-  const [timestamp, setTimestamp] = useState(
-    new Date(props.row.timestamp.split(".")[0])
-      .toString()
-      .replace("(Central European Standard Time)", "")
-  );
+  // const [timestamp, setTimestamp] = useState(
+  //   new Date(props.row.timestamp.split(".")[0])
+  //     .toString()
+  //     .replace("(Central European Standard Time)", "")
+  // );
 
   return (
     <div className="bookmarkQuestionEntry">
@@ -145,21 +145,21 @@ function ListEntryBookmarkQuestions(props) {
           </Row>
           <Row>
             <Col>
-              {props.row.tags.map((t, i) => (
-                <Link key={i} to="" className="tags">
-                  #{t}
-                </Link>
-              ))}
+              {/*{props.row.tags.map((t, i) => (*/}
+              {/*  <Link key={i} to="" className="tags">*/}
+              {/*    #{t}*/}
+              {/*  </Link>*/}
+              {/*))}*/}
             </Col>
           </Row>
         </Col>
         <Col>
-          <Row className="created-at">Created at: {timestamp}</Row>
+          {/*<Row className="created-at">Created at: {timestamp}</Row>*/}
           {/*<Row className="created-from">from  {props.row.owner}</Row>*/}
         </Col>
       </Row>
       <Row>
-        <Col>{props.row.content}</Col>
+        {/*<Col>{props.row.content}</Col>*/}
       </Row>
     </div>
   );
