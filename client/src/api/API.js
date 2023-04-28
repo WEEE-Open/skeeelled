@@ -398,7 +398,7 @@ const getMySimulationResult = (userId) => {
   return new Promise((resolve, reject) => {
     fetch(
       prefix +
-        "/mySimulationResults?user_id=" +
+        "/myExamSimulations?user_id=" +
         userId +
         "&page=1&itemsPerPage=-1"
     )
