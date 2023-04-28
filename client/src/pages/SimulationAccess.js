@@ -65,15 +65,15 @@ export default function SimulationAccess() {
     },
   ];
 
-  const { mySimulationResult } = useContext(GlobalStateContext);
-  const [coursesEnrolled, setCoursesEnrolled] = useState(fakeCourses);
+  const { mySimulationResult, userCourses } = useContext(GlobalStateContext);
+  const [coursesEnrolled, setCoursesEnrolled] = useState(userCourses);
   const [simulationResult, setSimulationResult] = useState(mySimulationResult);
   const [courseSelected, setCourseSelected] = useState({});
   const [courseSelectedTitle, setCourseSelectedTitle] = useState(
     "Select Course of Simulation"
   );
 
-  console.log(mySimulationResult);
+  console.log(mySimulationResult, userCourses);
   return (
     <>
       <Container className="">
@@ -86,11 +86,11 @@ export default function SimulationAccess() {
                   <Link
                     className="simulation-button"
                     to={{
-                      pathname: "/startsimulation/" + courseSelected.code,
+                      pathname: "/startsimulation/" + courseSelected._id,
                     }}
                     state={{
-                      courseId: courseSelected.code,
-                      title: courseSelected.course,
+                      courseId: courseSelected._id,
+                      title: courseSelected.name,
                     }}
                   >
                     <Button>
@@ -131,22 +131,20 @@ export default function SimulationAccess() {
                   title={courseSelectedTitle}
                 >
                   {coursesEnrolled.map((e, i) => {
-                    if (e.enrolled) {
                       return (
                         <>
                           <Dropdown.Item
                             key={"enrolled" + i}
                             as="button"
                             onClick={() => {
-                              setCourseSelectedTitle(e.course);
+                              setCourseSelectedTitle(e.name);
                               setCourseSelected(e);
                             }}
                           >
-                            {e.course}
+                            {e.name}
                           </Dropdown.Item>
                         </>
                       );
-                    }
                   })}
                 </DropdownButton>
               </Col>
@@ -160,15 +158,15 @@ export default function SimulationAccess() {
                       <ListGroup.Item varient="flush">
                         {
                           <Row key={"result" + i}>
-                            <Col>{e.course.name}</Col>
+                            <Col>{e["course_id"]}</Col>
                             <Col>{e.results[0]}</Col>
-                            <Col>
-                              {
-                                e.course["years_active"][
-                                  e.course["years_active"].length - 1
-                                ]
-                              }
-                            </Col>
+                            {/*<Col>*/}
+                            {/*  {*/}
+                            {/*    e.course["years_active"][*/}
+                            {/*      e.course["years_active"].length - 1*/}
+                            {/*    ]*/}
+                            {/*  }*/}
+                            {/*</Col>*/}
                           </Row>
                         }
                       </ListGroup.Item>
