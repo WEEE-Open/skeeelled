@@ -54,7 +54,7 @@ function Home() {
 
   const [homeLists, setHomeLists] = useState(homePageList);
 
-  console.log(myCoursesNewQuestions)
+  console.log(myCoursesNewQuestions);
 
   return (
     <>

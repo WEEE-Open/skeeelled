@@ -102,7 +102,9 @@ function App() {
             />
           </Col>
         </Row>
-        <Row><BreadCrumb/></Row>
+        <Row>
+          <BreadCrumb />
+        </Row>
         <Row className="my-4">
           <Col xs={6} className="mx-auto">
             {message && (
