@@ -82,7 +82,7 @@ export default function SimulationAccess() {
           <Card.Body>
             <Row className="col-xxl-12">
               <Col>
-                {courseSelected.course ? (
+                {courseSelected.name ? (
                   <Link
                     className="simulation-button"
                     to={{

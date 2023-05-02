@@ -97,12 +97,13 @@ export default function BreadCrumb(props) {
   ];
 
   const location = useLocation();
-  const [locationState, setLocationState] = useState(location);
-  useEffect(() => {
-    setLocationState(location);
-    console.log(crumbPathArr);
+
+  const [locationState, setLocationState] = useState(location)
+  useEffect(()=>{
+    setLocationState(location)
+    console.warn(crumbPathArr);
     console.log(`current location: ${location.pathname}`);
-  }, [location]);
+  }, [location, setLocationState])
 
   const [crumbPathArr, setCrumbPathArr] = useState(
     // find object of path from the root lvl
@@ -164,7 +165,7 @@ export default function BreadCrumb(props) {
 
       setCrumbPathArr(foundPath);
     }
-  }, [locationState]);
+  }, [location, locationState, setLocationState]);
 
   const findChild = (path, dest) => {
     const root = path[path.length - 1];
@@ -189,7 +190,7 @@ export default function BreadCrumb(props) {
   return (
     <>
       <Breadcrumb className="breadcrumb">
-        {crumbPathArr.map((e, index) => {
+        {crumbPathArr?.map((e, index) => {
           return index === crumbPathArr.length - 1 ? (
             <Breadcrumb.Item
               active
