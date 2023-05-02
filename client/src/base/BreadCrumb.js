@@ -97,6 +97,7 @@ export default function BreadCrumb(props) {
   ];
 
   const location = useLocation();
+
   const [locationState, setLocationState] = useState(location)
   useEffect(()=>{
     setLocationState(location)
@@ -105,8 +106,8 @@ export default function BreadCrumb(props) {
   }, [location, setLocationState])
 
   const [crumbPathArr, setCrumbPathArr] = useState(
-      // find object of path from the root lvl
-      // default = (Home, "/") => only toggle the root
+    // find object of path from the root lvl
+    // default = (Home, "/") => only toggle the root
     breadcrumbRecord.filter((e) => {
       if (location.pathname === e.path) {
         return e;
@@ -127,41 +128,42 @@ export default function BreadCrumb(props) {
   useEffect(() => {
     let isRoot = false;
 
-    breadcrumbRecord.forEach((e)=>{
+    breadcrumbRecord.forEach((e) => {
       if (locationState.pathname === e.path) {
         isRoot = true;
       }
-    })
+    });
 
     // if the reloaded page is root => re-route path
-    isRoot && setCrumbPathArr(
-      breadcrumbRecord.filter((e) => {
-        if (locationState.pathname === e.path) {
-          isRoot = true;
-          return e;
-        }
-      })
-    );
+    isRoot &&
+      setCrumbPathArr(
+        breadcrumbRecord.filter((e) => {
+          if (locationState.pathname === e.path) {
+            isRoot = true;
+            return e;
+          }
+        })
+      );
 
     // if the reloaded page is not root => find parent-child path
     if (!isRoot) {
       let isNew = true;
       let foundPath;
-      crumbPathArr.forEach((i)=> {
+      crumbPathArr.forEach((i) => {
         if (locationState.pathname === i.path) {
           isNew = false;
         }
-      })
+      });
       // if reloaded page is one of the previous path
       if (!isNew) {
-        foundPath = getStringArray(crumbPathArr, locationState.pathname)
+        foundPath = getStringArray(crumbPathArr, locationState.pathname);
       }
       // if it is a new path
       else {
         foundPath = findChild(crumbPathArr, locationState.pathname);
       }
 
-      setCrumbPathArr(foundPath)
+      setCrumbPathArr(foundPath);
     }
   }, [location, locationState, setLocationState]);
 
@@ -176,7 +178,7 @@ export default function BreadCrumb(props) {
     // recursively find the last child
     for (let i = 0; i < root.children.length; i++) {
       if (dest.includes(root.children[i].path)) {
-        path.push(root.children[i])
+        path.push(root.children[i]);
         findChild(path, dest);
         break;
       }
@@ -184,7 +186,6 @@ export default function BreadCrumb(props) {
 
     return path;
   };
-
 
   return (
     <>
@@ -199,7 +200,10 @@ export default function BreadCrumb(props) {
               {e.title}
             </Breadcrumb.Item>
           ) : (
-            <Breadcrumb.Item href={e.path} key={"breadcrumb-index:" + index + e.path}>
+            <Breadcrumb.Item
+              href={e.path}
+              key={"breadcrumb-index:" + index + e.path}
+            >
               {e.title}
             </Breadcrumb.Item>
           );
@@ -208,4 +212,3 @@ export default function BreadCrumb(props) {
     </>
   );
 }
-

@@ -1,13 +1,13 @@
 import { Row, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {useContext, useEffect, useState /* , useEffect */} from "react";
+import { useContext, useEffect, useState /* , useEffect */ } from "react";
 
 import { Recent, List, SearchBar, MyPagination } from "../base/";
 import "./stylesheet/CoursesList.css";
 import Suggestion from "../base/Suggestion";
 import API from "../api/API";
 import CourseObj from "../entities/CourseObj";
-import {GlobalStateContext} from "../GlobalStateProvider";
+import { GlobalStateContext } from "../GlobalStateProvider";
 
 function CoursesList() {
   /** Mock questions **/
@@ -39,26 +39,19 @@ function CoursesList() {
     },
   ];
 
-
-  const {
-    userCourses,
-    allCourses,
-  } = useContext(GlobalStateContext);
+  const { userCourses, allCourses } = useContext(GlobalStateContext);
 
   useEffect(() => {
-    setCourses(allCourses)
-    setMyCourses(userCourses)
+    setCourses(allCourses);
+    setMyCourses(userCourses);
   }, []);
   // useEffect(() => {
   //   API.getCourses().then((courses) => setCourses(courses));
   // }, []);
 
-
-
-
   const [courses, setCourses] = useState(allCourses);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
-  const [myCourses, setMyCourses] = useState(userCourses)
+  const [myCourses, setMyCourses] = useState(userCourses);
   const suggestionType = ["Latest", "Hottest"];
   const coursesType = ["My Courses", "All Courses"];
 

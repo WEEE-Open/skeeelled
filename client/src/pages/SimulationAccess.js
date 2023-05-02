@@ -131,20 +131,20 @@ export default function SimulationAccess() {
                   title={courseSelectedTitle}
                 >
                   {coursesEnrolled.map((e, i) => {
-                      return (
-                        <>
-                          <Dropdown.Item
-                            key={"enrolled" + i}
-                            as="button"
-                            onClick={() => {
-                              setCourseSelectedTitle(e.name);
-                              setCourseSelected(e);
-                            }}
-                          >
-                            {e.name}
-                          </Dropdown.Item>
-                        </>
-                      );
+                    return (
+                      <>
+                        <Dropdown.Item
+                          key={"enrolled" + i}
+                          as="button"
+                          onClick={() => {
+                            setCourseSelectedTitle(e.name);
+                            setCourseSelected(e);
+                          }}
+                        >
+                          {e.name}
+                        </Dropdown.Item>
+                      </>
+                    );
                   })}
                 </DropdownButton>
               </Col>

@@ -14,42 +14,41 @@ const GlobalStateProvider = ({ children }) => {
 
   const [mySimulationResult, setMySimulationResult] = useState([]);
 
-  const [relatedCourses, setRelatedCourses]  = useState([]);
+  const [relatedCourses, setRelatedCourses] = useState([]);
 
-  const [allCourses, setAllCourses] = useState([])
+  const [allCourses, setAllCourses] = useState([]);
 
-  const [userCourses, setUserCourses] = useState([])
+  const [userCourses, setUserCourses] = useState([]);
 
-    console.log(myCoursesNewQuestions)
+  console.log(myCoursesNewQuestions);
 
   useEffect(() => {
-      API.getCourses().then((courses) => setAllCourses(courses));
+    API.getCourses().then((courses) => setAllCourses(courses));
     API.getMyCourseNewQuestions(userID).then((questions) => {
-      setMyCoursesNewQuestions(questions.map((x) => [x.questiontext.text
-      ]));
+      setMyCoursesNewQuestions(questions.map((x) => [x.questiontext.text]));
     });
     API.getMyBookmarkedQuestions(userID).then((questions) => {
       setMyBookmarkedQuestions(questions["myBookmarkedQuestions"]);
     });
-      API.getUser(userID).then((info) => {
-          setUserInfo(info)
-          setRelatedCourses(info["related_courses"])
-      })
-      API.getMySimulationResult(userID).then((result)=> {
-          setMySimulationResult(result)
-      })
+    API.getUser(userID).then((info) => {
+      setUserInfo(info);
+      setRelatedCourses(info["related_courses"]);
+    });
+    API.getMySimulationResult(userID).then((result) => {
+      setMySimulationResult(result);
+    });
   }, []);
 
-  useEffect(()=>{
-      const Courses = allCourses?.filter((course)=> {
-          for(let i = 0; i < relatedCourses.length; i++) {
-              if (course["_id"] === relatedCourses[i]) {
-                  return course;
-              }
-          }
-      })
-      setUserCourses(Courses)
-  },[allCourses, relatedCourses])
+  useEffect(() => {
+    const Courses = allCourses?.filter((course) => {
+      for (let i = 0; i < relatedCourses.length; i++) {
+        if (course["_id"] === relatedCourses[i]) {
+          return course;
+        }
+      }
+    });
+    setUserCourses(Courses);
+  }, [allCourses, relatedCourses]);
 
   return (
     <GlobalStateContext.Provider
@@ -60,12 +59,12 @@ const GlobalStateProvider = ({ children }) => {
         setMyCoursesNewQuestions,
         myBookmarkedQuestions,
         setMyBookmarkedQuestions,
-          mySimulationResult,
-          setMySimulationResult,
-          userCourses,
-          setUserCourses,
-          allCourses,
-          setAllCourses
+        mySimulationResult,
+        setMySimulationResult,
+        userCourses,
+        setUserCourses,
+        allCourses,
+        setAllCourses,
       }}
     >
       {children}

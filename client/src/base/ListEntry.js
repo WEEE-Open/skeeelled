@@ -158,9 +158,7 @@ function ListEntryBookmarkQuestions(props) {
           {/*<Row className="created-from">from  {props.row.owner}</Row>*/}
         </Col>
       </Row>
-      <Row>
-        {/*<Col>{props.row.content}</Col>*/}
-      </Row>
+      <Row>{/*<Col>{props.row.content}</Col>*/}</Row>
     </div>
   );
 }
