@@ -3,6 +3,82 @@ import "./stylesheet/BreadCrumb.scss";
 import { matchPath, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+const breadcrumbRecord = [
+  {
+    path: "/",
+    title: "Home",
+    children: [
+      {
+        path: "/replies",
+        title: "Relies",
+        children: [],
+      },
+      {
+        path: "/newquestionsincoursesenrolled",
+        title: "Newly Enrolled Courses",
+        children: [],
+      },
+      {
+        path: "/myquestions",
+        title: "My Questions",
+        children: [],
+      },
+      {
+        path: "/myanswers",
+        title: "My Answers",
+        children: [],
+      },
+    ],
+  },
+  {
+    path: "/courses",
+    title: "Courses",
+    children: [],
+  },
+  {
+    path: "/simulationview",
+    title: "Simulation Preview",
+    children: [
+      {
+        path: `/startsimulation`,
+        title: `Simulation Setup`,
+        children: [
+          {
+            path: `/simulation`,
+            title: `Simulation`,
+            children: [
+              {
+                path: `/simulationresult`,
+                title: `Simulation Result`,
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/settings",
+    title: "Setting",
+  },
+  {
+    path: `/addquestion`,
+    title: `Add Questions`,
+    children: [],
+  },
+  {
+    path: `/profile`,
+    title: `Profile`,
+    children: [],
+  },
+  {
+    path: `/bookmarks`,
+    title: `Bookmarks`,
+    children: [],
+  },
+];
+
 export default function BreadCrumb(props) {
   const fakeCourses = [
     { code: "A0B1C2", course: "Analysis 1", cfu: 10, professor: "Mario Rossi" },
@@ -20,86 +96,17 @@ export default function BreadCrumb(props) {
     },
   ];
 
-  const breadcrumbRecord = [
-    {
-      path: "/",
-      title: "Home",
-      children: [
-        {
-          path: "/listfullpage/replies",
-          title: "Relies",
-          children: [],
-        },
-        {
-          path: "/listfullpage/newquestionsincoursesenrolled",
-          title: "Newly Enrolled Courses",
-          children: [],
-        },
-        {
-          path: "/listfullpage/myquestions",
-          title: "My Questions",
-          children: [],
-        },
-        {
-          path: "/listfullpage/myanswers",
-          title: "My Answers",
-          children: [],
-        },
-      ],
-    },
-    {
-      path: "/courses",
-      title: "Courses",
-      children: [],
-    },
-    {
-      path: "/simulationview",
-      title: "Simulation Preview",
-      children: [
-        {
-          path: `/startsimulation`,
-          title: `Simulation Setup`,
-          children: [
-            {
-              path: `/simulation`,
-              title: `Simulation`,
-              children: [
-                {
-                  path: `/simulationresult`,
-                  title: `Simulation Result`,
-                  children: [],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      path: "/settings",
-      title: "Setting",
-    },
-    {
-      path: `/addquestion`,
-      title: `Add Questions`,
-      children: [],
-    },
-    {
-      path: `/profile`,
-      title: `Profile`,
-      children: [],
-    },
-    {
-      path: `/bookmarks`,
-      title: `Bookmarks`,
-      children: [],
-    },
-  ];
-
   const location = useLocation();
+  const [locationState, setLocationState] = useState(location)
+  useEffect(()=>{
+    setLocationState(location)
+    console.log(crumbPathArr);
+    console.log(`current location: ${location.pathname}`);
+  }, [location])
 
   const [crumbPathArr, setCrumbPathArr] = useState(
-    // find the complete object path from the root lvl
+      // find object of path from the root lvl
+      // default = (Home, "/") => only toggle the root
     breadcrumbRecord.filter((e) => {
       if (location.pathname === e.path) {
         return e;
@@ -107,21 +114,29 @@ export default function BreadCrumb(props) {
     })
   );
 
-  const [currPath, setCurrPath] = useState(
-    // default = (Home, "/") => only toggle the root
-    breadcrumbRecord.filter((e) => {
-      if (location.pathname === e.path) {
-        return e;
-      }
-    })
-  );
+  function getStringArray(arr, str) {
+    const index = arr.indexOf(str);
 
+    if (index === -1) {
+      return arr;
+    }
+    return arr.slice(0, index + 1);
+  }
+
+  // when path change => reload || redirect
   useEffect(() => {
     let isRoot = false;
+
+    breadcrumbRecord.forEach((e)=>{
+      if (locationState.pathname === e.path) {
+        isRoot = true;
+      }
+    })
+
     // if the reloaded page is root => re-route path
-    setCrumbPathArr(
+    isRoot && setCrumbPathArr(
       breadcrumbRecord.filter((e) => {
-        if (location.pathname === e.path) {
+        if (locationState.pathname === e.path) {
           isRoot = true;
           return e;
         }
@@ -130,65 +145,61 @@ export default function BreadCrumb(props) {
 
     // if the reloaded page is not root => find parent-child path
     if (!isRoot) {
-      setCrumbPathArr(findChild(crumbPathArr, location.pathname));
-      // setCurrPath(findPath(crumbPathArr, location.pathname, currPath));
-    }
+      let isNew = true;
+      let foundPath;
+      crumbPathArr.forEach((i)=> {
+        if (locationState.pathname === i.path) {
+          isNew = false;
+        }
+      })
+      // if reloaded page is one of the previous path
+      if (!isNew) {
+        foundPath = getStringArray(crumbPathArr, locationState.pathname)
+      }
+      // if it is a new path
+      else {
+        foundPath = findChild(crumbPathArr, locationState.pathname);
+      }
 
-    console.log(crumbPathArr);
-    console.log(`current location: ${location.pathname}`);
-  }, [location]);
+      setCrumbPathArr(foundPath)
+    }
+  }, [locationState]);
 
   const findChild = (path, dest) => {
-    let i;
     const root = path[path.length - 1];
 
     // the end of path
-    if (!root.children) {
+    if (!root) {
       return path;
     }
 
-    for (i = 0; i < root.children.length; i++) {
+    // recursively find the last child
+    for (let i = 0; i < root.children.length; i++) {
       if (dest.includes(root.children[i].path)) {
-        path.push(root.children[i]);
+        path.push(root.children[i])
+        findChild(path, dest);
+        break;
       }
     }
 
     return path;
   };
 
-  const findPath = (path, dest, curr) => {
-    let i;
-    const root = path[0];
-
-    if (!root) {
-      return [];
-    }
-
-    if (dest.includes(root.path)) {
-      return curr;
-    }
-
-    for (i = 0; i < root.children.length; i++) {
-      setCurrPath(
-        findPath(root.children[i], dest, currPath.push(root.children[i]))
-      );
-    }
-  };
 
   return (
     <>
       <Breadcrumb className="breadcrumb">
-        {crumbPathArr?.map((e, index) => {
+        {crumbPathArr.map((e, index) => {
           return index === crumbPathArr.length - 1 ? (
             <Breadcrumb.Item
               active
               href={e.path}
-              key={"breadcrumb-index" + index}
+              key={"breadcrumb-index:" + index + e.path}
             >
               {e.title}
             </Breadcrumb.Item>
           ) : (
-            <Breadcrumb.Item href={e.path} key={"breadcrumb-index" + index}>
+            <Breadcrumb.Item href={e.path} key={"breadcrumb-index:" + index + e.path}>
               {e.title}
             </Breadcrumb.Item>
           );
@@ -197,3 +208,4 @@ export default function BreadCrumb(props) {
     </>
   );
 }
+
