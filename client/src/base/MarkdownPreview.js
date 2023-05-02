@@ -10,6 +10,7 @@ import "./MarkdownPreview.css";
 
 const MarkdownPreview = React.memo(({ markdown, format }) => {
   return (
+      format === "html"?<></>:
     <ReactMarkdown
       className="markdown-preview"
       remarkPlugins={[remarkGfm, remarkMath]}
