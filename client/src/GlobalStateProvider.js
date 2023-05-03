@@ -8,8 +8,6 @@ const GlobalStateProvider = ({ children }) => {
 
   const [userInfo, setUserInfo] = useState({});
 
-  const [myCoursesNewQuestions, setMyCoursesNewQuestions] = useState([]);
-
   const [myBookmarkedQuestions, setMyBookmarkedQuestions] = useState([]);
 
   const [mySimulationResult, setMySimulationResult] = useState([]);
@@ -20,13 +18,9 @@ const GlobalStateProvider = ({ children }) => {
 
   const [userCourses, setUserCourses] = useState([]);
 
-  console.log(myCoursesNewQuestions);
-
   useEffect(() => {
+    console.log("state provider user id", userID);
     API.getCourses().then((courses) => setAllCourses(courses));
-    API.getMyCourseNewQuestions(userID).then((questions) => {
-      setMyCoursesNewQuestions(questions.map((x) => [x.questiontext.text]));
-    });
     API.getMyBookmarkedQuestions(userID).then((questions) => {
       setMyBookmarkedQuestions(questions["myBookmarkedQuestions"]);
     });
@@ -37,7 +31,7 @@ const GlobalStateProvider = ({ children }) => {
     API.getMySimulationResult(userID).then((result) => {
       setMySimulationResult(result);
     });
-  }, []);
+  }, [userID]);
 
   useEffect(() => {
     const Courses = allCourses?.filter((course) => {
@@ -53,10 +47,9 @@ const GlobalStateProvider = ({ children }) => {
   return (
     <GlobalStateContext.Provider
       value={{
+        userID,
         userInfo,
         setUserInfo,
-        myCoursesNewQuestions,
-        setMyCoursesNewQuestions,
         myBookmarkedQuestions,
         setMyBookmarkedQuestions,
         mySimulationResult,

@@ -7,8 +7,23 @@ import isLabelEnd from "katex/dist/katex.mjs";
 import { GlobalStateContext } from "../GlobalStateProvider";
 
 function Home() {
-  const { myCoursesNewQuestions, MyReplies, MyQuestions, MyAnswers } =
-    useContext(GlobalStateContext);
+  const { userID, MyReplies, MyQuestions, MyAnswers } = useContext(GlobalStateContext);
+
+  const [myCoursesNewQuestions, setMyCoursesNewQuestions] = useState([]);
+
+
+  useEffect(() => {
+    console.log("home user id", userID);
+    API.getMyCourseNewQuestions(userID, 5).then((questions) => {
+      console.log("home questions", questions);
+      const rows = questions.map((x) => [x.questiontext.text])
+      setHomeLists((prev) => {
+        prev[0].rows = rows;
+        return prev;
+      });
+      setMyCoursesNewQuestions(rows);
+    });
+  }, [userID]);
 
   const homePageList = [
     //!! typeof(rows) = Array() !!//
@@ -53,8 +68,6 @@ function Home() {
   ];
 
   const [homeLists, setHomeLists] = useState(homePageList);
-
-  console.log(myCoursesNewQuestions);
 
   return (
     <>

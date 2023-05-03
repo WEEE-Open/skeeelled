@@ -359,14 +359,9 @@ const searchDiscussion = async (query, question_id) => {
   });
 };
 
-const getMyCourseNewQuestions = (userId) => {
+const getMyCourseNewQuestions = (userId, itemsPerPage, page=1) => {
   return new Promise((resolve, reject) => {
-    fetch(
-      prefix +
-        "/myCoursesNewQuestions?user_id=" +
-        userId +
-        "&itemsPerPage=50&page=1"
-    )
+    fetch(`${prefix}/myCoursesNewQuestions?user_id=${userId}&itemsPerPage=${itemsPerPage}&page=${page}`)
       ?.then((res) => {
         if (res.status === 404) {
           resolve([]);
