@@ -13,4 +13,15 @@ function extractContent(s, space) {
   return [span.textContent || span.innerText].toString().replace(/ +/g,' ');
 };
 
-export { extractContent };
+function dateToLocaleString(date, locale="it-IT") {
+  if (!date) {
+    return "";
+  }
+  const dateObj = new Date(date);
+  return dateObj.toLocaleString(locale);
+}
+
+export { 
+  extractContent, 
+  dateToLocaleString,
+};

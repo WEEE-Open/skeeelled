@@ -25,7 +25,6 @@ function Answers(props) {
   // get the discussions of the question
   useEffect(() => {
     API.getQuestion(questionid).then((question) => {
-      question.timestamp = new Date(question.timestamp);
       setQuestion(question);
     });
 

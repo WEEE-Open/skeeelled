@@ -20,6 +20,7 @@ import QuestionPreview from "./QuestionPreview";
 import { useContext, useEffect, useState } from "react";
 import { UserSettings } from "../pages";
 import { GlobalStateContext } from "../GlobalStateProvider";
+import { extractContent, dateToLocaleString } from "../utils";
 
 function ListEntryDefault(props) {
   const [isLoading, setIsLoading] = useState(true);
@@ -75,8 +76,6 @@ function ListEntryCourses(props) {
 }
 
 function ListEntryQuestions(props) {
-  const timestamp = props.row.timestamp;
-
   return (
     <div className="questionEntry">
       <Row>
@@ -105,7 +104,7 @@ function ListEntryQuestions(props) {
           </Row>
         </Col>
         <Col>
-          <Row className="created-at">Created at: {timestamp}</Row>
+          <Row className="created-at">Created at: {dateToLocaleString(props.row.timestamp)}</Row>
           <Row className="created-from">from {props.row.owner}</Row>
         </Col>
       </Row>
@@ -288,12 +287,12 @@ function ListEntrySuggestion(props) {
             to={"/suggestion/" + props.row.id}
             className="suggestion-question"
           >
-            {props.row.questiontext.text.slice(0, 10)}
+            {props.row.name /*extractContent(props.row.questiontext.text)*/}
           </Link>
         </Col>
-        <Col className="suggestion-created-by">from {props.row.author}</Col>
+        <Col className="suggestion-created-by">from {props.row.owner}</Col>
         <Col className="suggestion-created-at">
-          Created at: {props.row.createdat}
+          Created at: {dateToLocaleString(props.row.timestamp)}
         </Col>
       </Col>
     </Container>

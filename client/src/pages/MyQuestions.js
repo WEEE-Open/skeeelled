@@ -23,7 +23,7 @@ const MyQuestions = () => {
   useEffect(() => {
     API.getMyQuestions("d313131", 1, 5).then((_myQuestions) => {
       setMyQuestions(_myQuestions);
-      setSuggestions(_myQuestions);
+      setSuggestions(_myQuestions.slice(0, 3));
       console.log(_myQuestions);
     });
   }, []);

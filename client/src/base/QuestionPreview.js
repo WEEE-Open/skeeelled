@@ -7,6 +7,7 @@ import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 
 import { Card, Button } from "react-bootstrap";
+import { dateToLocaleString } from "../utils";
 
 import "katex/dist/katex.min.css";
 import "highlight.js/styles/github.css";
@@ -22,7 +23,7 @@ function QuestionPreview({ question, showhints }) {
           <div className="p2">
             <small className="question-create-date">
               {
-                "Posted on " + question?.timestamp?.toLocaleString("it-IT")
+                "Posted on " + dateToLocaleString(question?.timestamp)
                 // question.date.toLocaleDateString("it-IT", {
                 //   year: "numeric",
                 //   month: "numeric",
