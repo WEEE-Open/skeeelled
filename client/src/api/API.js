@@ -248,9 +248,7 @@ const getMyReplies = async (user_id, page = 1, itemsPerPage = -1) => {
         } else if (res.ok) {
           res
             .json()
-            .then((json) =>
-              resolve(json.map((myReplies) => ReplyObj.from(myReplies)))
-            )
+            .then((json) =>resolve(json))
             .catch((err) => reject(err));
         } else {
           reject("Generic Error");

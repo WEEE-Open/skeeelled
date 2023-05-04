@@ -255,14 +255,15 @@ function ListEntryMyComments(props) {
 }
 
 function ListEntryReplies(props) {
+  console.log(props.row);
   return (
     <div className="questionEntry">
       <Row>
-        <Col className="reply-title">{props.row.content}</Col>
-        <Col className="created-time">Created at: {props.row.createdat}</Col>
+        <Col className="reply-title">{props.row.reply.content}</Col>
+        <Col className="created-time">Created at: {dateToLocaleString(props.row.reply.timestamp)}</Col>
       </Row>
       <Row className="tags">
-        <Col className="author">from {props.row.author}</Col>
+        <Col className="author">from {props.row.reply.author}</Col>
       </Row>
     </div>
   );
