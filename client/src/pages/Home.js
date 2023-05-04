@@ -6,14 +6,56 @@ import API from "../api/API";
 import isLabelEnd from "katex/dist/katex.mjs";
 import { GlobalStateContext } from "../GlobalStateProvider";
 
-function Home() {
-  const { userID, MyReplies, MyQuestions, MyAnswers } = useContext(GlobalStateContext);
+const homePageList = [
+  //!! typeof(rows) = Array() !!//
+  {
+    scope: "default",
+    title: "New questions in courses enrolled",
+    rows: [],
+  },
+  {
+    scope: "default",
+    title: "Replies",
+    rows: [
+      ["Cras justo odio"],
+      ["Dapibus ac facilisis in"],
+      ["Morbi leo risus"],
+      ["Porta ac consectetur ac"],
+      ["Vestibulum at eros"],
+    ],
+  },
+  {
+    scope: "default",
+    title: "My questions",
+    rows: [
+      ["Cras justkjkkkkko odio"],
+      ["Dapibus ac facilisis in"],
+      ["Morbi leo risus"],
+      ["Porta ac consectetur ac"],
+      ["Vestibulum at eros"],
+    ],
+  },
+  {
+    scope: "default",
+    title: "My answers",
+    rows: [
+      ["Cras justo odio"],
+      ["Dapibus ac facilisis in"],
+      ["Morbi leo risus"],
+      ["Porta ac consectetur ac"],
+      ["Vestibulum at eros"],
+    ],
+  },
+];
 
+function Home() {
+  const { userID } = useContext(GlobalStateContext);
+
+  const [homeLists, setHomeLists] = useState(homePageList);
   const [myCoursesNewQuestions, setMyCoursesNewQuestions] = useState([]);
 
-
   useEffect(() => {
-    console.log("home user id", userID);
+    // get my course new questions
     API.getMyCourseNewQuestions(userID, 5).then((questions) => {
       console.log("home questions", questions);
       const rows = questions.map((x) => [x.questiontext.text])
@@ -24,50 +66,6 @@ function Home() {
       setMyCoursesNewQuestions(rows);
     });
   }, [userID]);
-
-  const homePageList = [
-    //!! typeof(rows) = Array() !!//
-    {
-      scope: "default",
-      title: "New questions in courses enrolled",
-      rows: myCoursesNewQuestions,
-    },
-    {
-      scope: "default",
-      title: "Replies",
-      rows: [
-        ["Cras justo odio"],
-        ["Dapibus ac facilisis in"],
-        ["Morbi leo risus"],
-        ["Porta ac consectetur ac"],
-        ["Vestibulum at eros"],
-      ],
-    },
-    {
-      scope: "default",
-      title: "My questions",
-      rows: [
-        ["Cras justkjkkkkko odio"],
-        ["Dapibus ac facilisis in"],
-        ["Morbi leo risus"],
-        ["Porta ac consectetur ac"],
-        ["Vestibulum at eros"],
-      ],
-    },
-    {
-      scope: "default",
-      title: "My answers",
-      rows: [
-        ["Cras justo odio"],
-        ["Dapibus ac facilisis in"],
-        ["Morbi leo risus"],
-        ["Porta ac consectetur ac"],
-        ["Vestibulum at eros"],
-      ],
-    },
-  ];
-
-  const [homeLists, setHomeLists] = useState(homePageList);
 
   return (
     <>
