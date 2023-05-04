@@ -103,6 +103,25 @@ const getCourse = async (courseId) => {
   });
 }
 
+const getQuestion = async (questionId) => {
+  return new Promise((resolve, reject) => {
+    fetch(prefix + "/question?question_id=" + questionId)
+      .then((res) => {
+        if (res.status === 404) {
+          resolve({});
+        } else if (res.ok) {
+          res
+            .json()
+            .then((json) => resolve(json))
+            .catch((err) => reject(err));
+        } else {
+          reject("Generic Error " + res.status + " " + res.statusText);
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  })
+};
+
 const getQuestions = async (courseId) => {
   return new Promise((resolve, reject) => {
     fetch(
@@ -440,6 +459,7 @@ const API = {
   getCourses,
   getCourse,
   getMyCourses,
+  getQuestion,
   getQuestions,
   getDiscussions,
   getMyQuestions,
