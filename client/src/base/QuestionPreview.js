@@ -22,7 +22,7 @@ function QuestionPreview({ question, showhints }) {
           <div className="p2">
             <small className="question-create-date">
               {
-                "Posted on " + question?.timestamp
+                "Posted on " + question?.timestamp?.toLocaleString("it-IT")
                 // question.date.toLocaleDateString("it-IT", {
                 //   year: "numeric",
                 //   month: "numeric",

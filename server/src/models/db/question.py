@@ -2,6 +2,7 @@ from ..basemodel import BaseModel
 from pydantic import Field, NonNegativeFloat, validator, NonNegativeInt, AnyHttpUrl
 from typing import List, Literal, Optional, Union
 from ..objectid import PyObjectId
+from datetime import datetime
 
 # Unsupoorted question types: "matching", "cloze", "description"
 
@@ -42,6 +43,7 @@ class MoodleQuestion(BaseModel):
     course_id: str
     quiz_id: PyObjectId
     is_exam: bool = False
+    timestamp: datetime = datetime.now()
     categories: List[str]
     type: Literal[
         "multichoice", "truefalse", "shortanswer", "essay", "numerical"
