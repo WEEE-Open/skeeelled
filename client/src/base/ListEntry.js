@@ -288,7 +288,7 @@ function ListEntrySuggestion(props) {
             to={"/suggestion/" + props.row.id}
             className="suggestion-question"
           >
-            {props.row.question}
+            {props.row.questiontext.text.slice(0, 10)}
           </Link>
         </Col>
         <Col className="suggestion-created-by">from {props.row.author}</Col>
