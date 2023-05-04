@@ -39,7 +39,7 @@ function QuestionPreview({ question, showhints }) {
       </Card.Header>
       <Card.Body>
         <Card.Title>{question?.title}</Card.Title>
-        <MarkdownPreview markdown={question?.content} />
+        <MarkdownPreview text={question?.questiontext?.text} format={question?.questiontext && question.questiontext["@format"]} />
         {question?.hint && (
           <Button
             className="show-advice-button"

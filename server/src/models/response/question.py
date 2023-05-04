@@ -1,16 +1,44 @@
 from ..db import Quiz, MoodleQuestion as _MoodleQuestion
-from ..db.question import TextField, Answer, NumericalAnswer, EssayAnswer, Unit
+from ..db.question import TextField as _TextField, Unit, File
 from .user import User
 from .course import Course
 from typing import List, Literal, Optional, Union
-from pydantic import Field, NonNegativeFloat, NonNegativeInt, validator
+from pydantic import Field, NonNegativeFloat, NonNegativeInt, validator, root_validator
 from ..objectid import PyObjectId
+
+
+class TextField(_TextField):
+    @root_validator
+    def set_file_urls(cls, values):
+        file = values["file"]
+        if isinstance(file, File):
+            print(f"""@@PLUGINFILE@@{file.path}{file.name}""")
+            values["text"] = values["text"].replace(f"""@@PLUGINFILE@@{file.path}{file.name}""", file.url)
+        elif isinstance(file, list):
+            for f in file:
+                values["text"] = values["text"].replace(f"""@@PLUGINFILE@@{f.path}{f.name}""", f.url)
+        return values
+
+
+class Answer(TextField):
+    fraction: NonNegativeFloat = Field(alias="@fraction")
+    feedback: TextField
+
+
+class NumericalAnswer(Answer):
+    tolerance: NonNegativeFloat = 0.0
+
+
+class EssayAnswer(Answer):
+    fraction: Literal[0]
 
 
 class Question(_MoodleQuestion):
     owner: Union[User, str]
     course_id: Union[Course, str]
     quiz_id: Union[Quiz, PyObjectId]
+    questiontext: TextField
+    generalfeedback: Optional[TextField]
 
 
 class MultichoiceQuestion(Question):
