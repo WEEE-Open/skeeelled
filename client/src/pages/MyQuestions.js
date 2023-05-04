@@ -21,7 +21,7 @@ const MyQuestions = () => {
   const suggestionType = ["Latest", "Hottest"];
 
   useEffect(() => {
-    API.getMyQuestions("d29590", 1, 5).then((_myQuestions) => {
+    API.getMyQuestions("d313131", 1, 5).then((_myQuestions) => {
       setMyQuestions(_myQuestions);
       setSuggestions(_myQuestions);
       console.log(_myQuestions);
