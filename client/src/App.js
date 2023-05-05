@@ -159,7 +159,7 @@ function App() {
                   />
                   <Route path="/bookmarks" element={<Bookmarks />} />
                   <Route
-                    path="/startsimulation/:courseName"
+                    path="/startsimulation/:courseid"
                     element={<StartSimulation />}
                   />
                   <Route
