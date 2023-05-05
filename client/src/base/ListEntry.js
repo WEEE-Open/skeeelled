@@ -169,7 +169,7 @@ function ListEntryAnswers(props) {
         <Col colSpan="2">
           <Row>
             <Col>
-              {props.row.author}, {props.row.timestamp}
+              {props.row.author} {dateToLocaleString(props.row.timestamp)}
             </Col>
             <Col className="header-svg">
               <span className="reply-link mx-3">
@@ -184,7 +184,7 @@ function ListEntryAnswers(props) {
         </Col>
       </Row>
       <Row>
-        <MarkdownPreview rowspan="3" markdown={props.row.content} />
+        <MarkdownPreview rowspan="3" text={props.row.content} />
       </Row>
 
       <Row>
@@ -199,8 +199,8 @@ function ListEntryAnswers(props) {
           </Link>
 
           <div className="vote-number">
-            {props.row["upvoted_by"] - props.row["downvoted_by"] > 0 && "+"}
-            {props.row["upvoted_by"] - props.row["downvoted_by"]}
+            {props.row.upvotes - props.row.downvotes > 0 && "+"}
+            {props.row.upvotes - props.row.downvotes}
           </div>
           <Link to="">
             <Image
@@ -213,7 +213,7 @@ function ListEntryAnswers(props) {
         </Col>
 
         <Col>
-          <Link to="/discussion/1">
+          <Link to={`/discussion/${props.row._id}`}>
             <Button className="reply-link">Reply</Button>
           </Link>
         </Col>
