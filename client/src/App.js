@@ -146,7 +146,7 @@ function App() {
                   <Route path="/myquestions" element={<MyQuestions />} />
                   <Route path="/mycomments" element={<MyComments />} />
                   <Route path="/myreplies" element={<MyReplies />} />
-                  <Route path="/discussion/:questionid" element={<Replies />} />
+                  <Route path="/discussion/:commentid" element={<Replies />} />
                   <Route
                     path="/simulation/:simulationType"
                     element={<Simulation />}

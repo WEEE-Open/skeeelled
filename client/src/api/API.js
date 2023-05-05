@@ -145,6 +145,24 @@ const getQuestions = async (courseId) => {
   });
 };
 
+const getComment = async (commentId) => {
+  return new Promise((resolve, reject) => {
+    fetch(`${prefix}/comment?comment_id=${commentId}`)
+      .then((res) => {
+        if (res.status === 404) {
+          resolve({});
+        } else if (res.ok) {
+          res.json()
+            .then((json) => resolve(json))
+            .catch((err) => reject(err));
+        } else {
+          reject(`Generic Error ${res.status} ${res.statusText}`);
+        }
+      })
+      .catch((err) => reject("Unavailable"));
+  });
+}
+
 const getDiscussions = async (questionId) => {
   return new Promise((resolve, reject) => {
     fetch(
@@ -277,9 +295,7 @@ const getReplies = async (comment_id, page = 1, itemsPerPage = -1) => {
         } else if (res.ok) {
           res
             .json()
-            .then((json) =>
-              resolve(json.replies.map((replies) => ReplyObj.from(replies)))
-            )
+            .then((json) => resolve(json))
             .catch((err) => reject(err));
         } else {
           reject("Generic Error");
@@ -457,6 +473,7 @@ const API = {
   getMyCourses,
   getQuestion,
   getQuestions,
+  getComment,
   getDiscussions,
   getMyQuestions,
   getMyComments,
