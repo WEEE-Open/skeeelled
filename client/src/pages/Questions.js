@@ -49,7 +49,7 @@ const Questions = () => {
     );
   }, []);
 
-  const [questions, setQuestions] = useState({});
+  const [questions, setQuestions] = useState([]);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
   const suggestionType = ["Latest", "Hottest"];
 
