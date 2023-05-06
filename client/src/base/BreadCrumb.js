@@ -98,12 +98,12 @@ export default function BreadCrumb(props) {
 
   const location = useLocation();
 
-  const [locationState, setLocationState] = useState(location)
-  useEffect(()=>{
-    setLocationState(location)
+  const [locationState, setLocationState] = useState(location);
+  useEffect(() => {
+    setLocationState(location);
     console.warn(crumbPathArr);
     console.log(`current location: ${location.pathname}`);
-  }, [location, setLocationState])
+  }, [location, setLocationState]);
 
   const [crumbPathArr, setCrumbPathArr] = useState(
     // find object of path from the root lvl
