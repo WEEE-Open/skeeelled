@@ -341,13 +341,13 @@ const searchDiscussion = async (query, question_id) => {
   });
 };
 
-const getMyCourseNewQuestions = (userId) => {
+const getMyCourseNewQuestions = (userId, itemPerPage) => {
   return new Promise((resolve, reject) => {
     fetch(
       prefix +
         "/myCoursesNewQuestions?user_id=" +
         userId +
-        "&itemsPerPage=50&page=1"
+        "&itemsPerPage=" + itemPerPage + "&page=1"
     )
       ?.then((res) => {
         if (res.status === 404) {
