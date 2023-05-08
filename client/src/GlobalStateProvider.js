@@ -20,8 +20,6 @@ const GlobalStateProvider = ({ children }) => {
 
   const [userCourses, setUserCourses] = useState([]);
 
-  console.log(myCoursesNewQuestions);
-
   useEffect(() => {
     API.getCourses().then((courses) => setAllCourses(courses));
     API.getMyCourseNewQuestions(userID).then((questions) => {
@@ -55,8 +53,6 @@ const GlobalStateProvider = ({ children }) => {
       value={{
         userInfo,
         setUserInfo,
-        myCoursesNewQuestions,
-        setMyCoursesNewQuestions,
         myBookmarkedQuestions,
         setMyBookmarkedQuestions,
         mySimulationResult,
@@ -65,6 +61,7 @@ const GlobalStateProvider = ({ children }) => {
         setUserCourses,
         allCourses,
         setAllCourses,
+          userID
       }}
     >
       {children}
