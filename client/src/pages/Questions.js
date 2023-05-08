@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 // import "./Questions.css";
 import "./stylesheet/Questions.scss";
 import { List, MyPagination, Recent, SearchBar, Suggestion } from "../base/";
-import { Link, useLocation } from "react-router-dom";
+import {Link, useLocation, useParams} from "react-router-dom";
 import API from "../api/API";
 
 const Questions = () => {
@@ -77,6 +77,7 @@ const Questions = () => {
   const isDesktop = useMediaQuery("(min-width: 960px)");
 
   const locationState = useLocation().state;
+  let {courseid} = useParams();
 
   return (
     <>
@@ -99,10 +100,10 @@ const Questions = () => {
                         <Link
                           to={{
                             pathname:
-                              "/startsimulation/" + locationState.courseId,
+                              "/startsimulation/" + courseid,
                           }}
                           state={{
-                            courseId: locationState.courseId,
+                            courseId: courseid,
                             title: locationState.title,
                           }}
                         >
@@ -155,10 +156,10 @@ const Questions = () => {
                         <Link
                           to={{
                             pathname:
-                              "/startsimulation/" + locationState.courseId,
+                              "/startsimulation/" + courseid,
                           }}
                           state={{
-                            courseId: locationState.courseId,
+                            courseId: courseid,
                             title: locationState.title,
                           }}
                         >
