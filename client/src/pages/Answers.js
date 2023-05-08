@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { QuestionPreview, Discussion, TextInput } from "../base";
 import "./stylesheet/Answer.css";
 import API from "../api/API";
-import { useLocation } from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 
 const fakeQuestion = {
   course_code: "01UROLM",
@@ -18,10 +18,13 @@ const fakeQuestion = {
 
 function Answers(props) {
   const locationState = useLocation().state;
+  const {questionid} = useParams();
+    const [question, setQuestion] = useState({});
+    const [discussions, setDiscussions] = useState([]);
 
   // get the discussions of the question
   useEffect(() => {
-    API.getDiscussions(locationState.questionId).then((discussions) =>
+    API.getDiscussions(questionid).then((discussions) =>
       setDiscussions(discussions)
     );
   }, []);
@@ -29,24 +32,18 @@ function Answers(props) {
   // get the question => pass to <QuestionPreview>
   useEffect(() => {
     API.getQuestions(locationState.courseId).then((questions) =>
-      setQuestion(
-        questions.filter(
-          (question) => question["_id"] === locationState.questionId
-        )[0]
-      )
+      console.log(question)
     );
   }, []);
 
-  const [question, setQuestion] = useState({});
-  const [discussions, setDiscussions] = useState([]);
-
-  console.log(discussions);
 
   return (
     <Container className="answer-container">
       <Row lg={12} className="header">
         <Col>
-          <QuestionPreview question={question} showhints={props.showhints} />
+            {
+                question && question._id && <QuestionPreview question={question} showhints={props.showhints} />
+            }
         </Col>
       </Row>
 
