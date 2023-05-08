@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext, useContext } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import API from "./api/API";
 
 export const GlobalStateContext = createContext([{}, function () {}]);
@@ -8,15 +8,10 @@ const GlobalStateProvider = ({ children }) => {
 
   const [userInfo, setUserInfo] = useState({});
 
-  const [mySimulationResult, setMySimulationResult] = useState([]);
-
   useEffect(() => {
     console.log("state provider user id", userID);
     API.getUser(userID).then((info) => {
       setUserInfo(info);
-    });
-    API.getMySimulationResult(userID).then((result) => {
-      setMySimulationResult(result);
     });
   }, [userID]);
 
@@ -26,8 +21,6 @@ const GlobalStateProvider = ({ children }) => {
         userID,
         userInfo,
         setUserInfo,
-        mySimulationResult,
-        setMySimulationResult,
       }}
     >
       {children}
