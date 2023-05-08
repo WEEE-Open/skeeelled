@@ -8,15 +8,10 @@ const GlobalStateProvider = ({ children }) => {
 
   const [userInfo, setUserInfo] = useState({});
 
-  const [myBookmarkedQuestions, setMyBookmarkedQuestions] = useState([]);
-
   const [mySimulationResult, setMySimulationResult] = useState([]);
 
   useEffect(() => {
     console.log("state provider user id", userID);
-    API.getMyBookmarkedQuestions(userID).then((questions) => {
-      setMyBookmarkedQuestions(questions["myBookmarkedQuestions"]);
-    });
     API.getUser(userID).then((info) => {
       setUserInfo(info);
     });
@@ -31,8 +26,6 @@ const GlobalStateProvider = ({ children }) => {
         userID,
         userInfo,
         setUserInfo,
-        myBookmarkedQuestions,
-        setMyBookmarkedQuestions,
         mySimulationResult,
         setMySimulationResult,
       }}
