@@ -7,15 +7,17 @@ import isLabelEnd from "katex/dist/katex.mjs";
 import { GlobalStateContext } from "../GlobalStateProvider";
 
 function Home() {
-  const { myCoursesNewQuestions, MyReplies, MyQuestions, MyAnswers } =
+  const { userID, MyReplies, MyQuestions, MyAnswers } =
     useContext(GlobalStateContext);
+
+  const [myCourseNewQuestions, setMyCourseNewQuestions] = useState([])
 
   const homePageList = [
     //!! typeof(rows) = Array() !!//
     {
       scope: "default",
       title: "New questions in courses enrolled",
-      rows: myCoursesNewQuestions,
+      rows: myCourseNewQuestions,
     },
     {
       scope: "default",
@@ -54,7 +56,40 @@ function Home() {
 
   const [homeLists, setHomeLists] = useState(homePageList);
 
-  console.log(myCoursesNewQuestions);
+  function homeCardListingTruncate (htmlText) {
+
+    const strTruncate = (str) => {
+      let arr = str.split(" ").slice(0, 5);
+      return arr.join(" ") + "..."
+    }
+
+    let span = document.createElement('span');
+    span.innerHTML = htmlText;
+    return strTruncate(span.textContent) || strTruncate(span.innerText);
+  }
+
+
+  // first render
+  useEffect(()=>{
+    // five items per page in Home page
+    API.getMyCourseNewQuestions(userID, 5).then((questions) => {
+      setMyCourseNewQuestions(questions.map((x) => [homeCardListingTruncate(x.questiontext.text)]));
+    });
+  }, [])
+
+
+  useEffect(()=> {
+    setHomeLists(
+        [
+          {
+            scope: "default",
+            title: "New questions in courses enrolled",
+            rows: myCourseNewQuestions,
+          },
+          ...homePageList.slice(1)
+        ]
+    )
+  }, [myCourseNewQuestions])
 
   return (
     <>
