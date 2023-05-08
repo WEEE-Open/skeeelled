@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import {
   Container,
   Card,
@@ -6,74 +6,28 @@ import {
   Col,
   Button,
   Image,
-  Stack,
   ListGroup,
-  Accordion,
   DropdownButton,
   Dropdown,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./SimulationAccess.css";
 import { GlobalStateContext } from "../GlobalStateProvider";
+import API from "../api/API";
+
 
 export default function SimulationAccess() {
-  const fakeSimulationResult = [
-    {
-      id: "A1234",
-      course: "Analysis I",
-      score: 30,
-      date: "20/05/21",
-      maxScore: 30,
-    },
-    {
-      id: "B5678",
-      course: "Physics I",
-      score: 18,
-      date: "01/11/21",
-      maxScore: 30,
-    },
-    {
-      id: "C1001",
-      course: "Geometry",
-      score: 25,
-      date: "20/04/22",
-      maxScore: 30,
-    },
-  ];
-
-  const fakeCourses = [
-    {
-      code: "A0B1C2",
-      course: "Analysis I",
-      cfu: 10,
-      professor: "Mario Rossi",
-      enrolled: true,
-    },
-    {
-      code: "D3E4F5",
-      course: "Physics I",
-      cfu: 10,
-      professor: "Stefano Bianchi",
-      enrolled: true,
-    },
-    {
-      code: "G6H7I8",
-      course: "Geometry",
-      cfu: 10,
-      professor: "Giuseppe Verdi",
-      enrolled: true,
-    },
-  ];
-
-  const { mySimulationResult, userCourses } = useContext(GlobalStateContext);
-  const [coursesEnrolled, setCoursesEnrolled] = useState(userCourses);
-  const [simulationResult, setSimulationResult] = useState(mySimulationResult);
+  const { userID } = useContext(GlobalStateContext);
+  const [coursesEnrolled, setCoursesEnrolled] = useState([]);
+  const [simulationResult, setSimulationResult] = useState([]);
   const [courseSelected, setCourseSelected] = useState({});
-  const [courseSelectedTitle, setCourseSelectedTitle] = useState(
-    "Select Course of Simulation"
-  );
+  const [courseSelectedTitle, setCourseSelectedTitle] = useState("Select Course of Simulation");
 
-  console.log(mySimulationResult, userCourses);
+  useEffect(() => {
+    API.getMyCourses(userID).then(setCoursesEnrolled);
+    API.getMySimulationResult(userID).then(setSimulationResult);
+  }, [userID]);
+
   return (
     <>
       <Container className="">
