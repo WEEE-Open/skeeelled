@@ -18,7 +18,7 @@ function QuestionPreview({ question, showhints }) {
     <Card>
       <Card.Header>
         <div className="d-flex justify-content-between">
-          <div className="course-name">{`${question.course} ${question.title}`}</div>
+          <div className="course-name">{`${question} ${question.name}`}</div>
           <div className="p2">
             <small className="question-create-date">
               {

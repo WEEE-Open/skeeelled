@@ -1,10 +1,9 @@
 class CourseObj {
-  constructor(id, code, name, cfu, prof, myCourse) {
-    this.id = id;
-    this.code = code;
+  constructor(_id, name, years_active, professors, myCourse = false) {
+    this._id = _id;
     this.name = name;
-    this.cfu = cfu;
-    this.prof = prof;
+    this.years_active = years_active;
+    this.professors = professors;
     myCourse ? (this.myCourse = 1) : (this.myCourse = 0);
   }
 

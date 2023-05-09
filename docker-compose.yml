@@ -64,6 +64,6 @@ services:
     environment:
       NODE_ENV: development
       CHOKIDAR_USEPOLLING: "true"
-    command: [ "npm", "start" ]
+    command: ["npm", "start"]
     ports:
       - "3000:3000"

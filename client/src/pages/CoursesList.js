@@ -1,30 +1,16 @@
 import { Row, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useEffect, useState /* , useEffect */ } from "react";
+import { useContext, useEffect, useState /* , useEffect */ } from "react";
 
 import { Recent, List, SearchBar, MyPagination } from "../base/";
 import "./stylesheet/CoursesList.css";
 import Suggestion from "../base/Suggestion";
 import API from "../api/API";
 import CourseObj from "../entities/CourseObj";
+import { GlobalStateContext } from "../GlobalStateProvider";
 
 function CoursesList() {
-  /** Mock courses and questions **/
-  const fakeCourses = [
-    { code: "A0B1C2", course: "Analysis 1", cfu: 10, professor: "Mario Rossi" },
-    {
-      code: "D3E4F5",
-      course: "Physics 1",
-      cfu: 10,
-      professor: "Stefano Bianchi",
-    },
-    {
-      code: "G6H7I8",
-      course: "Geometry",
-      cfu: 10,
-      professor: "Giuseppe Verdi",
-    },
-  ];
+  /** Mock questions **/
 
   const fakeQuestions = [
     {
@@ -53,32 +39,38 @@ function CoursesList() {
     },
   ];
 
-  useEffect(() => {
-    API.getCourses().then((courses) => setCourses(courses));
-  }, []);
+  const { userCourses, allCourses } = useContext(GlobalStateContext);
 
-  const [courses, setCourses] = useState([]);
-  const [myCourses, setMyCourses] = useState([]);
+  useEffect(() => {
+    setCourses(allCourses);
+    setMyCourses(userCourses);
+  }, []);
+  // useEffect(() => {
+  //   API.getCourses().then((courses) => setCourses(courses));
+  // }, []);
+
+  const [courses, setCourses] = useState(allCourses);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
+  const [myCourses, setMyCourses] = useState(userCourses);
   const suggestionType = ["Latest", "Hottest"];
   const coursesType = ["My Courses", "All Courses"];
 
   /**Courses and questions related**/
-  /*
-	// courses
-	useEffect(()=> {
-		API.getCourses()
-			.then(courses => setCourses(courses))
-			.catch(err => console.log(err));
-	}, []);
+  //*
+  // courses
+  useEffect(() => {
+    API.getCourses()
+      .then((courses) => setCourses(courses))
+      .catch((err) => console.log(err));
+  }, []);
 
-	// myCourses
-	useEffect(() => {
-		API.getMyCourses()
-			.then(myCourses => setMyCourses(myCourses))
-			.catch(err => console.log(err));
-	}, []);
-	*/
+  // myCourses
+  // useEffect(() => {
+  // 	API.getMyCourses()
+  // 		.then(myCourses => setMyCourses(myCourses))
+  // 		.catch(err => console.log(err));
+  // }, []);
+  //*/
 
   // useEffect(() => {
   //     const getCourses = async () => {
@@ -94,7 +86,7 @@ function CoursesList() {
         <h3 className="courses-title">Courses</h3>
       </Row>
       <Row>
-        <SearchBar />
+        <SearchBar apiCall={{ scope: "courses" }}></SearchBar>
       </Row>
       <Row className="courses-body">
         <Link
@@ -103,9 +95,9 @@ function CoursesList() {
             pathname:
               "/listfullpage/" + "My Courses".replace(/\s/g, "").toLowerCase(),
           }}
-          state={{ scope: "courses", title: "My Courses", rows: courses }}
+          state={{ scope: "courses", title: "My Courses", rows: myCourses }}
         >
-          <List scope="courses" title={"My Courses"} rows={courses} rounded />
+          <List scope="courses" title={"My Courses"} rows={myCourses} rounded />
         </Link>
         <Link
           className="list-attributes"

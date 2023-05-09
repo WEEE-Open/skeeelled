@@ -2,7 +2,9 @@ import { Row, Col, Card, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { List, ListEntry, Recent, SearchBar, TextInput } from "../base";
-import "./stylesheet/Replies.scss";
+import "./stylesheet/Replies.css";
+import API from "../api/API";
+import ReplyObj from "../entities/ReplyObj";
 
 function Answer(props) {
   return (
@@ -28,28 +30,14 @@ function Replies() {
     author: "Jim",
     createdat: "10/10/1010",
   };
-  const fakeReplies = [
-    {
-      id: 1,
-      reply: "I think it's correct",
-      author: "Donato",
-      createdat: "15:20 12/01/2021",
-    },
-    {
-      id: 2,
-      reply: "Maybe is wrong",
-      author: "Jim",
-      createdat: "17:30 13/02/2021",
-    },
-    {
-      id: 3,
-      reply: "idk",
-      author: "Derek",
-      createdat: "19:40 14/03/2021",
-    },
-  ];
 
-  const [replies, setReplies] = useState(fakeReplies);
+  const [replies, setReplies] = useState([]);
+
+  useEffect(() => {
+    API.getReplies("6380eae7306106889038c590").then((_replies) => {
+      setReplies(_replies);
+    });
+  }, []);
 
   return (
     <div className="discussion">

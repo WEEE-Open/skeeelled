@@ -1,169 +1,167 @@
 import {
-    Button,
-    Container,
-    Row,
-    Col,
-    Card,
-    Image,
-    Stack,
+  Button,
+  Container,
+  Row,
+  Col,
+  Card,
+  Image,
+  Stack,
 } from "react-bootstrap";
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 // import "./Questions.css";
 import "./stylesheet/Questions.css";
-import {List, MyPagination, Recent, SearchBar, Suggestion} from "../base";
-import {Link, useLocation} from "react-router-dom";
+import { List, MyPagination, Recent, SearchBar, Suggestion } from "../base";
+import { Link, useLocation } from "react-router-dom";
 import API from "../api/API";
 
 const MyComments = () => {
-    const [myComments, setMyComments] = useState([]);
-    const [suggestions, setSuggestions] = useState([]);
-    const suggestionType = ["Latest", "Hottest"];
+  const [myComments, setMyComments] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
+  const suggestionType = ["Latest", "Hottest"];
+
+  useEffect(() => {
+    API.getMyComments("d29590", 1, 5).then((_myComments) => {
+      setMyComments(_myComments);
+      setSuggestions(_myComments);
+      console.log(_myComments);
+    });
+  }, []);
+
+  // hook for responsive react
+  const useMediaQuery = (query) => {
+    const [matches, setMatches] = useState(false);
 
     useEffect(() => {
-        API.getMyComments("d29590", 1, 5).then((_myComments) => {
-            setMyComments(_myComments);
-            setSuggestions(_myComments);
-            console.log(_myComments);
-        });
-    }, []);
+      const media = window.matchMedia(query);
+      if (media.matches !== matches) {
+        setMatches(media.matches);
+      }
+      const listener = () => {
+        setMatches(media.matches);
+      };
+      window.addEventListener("resize", listener);
+      return () => window.removeEventListener("resize", listener);
+    }, [matches, query]);
 
-    // hook for responsive react
-    const useMediaQuery = (query) => {
-        const [matches, setMatches] = useState(false);
+    return matches;
+  };
 
-        useEffect(() => {
-            const media = window.matchMedia(query);
-            if (media.matches !== matches) {
-                setMatches(media.matches);
-            }
-            const listener = () => {
-                setMatches(media.matches);
-            };
-            window.addEventListener("resize", listener);
-            return () => window.removeEventListener("resize", listener);
-        }, [matches, query]);
+  // TODO: also take a look at Bootstrap class infixes to detect the current breakpoint
+  // to see which approach is better -- https://getbootstrap.com/docs/5.1/layout/breakpoints/
+  const isDesktop = useMediaQuery("(min-width: 960px)");
 
-        return matches;
-    };
+  const locationState = useLocation().state;
 
-    // TODO: also take a look at Bootstrap class infixes to detect the current breakpoint
-    // to see which approach is better -- https://getbootstrap.com/docs/5.1/layout/breakpoints/
-    const isDesktop = useMediaQuery("(min-width: 960px)");
+  return (
+    <>
+      <Container>
+        <Stack gap={4}>
+          {isDesktop ? (
+            <Row key={isDesktop}>
+              <Col>
+                <Container className="container">
+                  <Row lg={12} className="header">
+                    <Col>
+                      <div className="right-button">
+                        <Button
+                          className="add-question-button"
+                          onClick={() => {}}
+                        >
+                          {/*<Image*/}
+                          {/*    className="add-icon"*/}
+                          {/*    src={*/}
+                          {/*      process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"*/}
+                          {/*    }*/}
+                          {/*    width="13px"*/}
+                          {/*/>*/}
+                          {" Enroll in course"}
+                        </Button>
+                      </div>
+                      <List
+                        scope="myComments"
+                        // title={locationState.title}
+                        title="My comments"
+                        rows={myComments}
+                      />
+                      <MyPagination />
+                    </Col>
+                    <Col className="d-sm-inline-block col-md-4">
+                      <Stack gap={4}>
+                        {suggestionType.map((type, i) => {
+                          return (
+                            <Row key={i}>
+                              <Suggestion
+                                scope={"suggestion"}
+                                title={type + " Comments"}
+                                rows={suggestions}
+                              />
+                            </Row>
+                          );
+                        })}
+                      </Stack>
+                    </Col>
+                  </Row>
+                </Container>
+              </Col>
+            </Row>
+          ) : (
+            // mobile configuration
+            <>
+              <Row>
+                <Container className="container">
+                  <Row lg={12} className="header">
+                    <Col>
+                      <div className="right-button">
+                        <Button
+                          className="add-question-button"
+                          onClick={() => {}}
+                        >
+                          {/*<Image*/}
+                          {/*    className="add-icon"*/}
+                          {/*    src={*/}
+                          {/*      process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"*/}
+                          {/*    }*/}
+                          {/*    width="13px"*/}
+                          {/*/>*/}
+                          {" Enroll in course"}
+                        </Button>
+                      </div>
+                      <List
+                        scope="myComments"
+                        //   title={locationState.title}
+                        title="My comments"
+                        rows={myComments}
+                      />
+                    </Col>
 
-    const locationState = useLocation().state;
-
-    return (
-        <>
-            <Container>
+                    <Col className="pagination" lg="12" sm="12" md="12">
+                      <MyPagination />
+                    </Col>
+                  </Row>
+                </Container>
+              </Row>
+              <Row>
                 <Stack gap={4}>
-                    {isDesktop ? (
-                        <Row key={isDesktop}>
-                            <Col>
-                                <Container className="container">
-                                    <Row lg={12} className="header">
-                                        <Col>
-                                            <div className="right-button">
-                                                <Button
-                                                    className="add-question-button"
-                                                    onClick={() => {
-                                                    }}
-                                                >
-                                                    {/*<Image*/}
-                                                    {/*    className="add-icon"*/}
-                                                    {/*    src={*/}
-                                                    {/*      process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"*/}
-                                                    {/*    }*/}
-                                                    {/*    width="13px"*/}
-                                                    {/*/>*/}
-                                                    {" Enroll in course"}
-                                                </Button>
-                                            </div>
-                                            <List
-                                                scope="myComments"
-                                                // title={locationState.title}
-                                                title="My comments"
-                                                rows={myComments}
-                                            />
-                                            <MyPagination/>
-                                        </Col>
-                                        <Col className="d-sm-inline-block col-md-4">
-                                            <Stack gap={4}>
-                                                {suggestionType.map((type, i) => {
-                                                    return (
-                                                        <Row key={i}>
-                                                            <Suggestion
-                                                                scope={"suggestion"}
-                                                                title={type + " Comments"}
-                                                                rows={suggestions}
-                                                            />
-                                                        </Row>
-                                                    );
-                                                })}
-                                            </Stack>
-                                        </Col>
-                                    </Row>
-                                </Container>
-                            </Col>
-                        </Row>
-                    ) : (
-                        // mobile configuration
-                        <>
-                            <Row>
-                                <Container className="container">
-                                    <Row lg={12} className="header">
-                                        <Col>
-                                            <div className="right-button">
-                                                <Button
-                                                    className="add-question-button"
-                                                    onClick={() => {
-                                                    }}
-                                                >
-                                                    {/*<Image*/}
-                                                    {/*    className="add-icon"*/}
-                                                    {/*    src={*/}
-                                                    {/*      process.env.PUBLIC_URL + "/icons/ADD_WHITE.svg"*/}
-                                                    {/*    }*/}
-                                                    {/*    width="13px"*/}
-                                                    {/*/>*/}
-                                                    {" Enroll in course"}
-                                                </Button>
-                                            </div>
-                                            <List
-                                                scope="myComments"
-                                                //   title={locationState.title}
-                                                title="My comments"
-                                                rows={myComments}
-                                            />
-                                        </Col>
-
-                                        <Col className="pagination" lg="12" sm="12" md="12">
-                                            <MyPagination/>
-                                        </Col>
-                                    </Row>
-                                </Container>
-                            </Row>
-                            <Row>
-                                <Stack gap={4}>
-                                    {suggestionType.map((type, i) => {
-                                        return (
-                                            <Col key={i}>
-                                                <Suggestion
-                                                    scope={"suggestion"}
-                                                    title={type + " Comments"}
-                                                    rows={suggestions}
-                                                />
-                                            </Col>
-                                        );
-                                    })}
-                                </Stack>
-                            </Row>
-                        </>
-                    )}
+                  {suggestionType.map((type, i) => {
+                    return (
+                      <Col key={i}>
+                        <Suggestion
+                          scope={"suggestion"}
+                          title={type + " Comments"}
+                          rows={suggestions}
+                        />
+                      </Col>
+                    );
+                  })}
                 </Stack>
-            </Container>
-        </>
-    );
+              </Row>
+            </>
+          )}
+        </Stack>
+      </Container>
+    </>
+  );
 };
 
 export default MyComments;

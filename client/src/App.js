@@ -24,6 +24,8 @@ import {
   Home,
   LoginForm,
   MyQuestions,
+  MyComments,
+  MyReplies,
   Profile,
   Questions,
   Replies,
@@ -100,7 +102,9 @@ function App() {
             />
           </Col>
         </Row>
-        {/*<Row><BreadCrumb/></Row>*/}
+        <Row>
+          <BreadCrumb />
+        </Row>
         <Row className="my-4">
           <Col xs={6} className="mx-auto">
             {message && (
@@ -137,6 +141,9 @@ function App() {
                     />
                   }
                 />
+                <Route path="/myquestions" element={<MyQuestions />} />
+                <Route path="/mycomments" element={<MyComments />} />
+                <Route path="/myreplies" element={<MyReplies />} />
                 <Route path="/discussion/:questionid" element={<Replies />} />
                 <Route
                   path="/simulation/:simulationType"

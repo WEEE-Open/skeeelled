@@ -91,17 +91,17 @@ function ListEntryQuestions(props) {
                 courseId: props.row.course,
               }}
             >
-              {props.row.title}
+              {props.row.name}
             </Link>
           </Row>
           <Row>
-            <Col>
-              {props.row.tags.map((t, i) => (
-                <Link key={i} to="" className="tags">
-                  #{t}
-                </Link>
-              ))}
-            </Col>
+            {/*<Col>*/}
+            {/*  {props.row.tags.map((t, i) => (*/}
+            {/*    <Link key={i} to="" className="tags">*/}
+            {/*      #{t}*/}
+            {/*    </Link>*/}
+            {/*  ))}*/}
+            {/*</Col>*/}
           </Row>
         </Col>
         <Col>
@@ -117,11 +117,11 @@ function ListEntryQuestions(props) {
 }
 
 function ListEntryBookmarkQuestions(props) {
-  const [timestamp, setTimestamp] = useState(
-    new Date(props.row.timestamp.split(".")[0])
-      .toString()
-      .replace("(Central European Standard Time)", "")
-  );
+  // const [timestamp, setTimestamp] = useState(
+  //   new Date(props.row.timestamp.split(".")[0])
+  //     .toString()
+  //     .replace("(Central European Standard Time)", "")
+  // );
 
   return (
     <div className="bookmarkQuestionEntry">
@@ -145,22 +145,20 @@ function ListEntryBookmarkQuestions(props) {
           </Row>
           <Row>
             <Col>
-              {props.row.tags.map((t, i) => (
-                <Link key={i} to="" className="tags">
-                  #{t}
-                </Link>
-              ))}
+              {/*{props.row.tags.map((t, i) => (*/}
+              {/*  <Link key={i} to="" className="tags">*/}
+              {/*    #{t}*/}
+              {/*  </Link>*/}
+              {/*))}*/}
             </Col>
           </Row>
         </Col>
         <Col>
-          <Row className="created-at">Created at: {timestamp}</Row>
+          {/*<Row className="created-at">Created at: {timestamp}</Row>*/}
           {/*<Row className="created-from">from  {props.row.owner}</Row>*/}
         </Col>
       </Row>
-      <Row>
-        <Col>{props.row.content}</Col>
-      </Row>
+      <Row>{/*<Col>{props.row.content}</Col>*/}</Row>
     </div>
   );
 }
@@ -225,11 +223,43 @@ function ListEntryAnswers(props) {
   );
 }
 
+function ListEntryMyComments(props) {
+  return (
+    <div className="questionEntry">
+      <Row>
+        <Col>
+          <Row>
+            <Link to={"/myComments/" + props.row.id} className="myComment">
+              {props.row.content}
+            </Link>
+          </Row>
+          <Row>
+            <Col>
+              {/* {props.row.tags.map((t, i) => (
+                <Link key={i} to="" className="tags">
+                  #{t}
+                </Link>
+              ))} */}
+            </Col>
+          </Row>
+        </Col>
+        <Col>
+          <Row className="created-at">Created at: {props.row.createdat}</Row>
+          <Row className="created-from">from {props.row.author}</Row>
+        </Col>
+      </Row>
+      <Row>
+        <Col>{props.row.excerpt}</Col>
+      </Row>
+    </div>
+  );
+}
+
 function ListEntryReplies(props) {
   return (
     <div className="questionEntry">
       <Row>
-        <Col className="reply-title">{props.row.reply}</Col>
+        <Col className="reply-title">{props.row.content}</Col>
         <Col className="created-time">Created at: {props.row.createdat}</Col>
       </Row>
       <Row className="tags">
@@ -343,6 +373,7 @@ function ListEntry(props) {
         <ListEntryBookmarkQuestions row={props.row} />
       )}
       {props.scope === "answers" && <ListEntryAnswers row={props.row} />}
+      {props.scope === "myComments" && <ListEntryMyComments row={props.row} />}
       {props.scope === "replies" && <ListEntryReplies row={props.row} />}
       {props.scope === "test" && <ListEntryTest row={props.row} />}
       {props.scope === "suggestion" && <ListEntrySuggestion row={props.row} />}

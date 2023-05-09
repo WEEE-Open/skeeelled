@@ -147,8 +147,6 @@ async def main():
     await db[DbName.QUESTION.value].drop()
     await db[DbName.COMMENT.value].drop()
     await db[DbName.SIMULATION.value].drop()
-    if os.path.exists("/server/media/TEST"):
-        shutil.rmtree("/server/media/TEST")
 
     quiz_xml = open(QUIZ_FILEPATH, "rb")
     quiz_id = ObjectId()
