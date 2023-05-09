@@ -44,9 +44,12 @@ const getUser = async (userID) => {
 };
 
 // Courses related APIs
-const getMyCourses = async (userID) => {
+const getMyCourses = async (userID, page = 1, itemsPerPage = -1) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/myCourses?user_id=" + userID + "&page=1&itemsPerPage=-1")
+    fetch(
+      prefix + "/myCourses?user_id=" + userID + "&page=" + page + 
+      "&itemsPerPage=" + itemsPerPage
+    )
       .then((res) => {
         if (res.status === 404) {
           resolve([]);
@@ -85,10 +88,11 @@ const getCourses = async () => {
   });
 };
 
-const getQuestions = async (courseId) => {
+const getQuestions = async (courseId, page = 1, itemsPerPage = -1) => {
   return new Promise((resolve, reject) => {
     fetch(
-      prefix + "/questions?course_id=" + courseId + "&page=1&itemsPerPage=-1"
+      prefix + "/questions?course_id=" + courseId + "&page=" + page + 
+      "&itemsPerPage=" + itemsPerPage
     )
       .then((res) => {
         if (res.status === 404) {
@@ -108,13 +112,11 @@ const getQuestions = async (courseId) => {
   });
 };
 
-const getDiscussions = async (questionId) => {
+const getDiscussions = async (questionId, page = 1, itemsPerPage = -1) => {
   return new Promise((resolve, reject) => {
     fetch(
-      prefix +
-        "/discussion?question_id=" +
-        questionId +
-        "&page=1&itemsPerPage=-1"
+      prefix + "/discussion?question_id=" + questionId + "&page=" + page + 
+      "&itemsPerPage=" + itemsPerPage
     )
       .then((res) => {
         if (res.status === 404) {
@@ -137,13 +139,8 @@ const getDiscussions = async (questionId) => {
 const getMyQuestions = async (user_id, page = 1, itemsPerPage = -1) => {
   return new Promise((resolve, reject) => {
     fetch(
-      prefix +
-        "/myQuestions?user_id=" +
-        user_id +
-        "&page=" +
-        page +
-        "&itemsPerPage=" +
-        itemsPerPage
+      prefix + "/myQuestions?user_id=" + user_id + "&page=" + page + 
+      "&itemsPerPage=" + itemsPerPage
     )
       .then((res) => {
         if (res.status === 404) {
@@ -168,13 +165,8 @@ const getMyQuestions = async (user_id, page = 1, itemsPerPage = -1) => {
 const getMyComments = async (user_id, page = 1, itemsPerPage = 1) => {
   return new Promise((resolve, reject) => {
     fetch(
-      prefix +
-        "/myComments?user_id=" +
-        user_id +
-        "&page=" +
-        page +
-        "&itemsPerPage=" +
-        itemsPerPage
+      prefix + "/myComments?user_id=" + user_id + "&page=" + page + 
+      "&itemsPerPage=" + itemsPerPage
     )
       .then((res) => {
         if (res.status === 404) {
@@ -197,13 +189,8 @@ const getMyComments = async (user_id, page = 1, itemsPerPage = 1) => {
 const getMyReplies = async (user_id, page = 1, itemsPerPage = -1) => {
   return new Promise((resolve, reject) => {
     fetch(
-      prefix +
-        "/myReplies?user_id=" +
-        user_id +
-        "&page=" +
-        page +
-        "&itemsPerPage=" +
-        itemsPerPage
+      prefix + "/myReplies?user_id=" +  user_id + "&page=" + page +
+      "&itemsPerPage=" + itemsPerPage
     )
       .then((res) => {
         if (res.status === 404) {
@@ -228,13 +215,8 @@ const getMyReplies = async (user_id, page = 1, itemsPerPage = -1) => {
 const getReplies = async (comment_id, page = 1, itemsPerPage = -1) => {
   return new Promise((resolve, reject) => {
     fetch(
-      prefix +
-        "/replies?comment_id=" +
-        comment_id +
-        "&page=" +
-        page +
-        "&itemsPerPage=" +
-        itemsPerPage
+      prefix + "/replies?comment_id=" + comment_id + "&page=" + page +
+      "&itemsPerPage=" + itemsPerPage
     )
       .then((res) => {
         if (res.status === 404) {
@@ -256,9 +238,9 @@ const getReplies = async (comment_id, page = 1, itemsPerPage = -1) => {
   });
 };
 
-const searchCourses = async (query) => {
+const searchCourses = async (query, limit = 10) => {
   return new Promise((resolve, reject) => {
-    fetch(prefix + "/searchCourses?query=" + query + "&limit=10")
+    fetch(prefix + "/searchCourses?query=" + query + "&limit=" + limit)
       .then((res) => {
         if (res.status === 404) {
           resolve([]);
@@ -311,11 +293,8 @@ const searchQuestion = async (query, course_id) => {
 const searchDiscussion = async (query, question_id) => {
   return new Promise((resolve, reject) => {
     fetch(
-      prefix +
-        "/searchDiscussion?query=" +
-        query +
-        "&question_id=" +
-        question_id
+      prefix + "/searchDiscussion?query=" + query + 
+      "&question_id=" + question_id
     )
       .then((res) => {
         if (res.status === 404) {
@@ -341,13 +320,11 @@ const searchDiscussion = async (query, question_id) => {
   });
 };
 
-const getMyCourseNewQuestions = (userId) => {
+const getMyCourseNewQuestions = (userId, page = 1, itemsPerPage = 50) => {
   return new Promise((resolve, reject) => {
     fetch(
-      prefix +
-        "/myCoursesNewQuestions?user_id=" +
-        userId +
-        "&itemsPerPage=50&page=1"
+      prefix + "/myCoursesNewQuestions?user_id=" + userId + "&page=" + page +
+      "&itemsPerPage=" + itemsPerPage
     )
       ?.then((res) => {
         if (res.status === 404) {
@@ -367,13 +344,11 @@ const getMyCourseNewQuestions = (userId) => {
   });
 };
 
-const getMyBookmarkedQuestions = (userId) => {
+const getMyBookmarkedQuestions = (userId, page = 1, itemsPerPage = -1) => {
   return new Promise((resolve, reject) => {
     fetch(
-      prefix +
-        "/myBookmarkedQuestions?user_id=" +
-        userId +
-        "&page=1&itemsPerPage=-1"
+      prefix + "/myBookmarkedQuestions?user_id=" + userId + "&page=" + page + 
+      "&itemsPerPage=" + itemsPerPage
     )
       ?.then((res) => {
         if (res.status === 404) {
@@ -394,13 +369,11 @@ const getMyBookmarkedQuestions = (userId) => {
 };
 
 // simulation API
-const getMySimulationResult = (userId) => {
+const getMySimulationResult = (userId, page = 1, itemsPerPage = -1) => {
   return new Promise((resolve, reject) => {
     fetch(
-      prefix +
-        "/myExamSimulations?user_id=" +
-        userId +
-        "&page=1&itemsPerPage=-1"
+      prefix + "/myExamSimulations?user_id=" + userId + "&page=" + page + 
+      "&itemsPerPage=" + itemsPerPage
     )
       .then((res) => {
         if (res.status === 404) {
