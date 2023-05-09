@@ -61,6 +61,9 @@ services:
     volumes:
       - ./client/public:/app/public
       - ./client/src:/app/src
-    command: ["npm", "start"]
+    environment:
+      NODE_ENV: development
+      CHOKIDAR_USEPOLLING: "true"
+    command: [ "npm", "start" ]
     ports:
       - "3000:3000"
