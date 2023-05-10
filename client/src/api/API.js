@@ -395,6 +395,29 @@ const getMySimulationResult = (userId, page = 1, itemsPerPage = -1) => {
   });
 };
 
+const postUpvote = (userId, commentId = null, replyId = null) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix + "/upvote", { method: "POST", body: {
+          user_id: userId,
+          comment_id: commentId,
+          reply_id: replyId
+        }
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          resolve(null);
+        } else {
+          reject("Generic Error");
+        }
+      })
+      .catch((err) => {
+        reject("Server Error");
+      });
+  });
+}
+
 const API = {
   getUser,
   getCourses,
@@ -411,5 +434,6 @@ const API = {
   getMyCourseNewQuestions,
   getMyBookmarkedQuestions,
   getMySimulationResult,
+  postUpvote
 };
 export default API;
