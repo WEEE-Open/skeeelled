@@ -84,11 +84,11 @@ function ListEntryQuestions(props) {
           <Row>
             {/* ROUTE: /question/question:id COMPONENT: <Answer/> */}
             <Link
-              to={"/question/" + props.row["_id"]}
+              to={"/question/" + props.row._id}
               className="question"
               state={{
-                questionId: props.row["_id"],
-                courseId: props.row.course,
+                questionId: props.row._id,
+                courseId: props.row.course_id,
               }}
             >
               {props.row.name}
