@@ -64,6 +64,7 @@ class MoodleQuestion(BaseModel):
 class MatchingQuestion(MoodleQuestion):
     type: Literal["matching"] = Field(alias="@type")
     subquestion: List[Subquestion]
+    answer: None
 
 
 class ClozeQuestion(MoodleQuestion):
