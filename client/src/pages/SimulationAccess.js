@@ -73,7 +73,6 @@ export default function SimulationAccess() {
     "Select Course of Simulation"
   );
 
-  console.log(mySimulationResult, userCourses);
   return (
     <>
       <Container className="">
@@ -108,22 +107,6 @@ export default function SimulationAccess() {
                 ) : (
                   <></>
                 )}
-                {/*<Link*/}
-                {/*    to={{ pathname: "/startsimulation/" + e.id }}*/}
-                {/*    state={{*/}
-                {/*        courseId: e.id,*/}
-                {/*        title: e.course,*/}
-                {/*    }}*/}
-                {/*>*/}
-                {/*    <Button className="right-button">*/}
-                {/*        <Image*/}
-                {/*            className="add-icon"*/}
-                {/*            src={process.env.PUBLIC_URL + "/icons/SIMULATION RESULTS_WHITE.svg"}*/}
-                {/*            width="13px"*/}
-                {/*        />*/}
-                {/*        {" Start Simulation"}*/}
-                {/*    </Button>*/}
-                {/*</Link>*/}
               </Col>
               <Col>
                 <DropdownButton
@@ -132,7 +115,6 @@ export default function SimulationAccess() {
                 >
                   {coursesEnrolled.map((e, i) => {
                     return (
-                      <>
                         <Dropdown.Item
                           key={"enrolled" + i}
                           as="button"
@@ -143,7 +125,6 @@ export default function SimulationAccess() {
                         >
                           {e.name}
                         </Dropdown.Item>
-                      </>
                     );
                   })}
                 </DropdownButton>
@@ -154,10 +135,9 @@ export default function SimulationAccess() {
                 <h6>Simulation Results</h6>
                 {simulationResult.map((e, i) => {
                   return (
-                    <>
-                      <ListGroup.Item varient="flush">
+                      <ListGroup.Item varient="flush"  key={"result" + i}>
                         {
-                          <Row key={"result" + i}>
+                          <Row>
                             <Col>{e["course_id"]}</Col>
                             <Col>{e.results[0]}</Col>
                             {/*<Col>*/}
@@ -170,7 +150,6 @@ export default function SimulationAccess() {
                           </Row>
                         }
                       </ListGroup.Item>
-                    </>
                   );
                 })}
               </ListGroup>
