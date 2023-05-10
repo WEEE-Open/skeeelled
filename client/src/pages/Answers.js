@@ -19,21 +19,21 @@ const fakeQuestion = {
 function Answers(props) {
   const locationState = useLocation().state;
   const {questionid} = useParams();
-    const [question, setQuestion] = useState({});
+    const [question, setQuestion] = useState([]);
     const [discussions, setDiscussions] = useState([]);
+
 
   // get the discussions of the question
   useEffect(() => {
     API.getDiscussions(questionid).then((discussions) =>
       setDiscussions(discussions)
     );
-  }, []);
-
-  // get the question => pass to <QuestionPreview>
-  useEffect(() => {
-    API.getQuestions(locationState.courseId).then((questions) =>
-      console.log(question)
-    );
+    API.getSingleQuestion(questionid).then((question)=> {
+      setQuestion([question])
+    })
+      // API.getQuestions(locationState.courseId).then((questions) =>
+      //     setQuestion(questions)
+      // );
   }, []);
 
 
@@ -42,7 +42,7 @@ function Answers(props) {
       <Row lg={12} className="header">
         <Col>
             {
-                question && question._id && <QuestionPreview question={question} showhints={props.showhints} />
+             question && question.length > 0 && question[0]._id  ? <QuestionPreview question={question} showhints={props.showhints} />:<></>
             }
         </Col>
       </Row>
