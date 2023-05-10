@@ -7,7 +7,7 @@ import isLabelEnd from "katex/dist/katex.mjs";
 import { GlobalStateContext } from "../GlobalStateProvider";
 
 function Home() {
-  const { userID, MyReplies, MyQuestions, MyAnswers } =
+  const { userID, userInfo, MyReplies, MyQuestions, MyAnswers } =
     useContext(GlobalStateContext);
 
   const [myCourseNewQuestions, setMyCourseNewQuestions] = useState([])
@@ -95,7 +95,7 @@ function Home() {
     <>
       <Row lg={12} className="py-0 header">
         <Col>
-          <h3>Hi, Name Surname!</h3>
+          <h3>{"Hi, " + userInfo.name + " " + userInfo.surname + " !"}</h3>
         </Col>
       </Row>
       <div className="home-page-table">
