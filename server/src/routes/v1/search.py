@@ -8,8 +8,19 @@ router = APIRouter()
 
 
 @router.get("/searchCourses", response_model=List[Course])
-async def search_courses(query: str, limit: int = 10):
-    return await db[DbName.COURSE.value].find({"name": {'$regex': f'(?i){query}'}}).to_list(limit)
+async def search_courses(query: str, limit: int = 10, expand: bool = False):
+    pipeline = [
+        {"$match": {"name": {'$regex': f'(?i){query}'}}}
+    ]
+    if expand:
+        pipeline.append(
+            {"$lookup": {"from": DbName.USER.value,
+                         "localField": "professors",
+                         "foreignField": "_id",
+                         "as": "professors"}}
+        )
+    courses = db[DbName.COURSE.value].aggregate(pipeline)
+    return await courses.to_list(limit)
 
 
 @router.get("/searchQuestions", response_model=List[Question])
@@ -23,7 +34,7 @@ async def search_question(course_id: str, query: str, limit: int = 10):
 
 
 @router.get("/searchDiscussion", response_model=List[Comment])
-async def search_discussion(question_id: PyObjectId, query: str, limit: int = 10):
+async def search_discussion(question_id: PyObjectId, query: str, limit: int = 10, expand: bool = False):
     return await db[DbName.COMMENT.value].find({"question_id": question_id,
                                                 "$or": [{"content": {'$regex': f'(?i){query}'}},
                                                         {"replies.content": {'$regex': f'(?i){query}'}}]}).to_list(limit)

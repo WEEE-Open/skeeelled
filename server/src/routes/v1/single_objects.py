@@ -9,21 +9,39 @@ import functools
 
 router = APIRouter()
 
-
 @router.get("/user", response_model=models.response.User, responses=responses(404))
-async def get_user(user_id: str) -> models.response.User:
-    user = await db[DbName.USER.value].find_one({"_id": user_id})
-    if user is None:
+async def get_user(user_id: str, expand: bool = False) -> models.response.User:
+    pipeline = [
+        {"$match": {"_id": user_id}},
+    ]
+    if expand:
+        pipeline.append(
+            {"$lookup": {"from": DbName.COURSE.value,
+                         "localField": "related_courses",
+                         "foreignField": "_id",
+                         "as": "related_courses"}},
+        )
+    user = db[DbName.USER.value].aggregate(pipeline)
+    try:
+        user = await user.next()
+        return user
+    except StopAsyncIteration:
         raise HTTPException(status_code=404, detail="User not found")
-    return user
 
 
 @router.get("/course", response_model=models.response.Course, responses=responses(404))
-async def get_course(course_id: str) -> models.response.Course:
-    course = db[DbName.COURSE.value].aggregate([
+async def get_course(course_id: str, expand: bool = False) -> models.response.Course:
+    pipeline = [
         {"$match": {"_id": course_id}},
-        {"$lookup": {"from": DbName.USER.value, "localField": "professors", "foreignField": "_id", "as": "professors"}},
-    ])
+    ]
+    if expand:
+        pipeline.append(
+            {"$lookup": {"from": DbName.USER.value,
+                         "localField": "professors",
+                         "foreignField": "_id",
+                         "as": "professors"}}
+        )
+    course = db[DbName.COURSE.value].aggregate(pipeline)
     try:
         course = await course.next()
         return course
@@ -50,7 +68,7 @@ async def get_question(question_id: PyObjectId) -> models.response.Question:
 
 
 @router.get("/comment", response_model=models.response.CommentWithoutReplies, responses=responses(404))
-async def get_comment(comment_id: PyObjectId) -> models.response.CommentWithoutReplies:
+async def get_comment(comment_id: PyObjectId, expand: bool = False) -> models.response.CommentWithoutReplies:
     comment = db[DbName.COMMENT.value].aggregate([
         {"$match": {"_id": comment_id}},
         {"$lookup": {"from": DbName.USER.value, "localField": "author", "foreignField": "_id", "as": "author"}},
@@ -63,6 +81,7 @@ async def get_comment(comment_id: PyObjectId) -> models.response.CommentWithoutR
         raise HTTPException(status_code=404, detail="Comment not found")
 
 
+# have to add the expand parameter?
 @router.post("/comment", status_code=201, response_model=models.response.CommentWithoutReplies,
              responses=responses(404, 403))
 async def post_comment(comment: models.request.Comment):
