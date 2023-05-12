@@ -21,7 +21,13 @@ function dateToLocaleString(date, locale="it-IT") {
   return dateObj.toLocaleString(locale);
 }
 
+function strTruncate(str, nWords=5) {
+  let arr = str.split(" ").slice(0, 5);
+  return arr.join(" ") + "..."
+}
+
 export { 
   extractContent, 
   dateToLocaleString,
+  strTruncate
 };

@@ -5,7 +5,7 @@ import { ListGroup, SearchBar } from "../base/";
 import API from "../api/API";
 import isLabelEnd from "katex/dist/katex.mjs";
 import { GlobalStateContext } from "../GlobalStateProvider";
-import { extractContent } from "../utils";
+import { extractContent, strTruncate } from "../utils";
 
 const homePageList = [
   //!! typeof(rows) = Array() !!//
@@ -50,7 +50,7 @@ const homePageList = [
 ];
 
 function Home() {
-  const { userID } = useContext(GlobalStateContext);
+  const { userID, userInfo } = useContext(GlobalStateContext);
 
   const [homeLists, setHomeLists] = useState(homePageList);
   const [myCoursesNewQuestions, setMyCoursesNewQuestions] = useState([]);
@@ -59,7 +59,7 @@ function Home() {
     // get my course new questions
     API.getMyCourseNewQuestions(userID, 5).then((questions) => {
       console.log("home questions", questions);
-      const rows = questions.map((x) => [extractContent(x.questiontext.text)])
+      const rows = questions.map((x) => [strTruncate(extractContent(x.questiontext.text))])
       setHomeLists((prev) => {
         prev[0].rows = rows;
         return prev;
