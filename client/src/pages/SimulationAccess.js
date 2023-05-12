@@ -15,13 +15,14 @@ import "./SimulationAccess.css";
 import { GlobalStateContext } from "../GlobalStateProvider";
 import API from "../api/API";
 
-
 export default function SimulationAccess() {
   const { userID } = useContext(GlobalStateContext);
   const [coursesEnrolled, setCoursesEnrolled] = useState([]);
   const [simulationResult, setSimulationResult] = useState([]);
   const [courseSelected, setCourseSelected] = useState({});
-  const [courseSelectedTitle, setCourseSelectedTitle] = useState("Select Course of Simulation");
+  const [courseSelectedTitle, setCourseSelectedTitle] = useState(
+    "Select Course of Simulation"
+  );
 
   useEffect(() => {
     API.getMyCourses(userID).then(setCoursesEnrolled);
@@ -70,16 +71,16 @@ export default function SimulationAccess() {
                 >
                   {coursesEnrolled.map((e, i) => {
                     return (
-                        <Dropdown.Item
-                          key={"enrolled" + i}
-                          as="button"
-                          onClick={() => {
-                            setCourseSelectedTitle(e.name);
-                            setCourseSelected(e);
-                          }}
-                        >
-                          {e.name}
-                        </Dropdown.Item>
+                      <Dropdown.Item
+                        key={"enrolled" + i}
+                        as="button"
+                        onClick={() => {
+                          setCourseSelectedTitle(e.name);
+                          setCourseSelected(e);
+                        }}
+                      >
+                        {e.name}
+                      </Dropdown.Item>
                     );
                   })}
                 </DropdownButton>
@@ -90,21 +91,21 @@ export default function SimulationAccess() {
                 <h6>Simulation Results</h6>
                 {simulationResult.map((e, i) => {
                   return (
-                      <ListGroup.Item varient="flush"  key={"result" + i}>
-                        {
-                          <Row>
-                            <Col>{e["course_id"]}</Col>
-                            <Col>{e.results[0]}</Col>
-                            {/*<Col>*/}
-                            {/*  {*/}
-                            {/*    e.course["years_active"][*/}
-                            {/*      e.course["years_active"].length - 1*/}
-                            {/*    ]*/}
-                            {/*  }*/}
-                            {/*</Col>*/}
-                          </Row>
-                        }
-                      </ListGroup.Item>
+                    <ListGroup.Item varient="flush" key={"result" + i}>
+                      {
+                        <Row>
+                          <Col>{e["course_id"]}</Col>
+                          <Col>{e.results[0]}</Col>
+                          {/*<Col>*/}
+                          {/*  {*/}
+                          {/*    e.course["years_active"][*/}
+                          {/*      e.course["years_active"].length - 1*/}
+                          {/*    ]*/}
+                          {/*  }*/}
+                          {/*</Col>*/}
+                        </Row>
+                      }
+                    </ListGroup.Item>
                   );
                 })}
               </ListGroup>

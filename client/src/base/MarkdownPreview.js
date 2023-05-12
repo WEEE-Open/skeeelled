@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 import { MathJax } from "better-react-mathjax";
 
 import "./MarkdownPreview.css";
@@ -14,11 +14,8 @@ const htmlStyles = {
 };
 
 const MarkdownPreview = React.memo(({ text, format }) => {
-  return format === "html" 
-  ? (
-      <MathJax style={htmlStyles}>
-        {parse(text)}
-      </MathJax>
+  return format === "html" ? (
+    <MathJax style={htmlStyles}>{parse(text)}</MathJax>
   ) : (
     <ReactMarkdown
       className="markdown-preview"
@@ -27,7 +24,7 @@ const MarkdownPreview = React.memo(({ text, format }) => {
     >
       {text}
     </ReactMarkdown>
-    );
+  );
 });
 
 export default MarkdownPreview;

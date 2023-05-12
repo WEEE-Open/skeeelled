@@ -37,14 +37,14 @@ export default function StartSimulation() {
 
   const [courseInfo, setCourseInfo] = useState(locationState);
 
-  useEffect((() => {
+  useEffect(() => {
     if (!locationState) {
       API.getCourse(courseid).then((course) => {
         course.title = course.name;
         setCourseInfo(course);
       });
     }
-  }), [courseid, locationState])
+  }, [courseid, locationState]);
 
   return (
     <>
@@ -156,8 +156,7 @@ export default function StartSimulation() {
                               <Link
                                 key={i}
                                 to={{
-                                  pathname:
-                                    "/simulation/" + courseid,
+                                  pathname: "/simulation/" + courseid,
                                 }}
                                 state={{
                                   type: type,

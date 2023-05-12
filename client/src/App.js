@@ -166,7 +166,10 @@ function App() {
                     path="/simulationresult/:courseName"
                     element={<SimulationResult />}
                   />
-                  <Route path="/simulationview" element={<SimulationAccess />} />
+                  <Route
+                    path="/simulationview"
+                    element={<SimulationAccess />}
+                  />
                   <Route
                     path="/python-editor"
                     element={<TextInput dark={dark} pythonQuestion />}
@@ -190,7 +193,6 @@ function App() {
         </Container>
       </GlobalStateProvider>
     </MathJaxContext>
-    
   );
 }
 

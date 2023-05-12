@@ -104,7 +104,9 @@ function ListEntryQuestions(props) {
           </Row>
         </Col>
         <Col>
-          <Row className="created-at">Created at: {dateToLocaleString(props.row.timestamp)}</Row>
+          <Row className="created-at">
+            Created at: {dateToLocaleString(props.row.timestamp)}
+          </Row>
           <Row className="created-from">from {props.row.owner}</Row>
         </Col>
       </Row>
@@ -260,7 +262,9 @@ function ListEntryReplies(props) {
     <div className="questionEntry">
       <Row>
         <Col className="reply-title">{props.row.reply.content}</Col>
-        <Col className="created-time">Created at: {dateToLocaleString(props.row.reply.timestamp)}</Col>
+        <Col className="created-time">
+          Created at: {dateToLocaleString(props.row.reply.timestamp)}
+        </Col>
       </Row>
       <Row className="tags">
         <Col className="author">from {props.row.reply.author}</Col>

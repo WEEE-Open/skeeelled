@@ -20,7 +20,9 @@ function Answer(props) {
         </Col>
       </Row>
       <Row>
-        <Col className="question-author">from {props.ans?.author?.username}</Col>
+        <Col className="question-author">
+          from {props.ans?.author?.username}
+        </Col>
       </Row>
     </div>
   );
@@ -45,7 +47,10 @@ function Replies() {
   return (
     <div className="discussion">
       <Answer ans={answer} />
-      <List scope="replies" rows={replies?.replies?.map((r) => ({reply: r})) || []} />
+      <List
+        scope="replies"
+        rows={replies?.replies?.map((r) => ({ reply: r })) || []}
+      />
       <TextInput />
       <Button className="reply-button my-2">Reply</Button>
     </div>

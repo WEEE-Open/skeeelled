@@ -59,7 +59,9 @@ function Home() {
     // get my course new questions
     API.getMyCourseNewQuestions(userID, 5).then((questions) => {
       console.log("home questions", questions);
-      const rows = questions.map((x) => [strTruncate(extractContent(x.questiontext.text))])
+      const rows = questions.map((x) => [
+        strTruncate(extractContent(x.questiontext.text)),
+      ]);
       setHomeLists((prev) => {
         prev[0].rows = rows;
         return prev;

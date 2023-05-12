@@ -9,34 +9,34 @@ import API from "../api/API";
 import CourseObj from "../entities/CourseObj";
 import { GlobalStateContext } from "../GlobalStateProvider";
 
-  /** Mock questions **/
+/** Mock questions **/
 
-  const fakeQuestions = [
-    {
-      id: 1,
-      question: "What is a vector?",
-      author: "Donato",
-      createdat: "15:20 12/01/2021",
-      tags: ["vectors"],
-      excerpt: "Cras justo odio...",
-    },
-    {
-      id: 2,
-      question: "Who is Maxwell?",
-      author: "Jim",
-      createdat: "17:30 13/02/2021",
-      tags: ["physics"],
-      excerpt: "Cras justo odio...",
-    },
-    {
-      id: 3,
-      question: "How many meters per second?",
-      author: "Derek",
-      createdat: "19:40 14/03/2021",
-      tags: ["physics", "kinematic"],
-      excerpt: "Cras justo odio...",
-    },
-  ];
+const fakeQuestions = [
+  {
+    id: 1,
+    question: "What is a vector?",
+    author: "Donato",
+    createdat: "15:20 12/01/2021",
+    tags: ["vectors"],
+    excerpt: "Cras justo odio...",
+  },
+  {
+    id: 2,
+    question: "Who is Maxwell?",
+    author: "Jim",
+    createdat: "17:30 13/02/2021",
+    tags: ["physics"],
+    excerpt: "Cras justo odio...",
+  },
+  {
+    id: 3,
+    question: "How many meters per second?",
+    author: "Derek",
+    createdat: "19:40 14/03/2021",
+    tags: ["physics", "kinematic"],
+    excerpt: "Cras justo odio...",
+  },
+];
 
 function CoursesList() {
   const { userID } = useContext(GlobalStateContext);
@@ -50,7 +50,7 @@ function CoursesList() {
 
   useEffect(() => {
     if (!userID) return;
-    API.getMyCourses(userID).then(myCourses => setUserCourses(myCourses))
+    API.getMyCourses(userID).then((myCourses) => setUserCourses(myCourses));
   }, [userID]);
 
   useEffect(() => {

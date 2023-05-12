@@ -51,13 +51,11 @@ const Questions = () => {
       setCourseInfo(locationState);
     } else {
       API.getCourse(courseid).then((course) => {
-        course.title = course.name
+        course.title = course.name;
         setCourseInfo(course);
       });
     }
-    API.getQuestions(courseid).then((questions) =>
-      setQuestions(questions)
-    );
+    API.getQuestions(courseid).then((questions) => setQuestions(questions));
   }, [courseid, locationState]);
 
   const [questions, setQuestions] = useState([]);
@@ -108,8 +106,7 @@ const Questions = () => {
 
                         <Link
                           to={{
-                            pathname:
-                              "/startsimulation/" + courseid,
+                            pathname: "/startsimulation/" + courseid,
                           }}
                           state={{
                             courseId: courseid,
@@ -164,8 +161,7 @@ const Questions = () => {
 
                         <Link
                           to={{
-                            pathname:
-                              "/startsimulation/" + courseid,
+                            pathname: "/startsimulation/" + courseid,
                           }}
                           state={{
                             courseId: courseid,
