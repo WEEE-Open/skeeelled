@@ -141,10 +141,8 @@ function ListMyComments({ props }) {
 function ListReplies({ props }) {
   return (
     <>
-      <h4>{props.title}</h4>
-      <hr />
       {props.rows.map((r) => (
-        <ListEntry scope={props.scope} row={r} />
+        <ListEntry key={r.reply._id} scope={props.scope} row={r} />
       ))}
     </>
   );

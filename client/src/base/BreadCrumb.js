@@ -80,31 +80,9 @@ const breadcrumbRecord = [
 ];
 
 export default function BreadCrumb(props) {
-  const fakeCourses = [
-    { code: "A0B1C2", course: "Analysis 1", cfu: 10, professor: "Mario Rossi" },
-    {
-      code: "D3E4F5",
-      course: "Physics 1",
-      cfu: 10,
-      professor: "Stefano Bianchi",
-    },
-    {
-      code: "G6H7I8",
-      course: "Geometry",
-      cfu: 10,
-      professor: "Giuseppe Verdi",
-    },
-  ];
-
   const location = useLocation();
 
   const [locationState, setLocationState] = useState(location);
-  useEffect(() => {
-    setLocationState(location);
-    console.warn(crumbPathArr);
-    console.log(`current location: ${location.pathname}`);
-  }, [location, setLocationState]);
-
   const [crumbPathArr, setCrumbPathArr] = useState(
     // find object of path from the root lvl
     // default = (Home, "/") => only toggle the root
@@ -114,6 +92,16 @@ export default function BreadCrumb(props) {
       }
     })
   );
+  const [crumbPath, setCrumbPath] = useState(crumbPathArr);
+
+  useEffect(() => {
+    setCrumbPath(crumbPathArr);
+  }, [crumbPathArr]);
+
+  useEffect(() => {
+    // DO NOT DELETE
+    setLocationState(location);
+  }, [location]);
 
   function getStringArray(arr, str) {
     const index = arr.indexOf(str);
@@ -129,7 +117,7 @@ export default function BreadCrumb(props) {
     let isRoot = false;
 
     breadcrumbRecord.forEach((e) => {
-      if (locationState.pathname === e.path) {
+      if (location.pathname === e.path) {
         isRoot = true;
       }
     });
@@ -138,7 +126,7 @@ export default function BreadCrumb(props) {
     isRoot &&
       setCrumbPathArr(
         breadcrumbRecord.filter((e) => {
-          if (locationState.pathname === e.path) {
+          if (location.pathname === e.path) {
             isRoot = true;
             return e;
           }
@@ -150,22 +138,22 @@ export default function BreadCrumb(props) {
       let isNew = true;
       let foundPath;
       crumbPathArr.forEach((i) => {
-        if (locationState.pathname === i.path) {
+        if (location.pathname === i.path) {
           isNew = false;
         }
       });
       // if reloaded page is one of the previous path
       if (!isNew) {
-        foundPath = getStringArray(crumbPathArr, locationState.pathname);
+        foundPath = getStringArray(crumbPathArr, location.pathname);
       }
       // if it is a new path
       else {
-        foundPath = findChild(crumbPathArr, locationState.pathname);
+        foundPath = findChild(crumbPathArr, location.pathname);
       }
 
       setCrumbPathArr(foundPath);
     }
-  }, [location, locationState, setLocationState]);
+  }, [location]);
 
   const findChild = (path, dest) => {
     const root = path[path.length - 1];
@@ -190,24 +178,26 @@ export default function BreadCrumb(props) {
   return (
     <>
       <Breadcrumb className="breadcrumb">
-        {crumbPathArr?.map((e, index) => {
-          return index === crumbPathArr.length - 1 ? (
-            <Breadcrumb.Item
-              active
-              href={e.path}
-              key={"breadcrumb-index:" + index + e.path}
-            >
-              {e.title}
-            </Breadcrumb.Item>
-          ) : (
-            <Breadcrumb.Item
-              href={e.path}
-              key={"breadcrumb-index:" + index + e.path}
-            >
-              {e.title}
-            </Breadcrumb.Item>
-          );
-        })}
+        {crumbPath &&
+          crumbPath.length > 0 &&
+          crumbPathArr.map((e, index) => {
+            return index === crumbPath.length - 1 ? (
+              <Breadcrumb.Item
+                active
+                href={e.path}
+                key={"breadcrumb-index:" + index + e.path}
+              >
+                {e.title}
+              </Breadcrumb.Item>
+            ) : (
+              <Breadcrumb.Item
+                href={e.path}
+                key={"breadcrumb-index:" + index + e.path}
+              >
+                {e.title}
+              </Breadcrumb.Item>
+            );
+          })}
       </Breadcrumb>
     </>
   );

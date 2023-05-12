@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import {
   Container,
   Card,
@@ -6,74 +6,29 @@ import {
   Col,
   Button,
   Image,
-  Stack,
   ListGroup,
-  Accordion,
   DropdownButton,
   Dropdown,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./SimulationAccess.css";
 import { GlobalStateContext } from "../GlobalStateProvider";
+import API from "../api/API";
 
 export default function SimulationAccess() {
-  const fakeSimulationResult = [
-    {
-      id: "A1234",
-      course: "Analysis I",
-      score: 30,
-      date: "20/05/21",
-      maxScore: 30,
-    },
-    {
-      id: "B5678",
-      course: "Physics I",
-      score: 18,
-      date: "01/11/21",
-      maxScore: 30,
-    },
-    {
-      id: "C1001",
-      course: "Geometry",
-      score: 25,
-      date: "20/04/22",
-      maxScore: 30,
-    },
-  ];
-
-  const fakeCourses = [
-    {
-      code: "A0B1C2",
-      course: "Analysis I",
-      cfu: 10,
-      professor: "Mario Rossi",
-      enrolled: true,
-    },
-    {
-      code: "D3E4F5",
-      course: "Physics I",
-      cfu: 10,
-      professor: "Stefano Bianchi",
-      enrolled: true,
-    },
-    {
-      code: "G6H7I8",
-      course: "Geometry",
-      cfu: 10,
-      professor: "Giuseppe Verdi",
-      enrolled: true,
-    },
-  ];
-
-  const { mySimulationResult, userCourses } = useContext(GlobalStateContext);
-  const [coursesEnrolled, setCoursesEnrolled] = useState(userCourses);
-  const [simulationResult, setSimulationResult] = useState(mySimulationResult);
+  const { userID } = useContext(GlobalStateContext);
+  const [coursesEnrolled, setCoursesEnrolled] = useState([]);
+  const [simulationResult, setSimulationResult] = useState([]);
   const [courseSelected, setCourseSelected] = useState({});
   const [courseSelectedTitle, setCourseSelectedTitle] = useState(
     "Select Course of Simulation"
   );
 
-  console.log(mySimulationResult, userCourses);
+  useEffect(() => {
+    API.getMyCourses(userID).then(setCoursesEnrolled);
+    API.getMySimulationResult(userID).then(setSimulationResult);
+  }, [userID]);
+
   return (
     <>
       <Container className="">
@@ -108,22 +63,6 @@ export default function SimulationAccess() {
                 ) : (
                   <></>
                 )}
-                {/*<Link*/}
-                {/*    to={{ pathname: "/startsimulation/" + e.id }}*/}
-                {/*    state={{*/}
-                {/*        courseId: e.id,*/}
-                {/*        title: e.course,*/}
-                {/*    }}*/}
-                {/*>*/}
-                {/*    <Button className="right-button">*/}
-                {/*        <Image*/}
-                {/*            className="add-icon"*/}
-                {/*            src={process.env.PUBLIC_URL + "/icons/SIMULATION RESULTS_WHITE.svg"}*/}
-                {/*            width="13px"*/}
-                {/*        />*/}
-                {/*        {" Start Simulation"}*/}
-                {/*    </Button>*/}
-                {/*</Link>*/}
               </Col>
               <Col>
                 <DropdownButton
@@ -132,18 +71,16 @@ export default function SimulationAccess() {
                 >
                   {coursesEnrolled.map((e, i) => {
                     return (
-                      <>
-                        <Dropdown.Item
-                          key={"enrolled" + i}
-                          as="button"
-                          onClick={() => {
-                            setCourseSelectedTitle(e.name);
-                            setCourseSelected(e);
-                          }}
-                        >
-                          {e.name}
-                        </Dropdown.Item>
-                      </>
+                      <Dropdown.Item
+                        key={"enrolled" + i}
+                        as="button"
+                        onClick={() => {
+                          setCourseSelectedTitle(e.name);
+                          setCourseSelected(e);
+                        }}
+                      >
+                        {e.name}
+                      </Dropdown.Item>
                     );
                   })}
                 </DropdownButton>
@@ -154,23 +91,21 @@ export default function SimulationAccess() {
                 <h6>Simulation Results</h6>
                 {simulationResult.map((e, i) => {
                   return (
-                    <>
-                      <ListGroup.Item varient="flush">
-                        {
-                          <Row key={"result" + i}>
-                            <Col>{e["course_id"]}</Col>
-                            <Col>{e.results[0]}</Col>
-                            {/*<Col>*/}
-                            {/*  {*/}
-                            {/*    e.course["years_active"][*/}
-                            {/*      e.course["years_active"].length - 1*/}
-                            {/*    ]*/}
-                            {/*  }*/}
-                            {/*</Col>*/}
-                          </Row>
-                        }
-                      </ListGroup.Item>
-                    </>
+                    <ListGroup.Item varient="flush" key={"result" + i}>
+                      {
+                        <Row>
+                          <Col>{e["course_id"]}</Col>
+                          <Col>{e.results[0]}</Col>
+                          {/*<Col>*/}
+                          {/*  {*/}
+                          {/*    e.course["years_active"][*/}
+                          {/*      e.course["years_active"].length - 1*/}
+                          {/*    ]*/}
+                          {/*  }*/}
+                          {/*</Col>*/}
+                        </Row>
+                      }
+                    </ListGroup.Item>
                   );
                 })}
               </ListGroup>

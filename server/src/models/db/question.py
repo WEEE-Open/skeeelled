@@ -2,6 +2,7 @@ from ..basemodel import BaseModel
 from pydantic import Field, NonNegativeFloat, validator, NonNegativeInt, AnyHttpUrl
 from typing import List, Literal, Optional, Union
 from ..objectid import PyObjectId
+from datetime import datetime
 
 # Unsupoorted question types: "matching", "cloze", "description"
 
@@ -36,15 +37,22 @@ class Unit(BaseModel):
     unit_name: str
 
 
+class Subquestion:
+    text: TextField
+    answer: TextField
+
+
 class MoodleQuestion(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     owner: str
     course_id: str
     quiz_id: PyObjectId
     is_exam: bool = False
+    timestamp: datetime = datetime.now()
     categories: List[str]
     type: Literal[
-        "multichoice", "truefalse", "shortanswer", "essay", "numerical"
+        "multichoice", "truefalse", "shortanswer", "essay", "numerical", "matching",
+        "cloze", "description"
     ] = Field(alias="@type")
     name: str
     questiontext: TextField
@@ -53,6 +61,20 @@ class MoodleQuestion(BaseModel):
     defaultgrade: NonNegativeFloat = 1.0
     hidden: bool = False
     answer: Union[Answer, List[Answer]]
+
+
+class MatchingQuestion(MoodleQuestion):
+    type: Literal["matching"] = Field(alias="@type")
+    subquestion: List[Subquestion]
+    answer: None
+
+
+class ClozeQuestion(MoodleQuestion):
+    type: Literal["cloze"] = Field(alias="@type")
+
+
+class DescriptionQuestion(MoodleQuestion):
+    type: Literal["description"] = Field(alias="@type")
 
 
 class MultichoiceQuestion(MoodleQuestion):
@@ -96,4 +118,5 @@ class EssayQuestion(MoodleQuestion):
     answer: EssayAnswer
 
 
-Question = Union[MultichoiceQuestion, TruefalseQuestion, ShortanswerQuestion, NumericalQuestion, EssayQuestion]
+Question = Union[MultichoiceQuestion, TruefalseQuestion, ShortanswerQuestion, NumericalQuestion, EssayQuestion,
+MatchingQuestion, ClozeQuestion, DescriptionQuestion]

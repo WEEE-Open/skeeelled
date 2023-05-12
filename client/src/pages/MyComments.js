@@ -8,20 +8,23 @@ import {
   Stack,
 } from "react-bootstrap";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 // import "./Questions.css";
 import "./stylesheet/Questions.css";
 import { List, MyPagination, Recent, SearchBar, Suggestion } from "../base";
 import { Link, useLocation } from "react-router-dom";
 import API from "../api/API";
+import { GlobalStateContext } from "../GlobalStateProvider";
 
 const MyComments = () => {
+  const { userID } = useContext(GlobalStateContext);
+
   const [myComments, setMyComments] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const suggestionType = ["Latest", "Hottest"];
 
   useEffect(() => {
-    API.getMyComments("d29590", 1, 5).then((_myComments) => {
+    API.getMyComments(userID, 1, 5).then((_myComments) => {
       setMyComments(_myComments);
       setSuggestions(_myComments);
       console.log(_myComments);
