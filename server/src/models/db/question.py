@@ -36,6 +36,11 @@ class Unit(BaseModel):
     unit_name: str
 
 
+class Subquestion:
+    text: TextField
+    answer: TextField
+
+
 class MoodleQuestion(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     owner: str
@@ -44,7 +49,8 @@ class MoodleQuestion(BaseModel):
     is_exam: bool = False
     categories: List[str]
     type: Literal[
-        "multichoice", "truefalse", "shortanswer", "essay", "numerical"
+        "multichoice", "truefalse", "shortanswer", "essay", "numerical", "matching",
+        "cloze", "description"
     ] = Field(alias="@type")
     name: str
     questiontext: TextField
@@ -53,6 +59,20 @@ class MoodleQuestion(BaseModel):
     defaultgrade: NonNegativeFloat = 1.0
     hidden: bool = False
     answer: Union[Answer, List[Answer]]
+
+
+class MatchingQuestion(MoodleQuestion):
+    type: Literal["matching"] = Field(alias="@type")
+    subquestion: List[Subquestion]
+    answer: None
+
+
+class ClozeQuestion(MoodleQuestion):
+    type: Literal["cloze"] = Field(alias="@type")
+
+
+class DescriptionQuestion(MoodleQuestion):
+    type: Literal["description"] = Field(alias="@type")
 
 
 class MultichoiceQuestion(MoodleQuestion):
@@ -96,4 +116,5 @@ class EssayQuestion(MoodleQuestion):
     answer: EssayAnswer
 
 
-Question = Union[MultichoiceQuestion, TruefalseQuestion, ShortanswerQuestion, NumericalQuestion, EssayQuestion]
+Question = Union[MultichoiceQuestion, TruefalseQuestion, ShortanswerQuestion, NumericalQuestion, EssayQuestion,
+MatchingQuestion, ClozeQuestion, DescriptionQuestion]
