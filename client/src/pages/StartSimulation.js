@@ -11,10 +11,11 @@ import {
   FormControl,
   Alert,
 } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 // import "./StartSimulation.css";
 import "./stylesheet/StartSimulation.css";
+import API from "../api/API";
 
 export default function StartSimulation() {
   const simulationTypes = ["Random", "Exam"];
@@ -31,7 +32,19 @@ export default function StartSimulation() {
     totNumOfQuestion ? totNumOfQuestion : 100
   );
 
+  const { courseid } = useParams();
   const locationState = useLocation().state;
+
+  const [courseInfo, setCourseInfo] = useState(locationState);
+
+  useEffect((() => {
+    if (!locationState) {
+      API.getCourse(courseid).then((course) => {
+        course.title = course.name;
+        setCourseInfo(course);
+      });
+    }
+  }), [courseid, locationState])
 
   return (
     <>
@@ -144,12 +157,12 @@ export default function StartSimulation() {
                                 key={i}
                                 to={{
                                   pathname:
-                                    "/simulation/" + locationState.courseId,
+                                    "/simulation/" + courseid,
                                 }}
                                 state={{
                                   type: type,
-                                  title: locationState.title,
-                                  courseId: locationState.courseId,
+                                  title: courseInfo?.title,
+                                  courseId: courseid,
                                   num: numQuestions,
                                   penalty: penaltyScore,
                                   max: maxScore,

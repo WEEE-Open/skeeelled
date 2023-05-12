@@ -20,6 +20,7 @@ import QuestionPreview from "./QuestionPreview";
 import { useContext, useEffect, useState } from "react";
 import { UserSettings } from "../pages";
 import { GlobalStateContext } from "../GlobalStateProvider";
+import { extractContent, dateToLocaleString } from "../utils";
 
 function ListEntryDefault(props) {
   const [isLoading, setIsLoading] = useState(true);
@@ -75,8 +76,6 @@ function ListEntryCourses(props) {
 }
 
 function ListEntryQuestions(props) {
-  const timestamp = props.row.timestamp;
-
   return (
     <div className="questionEntry">
       <Row>
@@ -84,11 +83,11 @@ function ListEntryQuestions(props) {
           <Row>
             {/* ROUTE: /question/question:id COMPONENT: <Answer/> */}
             <Link
-              to={"/question/" + props.row["_id"]}
+              to={"/question/" + props.row._id}
               className="question"
               state={{
-                questionId: props.row["_id"],
-                courseId: props.row.course,
+                questionId: props.row._id,
+                courseId: props.row.course_id,
               }}
             >
               {props.row.name}
@@ -105,7 +104,7 @@ function ListEntryQuestions(props) {
           </Row>
         </Col>
         <Col>
-          <Row className="created-at">Created at: {timestamp}</Row>
+          <Row className="created-at">Created at: {dateToLocaleString(props.row.timestamp)}</Row>
           <Row className="created-from">from {props.row.owner}</Row>
         </Col>
       </Row>
@@ -170,7 +169,7 @@ function ListEntryAnswers(props) {
         <Col colSpan="2">
           <Row>
             <Col>
-              {props.row.author}, {props.row.timestamp}
+              {props.row.author} {dateToLocaleString(props.row.timestamp)}
             </Col>
             <Col className="header-svg">
               <span className="reply-link mx-3">
@@ -185,7 +184,7 @@ function ListEntryAnswers(props) {
         </Col>
       </Row>
       <Row>
-        <MarkdownPreview rowspan="3" markdown={props.row.content} />
+        <MarkdownPreview rowspan="3" text={props.row.content} />
       </Row>
 
       <Row>
@@ -200,8 +199,8 @@ function ListEntryAnswers(props) {
           </Link>
 
           <div className="vote-number">
-            {props.row["upvoted_by"] - props.row["downvoted_by"] > 0 && "+"}
-            {props.row["upvoted_by"] - props.row["downvoted_by"]}
+            {props.row.upvotes - props.row.downvotes > 0 && "+"}
+            {props.row.upvotes - props.row.downvotes}
           </div>
           <Link to="">
             <Image
@@ -214,7 +213,7 @@ function ListEntryAnswers(props) {
         </Col>
 
         <Col>
-          <Link to="/discussion/1">
+          <Link to={`/discussion/${props.row._id}`}>
             <Button className="reply-link">Reply</Button>
           </Link>
         </Col>
@@ -256,14 +255,15 @@ function ListEntryMyComments(props) {
 }
 
 function ListEntryReplies(props) {
+  console.log(props.row);
   return (
     <div className="questionEntry">
       <Row>
-        <Col className="reply-title">{props.row.content}</Col>
-        <Col className="created-time">Created at: {props.row.createdat}</Col>
+        <Col className="reply-title">{props.row.reply.content}</Col>
+        <Col className="created-time">Created at: {dateToLocaleString(props.row.reply.timestamp)}</Col>
       </Row>
       <Row className="tags">
-        <Col className="author">from {props.row.author}</Col>
+        <Col className="author">from {props.row.reply.author}</Col>
       </Row>
     </div>
   );
@@ -288,12 +288,12 @@ function ListEntrySuggestion(props) {
             to={"/suggestion/" + props.row.id}
             className="suggestion-question"
           >
-            {props.row.question}
+            {props.row.name /*extractContent(props.row.questiontext.text)*/}
           </Link>
         </Col>
-        <Col className="suggestion-created-by">from {props.row.author}</Col>
+        <Col className="suggestion-created-by">from {props.row.owner}</Col>
         <Col className="suggestion-created-at">
-          Created at: {props.row.createdat}
+          Created at: {dateToLocaleString(props.row.timestamp)}
         </Col>
       </Col>
     </Container>

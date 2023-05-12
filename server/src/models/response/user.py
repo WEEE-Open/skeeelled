@@ -13,9 +13,6 @@ class User(BaseModel):
     is_active: bool = False
     is_professor: bool = False
     is_admin: bool = False
-    related_courses: List[str] = []  # Course ids
-    my_BookmarkedQuestions: List[PyObjectId] = []  # Question ids
-    # profile_picture: str
 
 
 from .question import Question

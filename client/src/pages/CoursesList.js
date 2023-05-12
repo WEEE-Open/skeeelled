@@ -9,7 +9,6 @@ import API from "../api/API";
 import CourseObj from "../entities/CourseObj";
 import { GlobalStateContext } from "../GlobalStateProvider";
 
-function CoursesList() {
   /** Mock questions **/
 
   const fakeQuestions = [
@@ -39,46 +38,24 @@ function CoursesList() {
     },
   ];
 
-  const { userCourses, allCourses } = useContext(GlobalStateContext);
+function CoursesList() {
+  const { userID } = useContext(GlobalStateContext);
 
-  useEffect(() => {
-    setCourses(allCourses);
-    setMyCourses(userCourses);
-  }, []);
-  // useEffect(() => {
-  //   API.getCourses().then((courses) => setCourses(courses));
-  // }, []);
+  const [courses, setAllCourses] = useState([]);
+  const [myCourses, setUserCourses] = useState([]);
 
-  const [courses, setCourses] = useState(allCourses);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
-  const [myCourses, setMyCourses] = useState(userCourses);
   const suggestionType = ["Latest", "Hottest"];
   const coursesType = ["My Courses", "All Courses"];
 
-  /**Courses and questions related**/
-  //*
-  // courses
   useEffect(() => {
-    API.getCourses()
-      .then((courses) => setCourses(courses))
-      .catch((err) => console.log(err));
+    if (!userID) return;
+    API.getMyCourses(userID).then(myCourses => setUserCourses(myCourses))
+  }, [userID]);
+
+  useEffect(() => {
+    API.getCourses().then((courses) => setAllCourses(courses));
   }, []);
-
-  // myCourses
-  // useEffect(() => {
-  // 	API.getMyCourses()
-  // 		.then(myCourses => setMyCourses(myCourses))
-  // 		.catch(err => console.log(err));
-  // }, []);
-  //*/
-
-  // useEffect(() => {
-  //     const getCourses = async () => {
-  //         const courses = await API.getAllCourses();
-  //         setCourses(courses);
-  //     }
-  //     getCourses();
-  // },[]);
 
   return (
     <Container>

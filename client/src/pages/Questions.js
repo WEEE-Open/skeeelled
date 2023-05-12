@@ -12,45 +12,57 @@ import { useEffect, useState } from "react";
 // import "./Questions.css";
 import "./stylesheet/Questions.scss";
 import { List, MyPagination, Recent, SearchBar, Suggestion } from "../base/";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import API from "../api/API";
 
+const fakeQuestions = [
+  {
+    id: 1,
+    question: "What is a vector?",
+    author: "Donato",
+    createdat: "15:20 12/01/2021",
+    tags: ["vectors"],
+    excerpt: "Cras justo odio...",
+  },
+  {
+    id: 2,
+    question: "Who is Maxwell?",
+    author: "Jim",
+    createdat: "17:30 13/02/2021",
+    tags: ["physics"],
+    excerpt: "Cras justo odio...",
+  },
+  {
+    id: 3,
+    question: "How many meters per second?",
+    author: "Derek",
+    createdat: "19:40 14/03/2021",
+    tags: ["physics", "kinematic"],
+    excerpt: "Cras justo odio...",
+  },
+];
+
 const Questions = () => {
-  const fakeQuestions = [
-    {
-      id: 1,
-      question: "What is a vector?",
-      author: "Donato",
-      createdat: "15:20 12/01/2021",
-      tags: ["vectors"],
-      excerpt: "Cras justo odio...",
-    },
-    {
-      id: 2,
-      question: "Who is Maxwell?",
-      author: "Jim",
-      createdat: "17:30 13/02/2021",
-      tags: ["physics"],
-      excerpt: "Cras justo odio...",
-    },
-    {
-      id: 3,
-      question: "How many meters per second?",
-      author: "Derek",
-      createdat: "19:40 14/03/2021",
-      tags: ["physics", "kinematic"],
-      excerpt: "Cras justo odio...",
-    },
-  ];
+  const { courseid } = useParams();
+  const locationState = useLocation().state;
 
   useEffect(() => {
-    API.getQuestions(locationState.courseId).then((questions) =>
+    if (locationState) {
+      setCourseInfo(locationState);
+    } else {
+      API.getCourse(courseid).then((course) => {
+        course.title = course.name
+        setCourseInfo(course);
+      });
+    }
+    API.getQuestions(courseid).then((questions) =>
       setQuestions(questions)
     );
-  }, []);
+  }, [courseid, locationState]);
 
-  const [questions, setQuestions] = useState({});
+  const [questions, setQuestions] = useState([]);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
+  const [courseInfo, setCourseInfo] = useState({});
   const suggestionType = ["Latest", "Hottest"];
 
   // hook for responsive react
@@ -76,8 +88,6 @@ const Questions = () => {
   // to see which approach is better -- https://getbootstrap.com/docs/5.1/layout/breakpoints/
   const isDesktop = useMediaQuery("(min-width: 960px)");
 
-  const locationState = useLocation().state;
-
   return (
     <>
       <Container>
@@ -99,11 +109,11 @@ const Questions = () => {
                         <Link
                           to={{
                             pathname:
-                              "/startsimulation/" + locationState.courseId,
+                              "/startsimulation/" + courseid,
                           }}
                           state={{
-                            courseId: locationState.courseId,
-                            title: locationState.title,
+                            courseId: courseid,
+                            title: courseInfo.title,
                           }}
                         >
                           <Button className="start-simulation-button">
@@ -113,7 +123,7 @@ const Questions = () => {
                       </div>
                       <List
                         scope="questions"
-                        title={locationState.title}
+                        title={courseInfo.title}
                         rows={questions}
                       />
                       <MyPagination />
@@ -155,11 +165,11 @@ const Questions = () => {
                         <Link
                           to={{
                             pathname:
-                              "/startsimulation/" + locationState.courseId,
+                              "/startsimulation/" + courseid,
                           }}
                           state={{
-                            courseId: locationState.courseId,
-                            title: locationState.title,
+                            courseId: courseid,
+                            title: courseInfo.title,
                           }}
                         >
                           <Button className="start-simulation-button">
@@ -169,7 +179,7 @@ const Questions = () => {
                       </div>
                       <List
                         scope="questions"
-                        title={locationState.title}
+                        title={courseInfo.title}
                         rows={questions}
                       />
                     </Col>
