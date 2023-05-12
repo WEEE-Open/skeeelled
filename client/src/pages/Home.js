@@ -72,7 +72,7 @@ function Home() {
     <>
       <Row lg={12} className="py-0 header">
         <Col>
-          <h3>Hi, Name Surname!</h3>
+          <h3>{"Hi, " + userInfo.name + " " + userInfo.surname + " !"}</h3>
         </Col>
       </Row>
       <div className="home-page-table">

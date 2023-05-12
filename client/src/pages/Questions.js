@@ -61,6 +61,7 @@ const Questions = () => {
   }, [courseid, locationState]);
 
   const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [suggestions, setSuggestions] = useState(fakeQuestions /*[]*/);
   const [courseInfo, setCourseInfo] = useState({});
   const suggestionType = ["Latest", "Hottest"];
@@ -109,6 +110,7 @@ const Questions = () => {
                         <Link
                           to={{
                             pathname:
+                              "/startsimulation/" + courseid,
                               "/startsimulation/" + courseid,
                           }}
                           state={{

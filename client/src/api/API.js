@@ -419,7 +419,7 @@ const getMyBookmarkedQuestions = (userId) => {
         userId +
         "&page=1&itemsPerPage=-1"
     )
-      ?.then((res) => {
+        .then((res) => {
         if (res.status === 404) {
           resolve([]);
         } else if (res.status === 401) {
@@ -466,6 +466,30 @@ const getMySimulationResult = (userId) => {
   });
 };
 
+const getSingleQuestion = (questionId) => {
+    return new Promise((resolve, reject) => {
+        fetch(
+            prefix +
+            "/question?question_id=" + questionId
+        )
+            .then((res) => {
+                if (res.status === 404) {
+                    resolve([]);
+                } else if (res.status === 401) {
+                    reject("Authentication Error");
+                } else if (res.ok) {
+                    res
+                        .json()
+                        .then((json) => resolve(json))
+                        .catch((err) => reject(err));
+                } else {
+                    reject("Generic Error");
+                }
+            })
+            .catch((err) => reject("Unavailable"));
+    });
+}
+
 const API = {
   getUser,
   getCourses,
@@ -485,5 +509,6 @@ const API = {
   getMyCourseNewQuestions,
   getMyBookmarkedQuestions,
   getMySimulationResult,
+  getSingleQuestion
 };
 export default API;
