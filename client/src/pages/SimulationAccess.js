@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import {
   Container,
   Card,
@@ -15,6 +15,7 @@ import {
 import { Link } from "react-router-dom";
 import "./SimulationAccess.css";
 import { GlobalStateContext } from "../GlobalStateProvider";
+import API from "../api/API";
 
 export default function SimulationAccess() {
   const fakeSimulationResult = [
@@ -41,37 +42,22 @@ export default function SimulationAccess() {
     },
   ];
 
-  const fakeCourses = [
-    {
-      code: "A0B1C2",
-      course: "Analysis I",
-      cfu: 10,
-      professor: "Mario Rossi",
-      enrolled: true,
-    },
-    {
-      code: "D3E4F5",
-      course: "Physics I",
-      cfu: 10,
-      professor: "Stefano Bianchi",
-      enrolled: true,
-    },
-    {
-      code: "G6H7I8",
-      course: "Geometry",
-      cfu: 10,
-      professor: "Giuseppe Verdi",
-      enrolled: true,
-    },
-  ];
 
-  const { mySimulationResult, userCourses } = useContext(GlobalStateContext);
+  const { userCourses, userID } = useContext(GlobalStateContext);
+
   const [coursesEnrolled, setCoursesEnrolled] = useState(userCourses);
-  const [simulationResult, setSimulationResult] = useState(mySimulationResult);
+  const [simulationResult, setSimulationResult] = useState([]);
   const [courseSelected, setCourseSelected] = useState({});
   const [courseSelectedTitle, setCourseSelectedTitle] = useState(
     "Select Course of Simulation"
   );
+
+
+  useEffect(()=>{
+    API.getMySimulationResult(userID).then((result) => {
+      setSimulationResult(result);
+    });
+  }, [])
 
   return (
     <>
@@ -119,11 +105,11 @@ export default function SimulationAccess() {
                           key={"enrolled" + i}
                           as="button"
                           onClick={() => {
-                            setCourseSelectedTitle(e.name);
+                            setCourseSelectedTitle(e._id + " " + e.name);
                             setCourseSelected(e);
                           }}
                         >
-                          {e.name}
+                          {e._id + " " +  e.name}
                         </Dropdown.Item>
                     );
                   })}
