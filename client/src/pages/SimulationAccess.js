@@ -1,4 +1,6 @@
+
 import {useContext, useEffect, useState} from "react";
+
 import {
   Container,
   Card,
@@ -6,9 +8,7 @@ import {
   Col,
   Button,
   Image,
-  Stack,
   ListGroup,
-  Accordion,
   DropdownButton,
   Dropdown,
 } from "react-bootstrap";
@@ -18,45 +18,22 @@ import { GlobalStateContext } from "../GlobalStateProvider";
 import API from "../api/API";
 
 export default function SimulationAccess() {
-  const fakeSimulationResult = [
-    {
-      id: "A1234",
-      course: "Analysis I",
-      score: 30,
-      date: "20/05/21",
-      maxScore: 30,
-    },
-    {
-      id: "B5678",
-      course: "Physics I",
-      score: 18,
-      date: "01/11/21",
-      maxScore: 30,
-    },
-    {
-      id: "C1001",
-      course: "Geometry",
-      score: 25,
-      date: "20/04/22",
-      maxScore: 30,
-    },
-  ];
 
 
-  const { userCourses, userID } = useContext(GlobalStateContext);
+  const { userID } = useContext(GlobalStateContext);
 
-  const [coursesEnrolled, setCoursesEnrolled] = useState(userCourses);
+  const [coursesEnrolled, setCoursesEnrolled] = useState([]);
   const [simulationResult, setSimulationResult] = useState([]);
   const [courseSelected, setCourseSelected] = useState({});
   const [courseSelectedTitle, setCourseSelectedTitle] = useState(
     "Select Course of Simulation"
   );
 
-
   useEffect(()=>{
     API.getMySimulationResult(userID).then((result) => {
       setSimulationResult(result);
     });
+    API.getMyCourses(userID).then((courses)=> setCoursesEnrolled(courses))
   }, [])
 
   return (
@@ -121,21 +98,21 @@ export default function SimulationAccess() {
                 <h6>Simulation Results</h6>
                 {simulationResult.map((e, i) => {
                   return (
-                      <ListGroup.Item varient="flush"  key={"result" + i}>
-                        {
-                          <Row>
-                            <Col>{e["course_id"]}</Col>
-                            <Col>{e.results[0]}</Col>
-                            {/*<Col>*/}
-                            {/*  {*/}
-                            {/*    e.course["years_active"][*/}
-                            {/*      e.course["years_active"].length - 1*/}
-                            {/*    ]*/}
-                            {/*  }*/}
-                            {/*</Col>*/}
-                          </Row>
-                        }
-                      </ListGroup.Item>
+                    <ListGroup.Item varient="flush" key={"result" + i}>
+                      {
+                        <Row>
+                          <Col>{e["course_id"]}</Col>
+                          <Col>{e.results[0]}</Col>
+                          {/*<Col>*/}
+                          {/*  {*/}
+                          {/*    e.course["years_active"][*/}
+                          {/*      e.course["years_active"].length - 1*/}
+                          {/*    ]*/}
+                          {/*  }*/}
+                          {/*</Col>*/}
+                        </Row>
+                      }
+                    </ListGroup.Item>
                   );
                 })}
               </ListGroup>

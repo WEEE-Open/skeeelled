@@ -19,9 +19,8 @@ import {GlobalStateContext} from "../GlobalStateProvider";
 import API from "../api/API";
 
 export default function StartSimulation() {
-  let {courseName} = useParams()
-  const { userCourses, userID } = useContext(GlobalStateContext);
-
+  const { courseid } = useParams();
+  const locationState = useLocation().state;
   const simulationTypes = ["Random", "Exam"];
 
   const [isMulti, setIsMulti] = useState(false);
@@ -36,15 +35,23 @@ export default function StartSimulation() {
     totNumOfQuestion ? totNumOfQuestion : 100
   );
 
-  const locationState = useLocation().state;
-
   const [simulationQuestions, setSimulationQuestions] = useState([])
 
   useEffect(()=>{
-    API.getQuestions(courseName).then((questions) => setSimulationQuestions(questions))
+    API.getQuestions(courseid).then((questions) => setSimulationQuestions(questions))
   }, [])
 
   console.log(simulationQuestions)
+  const [courseInfo, setCourseInfo] = useState(locationState);
+
+  useEffect(() => {
+    if (!locationState) {
+      API.getCourse(courseid).then((course) => {
+        course.title = course.name;
+        setCourseInfo(course);
+      });
+    }
+  }, [courseid, locationState]);
 
   return (
     <>
@@ -156,13 +163,12 @@ export default function StartSimulation() {
                               <Link
                                 key={i}
                                 to={{
-                                  pathname:
-                                    "/simulation/" + locationState.courseId,
+                                  pathname: "/simulation/" + courseid,
                                 }}
                                 state={{
                                   type: type,
-                                  title: locationState.title,
-                                  courseId: locationState.courseId,
+                                  title: courseInfo?.title,
+                                  courseId: courseid,
                                   num: numQuestions,
                                   penalty: penaltyScore,
                                   max: maxScore,

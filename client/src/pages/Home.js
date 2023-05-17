@@ -5,91 +5,70 @@ import { ListGroup, SearchBar } from "../base/";
 import API from "../api/API";
 import isLabelEnd from "katex/dist/katex.mjs";
 import { GlobalStateContext } from "../GlobalStateProvider";
+import { extractContent, strTruncate } from "../utils";
+
+const homePageList = [
+  //!! typeof(rows) = Array() !!//
+  {
+    scope: "default",
+    title: "New questions in courses enrolled",
+    rows: [],
+  },
+  {
+    scope: "default",
+    title: "Replies",
+    rows: [
+      ["Cras justo odio"],
+      ["Dapibus ac facilisis in"],
+      ["Morbi leo risus"],
+      ["Porta ac consectetur ac"],
+      ["Vestibulum at eros"],
+    ],
+  },
+  {
+    scope: "default",
+    title: "My questions",
+    rows: [
+      ["Cras justkjkkkkko odio"],
+      ["Dapibus ac facilisis in"],
+      ["Morbi leo risus"],
+      ["Porta ac consectetur ac"],
+      ["Vestibulum at eros"],
+    ],
+  },
+  {
+    scope: "default",
+    title: "My answers",
+    rows: [
+      ["Cras justo odio"],
+      ["Dapibus ac facilisis in"],
+      ["Morbi leo risus"],
+      ["Porta ac consectetur ac"],
+      ["Vestibulum at eros"],
+    ],
+  },
+];
 
 function Home() {
-  const { userID, userInfo, MyReplies, MyQuestions, MyAnswers } =
-    useContext(GlobalStateContext);
-
-  const [myCourseNewQuestions, setMyCourseNewQuestions] = useState([])
-
-  const homePageList = [
-    //!! typeof(rows) = Array() !!//
-    {
-      scope: "default",
-      title: "New questions in courses enrolled",
-      rows: myCourseNewQuestions,
-    },
-    {
-      scope: "default",
-      title: "Replies",
-      rows: [
-        ["Cras justo odio"],
-        ["Dapibus ac facilisis in"],
-        ["Morbi leo risus"],
-        ["Porta ac consectetur ac"],
-        ["Vestibulum at eros"],
-      ],
-    },
-    {
-      scope: "default",
-      title: "My questions",
-      rows: [
-        ["Cras justkjkkkkko odio"],
-        ["Dapibus ac facilisis in"],
-        ["Morbi leo risus"],
-        ["Porta ac consectetur ac"],
-        ["Vestibulum at eros"],
-      ],
-    },
-    {
-      scope: "default",
-      title: "My answers",
-      rows: [
-        ["Cras justo odio"],
-        ["Dapibus ac facilisis in"],
-        ["Morbi leo risus"],
-        ["Porta ac consectetur ac"],
-        ["Vestibulum at eros"],
-      ],
-    },
-  ];
+  const { userID, userInfo } = useContext(GlobalStateContext);
 
   const [homeLists, setHomeLists] = useState(homePageList);
+  const [myCoursesNewQuestions, setMyCoursesNewQuestions] = useState([]);
 
-  function homeCardListingTruncate (htmlText) {
-
-    const strTruncate = (str) => {
-      let arr = str.split(" ").slice(0, 5);
-      return arr.join(" ") + "..."
-    }
-
-    let span = document.createElement('span');
-    span.innerHTML = htmlText;
-    return strTruncate(span.textContent) || strTruncate(span.innerText);
-  }
-
-
-  // first render
-  useEffect(()=>{
-    // five items per page in Home page
+  useEffect(() => {
+    // get my course new questions
     API.getMyCourseNewQuestions(userID, 5).then((questions) => {
-      setMyCourseNewQuestions(questions.map((x) => [homeCardListingTruncate(x.questiontext.text)]));
+      console.log("home questions", questions);
+      const rows = questions.map((x) => [
+        strTruncate(extractContent(x.questiontext.text)),
+      ]);
+      setHomeLists((prev) => {
+        prev[0].rows = rows;
+        return prev;
+      });
+      setMyCoursesNewQuestions(rows);
     });
-  }, [])
-
-
-  useEffect(()=> {
-    setHomeLists(
-        [
-          {
-            scope: "default",
-            title: "New questions in courses enrolled",
-            rows: myCourseNewQuestions,
-          },
-          ...homePageList.slice(1)
-        ]
-    )
-  }, [myCourseNewQuestions])
+  }, [userID]);
 
   return (
     <>

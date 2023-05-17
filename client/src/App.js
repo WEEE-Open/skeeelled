@@ -38,6 +38,7 @@ import {
   SimulationAccess,
 } from "./pages/";
 import GlobalStateProvider from "./GlobalStateProvider";
+import { MathJaxContext } from "better-react-mathjax";
 // import parsedQuestions from "./constants/parsed";
 // import API from './api/API'
 
@@ -85,108 +86,113 @@ function App() {
   };
 
   return (
-    <GlobalStateProvider>
-      <Container fluid>
-        <Row>
-          <Col className="px-0">
-            <NavigationBar
-              dark={dark}
-              setdark={setDark}
-              logged={loggedIn}
-              setlogged={setLoggedIn}
-              showhints={showHints}
-              setshowhints={setShowHints}
-              showdiscussion={showDiscussion}
-              setshowdiscussion={setShowDiscussion}
-              logout={doLogout}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <BreadCrumb />
-        </Row>
-        <Row className="my-4">
-          <Col xs={6} className="mx-auto">
-            {message && (
-              <Alert
-                variant={message.type}
-                onClose={() => setMessage("")}
-                dismissible={!message.noclose}
-              >
-                {message.msg}
-              </Alert>
-            )}
-          </Col>
-        </Row>
-        <DebugPaths />
-        <Row className="my-4">
-          <Col sm={11} md={10} className="mx-auto">
-            {/*
-					<Exam question={parsedQuestions.quiz.question} />
-					*/}
-            {loggedIn ? (
-              <Routes>
-                <Route path="/*" element={<Redirect to="/" />} />
-                <Route path="/" element={<Home />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/settings" element={<UserSettings />} />
-                <Route path="/courses" element={<CoursesList />} />
-                <Route path="/course/:courseid" element={<Questions />} />
-                <Route
-                  path="/question/:questionid"
-                  element={
-                    <Answers
-                      showhints={showHints}
-                      showdiscussion={showDiscussion}
-                    />
-                  }
-                />
-                <Route path="/myquestions" element={<MyQuestions />} />
-                <Route path="/mycomments" element={<MyComments />} />
-                <Route path="/myreplies" element={<MyReplies />} />
-                <Route path="/discussion/:questionid" element={<Replies />} />
-                <Route
-                  path="/simulation/:simulationType"
-                  element={<Simulation />}
-                />
-                <Route path="/addquestion" element={<AddQuestion />} />
-                <Route path="/todel" element={<Exam />} />
-                <Route
-                  path="/listfullpage/:listName"
-                  element={<ListFullPage />}
-                />
-                <Route path="/bookmarks" element={<Bookmarks />} />
-                <Route
-                  path="/startsimulation/:courseName"
-                  element={<StartSimulation />}
-                />
-                <Route
-                  path="/simulationresult/:courseName"
-                  element={<SimulationResult />}
-                />
-                <Route path="/simulationview" element={<SimulationAccess />} />
-                <Route
-                  path="/python-editor"
-                  element={<TextInput dark={dark} pythonQuestion />}
-                />{" "}
-                {/* For debugging purposes */}
-              </Routes>
-            ) : (
-              <Routes>
-                <Route path="/*" element={<Redirect to="/login" />} />
-                <Route
-                  path="/login"
-                  element={<LoginForm login={() => setLoggedIn(true)} />}
-                />
-              </Routes>
-            )}
-          </Col>
-        </Row>
-        <Row>
-          <Footer />
-        </Row>
-      </Container>
-    </GlobalStateProvider>
+    <MathJaxContext>
+      <GlobalStateProvider>
+        <Container fluid>
+          <Row>
+            <Col className="px-0">
+              <NavigationBar
+                dark={dark}
+                setdark={setDark}
+                logged={loggedIn}
+                setlogged={setLoggedIn}
+                showhints={showHints}
+                setshowhints={setShowHints}
+                showdiscussion={showDiscussion}
+                setshowdiscussion={setShowDiscussion}
+                logout={doLogout}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <BreadCrumb />
+          </Row>
+          <Row className="my-4">
+            <Col xs={6} className="mx-auto">
+              {message && (
+                <Alert
+                  variant={message.type}
+                  onClose={() => setMessage("")}
+                  dismissible={!message.noclose}
+                >
+                  {message.msg}
+                </Alert>
+              )}
+            </Col>
+          </Row>
+          <DebugPaths />
+          <Row className="my-4">
+            <Col sm={11} md={10} className="mx-auto">
+              {/*
+            <Exam question={parsedQuestions.quiz.question} />
+            */}
+              {loggedIn ? (
+                <Routes>
+                  <Route path="/*" element={<Redirect to="/" />} />
+                  <Route path="/" element={<Home />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/settings" element={<UserSettings />} />
+                  <Route path="/courses" element={<CoursesList />} />
+                  <Route path="/course/:courseid" element={<Questions />} />
+                  <Route
+                    path="/question/:questionid"
+                    element={
+                      <Answers
+                        showhints={showHints}
+                        showdiscussion={showDiscussion}
+                      />
+                    }
+                  />
+                  <Route path="/myquestions" element={<MyQuestions />} />
+                  <Route path="/mycomments" element={<MyComments />} />
+                  <Route path="/myreplies" element={<MyReplies />} />
+                  <Route path="/discussion/:commentid" element={<Replies />} />
+                  <Route
+                    path="/simulation/:simulationType"
+                    element={<Simulation />}
+                  />
+                  <Route path="/addquestion" element={<AddQuestion />} />
+                  <Route path="/todel" element={<Exam />} />
+                  <Route
+                    path="/listfullpage/:listName"
+                    element={<ListFullPage />}
+                  />
+                  <Route path="/bookmarks" element={<Bookmarks />} />
+                  <Route
+                    path="/startsimulation/:courseid"
+                    element={<StartSimulation />}
+                  />
+                  <Route
+                    path="/simulationresult/:courseName"
+                    element={<SimulationResult />}
+                  />
+                  <Route
+                    path="/simulationview"
+                    element={<SimulationAccess />}
+                  />
+                  <Route
+                    path="/python-editor"
+                    element={<TextInput dark={dark} pythonQuestion />}
+                  />{" "}
+                  {/* For debugging purposes */}
+                </Routes>
+              ) : (
+                <Routes>
+                  <Route path="/*" element={<Redirect to="/login" />} />
+                  <Route
+                    path="/login"
+                    element={<LoginForm login={() => setLoggedIn(true)} />}
+                  />
+                </Routes>
+              )}
+            </Col>
+          </Row>
+          <Row>
+            <Footer />
+          </Row>
+        </Container>
+      </GlobalStateProvider>
+    </MathJaxContext>
   );
 }
 
