@@ -85,4 +85,19 @@
   padding: 30px 10px 10px 10px;
 }
 
+.answer-container .answer-button {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 17px; /*change from pt to px*/
+  color: black;
+  background-color: white;
+  border: solid 1px #dbdbdb;
+  border-radius: 7pt;
+  margin: 30px 0px 0px 0px;
+}
+
+.answer-container .answer-button:hover {
+  border: solid 1px #8ad5d8;
+}
+
 /*# sourceMappingURL=Answer.css.map */

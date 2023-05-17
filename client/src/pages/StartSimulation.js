@@ -11,13 +11,16 @@ import {
   FormControl,
   Alert,
 } from "react-bootstrap";
-import { Link, useLocation, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {Link, useLocation, useParams} from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
 // import "./StartSimulation.css";
 import "./stylesheet/StartSimulation.css";
+import {GlobalStateContext} from "../GlobalStateProvider";
 import API from "../api/API";
 
 export default function StartSimulation() {
+  const { courseid } = useParams();
+  const locationState = useLocation().state;
   const simulationTypes = ["Random", "Exam"];
 
   const [isMulti, setIsMulti] = useState(false);
@@ -32,9 +35,13 @@ export default function StartSimulation() {
     totNumOfQuestion ? totNumOfQuestion : 100
   );
 
-  const { courseid } = useParams();
-  const locationState = useLocation().state;
+  const [simulationQuestions, setSimulationQuestions] = useState([])
 
+  useEffect(()=>{
+    API.getQuestions(courseid).then((questions) => setSimulationQuestions(questions))
+  }, [])
+
+  console.log(simulationQuestions)
   const [courseInfo, setCourseInfo] = useState(locationState);
 
   useEffect(() => {

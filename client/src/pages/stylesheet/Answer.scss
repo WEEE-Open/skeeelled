@@ -73,3 +73,17 @@
   @include font-Nunito($size: 17px);
   padding: 30px 10px 10px 10px;
 }
+
+.answer-container .answer-button {
+  @include font-Quicksand($size: 17px);
+  color: black;
+  background-color: white;
+  border: solid 1px #dbdbdb;
+  border-radius: 7pt;
+  margin: 30px 0px 0px 0px;
+
+}
+
+.answer-container .answer-button:hover {
+  border: solid 1px #8ad5d8;
+}

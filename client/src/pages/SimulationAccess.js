@@ -1,4 +1,6 @@
-import { useContext, useState, useEffect } from "react";
+
+import {useContext, useEffect, useState} from "react";
+
 import {
   Container,
   Card,
@@ -16,7 +18,10 @@ import { GlobalStateContext } from "../GlobalStateProvider";
 import API from "../api/API";
 
 export default function SimulationAccess() {
+
+
   const { userID } = useContext(GlobalStateContext);
+
   const [coursesEnrolled, setCoursesEnrolled] = useState([]);
   const [simulationResult, setSimulationResult] = useState([]);
   const [courseSelected, setCourseSelected] = useState({});
@@ -24,10 +29,12 @@ export default function SimulationAccess() {
     "Select Course of Simulation"
   );
 
-  useEffect(() => {
-    API.getMyCourses(userID).then(setCoursesEnrolled);
-    API.getMySimulationResult(userID).then(setSimulationResult);
-  }, [userID]);
+  useEffect(()=>{
+    API.getMySimulationResult(userID).then((result) => {
+      setSimulationResult(result);
+    });
+    API.getMyCourses(userID).then((courses)=> setCoursesEnrolled(courses))
+  }, [])
 
   return (
     <>
@@ -71,16 +78,16 @@ export default function SimulationAccess() {
                 >
                   {coursesEnrolled.map((e, i) => {
                     return (
-                      <Dropdown.Item
-                        key={"enrolled" + i}
-                        as="button"
-                        onClick={() => {
-                          setCourseSelectedTitle(e.name);
-                          setCourseSelected(e);
-                        }}
-                      >
-                        {e.name}
-                      </Dropdown.Item>
+                        <Dropdown.Item
+                          key={"enrolled" + i}
+                          as="button"
+                          onClick={() => {
+                            setCourseSelectedTitle(e._id + " " + e.name);
+                            setCourseSelected(e);
+                          }}
+                        >
+                          {e._id + " " +  e.name}
+                        </Dropdown.Item>
                     );
                   })}
                 </DropdownButton>
