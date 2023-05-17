@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import {Container, Row, Col, Button} from "react-bootstrap";
 import { QuestionPreview, Discussion, TextInput } from "../base";
 import "./stylesheet/Answer.css";
 import API from "../api/API";
@@ -45,7 +45,9 @@ function Answers(props) {
              question && question.length > 0 && question[0]._id  ? <QuestionPreview question={question} showhints={props.showhints} />:<></>
             }
         </Col>
+          <Button className="answer-button">Answer</Button>
       </Row>
+
 
       <Row className="text-input">
         <Col>
@@ -58,11 +60,12 @@ function Answers(props) {
           />
         </Col>
       </Row>
-
-      <Discussion
-        showdiscussion={props.showdiscussion}
-        discussions={discussions}
-      />
+        <Row>
+            <Discussion
+                showdiscussion={props.showdiscussion}
+                discussions={discussions}
+            />
+        </Row>
     </Container>
   );
 }
