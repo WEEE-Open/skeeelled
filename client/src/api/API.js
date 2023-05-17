@@ -448,11 +448,156 @@ const getMySimulationResult = (userId, page = 1, itemsPerPage = -1) => {
 const postUpvote = (userId, commentId = null, replyId = null) => {
   return new Promise((resolve, reject) => {
     fetch(
-      prefix + "/upvote", { method: "POST", body: {
-          user_id: userId,
-          comment_id: commentId,
-          reply_id: replyId
+      prefix + "/upvote", { method: "POST", headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            user_id: userId,
+            comment_id: commentId,
+            reply_id: replyId
+        })
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          resolve(null);
         }
+      })
+      .catch((err) => {
+        reject("Server Error");
+      })
+  });
+}
+
+const postDownvote = (userId, commentId = null, replyId = null) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix + "/downvote", { method: "POST", headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            user_id: userId,
+            comment_id: commentId,
+            reply_id: replyId
+        })
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          resolve(null);
+        }
+      })
+      .catch((err) => {
+        reject("Server Error");
+      })
+  });
+}
+
+const postUnvote = (userId, commentId = null, replyId = null) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix + "/unvote", { method: "POST", headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            user_id: userId,
+            comment_id: commentId,
+            reply_id: replyId
+        })
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          resolve(null);
+        }
+      })
+      .catch((err) => {
+        reject("Server Error");
+      })
+  });
+}
+
+const postBookmarkQuestion = (userId, questionId) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix + "/bookmarkQuestion", { method: "POST", headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            user_id: userId,
+            question_id: questionId
+        })
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          resolve(null);
+        }
+      })
+      .catch((err) => {
+        reject("Server Error");
+      })
+  });
+}
+
+const postUnbookmarkQuestion = (userId, questionId) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix + "/unbookmarkQuestion", { method: "POST", headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            user_id: userId,
+            question_id: questionId
+        })
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          resolve(null);
+        }
+      })
+      .catch((err) => {
+        reject("Server Error");
+      })
+  });
+}
+
+const postReply = (userId, commentId, content) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix + "/reply", { method: "POST", headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            author: userId,
+            comment_id: commentId,
+            content: content
+        })
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          resolve(null);
+        }
+      })
+      .catch((err) => {
+        reject("Server Error");
+      })
+  });
+}
+
+const postComment = (userId, questionId, content) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      prefix + "/comment", { method: "POST", headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            author: userId,
+            question_id: questionId,
+            content: content
+        })
       }
     )
       .then((res) => {
@@ -507,6 +652,12 @@ const API = {
   getMyBookmarkedQuestions,
   getMySimulationResult,
   postUpvote,
+  postDownvote,
+  postUnvote,
+  postBookmarkQuestion,
+  postUnbookmarkQuestion,
+  postReply,
+  postComment,
   getSingleQuestion
 };
 export default API;

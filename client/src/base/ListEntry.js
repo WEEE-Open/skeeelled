@@ -21,6 +21,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserSettings } from "../pages";
 import { GlobalStateContext } from "../GlobalStateProvider";
 import { extractContent, dateToLocaleString } from "../utils";
+import API from "../api/API";
 
 function ListEntryDefault(props) {
   const [isLoading, setIsLoading] = useState(true);
@@ -165,6 +166,9 @@ function ListEntryBookmarkQuestions(props) {
 }
 
 function ListEntryAnswers(props) {
+  const { userID } = useContext(GlobalStateContext);
+  // console.log(props);
+
   return (
     <div className="answerEntry" key={props.row["_id"]}>
       <Row className="answerEntry-credential">
@@ -196,7 +200,8 @@ function ListEntryAnswers(props) {
               className="up-vote"
               src={process.env.PUBLIC_URL + "/icons/arrow_up.svg"}
               width="18px"
-              onClick={() => {}}
+              onClick={() => { API.postUpvote(userID, '641cca4fd104b2e33e8d4c1c') }}
+              // onClick={() => { API.postUpvote(userID, props.row.id) }}
             />
           </Link>
 
@@ -209,7 +214,7 @@ function ListEntryAnswers(props) {
               className="down-vote"
               src={process.env.PUBLIC_URL + "/icons/arrow_down.svg"}
               width="18px"
-              onClick={() => {}}
+              onClick={() => { API.postDownvote(userID, '641cca4fd104b2e33e8d4c1c')}}
             />
           </Link>
         </Col>
