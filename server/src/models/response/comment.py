@@ -4,6 +4,7 @@ from ..objectid import PyObjectId
 from pydantic import Field, root_validator
 from typing import List, Union
 from .user import User
+from .question import Question
 
 
 class CommentBase(_CommentBase):
@@ -25,7 +26,7 @@ class Reply(CommentBase):
 
 
 class CommentWithoutReplies(CommentBase):
-    question_id: PyObjectId
+    question_id: Union[PyObjectId, Question]
 
 
 class Comment(CommentWithoutReplies):
