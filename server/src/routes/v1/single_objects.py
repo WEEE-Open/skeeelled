@@ -49,6 +49,7 @@ async def get_course(course_id: str, expand: bool = False) -> models.response.Co
         raise HTTPException(status_code=404, detail="Course not found")
 
 
+# need to add the expand flag?
 @router.get("/question", response_model=models.response.Question, responses=responses(404))
 async def get_question(question_id: PyObjectId) -> models.response.Question:
     question = db[DbName.QUESTION.value].aggregate([
@@ -67,6 +68,7 @@ async def get_question(question_id: PyObjectId) -> models.response.Question:
         raise HTTPException(status_code=404, detail="Question not found")
 
 
+# alteady expanded
 @router.get("/comment", response_model=models.response.CommentWithoutReplies, responses=responses(404))
 async def get_comment(comment_id: PyObjectId, expand: bool = False) -> models.response.CommentWithoutReplies:
     comment = db[DbName.COMMENT.value].aggregate([
