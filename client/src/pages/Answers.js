@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { QuestionPreview, Discussion, TextInput } from "../base";
+import { QuestionPreview, Discussion, TextInput} from "../base";
 import "./stylesheet/Answer.css";
 import API from "../api/API";
+import CommentInput from "../base/CommentInput";
 import { useLocation, useParams } from "react-router-dom";
+import { GlobalStateContext } from "../GlobalStateProvider";
 
 const fakeQuestion = {
   course_code: "01UROLM",
@@ -21,6 +23,7 @@ function Answers(props) {
   const { questionid } = useParams();
   const [question, setQuestion] = useState({});
   const [discussions, setDiscussions] = useState([]);
+  const { userID } = useContext(GlobalStateContext);
 
   // get the discussions of the question
   useEffect(() => {
@@ -43,12 +46,14 @@ function Answers(props) {
 
       <Row className="text-input">
         <Col>
-          <TextInput
+          <CommentInput
             childProps={{
               textArea: {
                 placeholder: "Leave a comment",
-              },
+              }
             }}
+            questionID={questionid}
+            userID={userID}
           />
         </Col>
       </Row>

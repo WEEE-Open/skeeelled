@@ -200,8 +200,9 @@ function ListEntryAnswers(props) {
               className="up-vote"
               src={process.env.PUBLIC_URL + "/icons/arrow_up.svg"}
               width="18px"
-              onClick={() => { API.postUpvote(userID, '641cca4fd104b2e33e8d4c1c') }}
-              // onClick={() => { API.postUpvote(userID, props.row.id) }}
+              onClick={() => { 
+                API.postUpvote(userID, props.row._id);
+              }}
             />
           </Link>
 
@@ -214,7 +215,9 @@ function ListEntryAnswers(props) {
               className="down-vote"
               src={process.env.PUBLIC_URL + "/icons/arrow_down.svg"}
               width="18px"
-              onClick={() => { API.postDownvote(userID, '641cca4fd104b2e33e8d4c1c')}}
+              onClick={() => { 
+                API.postDownvote(userID, props.row._id);
+              }}
             />
           </Link>
         </Col>
