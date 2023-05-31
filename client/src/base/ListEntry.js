@@ -21,6 +21,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserSettings } from "../pages";
 import { GlobalStateContext } from "../GlobalStateProvider";
 import { extractContent, dateToLocaleString } from "../utils";
+import API from "../api/API";
 
 function ListEntryDefault(props) {
   const [isLoading, setIsLoading] = useState(true);
@@ -165,6 +166,18 @@ function ListEntryBookmarkQuestions(props) {
 }
 
 function ListEntryAnswers(props) {
+  const { userID } = useContext(GlobalStateContext);
+  // console.log(props);
+  const [totVote, setTotVote] = useState(  props.row.upvotes - props.row.downvotes )
+
+  const handleVoting = (num) => {
+    setTotVote(num)
+  }
+
+  useEffect(()=>{
+    console.log("total vote is now ", totVote);
+  },[totVote])
+
   return (
     <div className="answerEntry" key={props.row["_id"]}>
       <Row className="answerEntry-credential">
@@ -196,20 +209,34 @@ function ListEntryAnswers(props) {
               className="up-vote"
               src={process.env.PUBLIC_URL + "/icons/arrow_up.svg"}
               width="18px"
-              onClick={() => {}}
+              onClick={() => { 
+                API.postUpvote(userID, props.row._id).then(succesful => {
+                  //TODO Load totVote from backend instead of this
+                  if(succesful){
+                    handleVoting(totVote+1);
+                  }
+                })
+              }}
             />
           </Link>
 
           <div className="vote-number">
-            {props.row.upvotes - props.row.downvotes > 0 && "+"}
-            {props.row.upvotes - props.row.downvotes}
+            {totVote > 0 ? "+":""}
+            {totVote}
           </div>
           <Link to="">
             <Image
               className="down-vote"
               src={process.env.PUBLIC_URL + "/icons/arrow_down.svg"}
               width="18px"
-              onClick={() => {}}
+              onClick={() => { 
+                API.postDownvote(userID, props.row._id).then(succesful => {
+                  if(succesful){
+                    //TODO Load totVote from backend instead of this
+                    handleVoting(totVote-1);
+                  }
+                });
+              }}
             />
           </Link>
         </Col>
