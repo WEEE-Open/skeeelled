@@ -57,7 +57,8 @@ export default function CommentInput({
   pythonQuestion,
   dark,
   userID,
-  questionID
+  questionID,
+  setDiscussions
 }) {
   const [val, setVal] = useState("");
   const [selTab, setSelTab] = useState("write");
@@ -163,8 +164,11 @@ ${file.content}
   };
 
   const apiPostComment = () => {
-    API.postComment(userID, questionID, val);
-    setVal('');
+    API.postComment(userID, questionID, val).then( res => {
+        setVal('');
+        setDiscussions((discussion) => [res, ...discussion] );
+        }
+    );
   };
 
   return (

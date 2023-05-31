@@ -459,9 +459,16 @@ const postUpvote = (userId, commentId = null, replyId = null) => {
       }
     )
       .then((res) => {
-        if (res.ok) {
-          resolve(null);
+        if (res.status == 204) {
+          resolve(true);
+          //TODO Enable this when backend returns upvote & downvote
+          // res?.json()
+          // ?.then((json) => {
+          //   resolve(json);
+          // })
         }
+
+        resolve(false);
       })
       .catch((err) => {
         reject("Server Error");
@@ -483,9 +490,16 @@ const postDownvote = (userId, commentId = null, replyId = null) => {
       }
     )
       .then((res) => {
-        if (res.ok) {
-          resolve(null);
+        if (res.status == 204) {
+          resolve(true);
+          //TODO Enable this when backend returns upvote & downvote
+          // res?.json()
+          // ?.then((json) => {
+          //   resolve(json);
+          // })
         }
+
+        resolve(false);
       })
       .catch((err) => {
         reject("Server Error");
@@ -507,9 +521,16 @@ const postUnvote = (userId, commentId = null, replyId = null) => {
       }
     )
       .then((res) => {
-        if (res.ok) {
-          resolve(null);
+        if (res.status == 204) {
+          resolve(true);
+          //TODO Enable this when backend returns upvote & downvote
+          // res?.json()
+          // ?.then((json) => {
+          //   resolve(json);
+          // })
         }
+
+        resolve(false);
       })
       .catch((err) => {
         reject("Server Error");
@@ -602,7 +623,10 @@ const postComment = (userId, questionId, content) => {
     )
       .then((res) => {
         if (res.ok) {
-          resolve(null);
+          res?.json()
+          ?.then((json) => {
+            resolve(json);
+          })
         }
       })
       .catch((err) => {

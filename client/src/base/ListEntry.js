@@ -168,6 +168,15 @@ function ListEntryBookmarkQuestions(props) {
 function ListEntryAnswers(props) {
   const { userID } = useContext(GlobalStateContext);
   // console.log(props);
+  const [totVote, setTotVote] = useState(  props.row.upvotes - props.row.downvotes )
+
+  const handleVoting = (num) => {
+    setTotVote(num)
+  }
+
+  useEffect(()=>{
+    console.log("total vote is now ", totVote);
+  },[totVote])
 
   return (
     <div className="answerEntry" key={props.row["_id"]}>
@@ -201,14 +210,19 @@ function ListEntryAnswers(props) {
               src={process.env.PUBLIC_URL + "/icons/arrow_up.svg"}
               width="18px"
               onClick={() => { 
-                API.postUpvote(userID, props.row._id);
+                API.postUpvote(userID, props.row._id).then(succesful => {
+                  //TODO Load totVote from backend instead of this
+                  if(succesful){
+                    handleVoting(totVote+1);
+                  }
+                })
               }}
             />
           </Link>
 
           <div className="vote-number">
-            {props.row.upvotes - props.row.downvotes > 0 && "+"}
-            {props.row.upvotes - props.row.downvotes}
+            {totVote > 0 ? "+":""}
+            {totVote}
           </div>
           <Link to="">
             <Image
@@ -216,7 +230,12 @@ function ListEntryAnswers(props) {
               src={process.env.PUBLIC_URL + "/icons/arrow_down.svg"}
               width="18px"
               onClick={() => { 
-                API.postDownvote(userID, props.row._id);
+                API.postDownvote(userID, props.row._id).then(succesful => {
+                  if(succesful){
+                    //TODO Load totVote from backend instead of this
+                    handleVoting(totVote-1);
+                  }
+                });
               }}
             />
           </Link>

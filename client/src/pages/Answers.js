@@ -54,6 +54,7 @@ function Answers(props) {
             }}
             questionID={questionid}
             userID={userID}
+            setDiscussions={setDiscussions}
           />
         </Col>
       </Row>
