@@ -49,26 +49,32 @@ async def get_course(course_id: str, expand: bool = False) -> models.response.Co
         raise HTTPException(status_code=404, detail="Course not found")
 
 
-# need to add the expand flag?
+# need to add the expand flag? it's already "expanded"
 @router.get("/question", response_model=models.response.Question, responses=responses(404))
-async def get_question(question_id: PyObjectId) -> models.response.Question:
-    question = db[DbName.QUESTION.value].aggregate([
+async def get_question(question_id: PyObjectId, expand: bool = False) -> models.response.Question:
+    pipeline = [
         {"$match": {"_id": question_id}},
         {"$lookup": {"from": DbName.USER.value, "localField": "owner", "foreignField": "_id", "as": "owner"}},
         {"$unwind": "$owner"},
         {"$lookup": {"from": DbName.COURSE.value, "localField": "course_id", "foreignField": "_id", "as": "course_id"}},
         {"$unwind": "$course_id"},
-        # {"$lookup": {"from": DbName.QUIZ.value, "localField": "quiz_id", "foreignField": "_id", "as": "quiz_id"}},
-        # {"$unwind": "$quiz_id"},
-    ])
+    ]
+    question = db[DbName.QUESTION.value].aggregate(pipeline)
     try:
         question = await question.next()
         return question
     except StopAsyncIteration:
         raise HTTPException(status_code=404, detail="Question not found")
+# question = db[DbName.QUESTION.value].aggregate([
+#         {"$match": {"_id": question_id}},
+#         {"$lookup": {"from": DbName.USER.value, "localField": "owner", "foreignField": "_id", "as": "owner"}},
+#         {"$unwind": "$owner"},
+#         {"$lookup": {"from": DbName.COURSE.value, "localField": "course_id", "foreignField": "_id", "as": "course_id"}},
+#         {"$unwind": "$course_id"},
+#         # {"$lookup": {"from": DbName.QUIZ.value, "localField": "quiz_id", "foreignField": "_id", "as": "quiz_id"}},
+#         # {"$unwind": "$quiz_id"},
+#     ])
 
-
-# alteady expanded
 @router.get("/comment", response_model=models.response.CommentWithoutReplies, responses=responses(404))
 async def get_comment(comment_id: PyObjectId, expand: bool = False) -> models.response.CommentWithoutReplies:
     comment = db[DbName.COMMENT.value].aggregate([
@@ -83,7 +89,6 @@ async def get_comment(comment_id: PyObjectId, expand: bool = False) -> models.re
         raise HTTPException(status_code=404, detail="Comment not found")
 
 
-# have to add the expand parameter?
 @router.post("/comment", status_code=201, response_model=models.response.CommentWithoutReplies,
              responses=responses(404, 403))
 async def post_comment(comment: models.request.Comment):

@@ -55,14 +55,27 @@ async def get_user_comments(user_id: str, page: PositiveInt = 1, itemsPerPage: i
     comments = await db[DbName.COMMENT.value].aggregate(pipeline).to_list(itemsPerPage if itemsPerPage > 0 else None)
     return comments
 
-
+# doesn't actually expand it
 @router.get("/myReplies", response_model=List[SingleReply])
-async def get_user_replies(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
+async def get_user_replies(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1, expand: bool = False):
+
     pipeline = [
         {"$unwind": "$replies"},
         {"$match": {"replies.author": user_id}},
         {"$sort": {"replies.timestamp": DESCENDING, "replies._id": DESCENDING}},
     ]
+    if expand:
+        pipeline.append(
+            {"$lookup": {"from": DbName.USER.value, "localField": "replies.author",
+                         "foreignField": "_id", "as": "author"}},
+        )
+        pipeline.append({"$unwind": "$author"})
+        pipeline.append(
+            {"$lookup": {"from": DbName.COMMENT.value, "localField": "comment_id",
+                         "foreignField": "_id", "as": "comment"}},
+        )
+        #pipeline.append({"$unwind": "$comment"})
+
     if itemsPerPage > 0:
         pipeline.append({"$skip": (page - 1) * itemsPerPage})
     replies = await db[DbName.COMMENT.value].aggregate(pipeline).to_list(itemsPerPage if itemsPerPage > 0 else None)
@@ -70,12 +83,23 @@ async def get_user_replies(user_id: str, page: PositiveInt = 1, itemsPerPage: in
 
 
 @router.get("/repliesToMe", response_model=List[SingleReply])
-async def get_replies_to_user(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1):
+async def get_replies_to_user(user_id: str, page: PositiveInt = 1, itemsPerPage: int = -1, expand: bool = False):
     pipeline = [
         {"$match": {"author": user_id}},
         {"$unwind": "$replies"},
         {"$sort": {"replies.timestamp": DESCENDING, "replies._id": DESCENDING}},
     ]
+    if expand:
+        pipeline.append(
+            {"$lookup": {"from": DbName.USER.value, "localField": "replies.author",
+                         "foreignField": "_id", "as": "author"}},
+        )
+        #pipeline.append({"$unwind": "$author"})
+        pipeline.append(
+            {"$lookup": {"from": DbName.COMMENT.value, "localField": "comment_id",
+                         "foreignField": "_id", "as": "comment"}},
+        )
+        #pipeline.append({"$unwind": "$comment"})
     if itemsPerPage > 0:
         pipeline.append({"$skip": (page - 1) * itemsPerPage})
     replies = await db[DbName.COMMENT.value].aggregate(pipeline).to_list(itemsPerPage if itemsPerPage > 0 else None)
@@ -133,12 +157,12 @@ async def get_user_bookmarked_questions(user_id: str, page: PositiveInt = 1, ite
     ]
     if expand:
         pipeline.append(
-            {"$lookup": {"from": DbName.USER.value, "localField": "owner",
+            {"$lookup": {"from": DbName.USER.value, "localField": "myBookmarkedQuestions.owner",
                          "foreignField": "_id", "as": "owner"}
              })
         pipeline.append({"$unwind": "$owner"})
         pipeline.append(
-            {"$lookup": {"from": DbName.COURSE.value, "localField": "course_id",
+            {"$lookup": {"from": DbName.COURSE.value, "localField": "myBookmarkedQuestions.course_id",
                          "foreignField": "_id", "as": "course_id"}
              })
         pipeline.append({"$unwind": "$course_id"})
@@ -233,12 +257,6 @@ async def get_comments(question_id: PyObjectId, page: PositiveInt = 1, itemsPerP
         pipeline.append({"$skip": (page - 1) * itemsPerPage})
     comments = await db[DbName.COMMENT.value].aggregate(pipeline).to_list(itemsPerPage if itemsPerPage > 0 else None)
     return comments
-
-    # comments = await db[DbName.COMMENT.value].find({"question_id": question_id}, {"replies": False}) \
-    #     .sort([("timestamp", DESCENDING), ("_id", DESCENDING)]) \
-    #     .skip((page - 1) * itemsPerPage if itemsPerPage > 0 and page > 0 else 0) \
-    #     .to_list(itemsPerPage if itemsPerPage > 0 else None)
-    # return comments
 
 
 @router.get("/replies", response_model=Replies, responses=responses(404))
